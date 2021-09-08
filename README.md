@@ -3,7 +3,7 @@
 
 
 # Project name or Logo
-![Logo](https://cdn.pixabay.com/photo/2014/08/24/13/05/canaries-426279_960_720.jpg)
+![Logo](https://cdn.pixabay.com/photo/2014/08/24/13/05/canaries-426279_960_720.jpg){: width="1000" height="100"}
 
 프로젝트명 또는 프로젝트 로고 이미지 **(택1)**
 
