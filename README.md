@@ -3,7 +3,7 @@
 
 
 # Project name or Logo
-![Logo](https://github.com/osamhack2021/Canary/blob/main/image/canaries-426279_960_720.jpg?raw=true){: width="200" height="100"}
+![Logo](https://logosbynick.com/wp-content/uploads/2018/03/final-logo-example.png)
 
 프로젝트명 또는 프로젝트 로고 이미지 **(택1)**
 
