@@ -3,7 +3,7 @@
 
 
 # Project name or Logo
-![Logo](https://www.google.com/imgres?imgurl=https%3A%2F%2Fstorage.doopedia.co.kr%2Fupload%2F_upload%2Fimage%2F1111%2F21%2F111121017469085%2F111121017469085_thumb_400.jpg&imgrefurl=https%3A%2F%2Fwww.doopedia.co.kr%2Fphotobox%2Fcomm%2Fcommunity.do%3F_method%3Dview%26GAL_IDX%3D111121000807543&tbnid=YTAMufmyVaHAmM&vet=12ahUKEwjj2Z7NuO_yAhVN4GEKHf4qCsoQMygYegUIARCCAg..i&docid=O38kloNEAwuepM&w=300&h=300&q=%EC%B9%B4%EB%82%98%EB%A6%AC%EC%95%84&ved=2ahUKEwjj2Z7NuO_yAhVN4GEKHf4qCsoQMygYegUIARCCAg)
+![Logo](https://cdn.pixabay.com/photo/2014/08/24/13/05/canaries-426279_960_720.jpg)
 
 프로젝트명 또는 프로젝트 로고 이미지 **(택1)**
 
