@@ -48,6 +48,7 @@ $ yarn start or npm run start
 ## 팀 정보 (Team Information)
 - Jaeyo Shin(tlswody5110@naver.com), Github Id: j-mayo
 - June Seo (seojune408@gmail.com), Github Id: giirafe
+- Donghwan Chi (zheedong@gmail.com), Github Id: zheedong
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
  * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
