@@ -48,6 +48,7 @@ $ yarn start or npm run start
 ## 팀 정보 (Team Information)
 - hong gil dong (hong999@gmail.com), Github Id: gildong999
 - kim su ji (suji999@gmail.com), Github Id: suji999
+- June Seo (seojune408@gmail.com), Github Id: giirafe
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
  * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
