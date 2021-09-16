@@ -1,17 +1,11 @@
-### 본 페이지는 샘플입니다. 아래의 *[샘플 양식에 포함되어 있는 항목은 필수 기재사항]*   입니다.
-해당 내용은 모두 예시이며 설명이 부족하거나 추가하고싶은 부분이 있으면 개발자님이 추가해서 작성하셔도 무관합니다. (동영상, 이미지, 텍스트 적용 전부 자유)
-
-
-# Project name or Logo
+# 카나리아 : 모두를 위한 군사보안 경보기
 ![Logo](https://logosbynick.com/wp-content/uploads/2018/03/final-logo-example.png)
-
-프로젝트명 또는 프로젝트 로고 이미지 **(택1)**
 
 ## 프로잭트 소개
 본 프로젝트는 사용자에게 보안 내용을 제거하는 기능을 가진 카메라를 제공함으로서 **군 내에서 카메라를 사용 가능하게 함**과 동시에, SNS에 올릴 사진의 보안 위반 가능성을 경고하여 사용자가 **자발적으로 보안을 준수**할 수 있게 합니다. 
 
 ## 기능 설명
- - 설명 기입
+ - 사용자가 촬영한 사진에 존재할 수 있는 보안 위반 요소를 점검하고 이를 경고해준다.
 
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 * ECMAScript 6 지원 브라우저 사용
@@ -30,7 +24,7 @@
 
 ## 설치 안내 (Installation Process)
 ```bash
-$ git clone git주소
+$ git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary
 $ yarn or npm install
 $ yarn start or npm run start
 ```
@@ -56,9 +50,3 @@ $ yarn start or npm run start
  * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
 
 This project is licensed under the terms of the MIT license.
-
-※ [라이선스 비교표(클릭)](https://olis.or.kr/license/compareGuide.do)
-
-※ [Github 내 라이선스 키워드(클릭)](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/licensing-a-repository)
-
-※ [\[참조\] Github license의 종류와 나에게 맞는 라이선스 선택하기(클릭)](https://flyingsquirrel.medium.com/github-license%EC%9D%98-%EC%A2%85%EB%A5%98%EC%99%80-%EB%82%98%EC%97%90%EA%B2%8C-%EB%A7%9E%EB%8A%94-%EB%9D%BC%EC%9D%B4%EC%84%A0%EC%8A%A4-%EC%84%A0%ED%83%9D%ED%95%98%EA%B8%B0-ae29925e8ff4)
