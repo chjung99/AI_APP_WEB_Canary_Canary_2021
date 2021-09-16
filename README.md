@@ -22,6 +22,11 @@
  -  UI framework
  - 기타 사용한 라이브러리
 
+### AI
+ - Multi-class Classification
+ - Object Detection
+ - Semantic Segmentation
+
 ## 설치 안내 (Installation Process)
 ```bash
 $ git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary
