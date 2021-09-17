@@ -52,6 +52,7 @@ $ yarn start or npm run start
 - Donghwan Chi (zheedong@gmail.com), Github Id: zheedong
 - Chanho Jung(cksgh1168@gmail.com), Github Id: chjung99
 - Huijae Ryu(fbgmlwo123@naver.com), Github Id: hellohidi
+- Wonbeom Jang(jtiger958@gmail.com), Github Id: wonbeomjang
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
  * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
