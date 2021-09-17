@@ -25,7 +25,6 @@
  - 기타 사용한 라이브러리
 
 ### AI
- - Multi-class Classification
  - Object Detection
  - Semantic Segmentation
 
