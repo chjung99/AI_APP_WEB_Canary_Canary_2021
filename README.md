@@ -48,7 +48,7 @@ $ yarn start or npm run start
  
 ## 팀 정보 (Team Information)
 - Jaeyo Shin(tlswody5110@naver.com), Github Id: j-mayo
-- June Seo (seojune408@gmail.com), Back End, Github Id: giirafe
+- June Seo (seojune408@gmail.com), Back End, Github Id: giirafe.
 - Donghwan Chi (zheedong@gmail.com), Github Id: zheedong
 - Chanho Jung(cksgh1168@gmail.com), Github Id: chjung99
 - Huijae Ryu(fbgmlwo123@naver.com), Front End, Github Id: hellohidi
