@@ -24,7 +24,7 @@ def download(train):
     LABEL_FILE = f'./{DATASET_DIR}/label.csv'
     LABEL_FILE_ID = '1iwnfmQn8HXA1uCAaA5MfEZ3cUC3x2v0x' if train else '1p4q3vPK82qJxy39a4Eu-NawtIm0uQO1P'
     IMAGE_FILE_NAME = f'./{DATASET_DIR}/image.zip'
-    IMAGE_FILE_ID = '1KnYXKmHouQKVG93qbmJijCoSCeeMOkDM' if train else '1K8xBzpDBfOIGoehCXbVs3hl_uY1moHRn'
+    IMAGE_FILE_ID = '1CBOaUHC0iVzDAujSc9AQX7-Qa2xYqMjH' if train else '1K8xBzpDBfOIGoehCXbVs3hl_uY1moHRn'
     
     if os.path.exists(f'./{DATASET_DIR}/images/') and os.path.exists(f'./{DATASET_DIR}/labels/'): return
     
@@ -37,9 +37,9 @@ def download(train):
     os.makedirs(f'./{DATASET_DIR}/labels/')
     
     # Google Drive에서 데이터 다운
-    gdd.download_file_from_google_drive(file_id=LABEL_FILE_ID, dest_path=LABEL_FILE, showsize=True)
-    gdd.download_file_from_google_drive(file_id=LABEL_MAP_FILE_ID, dest_path=LABEL_MAP_FILE, showsize=True)
-    gdd.download_file_from_google_drive(file_id=IMAGE_FILE_ID, dest_path=IMAGE_FILE_NAME, showsize=True)
+    gdd.download_file_from_google_drive(file_id=LABEL_FILE_ID, dest_path=LABEL_FILE, showsize=True, unzip=True)
+    gdd.download_file_from_google_drive(file_id=LABEL_MAP_FILE_ID, dest_path=LABEL_MAP_FILE, showsize=True, unzip=True)
+    gdd.download_file_from_google_drive(file_id=IMAGE_FILE_ID, dest_path=IMAGE_FILE_NAME, showsize=True, unzip=True)
     
     if not os.listdir(f'./{DATASET_DIR}/images/'):
         print("Extract Data...")
