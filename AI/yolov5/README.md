@@ -3,7 +3,8 @@
 ## Prepare dataset
 ```
 pip install -r requirements.txt
-python download_data.py
+python download_imagenet_data.py
+python download_custom_data.py
 ```
 
 ## Train yolov5
