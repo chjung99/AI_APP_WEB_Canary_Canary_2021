@@ -1,0 +1,4 @@
+googledrivedownloader==0.4
+requests==2.26.0
+tqdm==4.62.3
+opencv-python==4.5.3.56
