@@ -62,7 +62,7 @@ def make_data(dir_name):
                 object_width    = (xmax - xmin) / image_width
                 object_height   = (ymax - ymin) / image_height
                 
-                f.write(f'{label} {x_center} {y_center} {object_width} {object_height}\n')
+                f.write(f'{label_map[label]} {x_center} {y_center} {object_width} {object_height}\n')
         
         shutil.move(f'{DATA_ROOT_DIR}/custom_data/{dir_name}/Images/{image}', f'{DATA_ROOT_DIR}/images/{dir_name}/{image}')
         
