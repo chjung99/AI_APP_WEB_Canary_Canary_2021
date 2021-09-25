@@ -16,9 +16,9 @@ TRAIN_DATA_DIR = f'train'
 VAL_DATA_DIR = f'val'
 
 LABEL_MAP_FILE = './label_map.json'
-LABEL_MAP_FILE_ID = '1pJlcGT34hoZVlIRBXfHLUPJJpMGT8zMK'
+LABEL_MAP_FILE_ID = '1jZoQkr5E8xrSvmPhRqDXDqm88OedlT--'
 
-def download(train):
+def download(train, down=True):
     DATASET_DIR = f'{DATA_ROOT_DIR}/{TRAIN_DATA_DIR}' if train else f'{DATA_ROOT_DIR}/{VAL_DATA_DIR}'
     
     LABEL_FILE = f'./{DATASET_DIR}/label.csv'
@@ -26,27 +26,19 @@ def download(train):
     IMAGE_FILE_NAME = f'./{DATASET_DIR}/image.zip'
     IMAGE_FILE_ID = '1CBOaUHC0iVzDAujSc9AQX7-Qa2xYqMjH' if train else '1K8xBzpDBfOIGoehCXbVs3hl_uY1moHRn'
     
-    if os.path.exists(f'./{DATASET_DIR}/images/') and os.path.exists(f'./{DATASET_DIR}/labels/'): return
-    
-    if os.path.exists(f'./{DATASET_DIR}/images/'): 
-        shutil.rmtree(f'./{DATASET_DIR}/images/')
-    os.makedirs(f'./{DATASET_DIR}/images/')
+    if not os.path.exists(f'./{DATASET_DIR}/images/'): os.makedirs(f'./{DATASET_DIR}/images/')
         
-    if os.path.exists(f'./{DATASET_DIR}/labels/'): 
-        shutil.rmtree(f'./{DATASET_DIR}/labels/')
-    os.makedirs(f'./{DATASET_DIR}/labels/')
+    if not os.path.exists(f'./{DATASET_DIR}/labels/'): os.makedirs(f'./{DATASET_DIR}/labels/')
     
     # Google Drive에서 데이터 다운
-    gdd.download_file_from_google_drive(file_id=LABEL_FILE_ID, dest_path=LABEL_FILE, showsize=True, unzip=True)
-    gdd.download_file_from_google_drive(file_id=LABEL_MAP_FILE_ID, dest_path=LABEL_MAP_FILE, showsize=True, unzip=True)
-    gdd.download_file_from_google_drive(file_id=IMAGE_FILE_ID, dest_path=IMAGE_FILE_NAME, showsize=True, unzip=True)
+    gdd.download_file_from_google_drive(file_id=LABEL_FILE_ID, dest_path=LABEL_FILE, showsize=True)
+    gdd.download_file_from_google_drive(file_id=LABEL_MAP_FILE_ID, dest_path=LABEL_MAP_FILE, showsize=True)
+    gdd.download_file_from_google_drive(file_id=IMAGE_FILE_ID, dest_path=IMAGE_FILE_NAME, showsize=True)
     
-    if not os.listdir(f'./{DATASET_DIR}/images/'):
-        print("Extract Data...")
-        with zipfile.ZipFile(IMAGE_FILE_NAME, 'r') as zip_ref:
-            for file in tqdm(iterable=zip_ref.namelist(), total=len(zip_ref.namelist())):
-                zip_ref.extract(member=file, path=f'./{DATASET_DIR}/images/')
-        os.remove(IMAGE_FILE_NAME)
+    print("Extract Data...")
+    with zipfile.ZipFile(IMAGE_FILE_NAME, 'r') as zip_ref:
+        for file in tqdm(iterable=zip_ref.namelist(), total=len(zip_ref.namelist())):
+            zip_ref.extract(member=file, path=f'./{DATASET_DIR}/images/')
     
     # ImageNet data label읽기
     with open(LABEL_FILE, newline='') as f:
@@ -85,7 +77,6 @@ def download(train):
                 object_height = (int(prediction_string[i + 4]) - int(prediction_string[i + 2])) / image_height
                 f.write(f'{label_map[prediction_string[i]]} {x_center} {y_center} {object_width} {object_height}\n')
     
-    # os.remove(LABEL_FILE)
 
     iamges = set([ i.split('.')[0] + '.JPEG' for i in os.listdir(f'./{DATASET_DIR}/labels/')])
     
