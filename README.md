@@ -46,12 +46,66 @@ $ yarn start or npm run start
  샘플 에디터 [https://stackedit.io/app#](https://stackedit.io/app#)
  
 ## 팀 정보 (Team Information)
-- Jaeyo Shin(tlswody5110@naver.com), Github Id: j-mayo
-- June Seo (seojune408@gmail.com), Back End, Github Id: giirafe.
-- Donghwan Chi (zheedong@gmail.com), Github Id: zheedong
-- Chanho Jung(cksgh1168@gmail.com), Github Id: chjung99
-- Huijae Ryu(fbgmlwo123@naver.com), Front End, Github Id: hellohidi
-- Wonbeom Jang(jtiger958@gmail.com), Github Id: wonbeomjang
+
+<table>
+ <tr>
+  <td></td>
+  <td>Name</td>
+  <td>Rolo</td>
+  <td>github</td>
+  <td>e-mail</td>
+ </tr>
+   
+ <tr>
+  <td><img src="" width="50" height="50"></td>
+  <td>Jaeyo Shin</td>
+  <td>Leader</td>
+  <td><a href="https://github.com/j-mayo"><img src="http://img.shields.io/badge/j_mayo-green?style=social&logo=github"/></a></td>
+  <td><a href="mailto:tlswody5110@naver.com"><img src="https://img.shields.io/badge/tlswody5110@naver.com-green?logo=gmail&style=social"/></a></td>
+ </tr>
+
+ <tr>
+  <td><img src="" width="50" height="50"></td>
+  <td>June Seo</td>
+  <td>Back-End (node.js)</td>
+  <td><a href="https://github.com/giirafe"><img src="http://img.shields.io/badge/giirafe-green?style=social&logo=github"/></a></td>
+  <td><a href="mailto:seojune408@gmail.com"><img src="https://img.shields.io/badge/seojune408@gmail.com-green?logo=gmail&style=social"/></a></td>
+ </tr>
+ 
+ <tr>
+  <td><img src="" width="50" height="50"></td>
+  <td>Huijae Ryu</td>
+  <td>Front-End (Flutter)</td>
+  <td><a href="https://github.com/hellohidi"><img src="http://img.shields.io/badge/hellohidi-green?style=social&logo=github"/></a></td>
+  <td><a href="mailto:fbgmlwo123@naver.com"><img src="https://img.shields.io/badge/fbgmlwo123@naver.com-green?logo=gmail&style=social"/></a></td>
+ </tr>
+
+ <tr>
+  <td><img src="" width="50" height="50"></td>
+  <td>Chanho Jung</td>
+  <td>Deep Learning (Pytorch)</td>
+  <td><a href="https://github.com/chjung99"><img src="http://img.shields.io/badge/chjung99-green?style=social&logo=github"/></a></td>
+  <td><a href="mailto:cksgh1168@gmail.com"><img src="https://img.shields.io/badge/cksgh1168@gmail.com-green?logo=gmail&style=social"/></a></td>
+ </tr>
+
+ <tr>
+  <td><img src="" width="50" height="50"></td>
+  <td>Donghwan Chi</td>
+  <td>Deep Learning (Pytorch)</td>
+  <td><a href="https://github.com/zheedong"><img src="http://img.shields.io/badge/zheedong-green?style=social&logo=github"/></a></td>
+  <td><a href="mailto:zheedong@gmail.com"><img src="https://img.shields.io/badge/zheedong@gmail.com-green?logo=gmail&style=social"/></a></td>
+ </tr>
+   
+ <tr>
+  <td><img src="" width="50" height="50"></td>
+  <td>Wonbeom Jang</td>
+  <td>Deep Learning (Pytorch)</td>
+  <td><a href="https://github.com/wonbeomjang"><img src="http://img.shields.io/badge/wonbeomjang-green?style=social&logo=github"/></a></td>
+  <td><a href="mailto:jtiger958@gmail.com"><img src="https://img.shields.io/badge/jtiger958@gmail.com-green?logo=gmail&style=social"/></a></td>
+ </tr>
+</table>
+
+
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
  * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
