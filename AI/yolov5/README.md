@@ -16,3 +16,12 @@ mv dataset/dataset.yaml data/dataset.yaml
 pip install -r requirements.txt
 python train.py --img 640 --batch 16 --epochs 3 --data dataset.yaml --weights yolov5s.pt
 ```
+
+## Mosaic image
+```
+python detect.py -w [WEIGHT PATH] -i [INPUT IMAGE PATH] -o [OUTPUT IMAGE PATH]
+```
+ex)
+```
+python detect.py -w ./weight/best.pt -i ./image/k9.jpg -o ./image/out.jpg
+```
