@@ -1,19 +1,8 @@
-/*
 class LoginReqDto {
-  final String? username;
-  final String? img_binary;
+  final String? name;
+  final String? d_num;
 
-  LoginReqDto(this.username, this.img_binary);
+  LoginReqDto(this.name, this.d_num);
 
-  Map<String, dynamic> toJson() =>
-      {"username": username, "img_binary": img_binary};
-}
-*/
-
-class LoginReqDto {
-  final String? username;
-
-  LoginReqDto(this.username);
-
-  Map<String, dynamic> toJson() => {"username": username};
+  Map<String, dynamic> toJson() => {"name": name, "d_num": d_num};
 }

@@ -1,8 +1,5 @@
-import 'dart:html';
-
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:praticesig/pages/post_username_page.dart';
 
 var host = Uri.parse("https://osam-project-testing-tkqtg.run.goorm.io/users");
 var host2 =
@@ -13,11 +10,10 @@ class PostProvider extends GetConnect {
   // 서준 testing
   //Future<void> postUserInfo(Map data) => http.post(host2, body: data);
 
-  Future<void> PostUserNamePage(Map data) => http.post(host, body: data);
+  Future<void> postUserNamePage(Map data) => http.post(host, body: data);
 
-  Future<void> postImage(Map data) => http.post(host2, body: data);
+  //Response 타입으로 하면 에러나옴
+  //A value of type 'Future<Response>' can't be returned from the method 'postImage' because it has a return type of 'Future<Response<dynamic>>'.
+
+  Future<dynamic> postImage(Map data) => http.post(host2, body: data);
 }
-
-
-//content 타입! 추가해야되는지
-

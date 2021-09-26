@@ -1,36 +1,35 @@
 import 'dart:convert';
-import 'dart:html';
-import 'dart:typed_data';
-import 'dart:io' as Io;
-
+import 'package:get/get_connect/connect.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:praticesig/components/dto/image_req_dto.dart';
 import 'package:praticesig/domain/post_provider.dart';
 import 'package:praticesig/components/dto/login_req_dto.dart';
+import 'package:praticesig/util/covert_uint8list.dart';
 
 class PostRepository {
   final PostProvider _postProvider = PostProvider();
 
-  /*두개 같이 보내는 코드(근데 Image임) => 저번에 원하신거?
-  Future<void> postUserInfo(String username, var imageFile) async {
-    List<int> bytes = imageFile.readAsBytesSync();
-    String _img64 = base64Encode(bytes);
-    LoginReqDto loginReqDto = LoginReqDto(username, _img64);
-    await _postProvider.postUserInfo(loginReqDto.toJson());
-  }
-  */
-
-  Future<void> postUserName(String username) async {
-    LoginReqDto loginReqDto = LoginReqDto(username);
-    await _postProvider.PostUserNamePage(loginReqDto.toJson());
+  Future<void> postUserName(String name, String d_num) async {
+    LoginReqDto loginReqDto = LoginReqDto(name, d_num);
+    await _postProvider.postUserNamePage(loginReqDto.toJson());
   }
 
   // XFile 변환 및 연결 확인용
   // https://codesearchonline.com/flutter-convert-image-base64/
-  Future<void> postImage(XFile image) async {
+  //https://stackoverflow.com/questions/46145472/how-to-convert-base64-string-into-image-with-flutter
+
+  Future<Map<String, dynamic>> postImage(XFile image) async {
     final bytes = await image.readAsBytes();
+    int success = 0;
     String _img64 = base64Encode(bytes);
     ImageReqDto imageReqDto = ImageReqDto(_img64);
-    await _postProvider.postImage(imageReqDto.toJson());
+    Response response = await _postProvider.postImage(imageReqDto.toJson());
+
+    if (response.statusCode == 200) {
+      success = 1;
+    }
+    dynamic bodyBytes = response.bodyBytes;
+    dynamic convertBodyBytes = convertUint8List(bodyBytes, success);
+    return convertBodyBytes;
   }
 }
