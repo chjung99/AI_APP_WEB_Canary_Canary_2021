@@ -15,18 +15,15 @@
 
 ## 기술 스택 (Technique Used) 
 ### Server(back-end)
- -  nodejs, php, java 등 서버 언어 버전 
- - express, laravel, sptring boot 등 사용한 프레임워크 
- - DB 등 사용한 다른 프로그램 
+ -  nodej
+ - express
  
 ### Front-end
- -  react.js, vue.js 등 사용한 front-end 프레임워크 
- -  UI framework
- - 기타 사용한 라이브러리
+ -  Flutter 등 사용한 front-end 프레임워크 
 
 ### AI
+ - Pytorch
  - Object Detection
- - Semantic Segmentation
 
 ## 설치 안내 (Installation Process)
 ```bash
@@ -57,7 +54,7 @@ $ yarn start or npm run start
  </tr>
    
  <tr>
-  <td><img src="" width="50" height="50"></td>
+  <td><img src="https://avatars.githubusercontent.com/u/86545225?v=4" width="50" height="50"></td>
   <td>Jaeyo Shin</td>
   <td>Leader</td>
   <td><a href="https://github.com/j-mayo"><img src="http://img.shields.io/badge/j_mayo-green?style=social&logo=github"/></a></td>
@@ -65,7 +62,7 @@ $ yarn start or npm run start
  </tr>
 
  <tr>
-  <td><img src="" width="50" height="50"></td>
+  <td><img src="https://avatars.githubusercontent.com/u/76638529?v=4" width="50" height="50"></td>
   <td>June Seo</td>
   <td>Back-End (node.js)</td>
   <td><a href="https://github.com/giirafe"><img src="http://img.shields.io/badge/giirafe-green?style=social&logo=github"/></a></td>
@@ -73,7 +70,7 @@ $ yarn start or npm run start
  </tr>
  
  <tr>
-  <td><img src="" width="50" height="50"></td>
+  <td><img src="https://avatars.githubusercontent.com/u/54922625?v=4" width="50" height="50"></td>
   <td>Huijae Ryu</td>
   <td>Front-End (Flutter)</td>
   <td><a href="https://github.com/hellohidi"><img src="http://img.shields.io/badge/hellohidi-green?style=social&logo=github"/></a></td>
@@ -81,7 +78,7 @@ $ yarn start or npm run start
  </tr>
 
  <tr>
-  <td><img src="" width="50" height="50"></td>
+  <td><img src="https://avatars.githubusercontent.com/u/62923434?v=4" width="50" height="50"></td>
   <td>Chanho Jung</td>
   <td>Deep Learning (Pytorch)</td>
   <td><a href="https://github.com/chjung99"><img src="http://img.shields.io/badge/chjung99-green?style=social&logo=github"/></a></td>
@@ -89,7 +86,7 @@ $ yarn start or npm run start
  </tr>
 
  <tr>
-  <td><img src="" width="50" height="50"></td>
+  <td><img src="https://avatars.githubusercontent.com/u/35412648?v=4" width="50" height="50"></td>
   <td>Donghwan Chi</td>
   <td>Deep Learning (Pytorch)</td>
   <td><a href="https://github.com/zheedong"><img src="http://img.shields.io/badge/zheedong-green?style=social&logo=github"/></a></td>
@@ -97,7 +94,7 @@ $ yarn start or npm run start
  </tr>
    
  <tr>
-  <td><img src="" width="50" height="50"></td>
+  <td><img src="https://avatars.githubusercontent.com/u/40621030?v=4" width="50" height="50"></td>
   <td>Wonbeom Jang</td>
   <td>Deep Learning (Pytorch)</td>
   <td><a href="https://github.com/wonbeomjang"><img src="http://img.shields.io/badge/wonbeomjang-green?style=social&logo=github"/></a></td>
