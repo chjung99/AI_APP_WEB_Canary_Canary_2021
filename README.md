@@ -1,5 +1,7 @@
 # 카나리아 : 모두를 위한 군사보안 경보기
-![Logo](https://logosbynick.com/wp-content/uploads/2018/03/final-logo-example.png)
+
+<img src="https://cdn.pixabay.com/photo/2014/08/24/13/05/canaries-426279_960_720.jpg" width="500" height="250" alter="LOGO"/>
+
 
 ## 프로잭트 소개
 본 프로젝트는 사용자에게 보안 내용을 제거하는 기능을 가진 카메라를 제공함으로서,  
