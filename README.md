@@ -26,6 +26,8 @@
 ### AI
  - Pytorch
  - Object Detection
+ - OpenCV
+ - cvat.org
 
 ## 설치 안내 (Installation Process)
 ```bash
@@ -35,6 +37,7 @@ $ yarn start or npm run start
 ```
 
 ## 프로젝트 사용법 (Getting Started)
+<!--
 **마크다운 문법을 이용하여 자유롭게 기재**
 
 잘 모를 경우
@@ -43,7 +46,7 @@ $ yarn start or npm run start
 
  편한 마크다운 에디터를 찾아서 사용
  샘플 에디터 [https://stackedit.io/app#](https://stackedit.io/app#)
- 
+-->
 ## 팀 정보 (Team Information)
 
 <table>
