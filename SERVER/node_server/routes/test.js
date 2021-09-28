@@ -87,9 +87,11 @@ router.post('/img_upload',(req,res)=>{
 	// Buffer.from 방식으로 decode 시행
 	// uploaded_img가 base64 type으로 구성되어 있음을 선언 후 -> binary로 !! -> 한 후 fs.writeFile을 하면 이미지가 정상적으로 저장되지 않는다 -> base64로 encoding된 data를 이용해 fs.writefile 시행
 	
+	const img_name = 'decoded' + Date.now()
 	const decoded_img = Buffer.from(uploaded_img_binary,'base64')
-	
-	fs.writeFile('decoded_image.jpg', decoded_img ,(err)=>{
+
+	// images directory(static dir)에 접근하여 decoded_image.jpg를 저장
+	fs.writeFile(`images/${img_name}.jpg`, decoded_img ,(err)=>{
 		if (err){
 			throw err
 		} else {
