@@ -17,14 +17,9 @@
 
 ## 기술 스택 (Technique Used) 
 ### Server(back-end)
-<<<<<<< HEAD
  -  Node.js 기반 서버
  - express 프레임 워크 사용
  - MySQL 데이터 베이스 사용
-=======
- -  nodej
- - express
->>>>>>> 0bdc6d583f5fe075deb1dbeee58ca2fe4e9e14b5
  
 ### Front-end
  -  Flutter 등 사용한 front-end 프레임워크 
