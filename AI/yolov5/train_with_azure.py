@@ -48,7 +48,7 @@ pytorch_env.docker.base_image = 'mcr.microsoft.com/azureml/openmpi3.1.2-cuda10.1
 # Finally, use the environment in the ScriptRunConfig:
 src = ScriptRunConfig(source_directory=DEPLOY_CONTAINER_FOLDER_PATH,
                       script=SCRIPT_FILE_TO_EXECUTE,
-                      arguments=['--img', 640, '--batch', 16, '--epochs', 30, '--data', 'data/dataset.yaml', '--weights', 'yolov5s.pt'],
+                      arguments=['--img', 640, '--batch', 16, '--epochs', 30, '--data', 'data/dataset.yaml', '--weights', 'yolov5l6.pt'],
                       compute_target=compute_target,
                       environment=pytorch_env)
 
