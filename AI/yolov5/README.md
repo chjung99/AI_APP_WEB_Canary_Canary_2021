@@ -28,4 +28,4 @@ ex)
 python detect.py -w ./weight/best.pt -i ./image/k9.jpg -o ./image/out.jpg
 ```
 ![in](image/soldier2.jpg)
-![out](image/tolov5l6.jpg)
+![out](image/yolov5l6.jpg)
