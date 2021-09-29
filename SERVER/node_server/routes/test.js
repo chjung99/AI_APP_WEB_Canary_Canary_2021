@@ -44,7 +44,7 @@ router.get('/connection',async (req,res)=>{
 	// sending IMG upload POST request
 	
 	// Converting img -> binary code
-	const org_img = fs.readFileSync('images/sample.jpg')
+	const org_img = fs.readFileSync('org_images/sample.jpg')
 	
 	// org_img -> 'base64' 방식으로 Encoding
 	const encoded_img = Buffer.from(org_img).toString('base64')
@@ -91,7 +91,7 @@ router.post('/img_upload',(req,res)=>{
 	const decoded_img = Buffer.from(uploaded_img_binary,'base64')
 
 	// images directory(static dir)에 접근하여 decoded_image.jpg를 저장
-	fs.writeFile(`images/${img_name}.jpg`, decoded_img ,(err)=>{
+	fs.writeFile(`org_images/${img_name}.jpg`, decoded_img ,(err)=>{
 		if (err){
 			throw err
 		} else {
