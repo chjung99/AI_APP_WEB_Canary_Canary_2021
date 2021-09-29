@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const mysql = require('mysql')
+const fs = require('fs')
 
 var db = mysql.createConnection({
 	host : 'localhost',
@@ -12,6 +13,7 @@ var db = mysql.createConnection({
 db.connect();
 
 router.get('/main',(req,res)=>{
+	console.log(req.session)
 	res.send('this is a img route main page')
 })
 
@@ -24,6 +26,8 @@ router.post('/upload',async (req,res)=>{
 	
 	const img_name = 'decoded' + Date.now()
 
+	req.session.input = img_name
+
 	await fs.writeFile(`org_images/${img_name}.jpg`, decoded_img ,(err)=>{
 		if (err){
 			throw err
@@ -40,23 +44,12 @@ router.post('/upload',async (req,res)=>{
 	// 		console.log(result + 'from /img/upload')
 	// 	}
 	// })
-	
-	const processed_img = await fs.readFile(`org_images/${img_name}.jpg`)
 
-	const processed_img_encoded = Buffer.from(org_img).toString('base64')
-	
-	res.json({status:200,output:processed_img_encoded})
+	res.json({status:200,session:req.session})
 	
 })
 
-router.get('/output', async(req,res)=>{
-	await fs.writeFile(`org_images/${img_name}.jpg`, decoded_img ,(err)=>{
-		if (err){
-			throw err
-		} else {
-			console.log('original img save success')
-		}	
-	});
+router.get('/output', (req,res)=>{
 
 		// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
 	// 	if (err){
@@ -67,7 +60,7 @@ router.get('/output', async(req,res)=>{
 	// 	}
 	// })
 	
-	const processed_img = await fs.readFile(`org_images/${img_name}.jpg`)
+	const processed_img =  fs.readFileSync(`org_images/${req.session.input}.jpg`)
 
 	const processed_img_encoded = Buffer.from(org_img).toString('base64')
 	
