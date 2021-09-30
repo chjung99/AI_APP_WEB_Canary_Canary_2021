@@ -134,4 +134,15 @@ router.get('/request_params',(req,res)=>{
 	res.send('test done')
 })
 
+// req.session test 
+router.get('/session',(req,res)=>{
+	req.session.name = 'session activated'
+	res.send({status:200,session:req.session})
+})
+
+router.get('/session2',(req,res)=>{
+	res.send({status:200,session:req.session})
+})
+
+
 module.exports = router
