@@ -13,8 +13,8 @@ var db = mysql.createConnection({
 db.connect();
 
 router.get('/main',(req,res)=>{
-	console.log(req.session)
-	res.send('this is a img route main page')
+	req.session.name = 'main'
+	res.send({status:200,session:req.session})
 })
 
 router.post('/upload',async (req,res)=>{
@@ -51,7 +51,7 @@ router.post('/upload',async (req,res)=>{
 
 router.get('/output', (req,res)=>{
 
-		// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
+	// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
 	// 	if (err){
 	// 		throw err
 	// 	}
@@ -59,10 +59,13 @@ router.get('/output', (req,res)=>{
 	// 		console.log(result + 'from /img/upload')
 	// 	}
 	// })
-	
+
+	console.log(req.session)
+	console.log(req.session.input)
+
 	const processed_img =  fs.readFileSync(`org_images/${req.session.input}.jpg`)
 
-	const processed_img_encoded = Buffer.from(org_img).toString('base64')
+	const processed_img_encoded = Buffer.from(processed_img).toString('base64')
 	
 	res.json({status:200,output:processed_img_encoded})
 })
