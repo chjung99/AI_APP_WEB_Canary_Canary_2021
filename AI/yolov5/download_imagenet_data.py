@@ -24,7 +24,7 @@ def download(train, down=True):
     LABEL_FILE = f'./{DATASET_DIR}/label.csv'
     LABEL_FILE_ID = '1iwnfmQn8HXA1uCAaA5MfEZ3cUC3x2v0x' if train else '1p4q3vPK82qJxy39a4Eu-NawtIm0uQO1P'
     IMAGE_FILE_NAME = f'./{DATASET_DIR}/image.zip'
-    IMAGE_FILE_ID = '1CBOaUHC0iVzDAujSc9AQX7-Qa2xYqMjH' if train else '1K8xBzpDBfOIGoehCXbVs3hl_uY1moHRn'
+    IMAGE_FILE_ID = '1KnYXKmHouQKVG93qbmJijCoSCeeMOkDM' if train else '1K8xBzpDBfOIGoehCXbVs3hl_uY1moHRn'
     
     if not os.path.exists(f'./{DATASET_DIR}/images/'): os.makedirs(f'./{DATASET_DIR}/images/')
         
