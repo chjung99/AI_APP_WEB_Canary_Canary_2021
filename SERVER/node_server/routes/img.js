@@ -44,14 +44,14 @@ router.post('/upload',async (req,res)=>{
 	// 		console.log(result + 'from /img/upload')
 	// 	}
 	// })
-
+	
 	res.json({status:200,session:req.session})
 	
 })
 
 router.get('/output', (req,res)=>{
 
-		// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
+	// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
 	// 	if (err){
 	// 		throw err
 	// 	}
@@ -59,10 +59,12 @@ router.get('/output', (req,res)=>{
 	// 		console.log(result + 'from /img/upload')
 	// 	}
 	// })
-	
+
+	console.log(req.session.input)
+
 	const processed_img =  fs.readFileSync(`org_images/${req.session.input}.jpg`)
 
-	const processed_img_encoded = Buffer.from(org_img).toString('base64')
+	const processed_img_encoded = Buffer.from(processed_img).toString('base64')
 	
 	res.json({status:200,output:processed_img_encoded})
 })
