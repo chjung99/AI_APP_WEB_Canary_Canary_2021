@@ -63,8 +63,8 @@ class PostUserNamePage extends StatelessWidget {
               child: const GradationButton(title: "go"),
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  Get.to(() => const PickImagePage());
                   await p.postUserName(_name.text, _d_num.text);
+                  Get.to(() => const PickImagePage());
                 } else {
                   Get.snackbar("로그인 실패", "정보를 정확히 입력해주세요!");
                 }
