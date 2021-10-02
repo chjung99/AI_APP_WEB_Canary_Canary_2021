@@ -25,7 +25,7 @@ python detect.py -w [WEIGHT PATH] -i [INPUT IMAGE PATH] -o [OUTPUT IMAGE PATH]
 ```
 ex)
 ```
-python detect.py -w ./weight/best.pt -i ./image/soldier2.jpg -o ./image/out.jpg
+python detect.py -w ./weight/yolov5m6.pt -i ./image/soldier2.jpg -o ./image/out.jpg
 ```
 ![in](image/soldier2.jpg)
 ![out](image/yolov5l6.jpg)
