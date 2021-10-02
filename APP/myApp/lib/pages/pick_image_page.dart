@@ -86,6 +86,7 @@ class _PickImagePageState extends State<PickImagePage> {
             TextButton(
               child: GradationButton(title: "post server"),
               onPressed: () async {
+                await p.postImage(_image!);
                 Get.to(() => ResultPage());
                 //Map data = await p.postImage(_image!);
                 //data["convertBody"]가 base64이면 무조건 돌아간다!

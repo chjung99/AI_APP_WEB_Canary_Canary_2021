@@ -1,14 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:praticesig/components/progress_bar.dart';
+import 'package:praticesig/domain/post.dart';
+import 'package:praticesig/domain/post_repository.dart';
 
-class ResultPage extends StatelessWidget {
-  var value = Get.arguments;
+class ResultPage extends StatefulWidget {
+  const ResultPage({Key? key}) : super(key: key);
+
+  @override
+  _ResultPageState createState() => _ResultPageState();
+}
+
+class _ResultPageState extends State<ResultPage> {
+  late Future<Post> post;
+  final PostRepository p = PostRepository();
+  @override
+  void initState() {
+    super.initState();
+    post = p.getImage;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Image.memory(value),
-      //child: ProgressBar(),
+    return MaterialApp(
+      title: 'Fetch Data Example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Fetch Data Example'),
+        ),
+        body: Center(
+          child: FutureBuilder<Post>(
+            future: post,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(snapshot.data!.output);
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+
+              // 기본적으로 로딩 Spinner를 보여줍니다.
+              return CircularProgressIndicator();
+            },
+          ),
+        ),
+      ),
     );
   }
 }
