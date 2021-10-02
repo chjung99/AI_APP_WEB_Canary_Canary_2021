@@ -231,3 +231,4 @@ label_map.json
 clone_code
 .azureml/
 azure_config.json
+weight/
