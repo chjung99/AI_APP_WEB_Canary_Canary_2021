@@ -21,3 +21,5 @@ def delxml(c):
 classlist = ['n02687172'] # 지우고자 하는 class 이름 입력, 폴더명은 class 이름으로 할 것
 for c in classlist:
     delxml(c)
+
+exit()
