@@ -65,7 +65,7 @@ router.get('/output', (req,res)=>{
 	console.log('session input:' , req.session.input)
 
 	// const processed_img =  fs.readFileSync(`org_images/${req.session.input}.jpg`)
-	const processed_img =  fs.readFileSync(`org_images/decoded1633064533381.jpg`)
+	const processed_img =  fs.readFileSync(`org_images/decoded1633160080299.jpg`)
 
 	const processed_img_encoded = Buffer.from(processed_img).toString('base64')
 	
