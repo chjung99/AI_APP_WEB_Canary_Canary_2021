@@ -14,7 +14,7 @@ def delxml(c):
     for f in files:
         title, _ = os.path.splitext(f)
         t = title.split('/')
-        print(t)
+        #print(t)
         os.unlink(P+c+"/JPEGImages/"+t[-1].split('\\')[-1]+'.JPEG')
 
 
