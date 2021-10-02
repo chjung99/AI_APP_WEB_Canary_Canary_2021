@@ -12,12 +12,28 @@ from pathlib import Path
 
 import cv2
 import torch
+import os
+from google_drive_downloader import GoogleDriveDownloader as gdd
 
 
 from models.experimental import attempt_load
 from utils.datasets import LoadImages
 from utils.general import check_img_size, non_max_suppression, save_one_box, scale_coords
 from utils.torch_utils import time_sync
+args = parser.parse_args()
+
+if not os.path.exists('./weight'):
+    os.makedirs('./weight')
+    
+yolov5l6_id = '1sYHRy8uvBFJbNOPzOlzjEh3VUorHTy8S'
+yolov5m6_id = '1F6e6fztaSjzY_XZMFqqrLJv-QDo5eQ_a'
+yolov5s6_id = '1eAxFouSUlFlnMiooidbV3uI37hq5xXLo'
+
+for Id, file_name in ((yolov5s6_id, 'yolov5s6.pt'), (yolov5m6_id, 'yolov5m6.pt'), (yolov5l6_id, 'yolov5l6.pt')):
+    gdd.download_file_from_google_drive(file_id=Id, dest_path=f'weight/{file_name}', showsize=True)
+
+# Model
+model = torch.hub.load('ultralytics/yolov5', 'custom', path=args.weight_path)
 
 
 @torch.no_grad()
