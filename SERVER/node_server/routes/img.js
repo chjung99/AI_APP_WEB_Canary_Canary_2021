@@ -18,8 +18,8 @@ router.get('/main',(req,res)=>{
 })
 
 router.post('/upload',async (req,res)=>{
-	console.log('img upload router activated')
-    
+	console.log('img input router activated')
+    console.log(req.session)
 	const uploaded_img_binary = req.body.img_binary
 
 	const decoded_img = Buffer.from(uploaded_img_binary,'base64')
@@ -60,10 +60,12 @@ router.get('/output', (req,res)=>{
 	// 	}
 	// })
 
+	console.log('img output router activated')
 	console.log(req.session)
-	console.log(req.session.input)
+	console.log('session input:' , req.session.input)
 
-	const processed_img =  fs.readFileSync(`org_images/${req.session.input}.jpg`)
+	// const processed_img =  fs.readFileSync(`org_images/${req.session.input}.jpg`)
+	const processed_img =  fs.readFileSync(`org_images/decoded1633064533381.jpg`)
 
 	const processed_img_encoded = Buffer.from(processed_img).toString('base64')
 	

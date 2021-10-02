@@ -32,6 +32,7 @@ router.post('/post-test',(req,res)=>{
     const {name} = req.body
     const {d_num} = req.body
     req.session.d_num = d_num
+    console.log(name)
     console.log(d_num)
     res.json({status:200,name:name,d_num:d_num})
 })
