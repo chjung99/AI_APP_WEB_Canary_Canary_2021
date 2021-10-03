@@ -64,6 +64,7 @@ app.engine('html', require('ejs').renderFile);
 
 //images폴더에 관하여 정적인 접근을 가능하게 해줌 ex: https://osam-project-testing-tkqtg.run.goorm.io/sample.jpg 는 images 폴더 안의 sample.jpg를 출력해준다.
 app.use(express.static(path.join(__dirname, 'org_images')));
+app.use(express.static(path.join(__dirname, 'prc_images'))); // 처리된 이미지 폴더 
 
 app.listen(4000,(err)=>{
 	if (err){

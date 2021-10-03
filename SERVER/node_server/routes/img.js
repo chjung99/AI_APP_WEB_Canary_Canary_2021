@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const mysql = require('mysql')
 const fs = require('fs')
+// pytorch model import
+const pytorch_model = require('../run_pytorch')
 
 var db = mysql.createConnection({
 	host : 'localhost',
@@ -13,6 +15,7 @@ var db = mysql.createConnection({
 db.connect();
 
 router.get('/main',(req,res)=>{
+	pytorch_model('sample_upload') // sample 이미지 명
 	req.session.name = 'main'
 	res.send({status:200,session:req.session})
 })
