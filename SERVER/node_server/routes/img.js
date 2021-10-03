@@ -15,6 +15,7 @@ var db = mysql.createConnection({
 db.connect();
 
 router.get('/main',(req,res)=>{
+	// pytorch model child process testing
 	pytorch_model('sample_upload') // sample 이미지 명
 	req.session.name = 'main'
 	res.send({status:200,session:req.session})
@@ -27,18 +28,17 @@ router.post('/upload',async (req,res)=>{
 
 	const decoded_img = Buffer.from(uploaded_img_binary,'base64')
 	
-	const img_name = 'decoded' + Date.now()
+	const img_id = 'decoded' + Date.now()
 
-	req.session.input = img_name
+	req.session.input = img_id
 
-	await fs.writeFile(`org_images/${img_name}.jpg`, decoded_img ,(err)=>{
+	await fs.writeFile(`org_images/${img_id}.jpg`, decoded_img ,(err)=>{
 		if (err){
 			throw err
 		} else {
 			console.log('original img save success')
 		}	
 	});
-
 		// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
 	// 	if (err){
 	// 		throw err
@@ -52,7 +52,7 @@ router.post('/upload',async (req,res)=>{
 	
 })
 
-router.get('/output', (req,res)=>{
+router.get('/output', async (req,res)=>{
 
 	// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
 	// 	if (err){
@@ -66,11 +66,34 @@ router.get('/output', (req,res)=>{
 	console.log('img output router activated')
 	console.log(req.session)
 	console.log('session input:' , req.session.input)
+	
+	// const pytorch_promise = new Promise((res,rej)=>{
+	// 	prc_id = pytorch_model(req.session.input)
+	// 	if (prc_id){
+	// 		res(prc_id)
+	// 	} else {
+	// 		rej('no processed id')
+	// 	}
+	// })
 
-	// const processed_img =  fs.readFileSync(`org_images/${req.session.input}.jpg`)
-	const processed_img =  fs.readFileSync(`org_images/decoded1633160080299.jpg`)
+	// pytorch_model(req.session.input).then((prc_id) =>{
+	// 	console.log(prc_id)
+	// 	const processed_img = fs.readFileSync(`prc_images/prc_${req.session.input}.jpg`)
+	// 	const processed_img_encoded = Buffer.from(processed_img).toString('base64')
+	// }).catch((err)=>{
+	// 	console.error(err)
+	// })
 
+	await pytorch_model(req.session.input)
+
+	const processed_img = fs.readFileSync(`prc_images/prc_${req.session.input}.jpg`)
 	const processed_img_encoded = Buffer.from(processed_img).toString('base64')
+	
+	// const processed_img =  fs.readFileSync(`org_images/${req.session.input}.jpg`)
+	// const processed_img =  fs.readFileSync(`org_images/decoded1633160080299.jpg`)
+
+	// const processed_img = fs.readFileSync(`prc_images/prc_${req.session.input}.jpg`)
+	// const processed_img_encoded = Buffer.from(processed_img).toString('base64')
 	
 	res.json({status:200,output:processed_img_encoded})
 })
