@@ -66,36 +66,20 @@ router.get('/output', async (req,res)=>{
 	console.log('img output router activated')
 	console.log(req.session)
 	console.log('session input:' , req.session.input)
-	
-	// const pytorch_promise = new Promise((res,rej)=>{
-	// 	prc_id = pytorch_model(req.session.input)
-	// 	if (prc_id){
-	// 		res(prc_id)
-	// 	} else {
-	// 		rej('no processed id')
-	// 	}
-	// })
 
-	// pytorch_model(req.session.input).then((prc_id) =>{
-	// 	console.log(prc_id)
-	// 	const processed_img = fs.readFileSync(`prc_images/prc_${req.session.input}.jpg`)
-	// 	const processed_img_encoded = Buffer.from(processed_img).toString('base64')
-	// }).catch((err)=>{
-	// 	console.error(err)
-	// })
+	await pytorch_model(req.session.input).then((prc_id) =>{
+		console.log(prc_id)
+		const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
+		const processed_img_encoded = Buffer.from(processed_img).toString('base64')
+		res.json({status:200,output:processed_img_encoded})
+	}).catch((err)=>{
+		console.error(err)
+		res.json({status:404})
+	})
 
-	await pytorch_model(req.session.input)
+	// 이 방법도 되지만 Error handling 위해 Promise를 활용
+	// await pytorch_model(req.session.input)
 
-	const processed_img = fs.readFileSync(`prc_images/prc_${req.session.input}.jpg`)
-	const processed_img_encoded = Buffer.from(processed_img).toString('base64')
-	
-	// const processed_img =  fs.readFileSync(`org_images/${req.session.input}.jpg`)
-	// const processed_img =  fs.readFileSync(`org_images/decoded1633160080299.jpg`)
-
-	// const processed_img = fs.readFileSync(`prc_images/prc_${req.session.input}.jpg`)
-	// const processed_img_encoded = Buffer.from(processed_img).toString('base64')
-	
-	res.json({status:200,output:processed_img_encoded})
 })
 
 module.exports = router

@@ -22,8 +22,6 @@ const Authentication = (req,res,next)=>{
 
 router.get('/get-test',(req,res)=>{
     console.log('Postman testing Successful')
-    console.log(req.session)
-
     res.json({status:200,message:"PostMan Test Route"})
 })
 
@@ -31,7 +29,7 @@ router.get('/get-test',(req,res)=>{
 router.post('/post-test',(req,res)=>{
     const {name} = req.body
     const {d_num} = req.body
-    req.session.d_num = d_num
+    // req.session.d_num = d_num
     console.log(name)
     console.log(d_num)
     res.json({status:200,name:name,d_num:d_num})
@@ -60,3 +58,4 @@ router.post('/user_data',async (req,res)=>{
 })
 
 module.exports = router
+

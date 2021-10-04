@@ -1,8 +1,8 @@
 const spawn = require('child_process').spawn
 
-async function pytorch_model(upload_img) {
+function pytorch_model(upload_img) {
     // Promise return function
-    return await new Promise((res,rej)=>{
+    return new Promise((res,rej)=>{
         console.log('pytorch model activated')
         console.log(upload_img)
     
@@ -24,6 +24,7 @@ async function pytorch_model(upload_img) {
             rej(`error: ${err}`)
         })
         
+        // 명령어 실행문 'exit' emit ! close와 구분해야 된다.
         PytorchProcess.on('exit',(code,signal)=>{
             if (code) {
                 console.log(`Process Exit with Code :${code}`)
@@ -35,6 +36,7 @@ async function pytorch_model(upload_img) {
             // res(`prc_${upload_img}`) // prc_id
         })
 
+        // spawn으로 생성한 python3 명령어가 실행이 종료되면 'close' emit -> 이후 processed img를 출력해주는 것이 가능하다
         PytorchProcess.on('close',(result)=>{
             console.log(result)
             console.log('Processed Closed')

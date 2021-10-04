@@ -21,10 +21,17 @@ const storage = multer.diskStorage({
 		// 		throw error
 		// 	}
 		// })
-	}
+	}	
 })
 
 const upload = multer({storage:storage})
+
+router.post('/albums',(req,res)=>{
+	console.log(req.body)
+	const {title} = req.body
+	console.log(title)
+	res.json({status:'succesful post request',title:title,userId:20211003})
+})
 
 // axios로 post request testing
 router.get('/connection',async (req,res)=>{
