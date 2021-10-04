@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:praticesig/components/button_style.dart';
 import 'package:praticesig/components/custom_text_form_field.dart';
+
+import 'package:praticesig/domain/user/user_repository.dart';
+
 import 'package:praticesig/pages/pick_image_page.dart';
-import 'package:praticesig/domain/post_repository.dart';
 import 'package:get/get.dart';
 import 'package:praticesig/util/validator_util.dart';
 
@@ -12,7 +14,8 @@ class PostUserNamePage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _name = TextEditingController();
   final _d_num = TextEditingController();
-  final PostRepository p = PostRepository();
+
+  final UserRepository u = UserRepository();
   final _image = Image.asset('assets/nike.png');
 
   @override
@@ -22,7 +25,9 @@ class PostUserNamePage extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       //https://api.flutter.dev/flutter/material/Scaffold/extendBody.html
       extendBody: true,
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Color(0xff6E9FED),
+      ),
       body: Center(
         child: ListView(
           shrinkWrap: true,
@@ -63,8 +68,10 @@ class PostUserNamePage extends StatelessWidget {
               child: const GradationButton(title: "go"),
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  await p.postUserName(_name.text, _d_num.text);
-                  Get.to(() => const PickImagePage());
+                  int success = await u.postUserName(_name.text, _d_num.text);
+                  if (success == 1) {
+                    Get.to(() => const PickImagePage());
+                  }
                 } else {
                   Get.snackbar("로그인 실패", "정보를 정확히 입력해주세요!");
                 }

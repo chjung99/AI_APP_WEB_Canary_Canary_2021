@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:praticesig/domain/post.dart';
-import 'package:praticesig/domain/post_repository.dart';
+import 'package:praticesig/domain/postImage/post.dart';
+import 'package:praticesig/domain/postImage/post_repository.dart';
 
 class ResultPage extends StatefulWidget {
   const ResultPage({Key? key}) : super(key: key);
