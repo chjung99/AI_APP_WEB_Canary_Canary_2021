@@ -10,14 +10,12 @@ import argparse
 import sys
 from copy import deepcopy
 from pathlib import Path
-import os
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[1]  # YOLOv5 root directory
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
-ROOT = ROOT.relative_to(Path.cwd())  # relative
-
+# ROOT = ROOT.relative_to(Path.cwd())  # relative
 
 from models.common import *
 from models.experimental import *
@@ -235,7 +233,7 @@ def parse_model(d, ch):  # model_dict, input_channels(3)
         for j, a in enumerate(args):
             try:
                 args[j] = eval(a) if isinstance(a, str) else a  # eval strings
-            except:
+            except NameError:
                 pass
 
         n = n_ = max(round(n * gd), 1) if n > 1 else n  # depth gain

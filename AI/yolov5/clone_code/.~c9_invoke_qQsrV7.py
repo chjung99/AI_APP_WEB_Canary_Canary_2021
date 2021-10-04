@@ -380,14 +380,12 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
                         'optimizer': optimizer.state_dict(),
                         'wandb_id': loggers.wandb.wandb_run.id if loggers.wandb else None}
 
-
                 # Save last, best and delete
-                
-                torch.save(ckpt, './outputs/last.pt')
                 torch.save(ckpt, last)
+                torch.save(ckpt, './outputs/last.pt')
                 if best_fitness == fi:
-                    torch.save(ckpt, './outputs/best.pt')
                     torch.save(ckpt, best)
+                    torch.save(ckpt, './outputs/best.pt')
                 del ckpt
                 callbacks.run('on_model_save', last, epoch, final_epoch, best_fitness, fi)
 
@@ -418,14 +416,15 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
                                             batch_size=batch_size // WORLD_SIZE * 2,
                                             imgsz=imgsz,
                                             model=attempt_load(f, device).half(),
-                                            iou_thres=0.7 if is_coco else 0.6,  # best pycocotools results at 0.7
+                                            iou_thres=0.65 if is_coco else 0.60,  # best pycocotools results at 0.65
                                             single_cls=single_cls,
                                             dataloader=val_loader,
                                             save_dir=save_dir,
                                             save_json=is_coco,
                                             verbose=True,
                                             plots=True,
-                                            callbacks=callbacks)  # val best model with plots
+                                            callbacks=callbacks,
+                                            compute_loss=compute_loss)  # val best model with plots
 
         callbacks.run('on_train_end', last, best, plots, epoch)
         LOGGER.info(f"Results saved to {colorstr('bold', save_dir)}")
@@ -512,7 +511,6 @@ def main(opt, callbacks=Callbacks()):
     # DDP mode
     device = select_device(opt.device, batch_size=opt.batch_size)
     if LOCAL_RANK != -1:
-        from datetime import timedelta
         assert torch.cuda.device_count() > LOCAL_RANK, 'insufficient CUDA devices for DDP command'
         assert opt.batch_size % WORLD_SIZE == 0, '--batch-size must be multiple of CUDA device count'
         assert not opt.image_weights, '--image-weights argument is not compatible with DDP training'
@@ -625,6 +623,5 @@ def run(**kwargs):
 
 
 if __name__ == "__main__":
-    print ("cur dir", os.getcwd())
     opt = parse_opt()
     main(opt)

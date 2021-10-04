@@ -394,7 +394,7 @@ def plot_evolve(evolve_csv='path/to/evolve.csv'):  # from utils.plots import *; 
     print(f'Saved {f}')
 
 
-def plot_results(file='path/to/results.csv', dir=''):
+def plot_results(file='outputs/results.csv', dir=''):
     # Plot training results.csv. Usage: from utils.plots import *; plot_results('path/to/results.csv')
     save_dir = Path(file).parent if file else Path(dir)
     fig, ax = plt.subplots(2, 5, figsize=(12, 6), tight_layout=True)
@@ -416,7 +416,7 @@ def plot_results(file='path/to/results.csv', dir=''):
         except Exception as e:
             print(f'Warning: Plotting error for {f}: {e}')
     ax[1].legend()
-    fig.savefig(save_dir / 'results.png', dpi=200)
+    fig.savefig('outputs/results.png', dpi=200)
     plt.close()
 
 
