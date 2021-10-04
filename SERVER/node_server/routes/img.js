@@ -28,7 +28,7 @@ router.post('/upload',async (req,res)=>{
 
 	const decoded_img = Buffer.from(uploaded_img_binary,'base64')
 	
-	const img_id = 'decoded' + Date.now()
+	const img_id = 'decoded_' + Date.now()
 	console.log('uploaded img_id : ', img_id)
 	req.session.input = img_id
 
@@ -48,7 +48,7 @@ router.post('/upload',async (req,res)=>{
 	// 	}
 	// })
 
-	res.json({status:200,session:req.session})
+	res.json({status:200,imd_id:img_id,session:req.session})
 	
 })
 
@@ -63,10 +63,12 @@ router.get('/output', async (req,res)=>{
 	// 	}
 	// })
 
-	console.log('img output router activated')
+	console.log('img output(session method) router activated')
 	console.log(req.session)
+
 	console.log('session input:' , req.session.input)
-	if (req.session.input){
+	console.log(req.params.img_id)
+	if (req.params.img_id){
 		await pytorch_model(req.session.input).then((prc_id) =>{
 			console.log(prc_id)
 			const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
@@ -78,12 +80,48 @@ router.get('/output', async (req,res)=>{
 		})
 	} else {
 		console.error('no img_id in request.session')
+		res.json({status:404,err_msg:'img_id for output undefined'})
 	}
 
 
 	// 아래 방법도 되지만 Error handling 위해 Promise를 활용
 	// await pytorch_model(req.session.input)
 
+})
+
+
+// output using request parameters
+
+router.get('/output-params/:img_id', async (req,res)=>{
+
+	// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
+	// 	if (err){
+	// 		throw err
+	// 	}
+	// 	else {
+	// 		console.log(result + 'from /img/upload')
+	// 	}
+	// })
+
+	console.log('img output(params method) router activated')
+
+	console.log('params input', req.params)
+
+	if (req.params.img_id){
+		await pytorch_model(req.params.img_id).then((prc_id) =>{
+			console.log(prc_id)
+			const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
+			const processed_img_encoded = Buffer.from(processed_img).toString('base64')
+			res.json({status:200,output:processed_img_encoded})
+		}).catch((err)=>{
+			console.error(err)
+			res.json({status:404})
+		})
+	} else {
+		console.error('no img_id in request parameter')
+		res.json({status:404,err_msg:'img_id for output undefined'})
+	}
+	
 })
 
 module.exports = router
