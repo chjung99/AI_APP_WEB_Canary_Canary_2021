@@ -54,7 +54,7 @@ $ yarn start or npm run start
  <tr>
   <td></td>
   <td>Name</td>
-  <td>Rolo</td>
+  <td>Role</td>
   <td>github</td>
   <td>e-mail</td>
  </tr>
@@ -111,6 +111,6 @@ $ yarn start or npm run start
 
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
- * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
+ * [GNU GPL](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/LICENSE)
 
-This project is licensed under the terms of the MIT license.
+This project is licensed under the terms of the GPL license.
