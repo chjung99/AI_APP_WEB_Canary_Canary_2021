@@ -29,7 +29,7 @@ router.post('/upload',async (req,res)=>{
 	const decoded_img = Buffer.from(uploaded_img_binary,'base64')
 	
 	const img_id = 'decoded' + Date.now()
-
+	console.log('uploaded img_id : ', img_id)
 	req.session.input = img_id
 
 	await fs.writeFile(`org_images/${img_id}.jpg`, decoded_img ,(err)=>{
@@ -66,18 +66,22 @@ router.get('/output', async (req,res)=>{
 	console.log('img output router activated')
 	console.log(req.session)
 	console.log('session input:' , req.session.input)
+	if (req.session.input){
+		await pytorch_model(req.session.input).then((prc_id) =>{
+			console.log(prc_id)
+			const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
+			const processed_img_encoded = Buffer.from(processed_img).toString('base64')
+			res.json({status:200,output:processed_img_encoded})
+		}).catch((err)=>{
+			console.error(err)
+			res.json({status:404})
+		})
+	} else {
+		console.error('no img_id in request.session')
+	}
 
-	await pytorch_model(req.session.input).then((prc_id) =>{
-		console.log(prc_id)
-		const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
-		const processed_img_encoded = Buffer.from(processed_img).toString('base64')
-		res.json({status:200,output:processed_img_encoded})
-	}).catch((err)=>{
-		console.error(err)
-		res.json({status:404})
-	})
 
-	// 이 방법도 되지만 Error handling 위해 Promise를 활용
+	// 아래 방법도 되지만 Error handling 위해 Promise를 활용
 	// await pytorch_model(req.session.input)
 
 })
