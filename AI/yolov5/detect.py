@@ -20,6 +20,8 @@ def attemp_download_weight():
     for Id, file_name in ((yolov5s6_id, 'yolov5s6.pt'), (yolov5m6_id, 'yolov5m6.pt'), (yolov5l6_id, 'yolov5l6.pt')):
         gdd.download_file_from_google_drive(file_id=Id, dest_path=f'weight/{file_name}', showsize=True)
 
+def mosaic()
+
 def detect(input_image_path, output_image_path, weight_path):
 # Model
     model = torch.hub.load('ultralytics/yolov5', 'custom', path=weight_path)
