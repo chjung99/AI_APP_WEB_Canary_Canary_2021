@@ -4,7 +4,7 @@
 # docker build --tag canary_yolo:{version} .
 
 # docker run image
-# sudo docker run -it canary_yolo:1.1 /bin/bash
+# sudo docker run -it canary_yolo:{version} /bin/bash
 
 # We don't need large linux image! Running on azureml
 FROM debian:buster
@@ -12,7 +12,7 @@ FROM debian:buster
 # TEAM Canary OSAM
 LABEL email="zheedong@gmial.com"
 LABEL name="Canary"
-LABEL version="1.0"
+LABEL version="1.1"
 LABEL description="OSAM Hackerthon"
 
 # Install linux packages
@@ -43,8 +43,8 @@ RUN python3 -m pip install --no-cache -r requirements.txt
 # RUN export PATH=/Users/docker/Library/Python/3.7/bin:$PATH
 
 # requirements for detection
-# RUN python3 -m pip install --no-cache -qr https://raw.githubusercontent.com/ultralytics/yolov5/master/requirements.txt
-# RUN python3 -m pip install opencv-python googledrivedownloader
+RUN python3 -m pip install --no-cache -qr https://raw.githubusercontent.com/ultralytics/yolov5/master/requirements.txt
+RUN python3 -m pip install opencv-python googledrivedownloader
 
 # Create working directory
 RUN sudo mkdir -p /usr/src/app
