@@ -59,7 +59,7 @@ ENV HOME=/usr/src/app
 # Usage Examples -------------------------------------------------------------------------------------------------------
 
 # Train
-ENTRYPOINT ["sudo", "python3", "train_with_azure.py"]
+# ENTRYPOINT ["sudo", "python3", "train_with_azure.py"]
 
 # Detect
 # ENTRYPOINT ["sudo", "python3", "detect.py"]
