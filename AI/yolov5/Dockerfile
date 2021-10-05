@@ -1,7 +1,13 @@
 # YOLOv5 🚀 by Ultralytics, GPL-3.0 license
 
-# Start FROM Nvidia PyTorch image https://ngc.nvidia.com/catalog/containers/nvidia:pytorch
-FROM nvcr.io/nvidia/pytorch:21.05-py3
+# docker image build
+# docker build --tag canary_yolo:{version} .
+
+# docker run image
+# sudo docker run -it canary_yolo:1.1 /bin/bash
+
+# We don't need large linux image! Running on azureml
+FROM debian:buster
 
 # TEAM Canary OSAM
 LABEL email="zheedong@gmial.com"
@@ -12,15 +18,9 @@ LABEL description="OSAM Hackerthon"
 # Install linux packages
 RUN apt update && apt install -y zip htop screen libgl1-mesa-glx
 
-# Install python dependencies
-COPY requirements.txt .
-RUN python -m pip install --upgrade pip
-RUN pip uninstall -y nvidia-tensorboard nvidia-tensorboard-plugin-dlprof
-RUN pip install --no-cache -r requirements.txt coremltools onnx gsutil notebook wandb>=0.12.2
-RUN pip install --no-cache -U torch torchvision numpy
-# RUN pip install --no-cache torch==1.9.1+cu111 torchvision==0.10.1+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+RUN apt-get install python3 -y
+RUN apt-get install python3-pip -y
 
-# New Added Start
 # Install sudo
 RUN apt-get update \
  && apt-get install -y sudo
@@ -29,15 +29,25 @@ RUN adduser --disabled-password --gecos '' docker
 RUN adduser docker sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-USER docker
+# USER docker
 
 # libffi package 연결
-RUN sudo ln -s /usr/lib/x86_64-linux-gnu/libffi.so.7 /usr/lib/x86_64-linux-gnu/libffi.so.6
+# RUN sudo ln -s /usr/lib/x86_64-linux-gnu/libffi.so.7 /usr/lib/x86_64-linux-gnu/libffi.so.6
 
-# New Added End
+# Install python dependencies
+COPY requirements.txt .
+RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install --no-cache -r requirements.txt 
+
+# TODO : Add python to PATH
+# RUN export PATH=/Users/docker/Library/Python/3.7/bin:$PATH
+
+# requirements for detection
+# RUN python3 -m pip install --no-cache -qr https://raw.githubusercontent.com/ultralytics/yolov5/master/requirements.txt
+# RUN python3 -m pip install opencv-python googledrivedownloader
 
 # Create working directory
-RUN mkdir -p /usr/src/app
+RUN sudo mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Copy contents
@@ -48,32 +58,8 @@ ENV HOME=/usr/src/app
 
 # Usage Examples -------------------------------------------------------------------------------------------------------
 
-# Build and Push
-# t=ultralytics/yolov5:latest && sudo docker build -t $t . && sudo docker push $t
+# Train
+ENTRYPOINT ["sudo", "python3", "train_with_azure.py"]
 
-# Pull and Run
-# t=ultralytics/yolov5:latest && sudo docker pull $t && sudo docker run -it --ipc=host --gpus all $t
-
-# Pull and Run with local directory access
-# t=ultralytics/yolov5:latest && sudo docker pull $t && sudo docker run -it --ipc=host --gpus all -v "$(pwd)"/datasets:/usr/src/datasets $t
-
-# Kill all
-# sudo docker kill $(sudo docker ps -q)
-
-# Kill all image-based
-# sudo docker kill $(sudo docker ps -qa --filter ancestor=ultralytics/yolov5:latest)
-
-# Bash into running container
-# sudo docker exec -it 5a9b5863d93d bash
-
-# Bash into stopped container
-# id=$(sudo docker ps -qa) && sudo docker start $id && sudo docker exec -it $id bash
-
-# Clean up
-# docker system prune -a --volumes
-
-# Update Ubuntu drivers
-# https://www.maketecheasier.com/install-nvidia-drivers-ubuntu/
-
-# DDP test
-# python -m torch.distributed.run --nproc_per_node 2 --master_port 1 train.py --epochs 3
+# Detect
+# ENTRYPOINT ["sudo", "python3", "detect.py"]
