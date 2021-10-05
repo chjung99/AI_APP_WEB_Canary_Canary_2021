@@ -337,12 +337,11 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
 
             # Forward
             with amp.autocast(enabled=cuda):
-                target = targets.to(device)
+                targets = targets.to(device)
                 
                 if distilation:
-                    pred, features, _ = model(imgs, target=target)  # forward
-                    _, teacher_feature, mask = teacher_model(imgs, target=target) 
-                    # print(features.shape, teacher_feature.shape)
+                    pred, features, _ = model(imgs, target=targets)  # forward
+                    _, teacher_feature, mask = teacher_model(imgs, target=targets) 
                     loss, loss_items = compute_loss(pred, targets, stu_feature_adapt(features), teacher_feature.detach(), mask.detach())  # loss scaled by batch_size
                 else:
                     pred = model(imgs)
