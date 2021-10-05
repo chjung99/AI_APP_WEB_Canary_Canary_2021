@@ -54,7 +54,7 @@ $ yarn start or npm run start
  <tr>
   <td></td>
   <td>Name</td>
-  <td>Rolo</td>
+  <td>Role</td>
   <td>github</td>
   <td>e-mail</td>
  </tr>

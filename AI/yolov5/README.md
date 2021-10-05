@@ -3,14 +3,16 @@
 ## Prepare dataset
 ```
 pip install -r requirements.txt
+cd datasetup
 python download_imagenet_data.py
 python download_custom_data.py
 ```
 
 ## Train yolov5
 ```
+cd ..
 git clone https://github.com/ultralytics/yolov5 clone_code
-mv dataset clone_code
+mv datasetup/dataset clone_code
 cd clone_code
 mv dataset/dataset.yaml data/dataset.yaml
 pip install -r requirements.txt
