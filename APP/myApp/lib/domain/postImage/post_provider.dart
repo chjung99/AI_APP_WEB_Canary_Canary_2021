@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:praticesig/domain/postImage/post.dart';
@@ -9,10 +11,14 @@ var host3 = Uri.parse(
 
 //통신
 class PostProvider extends GetConnect {
-  Future<http.Response> postImage(Map data) => http.post(host2,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: data);
+  Future<http.Response> postImage(String img_binary) => http.post(
+        host2,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          "img_binary": img_binary,
+        }),
+      );
   Future<http.Response> getImage() => http.get(host3);
 }

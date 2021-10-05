@@ -1,10 +1,12 @@
 class Post {
-  final String output;
+  final String imd_id;
 
   Post({
-    required this.output,
+    required this.imd_id,
   });
 
   //통신을 위해서 json처럼 생긴 문자열 : ex => {"id":1} => Dart 오브젝트
-  Post.fromJson(Map<String, dynamic> json) : output = json["output"];
+  factory Post.fromJson(Map<String, dynamic> json) {
+    return Post(imd_id: json['imd_id']);
+  }
 }

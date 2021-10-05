@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:praticesig/components/button_style.dart';
 import 'package:praticesig/components/logo.dart';
+import 'package:praticesig/pages/pick_image_page.dart';
 
 import 'package:praticesig/pages/post_username_page.dart';
 
@@ -66,7 +67,7 @@ class HomePage extends StatelessWidget {
             TextButton(
               child: const GradationButton(title: "go"),
               onPressed: () {
-                Get.to(() => PostUserNamePage());
+                Get.to(() => PickImagePage());
               },
             ),
             const SizedBox(height: 8.0),

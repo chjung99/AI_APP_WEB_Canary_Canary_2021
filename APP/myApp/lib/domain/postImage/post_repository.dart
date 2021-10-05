@@ -11,21 +11,14 @@ class PostRepository {
   // https://codesearchonline.com/flutter-convert-image-base64/
   //https://stackoverflow.com/questions/46145472/how-to-convert-base64-string-into-image-with-flutter
 
-  Future<void> postImage(XFile image) async {
+  Future<Post> postImage(XFile image) async {
     final bytes = await image.readAsBytes();
     String _img64 = base64Encode(bytes);
-    ImageReqDto imageReqDto = ImageReqDto(_img64);
-    await _postProvider.postImage(imageReqDto.toJson());
-  }
-
-  Future<Post> get getImage async {
-    final response = await _postProvider.getImage();
-    dynamic body = response.bodyBytes;
+    final response = await _postProvider.postImage(_img64);
     if (response.statusCode == 200) {
-      Post post = Post.fromJson(body);
-      return post;
+      return Post.fromJson(jsonDecode((response.body)));
     } else {
-      return Post(output: "error");
+      throw Exception('Failed to create');
     }
   }
 }

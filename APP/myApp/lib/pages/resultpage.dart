@@ -1,48 +1,44 @@
+import 'dart:convert';
+import 'dart:html';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:praticesig/domain/postImage/post.dart';
-import 'package:praticesig/domain/postImage/post_repository.dart';
+import 'package:get/get.dart';
+import 'package:praticesig/domain/output/output.dart';
+import 'package:praticesig/domain/output/output_repository.dart';
 
 class ResultPage extends StatefulWidget {
-  const ResultPage({Key? key}) : super(key: key);
-
   @override
   _ResultPageState createState() => _ResultPageState();
 }
 
 class _ResultPageState extends State<ResultPage> {
-  late Future<Post> post;
-  final PostRepository p = PostRepository();
+  final OutputRepository o = OutputRepository();
+  var value = Get.arguments;
+  late Future<Output> outputImage;
   @override
   void initState() {
     super.initState();
-    post = p.getImage;
+    var host3 =
+        "https://osamhack2021-ai-app-web-canary-canary-g4x9r75r6fq49-4000.githubpreview.dev/img/output-params/${value}";
+    outputImage = o.getImage(host3);
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fetch Data Example',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Diet-ListView'),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Fetch Data Example'),
-        ),
-        body: Center(
-          child: FutureBuilder<Post>(
-            future: post,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text(snapshot.data!.output);
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
-
-              // 기본적으로 로딩 Spinner를 보여줍니다.
-              return CircularProgressIndicator();
-            },
-          ),
+      body: Center(
+        child: FutureBuilder<Output>(
+          future: outputImage,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Image.memory(base64.decode(snapshot.data!.output));
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
         ),
       ),
     );
