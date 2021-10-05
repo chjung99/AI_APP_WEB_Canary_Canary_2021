@@ -11,3 +11,4 @@ requests==2.26.0
 tqdm==4.62.3
 typing-extensions==3.10.0.2
 urllib3==1.26.7
+azureml-core==1.34.0
