@@ -30,7 +30,7 @@ router.post('/upload',async (req,res)=>{
 	
 	const img_id = 'decoded_' + Date.now()
 	console.log('uploaded img_id : ', img_id)
-	req.session.input = img_id
+	req.session.img_id = img_id
 
 	await fs.writeFile(`org_images/${img_id}.jpg`, decoded_img ,(err)=>{
 		if (err){
@@ -66,11 +66,10 @@ router.get('/output', async (req,res)=>{
 	console.log('img output(session method) router activated')
 	console.log(req.session)
 
-	console.log('session input:' , req.session.input)
-	console.log(req.params.img_id)
-	if (req.params.img_id){
-		await pytorch_model(req.session.input).then((prc_id) =>{
-			console.log(prc_id)
+	console.log('session input img_d :' ,req.session.img_id)
+	if (req.session.img_id){
+		await pytorch_model(req.session.img_id).then((prc_id) =>{
+			console.log('process img : ' ,prc_id)
 			const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
 			const processed_img_encoded = Buffer.from(processed_img).toString('base64')
 			res.json({status:200,output:processed_img_encoded})
