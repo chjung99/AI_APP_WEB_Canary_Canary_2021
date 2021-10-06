@@ -32,8 +32,8 @@ def detect(input_image_path, output_image_path, weight_path)
     for xmin, ymin, xmax, ymax, conf, class_num in results.xyxy[0]:
         src = img[int(ymin): int(ymax), int(xmin): int(xmax)]   # 관심영역 지정
         
-        cx = (int(xmin) + int(xmax)) / 2
-        cy = (int(ymin) + int(ymax)) / 2
+        # cx = (int(xmin) + int(xmax)) / 2
+        # cy = (int(ymin) + int(ymax)) / 2
         
         small = cv2.resize(src, None, fx=ratio, fy=ratio, interpolation=cv2.INTER_NEAREST)
         src = cv2.resize(small, src.shape[:2][::-1], interpolation=cv2.INTER_NEAREST)
