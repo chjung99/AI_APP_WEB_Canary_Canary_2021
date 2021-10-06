@@ -174,7 +174,7 @@ class ComputeLoss:
         lcls *= self.hyp['cls']
         bs = tobj.shape[0]  # batch size
         
-        lmask = self.imitation_loss(teacher, student, mask) * 0.01
+        lmask = self.imitation_loss(teacher, student, mask) * 0.001
         
         return (lbox + lobj + lcls + lmask) * bs, torch.cat((lbox, lobj, lcls)).detach()
 
