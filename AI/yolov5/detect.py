@@ -42,12 +42,24 @@ def detect(args):
         print("Not yet!")
     else:
         for xmin, ymin, xmax, ymax, conf, class_num in results.xyxy[0]:
-            src = img[int(ymin): int(ymax), int(xmin): int(xmax)]   # 관심영역 지정
-            
+            if class_num == 1 or 6:
+                print("Military uniform or bulletproof vest detected. Pass mosaic")
+                continue
+
+            xmin = int(xmin); xmax = int(xmax); ymin = int(ymin); ymax = int(ymax);
+
+            #img_100 = img[:, :]
+            #img_75 = img[:, :]
+            #img_50 = img[:, :]
+
+            src = img[ymin: ymax, xmin: xmax]   # 관심영역 지정
+            #cx = (xmin + xmax) / 2
+            #cy = (ymin + ymax) / 2  # center value 지정
+
             small = cv2.resize(src, None, fx=MOSAIC_RATIO, fy=MOSAIC_RATIO, interpolation=cv2.INTER_NEAREST)
             src = cv2.resize(small, src.shape[:2][::-1], interpolation=cv2.INTER_NEAREST)
             
-            img[int(ymin): int(ymax), int(xmin): int(xmax)] = src   # 원본 이미지에 적용
+            img[ymin: ymax, xmin: xmax] = src   # 원본 이미지에 적용
         cv2.imwrite(output_image_path, img)
 
 parser = argparse.ArgumentParser(description='Process some integers.')
@@ -55,6 +67,7 @@ parser.add_argument('--input_image_path', '-i')
 parser.add_argument('--output_image_path', '-o')
 parser.add_argument('--weight_path', '-w')
 parser.add_argument('--blur', '-b', action="store_true")
+# parser.add_argument('--strength', '-s', type='int', default=100, choices=[50, 75, 100])
 
 args = parser.parse_args()
 
