@@ -42,6 +42,9 @@ RUN python3 -m pip install --no-cache -r requirements.txt
 # TODO : Add python to PATH
 # RUN export PATH=/Users/docker/Library/Python/3.7/bin:$PATH
 
+# AzureML package
+RUN python3 -m pip install --no-cache azureml-core
+
 # requirements for detection
 RUN python3 -m pip install --no-cache -qr https://raw.githubusercontent.com/ultralytics/yolov5/master/requirements.txt
 RUN python3 -m pip install opencv-python googledrivedownloader
