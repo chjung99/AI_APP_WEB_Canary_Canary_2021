@@ -29,7 +29,7 @@ try:
 except:
     print('Workspace not found')
 
-project_folder = './kwoledge_distillation_이었던_것'
+project_folder = './clone_code'
 
 try:
     compute_target = ComputeTarget(workspace=ws, name=cluster_name)
@@ -38,7 +38,7 @@ except ComputeTargetException:
     print('Not Found Exsiting Target Cluster')
 
 # Specify a GPU base image
-DEPLOY_CONTAINER_FOLDER_PATH = 'kwoledge_distillation_이었던_것'
+DEPLOY_CONTAINER_FOLDER_PATH = 'clone_code'
 SCRIPT_FILE_TO_EXECUTE = 'train.py'
 PATH_TO_YAML_FILE='./conda_dependencies.yml'
 
@@ -48,11 +48,11 @@ pytorch_env.docker.base_image = 'mcr.microsoft.com/azureml/openmpi3.1.2-cuda10.1
 # Finally, use the environment in the ScriptRunConfig:
 src = ScriptRunConfig(source_directory=DEPLOY_CONTAINER_FOLDER_PATH,
                       script=SCRIPT_FILE_TO_EXECUTE,
-                      arguments=['--img', 640, '--batch', 16, '--epochs', 30, '--data', 'data/dataset.yaml', '--weights', 'yolov5m6.pt'],
+                      arguments=['--img', 640, '--batch', 32, '--epochs', 30, '--data', 'data/dataset.yaml', '--weights', 'yolov5m6.pt'],
                       compute_target=compute_target,
                       environment=pytorch_env)
 
-run = Experiment(ws, name='canary_yolov5').submit(src)
+run = Experiment(ws, name='canary_yolov5_knowledge_distillation').submit(src)
 run.wait_for_completion(show_output=True)
 
 os.makedirs('./model', exist_ok=True)

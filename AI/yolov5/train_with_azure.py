@@ -44,7 +44,10 @@ PATH_TO_YAML_FILE='./conda_dependencies.yml'
 
 pytorch_env = Environment.from_conda_specification(name='pytorch_env', file_path=PATH_TO_YAML_FILE)
 #pytorch_env.docker.enabled = True
-pytorch_env.docker.base_image = 'mcr.microsoft.com/azureml/openmpi3.1.2-cuda10.1-cudnn7-ubuntu18.04'
+
+pytorch_env.docker.base_image = None
+pytorch_env.docker.base_dockerfile = "./Dockerfile"
+
 # Finally, use the environment in the ScriptRunConfig:
 src = ScriptRunConfig(source_directory=DEPLOY_CONTAINER_FOLDER_PATH,
                       script=SCRIPT_FILE_TO_EXECUTE,
