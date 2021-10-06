@@ -72,4 +72,8 @@ parser.add_argument('--blur', '-b', action="store_true")
 args = parser.parse_args()
 
 attemp_download_weight()
+<<<<<<< HEAD
 detect(args)
+=======
+detect(args.input_image_path, argparse.output_image_path, args.weight_path)
+>>>>>>> fab6978ac4c70aa1568afe351955c0620967277a
