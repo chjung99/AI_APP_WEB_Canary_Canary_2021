@@ -21,10 +21,16 @@ const storage = multer.diskStorage({
 		// 		throw error
 		// 	}
 		// })
-	}
+	}	
 })
 
 const upload = multer({storage:storage})
+
+router.get('/get-session',(req,res)=>{
+	console.log('testing get-session')
+	console.log(req.session)
+	res.send({status:'successful',session:req.session})
+})
 
 // axios로 post request testing
 router.get('/connection',async (req,res)=>{

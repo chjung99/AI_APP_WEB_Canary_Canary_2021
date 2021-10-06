@@ -113,4 +113,4 @@ $ yarn start or npm run start
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
  * [GNU GPL](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/LICENSE)
 
-This project is licensed under the terms of the GPL license.
+This project is licensed under the terms of the GNU GPL license.
