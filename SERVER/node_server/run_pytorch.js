@@ -1,13 +1,19 @@
 const spawn = require('child_process').spawn
 
+const yolov5_dir = '/workspaces/AI_APP_WEB_Canary_Canary/AI/yolov5'
+console.log(yolov5_dir)
+
 function pytorch_model(upload_img) {
     // Promise return function
     return new Promise((res,rej)=>{
         console.log('pytorch model activated')
         console.log(upload_img)
     
-        const PytorchProcess = spawn('python3',['./yolov5/detect.py','-w','./yolov5/weight/yolov5m6.pt','-i', `./org_images/${upload_img}.jpg`,'-o',`./prc_images/prc_${upload_img}.jpg`])
+        // const PytorchProcess = spawn('python3',['./yolov5/detect.py','-w','./yolov5/weight/yolov5m6.pt','-i', `./org_images/${upload_img}.jpg`,'-o',`./prc_images/prc_${upload_img}.jpg`])
     
+        const PytorchProcess = spawn('python3',[`${yolov5_dir}/detect.py`,'-w',`${yolov5_dir}/weight/yolov5m6.py`,'-i', `./org_images/${upload_img}.jpg`,'-o',`./prc_images/prc_${upload_img}.jpg`])
+    
+
         PytorchProcess.stdout.on('data', (data) =>{
             console.log('python-pytorch Process Done')
             console.log(data.toString())
