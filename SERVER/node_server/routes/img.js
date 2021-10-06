@@ -91,7 +91,7 @@ router.get('/output', async (req,res)=>{
 
 // output using request parameters
 
-router.get('/output-params/:img_id', async (req,res)=>{
+router.get('/output-params/:img_id/:level', async (req,res)=>{
 
 	// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
 	// 	if (err){
@@ -120,6 +120,7 @@ router.get('/output-params/:img_id', async (req,res)=>{
 		console.error('no img_id in request parameter')
 		res.json({status:404,err_msg:'img_id for output undefined'})
 	}
+	res.json({status:200})
 	
 })
 
