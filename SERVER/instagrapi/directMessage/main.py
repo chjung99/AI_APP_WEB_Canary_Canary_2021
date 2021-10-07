@@ -1,6 +1,7 @@
 from instagrapi import Client
 from instagrapi.types import Location, StoryMention, StoryLocation, StoryLink, StoryHashtag
 import datetime
+import json
 
 id = 'osam_canary'
 password = 'admin0408'
@@ -47,6 +48,11 @@ def downloadImageForDetect(cl):
         
 def main():
     # Instagram Client Login
+    with open('./instagram_config.json') as json_file:
+        instagram_config = json.load(json_file)
+    id = instagram_config['id']
+    password = instagram_config['password']
+
     cl = getLoginedClient(id, password)
 
     # TODO : Unread한 DM에서 사진 경로 받기
