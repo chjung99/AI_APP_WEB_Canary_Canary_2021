@@ -69,10 +69,6 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
     
     if opt.teacher_weight:
         teacher_weight = opt.teacher_weight
-    
-    stu_feature_adapt = nn.Sequential(nn.Conv2d(768, 1024, 3, padding=1),
-                                              nn.ReLU()).to(device)
-    
 
     # Directories
     w = save_dir / 'weights'  # weights dir
@@ -297,6 +293,20 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
                 f'Using {train_loader.num_workers} dataloader workers\n'
                 f"Logging results to {colorstr('bold', save_dir)}\n"
                 f'Starting training for {epochs} epochs...')
+                
+    
+    if opt.teacher_weight:
+        dump_image = torch.zeros((1, 3, opt.imgsz, opt.imgsz), device=device)
+        targets = torch.Tensor([[0, 0, 0, 0, 0, 0]], device=device)
+        _, features, _ = model(dump_image, target=targets)  # forward
+        _, teacher_feature, _ = teacher_model(dump_image, target=targets) 
+        
+        _, student_channel, student_out_size, _ = features.shape
+        _, teacher_channel, teacher_out_size, _ = teacher_feature.shape
+        
+        stu_feature_adapt = nn.Sequential(nn.Conv2d(student_channel, teacher_channel, 3, padding=1, stride=int(student_out_size / teacher_out_size)), nn.ReLU()).to(device)
+                  
+                
     for epoch in range(start_epoch, epochs):  # epoch ------------------------------------------------------------------
         model.train()
         if opt.teacher_weight:
