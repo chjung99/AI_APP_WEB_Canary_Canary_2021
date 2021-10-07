@@ -52,6 +52,7 @@ def detect(args):
             #img_75 = img[:, :]
             #img_50 = img[:, :]
 
+
             #cx = (xmin + xmax) / 2
             #cy = (ymin + ymax) / 2  # center value 지정
             #xlen = (xmax - cx) * str / 100
@@ -63,6 +64,7 @@ def detect(args):
             #xmax_scaled = cx + xlen 
 
             src = img[ymin: ymax, xmin: xmax]   # 관심영역 지정
+
 
             small = cv2.resize(src, None, fx=MOSAIC_RATIO, fy=MOSAIC_RATIO, interpolation=cv2.INTER_NEAREST)
             src = cv2.resize(small, src.shape[:2][::-1], interpolation=cv2.INTER_NEAREST)
@@ -76,8 +78,10 @@ parser.add_argument('--output_image_path', '-o')
 parser.add_argument('--weight_path', '-w')
 parser.add_argument('--blur', '-b', action="store_true")
 # parser.add_argument('--strength', '-s', type='int', default=100, choices=[50, 75, 100])
+
 # TODO: arg로 mosaic 강도를 입력받고, 그 만큼 면적을 줄여서 return
 # TODO: output_warning_path를 입력받아 군복, 방탄조끼 class가 포함되어 있을 시 경고문 전달?
+
 
 args = parser.parse_args()
 
