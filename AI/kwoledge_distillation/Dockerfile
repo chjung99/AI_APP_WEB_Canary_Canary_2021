@@ -1,58 +1,105 @@
-# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License.
 
-# Start FROM Nvidia PyTorch image https://ngc.nvidia.com/catalog/containers/nvidia:pytorch
-FROM nvcr.io/nvidia/pytorch:21.05-py3
+FROM mcr.microsoft.com/azureml/o16n-base/python-assets:20210210.31228572 AS inferencing-assets
 
-# Install linux packages
-RUN apt update && apt install -y zip htop screen libgl1-mesa-glx
+FROM nvidia/cuda@sha256:27f07b36cf5dbf9c148ade5795e53932c421c9526143afc83e4f9dc55fb618fd
 
-# Install python dependencies
-COPY requirements.txt .
-RUN python -m pip install --upgrade pip
-RUN pip uninstall -y nvidia-tensorboard nvidia-tensorboard-plugin-dlprof
-RUN pip install --no-cache -r requirements.txt coremltools onnx gsutil notebook wandb>=0.12.2
-RUN pip install --no-cache -U torch torchvision numpy
-# RUN pip install --no-cache torch==1.9.1+cu111 torchvision==0.10.1+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+USER root:root
+ENV com.nvidia.cuda.version $CUDA_VERSION
+ENV com.nvidia.volumes.needed nvidia_driver
 
-# Create working directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+ENV DEBIAN_FRONTEND noninteractive
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64
 
-# Copy contents
-COPY . /usr/src/app
+# Install Common Dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    # SSH and RDMA
+    libmlx4-1 \
+    libmlx5-1 \
+    librdmacm1 \
+    libibverbs1 \
+    libmthca1 \
+    libdapl2 \
+    dapl2-utils \
+    openssh-client \
+    openssh-server \
+    iproute2 && \
+    # Others
+    apt-get install -y \
+    build-essential \
+    bzip2 \
+    libbz2-1.0 \
+    systemd \
+    git \
+    wget \
+    cpio \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libssl1.0.0 \
+    libsqlite3-0 \
+    libsasl2-2 \
+    libgcrypt20 \
+    slapd \
+    ca-certificates \
+    perl \
+    zlib1g \
+    e2fsprogs \
+    krb5-kdc \
+    apt \
+    p11-kit \
+    libp11-kit0 \
+    tar \
+    fuse && \
+    apt-get clean -y && \
+    rm -rf /var/lib/apt/lists/*
 
-# Set environment variables
-ENV HOME=/usr/src/app
+# Inference
+# Copy logging utilities, nginx and rsyslog configuration files, IOT server binary, etc.
+COPY --from=inferencing-assets /artifacts /var/
+RUN /var/requirements/install_system_requirements.sh && \
+    cp /var/configuration/rsyslog.conf /etc/rsyslog.conf && \
+    cp /var/configuration/nginx.conf /etc/nginx/sites-available/app && \
+    ln -s /etc/nginx/sites-available/app /etc/nginx/sites-enabled/app && \
+    rm -f /etc/nginx/sites-enabled/default
+ENV SVDIR=/var/runit
+ENV WORKER_TIMEOUT=300
+EXPOSE 5001 8883 8888
 
+# Conda Environment
+ENV MINICONDA_VERSION py37_4.9.2
+ENV PATH /opt/miniconda/bin:$PATH
+RUN wget -qO /tmp/miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
+    bash /tmp/miniconda.sh -bf -p /opt/miniconda && \
+    conda clean -ay && \
+    rm -rf /opt/miniconda/pkgs && \
+    rm /tmp/miniconda.sh && \
+    find / -type d -name __pycache__ | xargs rm -rf
 
-# Usage Examples -------------------------------------------------------------------------------------------------------
+# Intel MPI installation
+ENV INTEL_MPI_VERSION 2018.3.222
+ENV PATH $PATH:/opt/intel/compilers_and_libraries/linux/mpi/bin64
+RUN cd /tmp && \
+    wget -q "http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/13063/l_mpi_${INTEL_MPI_VERSION}.tgz" && \
+    tar zxvf l_mpi_${INTEL_MPI_VERSION}.tgz && \
+    sed -i -e 's/^ACCEPT_EULA=decline/ACCEPT_EULA=accept/g' /tmp/l_mpi_${INTEL_MPI_VERSION}/silent.cfg && \
+    cd /tmp/l_mpi_${INTEL_MPI_VERSION} && \
+    ./install.sh -s silent.cfg --arch=intel64 && \
+    cd / && \
+    rm -rf /tmp/l_mpi_${INTEL_MPI_VERSION}* && \
+    rm -rf /opt/intel/compilers_and_libraries_${INTEL_MPI_VERSION}/linux/mpi/intel64/lib/debug* && \
+    echo "source /opt/intel/compilers_and_libraries_${INTEL_MPI_VERSION}/linux/mpi/intel64/bin/mpivars.sh" >> ~/.bashrc
 
-# Build and Push
-# t=ultralytics/yolov5:latest && sudo docker build -t $t . && sudo docker push $t
-
-# Pull and Run
-# t=ultralytics/yolov5:latest && sudo docker pull $t && sudo docker run -it --ipc=host --gpus all $t
-
-# Pull and Run with local directory access
-# t=ultralytics/yolov5:latest && sudo docker pull $t && sudo docker run -it --ipc=host --gpus all -v "$(pwd)"/datasets:/usr/src/datasets $t
-
-# Kill all
-# sudo docker kill $(sudo docker ps -q)
-
-# Kill all image-based
-# sudo docker kill $(sudo docker ps -qa --filter ancestor=ultralytics/yolov5:latest)
-
-# Bash into running container
-# sudo docker exec -it 5a9b5863d93d bash
-
-# Bash into stopped container
-# id=$(sudo docker ps -qa) && sudo docker start $id && sudo docker exec -it $id bash
-
-# Clean up
-# docker system prune -a --volumes
-
-# Update Ubuntu drivers
-# https://www.maketecheasier.com/install-nvidia-drivers-ubuntu/
-
-# DDP test
-# python -m torch.distributed.run --nproc_per_node 2 --master_port 1 train.py --epochs 3
+# Msodbcsql17 installation
+RUN apt-get update && \
+    apt-get install -y curl && \
+    curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
+    curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
+    apt-get update && \
+    ACCEPT_EULA=Y apt-get install -y msodbcsql17
+    
+RUN apt-get update
+RUN apt-get -y install libgl1-mesa-glx
