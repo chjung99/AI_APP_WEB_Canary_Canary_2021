@@ -535,9 +535,15 @@ class LoadImagesAndLabels(Dataset):  # for training/testing
 
         hyp = self.hyp
         mosaic = self.mosaic and random.random() < hyp['mosaic']
+
         if mosaic:
-            # Load mosaic
-            img, labels = load_mosaic(self, index)
+            mosaic_9 = hyp['mosaic_9'] != 0 and random.random() < hyp['mosaic_9']
+
+            if mosaic_9:
+                img, labels = load_mosaic9(self, index)
+            else:
+                # Load mosaic
+                img, labels = load_mosaic(self, index)
             shapes = None
 
             # MixUp augmentation
