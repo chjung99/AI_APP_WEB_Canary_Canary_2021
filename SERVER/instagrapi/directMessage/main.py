@@ -27,13 +27,16 @@ def getUnreadMessageListFromThread(thread):
     return thread.messages[0 : i-1]
 
 def getItemTypeOfMessage(message):
+    # Media Type {Photo : 1}
     return message.item_type
 
 def getImageFromMessage(message, cl):
-    if getItemTypeOfMessage(message) == 'image':
+    # Media Type {Photo : 1}
+    print(getItemTypeOfMessage(message))
+    if getItemTypeOfMessage(message) == 1:
         cl.photo_download(message.media.id, IMAGE_DOWNLOAD_PATH)
     else:
-        print("Not Image... Pass")
+        print("No Unread Images... Pass")
 
 def downloadImageForDetect(cl):
     unreadThreadList = listUnreadThread(cl)
