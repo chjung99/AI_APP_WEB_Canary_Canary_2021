@@ -31,11 +31,11 @@ def getUnreadMessageListFromThread(thread):
 def getItemTypeOfMessage(message):
     return message.item_type
 
-def getImageFromMessage(message):
+def getImageFromMessage(message, cl):
     if getItemTypeOfMessage(message) == 'image':
-        print("Success")
+        cl.photo_download(message.media.id)
     else:
-        print("Success22")
+        print("Not Image... Pass")
         
 def main():
     cl = getLoginedClient(id, password)
@@ -44,7 +44,7 @@ def main():
     for i in range(len(unreadThreadList)):
         unreadMessagesList = getUnreadMessageListFromThread(unreadThreadList[i])
         for j in range(len(unreadMessagesList)):
-            image = getImageFromMessage(unreadMessagesList[j])
+            image = getImageFromMessage(unreadMessagesList[j], cl)
 
 main()
     
