@@ -3,9 +3,6 @@ from instagrapi.types import Location, StoryMention, StoryLocation, StoryLink, S
 import datetime
 import json
 
-id = 'osam_canary'
-password = 'admin0408'
-
 CHECK_PER_INTERVAL = 100
 IMAGE_DOWNLOAD_PATH = './images'
 LAST_CHECK_TIME = datetime.datetime(2021, 10, 6, 13, 7, 50, 823287, tzinfo=datetime.timezone.utc) # Interval마다 변경될 예정
