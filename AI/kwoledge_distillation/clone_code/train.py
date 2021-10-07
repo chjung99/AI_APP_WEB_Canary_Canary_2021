@@ -32,7 +32,6 @@ FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
-ROOT = ROOT.relative_to(Path.cwd())  # relative
 
 import val  # for end-of-epoch mAP
 from models.experimental import attempt_load
@@ -297,7 +296,7 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
     
     if opt.teacher_weight:
         dump_image = torch.zeros((1, 3, opt.imgsz, opt.imgsz), device=device)
-        targets = torch.Tensor([[0, 0, 0, 0, 0, 0]], device=device)
+        targets = torch.Tensor([[0, 0, 0, 0, 0, 0]]).to(device)
         _, features, _ = model(dump_image, target=targets)  # forward
         _, teacher_feature, _ = teacher_model(dump_image, target=targets) 
         
@@ -529,7 +528,7 @@ def main(opt, callbacks=Callbacks()):
     if not os.path.exists('./outputs'): os.makedirs('./outputs')
     
     if not os.path.exists('./dataset.zip'):
-        gdd.download_file_from_google_drive(file_id='1cm3tbxCsj7fTKskmS4vCC2RXvW2O-Zt3', dest_path='./dataset.zip', showsize=True)
+        gdd.download_file_from_google_drive(file_id='1aX2m27L_CDfc5aO8ZylMTNAeOOr7028a', dest_path='./dataset.zip', showsize=True)
         
         with ZipFile('./dataset.zip', 'r') as zipObj:
             zipObj.extractall()
