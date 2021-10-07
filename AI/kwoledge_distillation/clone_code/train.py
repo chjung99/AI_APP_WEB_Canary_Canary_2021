@@ -32,7 +32,6 @@ FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
-ROOT = ROOT.relative_to(Path.cwd())  # relative
 
 import val  # for end-of-epoch mAP
 from models.experimental import attempt_load
@@ -529,7 +528,7 @@ def main(opt, callbacks=Callbacks()):
     if not os.path.exists('./outputs'): os.makedirs('./outputs')
     
     if not os.path.exists('./dataset.zip'):
-        gdd.download_file_from_google_drive(file_id='1cm3tbxCsj7fTKskmS4vCC2RXvW2O-Zt3', dest_path='./dataset.zip', showsize=True)
+        gdd.download_file_from_google_drive(file_id='1aX2m27L_CDfc5aO8ZylMTNAeOOr7028a', dest_path='./dataset.zip', showsize=True)
         
         with ZipFile('./dataset.zip', 'r') as zipObj:
             zipObj.extractall()
