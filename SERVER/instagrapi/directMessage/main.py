@@ -6,6 +6,7 @@ id = 'osam_canary'
 password = 'admin0408'
 
 CHECK_PER_INTERVAL = 100
+IMAGE_DOWNLOAD_PATH = './images'
 LAST_CHECK_TIME = datetime.datetime(2021, 10, 6, 13, 7, 50, 823287, tzinfo=datetime.timezone.utc)
 
 def getLoginedClient(instagramID, instagramPW):
@@ -33,24 +34,28 @@ def getItemTypeOfMessage(message):
 
 def getImageFromMessage(message, cl):
     if getItemTypeOfMessage(message) == 'image':
-        cl.photo_download(message.media.id)
+        cl.photo_download(message.media.id, IMAGE_DOWNLOAD_PATH)
     else:
         print("Not Image... Pass")
-        
-def main():
-    cl = getLoginedClient(id, password)
 
+def downloadImageForDetect(cl):
     unreadThreadList = listUnreadThread(cl)
+
     for i in range(len(unreadThreadList)):
         unreadMessagesList = getUnreadMessageListFromThread(unreadThreadList[i])
         for j in range(len(unreadMessagesList)):
-            image = getImageFromMessage(unreadMessagesList[j], cl)
+            getImageFromMessage(unreadMessagesList[j], cl)
+        
+def main():
+    # Instagram Client Login
+    cl = getLoginedClient(id, password)
+
+    # TODO : Unread한 DM에서 사진 경로 받기
+    downloadImageForDetect(cl)
+
+    # TODO : image를 download 한 후, Canary_YOLOv5 에서 detect.py 돌리기
+    # 처리 완료 했으면 이미지 삭제하기
+
+    # TODO : detect 된 결과를 DM으로 보내주기
 
 main()
-    
-
-# TODO : Unread한 DM에서 사진 경로 받기
-
-# TODO : image를 download 한 후, Canary_YOLOv5 에서 detect.py 돌리기
-
-# TODO : detect 된 결과를 DM으로 보내주기
