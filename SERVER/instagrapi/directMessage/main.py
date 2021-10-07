@@ -7,7 +7,7 @@ password = 'admin0408'
 
 CHECK_PER_INTERVAL = 100
 IMAGE_DOWNLOAD_PATH = './images'
-LAST_CHECK_TIME = datetime.datetime(2021, 10, 6, 13, 7, 50, 823287, tzinfo=datetime.timezone.utc)
+LAST_CHECK_TIME = datetime.datetime(2021, 10, 6, 13, 7, 50, 823287, tzinfo=datetime.timezone.utc) # Interval마다 변경될 예정
 
 def getLoginedClient(instagramID, instagramPW):
     cl = Client()
@@ -15,10 +15,9 @@ def getLoginedClient(instagramID, instagramPW):
     return cl
 
 # Thread : 채팅방
-# DM : 채팅
+# Message : 채팅
 
-def listUnreadThread(client):
-    cl = client
+def listUnreadThread(cl):
     unreadThreadList = cl.direct_threads(CHECK_PER_INTERVAL, 'unread')
     return unreadThreadList
 
