@@ -107,7 +107,7 @@ router.get('/output-params/:img_id/:level', async (req,res)=>{
 	console.log('params input', req.params)
 
 	if (req.params.img_id){
-		await pytorch_model(req.params.img_id).then((prc_id) =>{
+		await pytorch_model(req.params.img_id,req.params.level).then((prc_id) =>{
 			console.log(prc_id)
 			const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
 			const processed_img_encoded = Buffer.from(processed_img).toString('base64')
@@ -120,7 +120,6 @@ router.get('/output-params/:img_id/:level', async (req,res)=>{
 		console.error('no img_id in request parameter')
 		res.json({status:404,err_msg:'img_id for output undefined'})
 	}
-	res.json({status:200})
 	
 })
 
