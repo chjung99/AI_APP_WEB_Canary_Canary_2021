@@ -2,24 +2,11 @@ from instagrapi import Client
 from instagrapi.types import Location, StoryMention, StoryLocation, StoryLink, StoryHashtag
 import datetime
 import json
-import tqdm
 import os
-from AI.yolov5 import detect
 
 CHECK_PER_INTERVAL = 100
-IMAGE_DOWNLOAD_ROOT = './images'
+IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/images'
 LAST_CHECK_TIME = datetime.datetime(2021, 10, 6, 13, 7, 50, 823287, tzinfo=datetime.timezone.utc) # Interval마다 변경될 예정
-
-if __name__ == '__main__':
-	if __package__ is None:
-		import sys
-		from os import path
-		print(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) ))
-		sys.path.append(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) ))
-		from AI.yolov5 import detect
-	else:
-		from ......AI.yolov5 import detect
-
 
 def getLoginedClient(cl, instagramID, instagramPW):
     try:
@@ -78,7 +65,7 @@ def downloadImageForDetect(cl):
     
 def main():
     # Instagram Client Login
-    with open('./instagram_config.json') as json_file:
+    with open('/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/instagram_config.json') as json_file:
         instagram_config = json.load(json_file)
     id = instagram_config['id']
     password = instagram_config['password']
@@ -89,4 +76,4 @@ def main():
     # TODO : Unread한 DM에서 사진 경로 받기
     downloadImageForDetect(cl)
 
-# main()
+main()
