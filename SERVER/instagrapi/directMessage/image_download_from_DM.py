@@ -77,4 +77,4 @@ def main():
     # TODO : Unread한 DM에서 사진 경로 받기
     download_image_for_detect(cl)
 
-main()
+# main()

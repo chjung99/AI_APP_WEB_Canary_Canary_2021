@@ -1,7 +1,6 @@
 # TODO : image를 download 한 후, Canary_YOLOv5 에서 detect.py 돌리기
 # 처리 완료 했으면 이미지 삭제하기
 from tqdm import tqdm
-import argparse
 
 IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/images'
 IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/images_detect_output'
@@ -72,4 +71,4 @@ def main():
 
             detect(args)
 
-main()
+# main()

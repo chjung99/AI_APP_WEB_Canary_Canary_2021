@@ -7,4 +7,4 @@ pydantic==1.8.2
 moviepy==1.0.3
 pycryptodomex==3.9.9
 schedule
-aps scheduler
+apscheduler
