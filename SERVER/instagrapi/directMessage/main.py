@@ -2,9 +2,11 @@ from instagrapi import Client
 from instagrapi.types import Location, StoryMention, StoryLocation, StoryLink, StoryHashtag
 import datetime
 import json
+import tqdm
+import os
 
 CHECK_PER_INTERVAL = 100
-IMAGE_DOWNLOAD_PATH = './images'
+IMAGE_DOWNLOAD_ROOT = './images'
 LAST_CHECK_TIME = datetime.datetime(2021, 10, 6, 13, 7, 50, 823287, tzinfo=datetime.timezone.utc) # Interval마다 변경될 예정
 
 def getLoginedClient(instagramID, instagramPW):
@@ -18,32 +20,47 @@ def getLoginedClient(instagramID, instagramPW):
 def listUnreadThread(cl):
     unreadThreadList = cl.direct_threads(CHECK_PER_INTERVAL, 'unread')
     return unreadThreadList
+    pass
 
 def getUnreadMessageListFromThread(thread):
-    totalMessages = len(thread.messages)
-    for i in range(totalMessages):
+    totalMessagesNumber = len(thread.messages)
+    for i in range(0, totalMessagesNumber):
         if thread.messages[i].timestamp <= LAST_CHECK_TIME:
             break
-    return thread.messages[0 : i-1]
+    return thread.messages[0 : i+1]
 
-def getItemTypeOfMessage(message):
-    # Media Type {Photo : 1}
-    return message.item_type
+def getMediaTypeOfMessage(message):
+    # In case of text
+    if message.media == None:
+        return -1
+    else:
+        return message.media.media_type
+
+def makeDirectorySaveImages(message):
+    path = IMAGE_DOWNLOAD_ROOT + '/' + str(message.user_id)
+    try:
+        if not os.path.exists(path):
+            os.makedirs(path)
+    except OSError:
+        print("Error : Creating directory " + path)
+    return path
 
 def getImageFromMessage(message, cl):
     # Media Type {Photo : 1}
-    print(getItemTypeOfMessage(message))
-    if getItemTypeOfMessage(message) == 1:
-        cl.photo_download(message.media.id, IMAGE_DOWNLOAD_PATH)
+    if getMediaTypeOfMessage(message) == 1:
+        print("Media Type : Photo. Downloading...")
+        downloadPath = makeDirectorySaveImages(message)
+        cl.photo_download(message.media.id, downloadPath)
     else:
-        print("No Unread Images... Pass")
+        print("No Unread Images. Pass...")
 
 def downloadImageForDetect(cl):
     unreadThreadList = listUnreadThread(cl)
-
     for i in range(len(unreadThreadList)):
+        print("==Thread Number : %d =="  % i)
         unreadMessagesList = getUnreadMessageListFromThread(unreadThreadList[i])
         for j in range(len(unreadMessagesList)):
+            print("==Message Number : %d ==" % j)
             getImageFromMessage(unreadMessagesList[j], cl)
         
 def main():
@@ -52,9 +69,7 @@ def main():
         instagram_config = json.load(json_file)
     id = instagram_config['id']
     password = instagram_config['password']
-
     cl = getLoginedClient(id, password)
-
     # TODO : Unread한 DM에서 사진 경로 받기
     downloadImageForDetect(cl)
 
@@ -63,4 +78,4 @@ def main():
 
     # TODO : detect 된 결과를 DM으로 보내주기
 
-main()
+# main()
