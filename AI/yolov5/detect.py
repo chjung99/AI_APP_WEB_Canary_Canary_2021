@@ -105,4 +105,4 @@ parser.add_argument('--output_warning_path', '-o2', help='Warning text path')
 args = parser.parse_args()
 
 attemp_download_weight()
-detect(args)
+# detect(args)

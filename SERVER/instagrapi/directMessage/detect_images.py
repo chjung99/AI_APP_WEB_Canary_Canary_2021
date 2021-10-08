@@ -5,8 +5,16 @@ import argparse
 
 IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/images'
 IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/images_detect_output'
+WARNING_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/warning'
 
 import os
+
+class detectArgs:
+    input_image_path = ''
+    output_image_path = ''
+    weight_path = ''
+    blur = False
+    output_warning_path = ''
 
 if __name__ == '__main__':
 	if __package__ is None:
@@ -14,12 +22,21 @@ if __name__ == '__main__':
 		from os import path
 		# print(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) ))
 		sys.path.append(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) ))
-		from AI.yolov5.detect_instagram import *
+		from AI.yolov5.detect import *
 	else:
-		from ......AI.yolov5 import detect_instagram
+		from ......AI.yolov5 import detect
 
 def makeDirectorySaveImages(userOutputPath):
     path = f'{IMAGE_OUTPUT_ROOT}/{userOutputPath}'
+    try:
+        if not os.path.exists(path):
+            os.makedirs(path)
+    except OSError:
+        print("Error : Creating directory " + path)
+    return path
+
+def makeDirectorySaveWarning(userOutputPath):
+    path = f'{WARNING_OUTPUT_ROOT}/{userOutputPath}'
     try:
         if not os.path.exists(path):
             os.makedirs(path)
@@ -34,6 +51,8 @@ def detectWithCanary():
     for i in tqdm(range(0, testNeededUserNumber)):
         print("== User Number : %d ==" % i)
         makeDirectorySaveImages(testNeededUserList[i])
+        makeDirectorySaveWarning(testNeededUserList[i])
+
         testNeededPhotoList = os.listdir(f'{IMAGE_DOWNLOAD_ROOT}/{testNeededUserList[i]}')
         testNeededPhotoNumber = len(testNeededPhotoList)
 
@@ -45,8 +64,14 @@ def detectWithCanary():
 
             IMAGE_INPUT_PATH = f'{IMAGE_DOWNLOAD_ROOT}/{userPhotoPath}'
             IMAGE_OUTPUT_PATH = f'{IMAGE_OUTPUT_ROOT}/{userPhotoPath}'
+            WARNING_OUTPUT_PATH = f'{WARNING_OUTPUT_ROOT}/{userPhotoPath}'+('.txt')
 
-            args = {'input_image_path':IMAGE_INPUT_PATH, 'output_image_path':IMAGE_OUTPUT_PATH, 'weight_path':'./weight/yolov5m6.pt'}
+            args = detectArgs()
+            args.input_image_path = f'{IMAGE_INPUT_PATH}'
+            args.output_image_path = f'{IMAGE_OUTPUT_PATH}'
+            args.weight_path = './weight/yolov5m6.pt'
+            args.output_warning_path = f'{WARNING_OUTPUT_PATH}'
+
             detect(args)
                 
 
