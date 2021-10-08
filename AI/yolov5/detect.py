@@ -80,7 +80,10 @@ def detect(args):
             img[ymin: ymax, xmin: xmax] = src   # 원본 이미지에 적용
         cv2.imwrite(output_image_path, img)
         warn_list = ','.join(list(set(warn_list)))
-        warn_text = f'{warn_list}이/가 감지되었습니다. 해당 사진이 보안에 저촉된다면 삭제해주시길 바랍니다.'
+        if warn_list:
+            warn_text = f'{warn_list}이/가 감지되었습니다. 해당 사진이 보안에 저촉된다면 삭제해주시길 바랍니다.'
+        else:
+            warn_text = ''
         with open(output_warning_path, 'w') as f:
             f.write(warn_text)
 
@@ -88,12 +91,12 @@ def detect(args):
 
 
 parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--input_image_path', '-i')
-parser.add_argument('--output_image_path', '-o')
-parser.add_argument('--weight_path', '-w')
+parser.add_argument('--input_image_path', '-i', help='Input image path')
+parser.add_argument('--output_image_path', '-o', help='Output image path')
+parser.add_argument('--weight_path', '-w', help='Weight path')
 parser.add_argument('--blur', '-b', action="store_true")
 # parser.add_argument('--strength', '-s', type='int', default=100, choices=[50, 75, 100]) # test 후 결과에 따라 강도 조정 예정
-parser.add_argument('--output_warning_path', '-o2')
+parser.add_argument('--output_warning_path', '-o2', help='Warning text path')
 
 # TODO: arg로 mosaic 강도를 입력받고, 그 만큼 면적을 줄여서 return
 # TODO: output_warning_path를 입력받아 군복, 방탄조끼 class가 포함되어 있을 시 경고문 전달? 해결
