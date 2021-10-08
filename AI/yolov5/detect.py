@@ -55,29 +55,24 @@ def detect(args):
 
             xmin = int(xmin); xmax = int(xmax); ymin = int(ymin); ymax = int(ymax);
 
-            #img_100 = img[:, :]
-            #img_75 = img[:, :]
-            #img_50 = img[:, :]
+            cx = (xmin + xmax) / 2
+            cy = (ymin + ymax) / 2  # center value 지정
+            s = (str / 100) ** 2    # mosaic 영역 지정
+            xlen = (xmax - cx) * s
+            ylen = (ymax - cy) * s
 
+            ymin_scaled = cy - ylen 
+            ymax_scaled = cy + ylen 
+            xmin_scaled = cx - xlen
+            xmax_scaled = cx + xlen 
 
-            #cx = (xmin + xmax) / 2
-            #cy = (ymin + ymax) / 2  # center value 지정
-            #s = (str / 100) ** 2
-            #xlen = (xmax - cx) * s
-            #ylen = (ymax - cy) * s
-
-            #ymin_scaled = cy - ylen 
-            #ymax_scaled = cy + ylen 
-            #xmin_scaled = cx - xlen
-            #xmax_scaled = cx + xlen 
-
-            src = img[ymin: ymax, xmin: xmax]   # 관심영역 지정
-
+            src = img[ymin_scaled: ymax_scaled, xmin_scaled: xmax_scaled]   # 관심영역 지정
 
             small = cv2.resize(src, None, fx=MOSAIC_RATIO, fy=MOSAIC_RATIO, interpolation=cv2.INTER_NEAREST)
             src = cv2.resize(small, src.shape[:2][::-1], interpolation=cv2.INTER_NEAREST)
             
-            img[ymin: ymax, xmin: xmax] = src   # 원본 이미지에 적용
+            img[ymin_scaled: ymax_scaled, xmin_scaled: xmax_scaled] = src   # 원본 이미지에 적용
+
         cv2.imwrite(output_image_path, img)
         warn_list = ','.join(list(set(warn_list)))
         if warn_list:
@@ -95,7 +90,7 @@ parser.add_argument('--input_image_path', '-i', help='Input image path')
 parser.add_argument('--output_image_path', '-o', help='Output image path')
 parser.add_argument('--weight_path', '-w', help='Weight path')
 parser.add_argument('--blur', '-b', action="store_true")
-# parser.add_argument('--strength', '-s', type='int', default=100, choices=[50, 75, 100]) # test 후 결과에 따라 강도 조정 예정
+parser.add_argument('--strength', '-s', type='int', default=100, choices=[50, 75, 100]) # test 후 결과에 따라 강도 조정 예정
 parser.add_argument('--output_warning_path', '-o2', help='Warning text path')
 
 # TODO: arg로 mosaic 강도를 입력받고, 그 만큼 면적을 줄여서 return
