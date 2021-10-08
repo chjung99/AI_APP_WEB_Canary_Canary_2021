@@ -120,6 +120,8 @@ $ yarn start or npm run start
 - SNS 보안 강화
 Instagram의 Canary 계정을 팔로우한 계정들의 스토리, 게시글을 스캔하며 보안 위반 요소가 없는지 지속적으로 탐지할 수 있습니다.
 
+- 추가예정...
+
 ### 개선/발전 방향
 
 - 타 SNS와의 연계: 현재 Instagram 계정만 지원하는 경보기 기능을 facebook 등의 타 SNS에서도 지원함으로써 보안성을 강화할 수 있습니다.
