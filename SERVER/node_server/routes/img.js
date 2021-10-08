@@ -5,14 +5,14 @@ const fs = require('fs')
 // pytorch model import
 const pytorch_model = require('../run_pytorch')
 
-var db = mysql.createConnection({
-	host : 'localhost',
-	user : 'root',
-	password : process.env.db_password,
-	database : 'node_db'
-})
+// var db = mysql.createConnection({
+// 	host : 'localhost',
+// 	user : 'root',
+// 	password : process.env.db_password,
+// 	database : 'node_db'
+// })
 
-db.connect();
+// db.connect();
 
 router.get('/main',(req,res)=>{
 	// pytorch model child process testing

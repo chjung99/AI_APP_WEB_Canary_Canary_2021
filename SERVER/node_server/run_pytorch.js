@@ -1,6 +1,6 @@
 const spawn = require('child_process').spawn
 
-const yolov5_dir = '/workspaces/AI_APP_WEB_Canary_Canary/AI/yolov5'
+const yolov5_dir = '/workspace/AI_APP_WEB_Canary_Canary/AI/yolov5'
 console.log(yolov5_dir)
 
 function pytorch_model(upload_img) {
