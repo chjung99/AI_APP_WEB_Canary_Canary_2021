@@ -26,8 +26,17 @@ if __name__ == '__main__':
 	else:
 		from ......AI.yolov5 import detect
 
-def makeDirectorySaveImages(userOutputPath):
-    path = f'{IMAGE_OUTPUT_ROOT}/{userOutputPath}'
+def make_directory_save_images(user_output_path):
+    path = f'{IMAGE_OUTPUT_ROOT}/{user_output_path}'
+    try:
+        if not os.path.exists(path):
+            os.makedirs(path)
+    except OSError: 
+        print("Error : Creating directory " + path)
+    return path
+
+def make_directory_save_warning(user_output_path):
+    path = f'{WARNING_OUTPUT_ROOT}/{user_output_path}'
     try:
         if not os.path.exists(path):
             os.makedirs(path)
@@ -35,36 +44,25 @@ def makeDirectorySaveImages(userOutputPath):
         print("Error : Creating directory " + path)
     return path
 
-def makeDirectorySaveWarning(userOutputPath):
-    path = f'{WARNING_OUTPUT_ROOT}/{userOutputPath}'
-    try:
-        if not os.path.exists(path):
-            os.makedirs(path)
-    except OSError:
-        print("Error : Creating directory " + path)
-    return path
+def detect_with_canary():
+    test_needed_user_list = os.listdir(f'{IMAGE_DOWNLOAD_ROOT}')
+    test_needed_user_number = len(test_needed_user_list)
 
-def detectWithCanary():
-    testNeededUserList = os.listdir(f'{IMAGE_DOWNLOAD_ROOT}')
-    testNeededUserNumber = len(testNeededUserList)
-
-    for i in tqdm(range(0, testNeededUserNumber)):
+    for i in tqdm(range(0, test_needed_user_number)):
         print("== User Number : %d ==" % i)
-        makeDirectorySaveImages(testNeededUserList[i])
-        makeDirectorySaveWarning(testNeededUserList[i])
+        make_directory_save_images(test_needed_user_list[i])
+        make_directory_save_warning(test_needed_user_list[i])
 
-        testNeededPhotoList = os.listdir(f'{IMAGE_DOWNLOAD_ROOT}/{testNeededUserList[i]}')
-        testNeededPhotoNumber = len(testNeededPhotoList)
+        test_needed_photo_list = os.listdir(f'{IMAGE_DOWNLOAD_ROOT}/{test_needed_user_list[i]}')
+        test_needed_photo_number = len(testNeededPhotoList)
 
-        for j in range(0, testNeededPhotoNumber):
+        for j in range(0, test_needed_photo_number):
             print("== Photo Number : %d ==" % j)
-            parser = argparse.ArgumentParser()
+            user_photo_path = f'{test_needed_user_list[i]}/{test_needed_photo_list[j]}'
 
-            userPhotoPath = f'{testNeededUserList[i]}/{testNeededPhotoList[j]}'
-
-            IMAGE_INPUT_PATH = f'{IMAGE_DOWNLOAD_ROOT}/{userPhotoPath}'
-            IMAGE_OUTPUT_PATH = f'{IMAGE_OUTPUT_ROOT}/{userPhotoPath}'
-            WARNING_OUTPUT_PATH = f'{WARNING_OUTPUT_ROOT}/{userPhotoPath}'+('.txt')
+            IMAGE_INPUT_PATH = f'{IMAGE_DOWNLOAD_ROOT}/{user_photo_path}'
+            IMAGE_OUTPUT_PATH = f'{IMAGE_OUTPUT_ROOT}/{user_photo_path}'
+            WARNING_OUTPUT_PATH = f'{WARNING_OUTPUT_ROOT}/{user_photo_path}'+('.txt')
 
             args = detectArgs()
             args.input_image_path = f'{IMAGE_INPUT_PATH}'
@@ -76,6 +74,6 @@ def detectWithCanary():
                 
 
 def main():
-    detectWithCanary()
+    detect_with_canary()
 
 main()
