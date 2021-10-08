@@ -13,7 +13,7 @@
 Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 있는 요소를 식별하고, 이를 사용자에게 경고해주는 통합 보안 경보 시스템입니다. 
 카메라 기능과 SNS 탐지 기능으로 구성되어 있으며, 처리된 사진에는 워터마크가 들어가 처리 여부를 쉽게 식별할 수 있습니다.
 
-## 기획
+## 기획 문서 
 <details>
  <summary>주제</summary>
  
@@ -36,7 +36,6 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  
 </details>
 
-(Instagram bot 페르소나, 시나리오 필요)
 <details>
  <summary>사용자</summary>
  
@@ -55,6 +54,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  5. 모자이크가 된 사진을 SNS에 올려 자랑한다.
 </details>
 
+## 시스템 흐름도
 <details>
  <summary>서비스</summary>
  
@@ -66,60 +66,45 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  
  ### Architecture
  <img src="https://user-images.githubusercontent.com/40621030/134756413-d331fa9b-62f8-4dc4-a492-58dd53056a19.png"/>
- 
-  ### 앱 플로우
- <table>
-  <tr>
-   <img src="https://user-images.githubusercontent.com/40621030/134689804-f72fc601-00cb-462b-a332-a1bcb62ad8a1.png" width="230"/>
-   <img src="https://user-images.githubusercontent.com/40621030/134689811-03fca8d5-26fd-4678-a398-df31655ebae5.png" width="230"/>
-   <img src="https://user-images.githubusercontent.com/40621030/134689813-b89f9162-4e74-48c7-9ac6-57e22f355827.png" width="230"/>
-   <img src="https://user-images.githubusercontent.com/40621030/134689816-4aeb35f6-ca24-4bc4-a4b5-902318b8d895.png" width="230"/>
-   <img src="https://user-images.githubusercontent.com/40621030/134766861-33bf44f8-1330-43d2-91af-4a68f2432507.png" width="230"/>
-  </tr>
- </table> 
 </details>
 
-## 프로젝트 기능 설명
+## 화면 정의
+<table>
+ <tr>
+  <td><img src="https://user-images.githubusercontent.com/40621030/134689804-f72fc601-00cb-462b-a332-a1bcb62ad8a1.png" width="230"/></td>
+  <td><img src="https://user-images.githubusercontent.com/40621030/134689811-03fca8d5-26fd-4678-a398-df31655ebae5.png" width="230"/></td>
+  <td><img src="https://user-images.githubusercontent.com/40621030/134689813-b89f9162-4e74-48c7-9ac6-57e22f355827.png" width="230"/></td>
+ </tr>
+ <tr>
+  <td><img src="https://user-images.githubusercontent.com/40621030/134689816-4aeb35f6-ca24-4bc4-a4b5-902318b8d895.png" width="230"/></td>
+  <td><img src="https://user-images.githubusercontent.com/40621030/134766861-33bf44f8-1330-43d2-91af-4a68f2432507.png" width="230"/></td>
+ </tr>
+</table>
 
-### AI
+<details>
+ <summary>설명</summary>
+ 
+  앱을 처음 실행 시, 사용자는 자신의 성명과 군번을 통해 회원가입을 진행합니다. 이 정보는 암호화되어 저장됩니다.
 
-### APP
+  - **Canary Camera**(가제): 군 내부에서도 사용 가능한 카메라입니다. 촬영한 사진 안의 보안 위반 요소를 식별 후 모자이크 처리하여 반환합니다.
+  - **Instagram 경보기**(가제): 주요 sns 중 하나인 인스타그램 사용자의 보안 위반 여부를 탐지하고, 사용자에게 direct message로 경고해줍니다.
+  - ...
 
-앱을 처음 실행 시, 사용자는 자신의 성명과 군번을 통해 회원가입을 진행합니다. 이 정보는 암호화되어 저장됩니다.
+  사용자가 찍은 사진은 스마트폰에 바로 저장되지 않고 서버에 전송되어, 보안 위반 요소를 식별 후 적절한 강도로 모자이크 처리하여 반환됩니다.
+  보안 위반 요소는 사용자의 소속 부대 및 위치 식별 가능 여부, 기밀 유출 가능 여부 등을 고려하여 다음과 같이 선정하였습니다.
+  >총, 부대마크, 모니터, 서류, 표지판, 포, 차량, 탱크, 군용 비행기, 미사일, 항공모함  
 
-- **Canary Camera**(가제): 군 내부에서도 사용 가능한 카메라입니다. 촬영한 사진 안의 보안 위반 요소를 식별 후 모자이크 처리하여 반환합니다.
-- **Instagram 경보기**(가제): 주요 sns 중 하나인 인스타그램 사용자의 보안 위반 여부를 탐지하고, 사용자에게 direct message로 경고해줍니다.
-- ...
+  아래 요소의 경우 촬영 당시 맥락에 따라 보안 여부가 달라지므로, 모자이크 처리는 하지 않되 사용자에게 경고문을 전달합니다.
+  >군복, 방탄조끼
 
-#### Canary Camera(가제)
+  처리된 사진이 반환될 때, 앞서 서술한 성명과 군번을 암호화한 값이 포함된 워터마크가 남습니다. 이를 이용하여 사진 처리자의 신원을 파악하거나 이미지 처리 여부를 눈으로 식별할 수 있습니다.
 
-<img src="sample" alter="CameraCanary"/>
+  세부 기능은 다음과 같습니다.
 
-사용자가 찍은 사진은 스마트폰에 바로 저장되지 않고 서버에 전송되어, 보안 위반 요소를 식별 후 적절한 강도로 모자이크 처리하여 반환됩니다.
-보안 위반 요소는 사용자의 소속 부대 및 위치 식별 가능 여부, 기밀 유출 가능 여부 등을 고려하여 다음과 같이 선정하였습니다.
->총, 부대마크, 모니터, 서류, 표지판, 포, 차량, 탱크, 군용 비행기, 미사일, 항공모함  
-
-아래 요소의 경우 촬영 당시 맥락에 따라 보안 여부가 달라지므로, 모자이크 처리는 하지 않되 사용자에게 경고문을 전달합니다.
->군복, 방탄조끼
-
-처리된 사진이 반환될 때, 앞서 서술한 성명과 군번을 암호화한 값이 포함된 워터마크가 남습니다. 이를 이용하여 사진 처리자의 신원을 파악하거나 이미지 처리 여부를 눈으로 식별할 수 있습니다.
-
-세부 기능은 다음과 같습니다.
-
-- 카메라 모드: 사진을 촬영하고 서버로 전송하여 보안 위반 요소를 식별 후 적절한 강도로 모자이크 처리하여 반환됩니다.
-- 갤러리 모드: 갤러리에 이미 저장된 사진을 모자이크 할 필요가 있을 시, 해당 사진을 업로드하여 카메라로 촬영할 때와 동일하게 모자이크 처리를 할 수 있습니다.
-- 모자이크 강도 조절: 모자이크가 너무 강할 시 불필요한 부분까지 가릴 수 있습니다. 또는 지나치게 덜 가려서 보안 위반의 위험성이 사라지지 않을 수 있습니다. 사용자가 초기 반환 이미지의 모자이크 정도를 판단 후, 과하거나 부족하다면 강도를 약하게/세게 하여 다시 이미지를 처리합니다.
-
-#### Instagram 경보기
-
-<img src="sample" alter="InstagramCanary"/>
-
-### WEB
-
-
-
-#### (학습 자동화 기능 설명하기)
-
+  - 카메라 모드: 사진을 촬영하고 서버로 전송하여 보안 위반 요소를 식별 후 적절한 강도로 모자이크 처리하여 반환됩니다.
+  - 갤러리 모드: 갤러리에 이미 저장된 사진을 모자이크 할 필요가 있을 시, 해당 사진을 업로드하여 카메라로 촬영할 때와 동일하게 모자이크 처리를 할 수 있습니다.
+  - 모자이크 강도 조절: 모자이크가 너무 강할 시 불필요한 부분까지 가릴 수 있습니다. 또는 지나치게 덜 가려서 보안 위반의 위험성이 사라지지 않을 수 있습니다. 사용자가 초기 반환 이미지의 모자이크 정도를 판단 후, 과하거나 부족하다면 강도를 약하게/세게 하여 다시 이미지를 처리합니다.
+</details>
 
 ---
 
@@ -148,11 +133,33 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 ---
 
 ## 설치 안내 (Installation Process)
-```bash
-$ git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary
-$ yarn or npm install
-$ yarn start or npm run start
-```
+<details>
+ <summary>Flutter</summary>
+</details>
+<details>
+ <summary>Node js</summary>
+</details>
+<details>
+ <summary>Deep learning</summary>
+ 
+ ```bash
+ git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
+ cd AI_APP_WEB_Canary_Canary/AI/kwoledge_distillation/clone_code
+ pip install -r requirements.txt
+ 
+ cd datasetup
+ python download_imagenet_data.py
+ python download_custom_data.py 
+ 
+ git clone https://github.com/ultralytics/yolov5 clone_code
+ mv datasetup/dataset clone_code
+ cd clone_code
+ mv dataset/dataset.yaml data/dataset.yaml
+ 
+ pip install -r requirements.txt
+ python train.py --img 640 --batch 16 --epochs 3 --data data/dataset.yaml --weights yolov5m6.pt
+ ```
+</details>
 
 ---
 
@@ -172,33 +179,26 @@ $ yarn start or npm run start
 
 ## 프로젝트 전망
 
-(현재 주석 처리. 추가 필요)
-<!--
-- 장병 사기진작  
+- 장병 사기진작
 군 장병들은 본 어플을 활용함으로써 군 내부에서도 위에서 언급한 것과 같이 다양한 방식으로 카메라를 사용할 수 있을 것입니다. 또한, 제한받고 있던 자유에 대한 권리를 일부 인정함으로써 장병들에 대한 대우가 점차 나아지는 것은 물론, 장병들의 사기가 오르고 그간의 속박감에서 일부 벗어나 
 보다 활기차게 병영생활을 이어나갈 수 있으리라 기대됩니다.
 
-- SNS 보안 강화  
+- SNS 보안 강화
 Instagram의 Canary 계정을 팔로우한 계정들의 스토리, 게시글을 스캔하며 보안 위반 요소가 없는지 지속적으로 탐지할 수 있습니다.
 
 - 추가예정...
 
 ### 개선/발전 방향
 
-- 타 SNS와의 연계  
-현재 Instagram 계정만 지원하는 경보기 기능을 facebook 등의 타 SNS에서도 지원함으로써 보안성을 강화할 수 있습니다.
+- 타 SNS와의 연계: 현재 Instagram 계정만 지원하는 경보기 기능을 facebook 등의 타 SNS에서도 지원함으로써 보안성을 강화할 수 있습니다.
  
-- 아이폰 사용자  
-카메라 기능의 경우 Android용으로만 개발되었습니다. 아이폰 버전을 (~!##2%@#$^#$) 을 사용해 개발하여 더 많은 사용자가 서비스를 이용하게 할 수 있습니다.
+- 아이폰 사용자: 카메라 기능의 경우 Android용으로만 개발되었습니다. 아이폰 버전을 (~!##2%@#$^#$) 을 사용해 개발하여 더 많은 사용자가 서비스를 이용하게 할 수 있습니다.
  
-- 국방모바일보안 어플 연계  
-현재 카메라 차단을 담당하고 있는 해당 어플과 연계함으로써 카메라 차단/해제 기능을 활용해 사용자의 어플 강제종료를 막고, 사용성을 개선할 수 있습니다. 
+- 국방모바일보안 어플 연계: 현재 카메라 차단을 담당하고 있는 해당 어플과 연계함으로써 카메라 차단/해제 기능을 활용해 사용자의 어플 강제종료를 막고, 사용성을 개선할 수 있습니다. 
 
-- 국방인사정보체계 연계   
-어플 최초 실행 시 이름과 군번을 이용해 가입한다는 점에서 착안하여, 국방인사정보체계와 연계함으로써 사용자 관리가 수월해질 것입니다. 또 해당 서버를 사용함으로써 보안 사진을 일반 서버에 저장할 때 발생할 수 있는 문제를 해결하고 보안성을 강화할 수 있습니다.
+- 국방인사정보체계 연계: 어플 최초 실행 시 이름과 군번을 이용해 가입한다는 점에서 착안하여, 국방인사정보체계와 연계함으로써 사용자 관리가 수월해질 것입니다. 또 해당 서버를 사용함으로써 보안 사진을 일반 서버에 저장할 때 발생할 수 있는 문제를 해결하고 보안성을 강화할 수 있습니다.
 
 - 추가예정...
--->
 
 ---
 
