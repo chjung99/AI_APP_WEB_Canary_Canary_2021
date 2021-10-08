@@ -16,7 +16,8 @@ def attemp_download_weight():
         
     
     yolov5l6_id = '1sYHRy8uvBFJbNOPzOlzjEh3VUorHTy8S'
-    yolov5m6_id = '1F6e6fztaSjzY_XZMFqqrLJv-QDo5eQ_a'
+    # yolov5m6_id = '1F6e6fztaSjzY_XZMFqqrLJv-QDo5eQ_a'
+    yolov5m6_id = '12DrdFfrhuueleCF5awpJd6klBMuootT'
     yolov5s6_id = '1eAxFouSUlFlnMiooidbV3uI37hq5xXLo'
     
     for Id, file_name in ((yolov5s6_id, 'yolov5s6.pt'), (yolov5m6_id, 'yolov5m6.pt'), (yolov5l6_id, 'yolov5l6.pt')):
