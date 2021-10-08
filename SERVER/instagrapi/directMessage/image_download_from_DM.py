@@ -4,15 +4,28 @@ import datetime
 import json
 import tqdm
 import os
+from AI.yolov5 import detect
 
 CHECK_PER_INTERVAL = 100
 IMAGE_DOWNLOAD_ROOT = './images'
 LAST_CHECK_TIME = datetime.datetime(2021, 10, 6, 13, 7, 50, 823287, tzinfo=datetime.timezone.utc) # Interval마다 변경될 예정
 
-def getLoginedClient(instagramID, instagramPW):
-    cl = Client()
-    cl.login(instagramID,instagramPW)
-    return cl
+if __name__ == '__main__':
+	if __package__ is None:
+		import sys
+		from os import path
+		print(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) ))
+		sys.path.append(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) ))
+		from AI.yolov5 import detect
+	else:
+		from ......AI.yolov5 import detect
+
+
+def getLoginedClient(cl, instagramID, instagramPW):
+    try:
+        cl.account_info()
+    except:
+        cl.login(instagramID,instagramPW)
 
 # Thread : 채팅방
 # Message : 채팅
@@ -37,7 +50,7 @@ def getMediaTypeOfMessage(message):
         return message.media.media_type
 
 def makeDirectorySaveImages(message):
-    path = IMAGE_DOWNLOAD_ROOT + '/' + str(message.user_id)
+    path = f'{IMAGE_DOWNLOAD_ROOT}/{message.user_id}'
     try:
         if not os.path.exists(path):
             os.makedirs(path)
@@ -62,20 +75,18 @@ def downloadImageForDetect(cl):
         for j in range(len(unreadMessagesList)):
             print("==Message Number : %d ==" % j)
             getImageFromMessage(unreadMessagesList[j], cl)
-        
+    
 def main():
     # Instagram Client Login
     with open('./instagram_config.json') as json_file:
         instagram_config = json.load(json_file)
     id = instagram_config['id']
     password = instagram_config['password']
-    cl = getLoginedClient(id, password)
+
+    cl = Client()
+    getLoginedClient(cl, id, password)
+
     # TODO : Unread한 DM에서 사진 경로 받기
     downloadImageForDetect(cl)
-
-    # TODO : image를 download 한 후, Canary_YOLOv5 에서 detect.py 돌리기
-    # 처리 완료 했으면 이미지 삭제하기
-
-    # TODO : detect 된 결과를 DM으로 보내주기
 
 # main()
