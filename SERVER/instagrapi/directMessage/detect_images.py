@@ -44,7 +44,7 @@ def make_directory_save_warning(user_output_path):
         print("Error : Creating directory " + path)
     return path
 
-def detect_with_canary():
+def main():
     test_needed_user_list = os.listdir(f'{IMAGE_DOWNLOAD_ROOT}')
     test_needed_user_number = len(test_needed_user_list)
 
@@ -54,9 +54,9 @@ def detect_with_canary():
         make_directory_save_warning(test_needed_user_list[i])
 
         test_needed_photo_list = os.listdir(f'{IMAGE_DOWNLOAD_ROOT}/{test_needed_user_list[i]}')
-        test_needed_photo_number = len(testNeededPhotoList)
+        test_needed_photo_number = len(test_needed_photo_list)
 
-        for j in range(0, test_needed_photo_number):
+        for j in tqdm(range(0, test_needed_photo_number)):
             print("== Photo Number : %d ==" % j)
             user_photo_path = f'{test_needed_user_list[i]}/{test_needed_photo_list[j]}'
 
@@ -71,9 +71,5 @@ def detect_with_canary():
             args.output_warning_path = f'{WARNING_OUTPUT_PATH}'
 
             detect(args)
-                
-
-def main():
-    detect_with_canary()
 
 main()

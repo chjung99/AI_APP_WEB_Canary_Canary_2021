@@ -1,5 +1,6 @@
 from instagrapi import Client
 from instagrapi.types import Location, StoryMention, StoryLocation, StoryLink, StoryHashtag
+from tqdm import tqdm
 import datetime
 import json
 import os
