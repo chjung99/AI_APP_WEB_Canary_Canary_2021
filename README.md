@@ -17,7 +17,7 @@
 
 ## 기술 스택 (Technique Used) 
 ### Server(back-end)
- -  Node.js 기반 서버
+ - Node.js 기반 서버
  - express 프레임 워크 사용
  - MySQL 데이터 베이스 사용
  
@@ -29,6 +29,7 @@
  - Object Detection
  - OpenCV
  - cvat.org
+ - Roboflow
 
 ## 설치 안내 (Installation Process)
 ```bash
