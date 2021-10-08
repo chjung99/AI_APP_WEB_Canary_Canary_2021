@@ -233,3 +233,8 @@ azure_config.json
 weight/
 yolo_dataserver/
 instagram_config.json
+dataset.zip
+runs/
+wandb/
+*.pt
+outputs/

@@ -31,8 +31,6 @@ from utils.general import check_dataset, check_requirements, check_yaml, clean_s
     xywh2xyxy, xywhn2xyxy, xyxy2xywhn, xyn2xy
 from utils.torch_utils import torch_distributed_zero_first
 
-MOSAIC_AUG_9 = True
-
 # Parameters
 HELP_URL = 'https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data'
 IMG_FORMATS = ['bmp', 'jpg', 'jpeg', 'png', 'tif', 'tiff', 'dng', 'webp', 'mpo']  # acceptable image suffixes
@@ -539,8 +537,9 @@ class LoadImagesAndLabels(Dataset):  # for training/testing
         mosaic = self.mosaic and random.random() < hyp['mosaic']
         # TODO : Change Mosaic augmentation
         if mosaic:
+            mosaic_9 = self.hyp['mosaic_9'] != 0 and random.random() < self.hyp['mosaic_9']
             # Load mosaic
-            if(MOSAIC_AUG_9 == True):
+            if mosaic_9:
                 img, labels = load_mosaic9(self, index)
             else:
                 img, labels = load_mosaic(self, index)
