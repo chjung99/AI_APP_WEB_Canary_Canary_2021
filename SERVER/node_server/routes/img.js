@@ -5,14 +5,14 @@ const fs = require('fs')
 // pytorch model import
 const pytorch_model = require('../run_pytorch')
 
-var db = mysql.createConnection({
-	host : 'localhost',
-	user : 'root',
-	password : process.env.db_password,
-	database : 'node_db'
-})
+// var db = mysql.createConnection({
+// 	host : 'localhost',
+// 	user : 'root',
+// 	password : process.env.db_password,
+// 	database : 'node_db'
+// })
 
-db.connect();
+// db.connect();
 
 router.get('/main',(req,res)=>{
 	// pytorch model child process testing
@@ -91,8 +91,9 @@ router.get('/output', async (req,res)=>{
 
 // output using request parameters
 
-router.get('/output-params/:img_id/:level', async (req,res)=>{
-
+router.get('/output-params/:img_id', async (req,res)=>{
+// router.get('/output-params/:img_id/:level', async (req,res)=>{ // -> output with levels
+	
 	// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
 	// 	if (err){
 	// 		throw err
@@ -107,7 +108,7 @@ router.get('/output-params/:img_id/:level', async (req,res)=>{
 	console.log('params input', req.params)
 
 	if (req.params.img_id){
-		await pytorch_model(req.params.img_id).then((prc_id) =>{
+		await pytorch_model(req.params.img_id,req.params.level).then((prc_id) =>{
 			console.log(prc_id)
 			const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
 			const processed_img_encoded = Buffer.from(processed_img).toString('base64')
@@ -120,7 +121,10 @@ router.get('/output-params/:img_id/:level', async (req,res)=>{
 		console.error('no img_id in request parameter')
 		res.json({status:404,err_msg:'img_id for output undefined'})
 	}
-	res.json({status:200})
+<<<<<<< HEAD
+=======
+	
+>>>>>>> ea79169d4268bee6a81e24edd19cd4a15cc35566
 	
 })
 
