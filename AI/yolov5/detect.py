@@ -57,7 +57,7 @@ def detect(args):
 
             cx = (xmin + xmax) / 2
             cy = (ymin + ymax) / 2  # center value 지정
-            s = (str / 100) ** 2    # mosaic 영역 지정
+            s = (str / 100) ** 0.5   # mosaic 영역 지정
             xlen = (xmax - cx) * s
             ylen = (ymax - cy) * s
 
@@ -90,7 +90,7 @@ parser.add_argument('--input_image_path', '-i', help='Input image path')
 parser.add_argument('--output_image_path', '-o', help='Output image path')
 parser.add_argument('--weight_path', '-w', help='Weight path')
 parser.add_argument('--blur', '-b', action="store_true")
-parser.add_argument('--strength', '-s', type='int', default=100, choices=[50, 75, 100]) # test 후 결과에 따라 강도 조정 예정
+# parser.add_argument('--strength', '-s', type='int', default=100, choices=[50, 75, 100]) # test 후 결과에 따라 강도 조정 예정 --> 찬호님이 자동화 시도 중
 parser.add_argument('--output_warning_path', '-o2', help='Warning text path')
 
 # TODO: arg로 mosaic 강도를 입력받고, 그 만큼 면적을 줄여서 return
