@@ -1,13 +1,15 @@
 // UI 모음집 :  https://github.com/lohanidamodar/flutter_ui_challenges
 // 애니메이션 : https://github.com/yumi0629/FlutterUI
 import 'package:flutter/material.dart';
+import 'package:praticesig/components/app_bar_maker.dart';
 import 'package:praticesig/components/button_style.dart';
 import 'package:praticesig/components/custom_text_form_field.dart';
 
 import 'package:praticesig/domain/user/user_repository.dart';
 
-import 'package:praticesig/pages/pick_image_page.dart';
+import 'package:praticesig/pages/gallery_page.dart';
 import 'package:get/get.dart';
+import 'package:praticesig/pages/option_page.dart';
 import 'package:praticesig/util/validator_util.dart';
 
 class PostUserNamePage extends StatelessWidget {
@@ -25,9 +27,7 @@ class PostUserNamePage extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       //https://api.flutter.dev/flutter/material/Scaffold/extendBody.html
       extendBody: true,
-      appBar: AppBar(
-        backgroundColor: Color(0xff6E9FED),
-      ),
+      appBar: appbarmaker(),
       body: Center(
         child: ListView(
           shrinkWrap: true,
@@ -39,6 +39,7 @@ class PostUserNamePage extends StatelessWidget {
                 fontSize: 40,
                 color: Colors.indigo,
                 fontWeight: FontWeight.bold,
+                fontFamily: "BlackHanSans",
               ),
               textAlign: TextAlign.left,
             ),
@@ -65,12 +66,16 @@ class PostUserNamePage extends StatelessWidget {
               height: 48,
             ),
             TextButton(
-              child: const GradationButton(title: "go"),
+              child: const GradationButton(
+                title: "go",
+                width: 400,
+                height: 50,
+              ),
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   int success = await u.postUserName(_name.text, _d_num.text);
                   if (success == 1) {
-                    Get.to(() => const PickImagePage());
+                    Get.to(() => const OptionPage());
                   }
                 } else {
                   Get.snackbar("로그인 실패", "정보를 정확히 입력해주세요!");
