@@ -32,7 +32,6 @@ FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
-ROOT = ROOT.relative_to(Path.cwd())  # relative
 
 import val  # for end-of-epoch mAP
 from models.experimental import attempt_load
@@ -62,17 +61,13 @@ torch.backends.cudnn.enabled  = False
 def train(hyp,  # path/to/hyp.yaml or hyp dictionary
           opt,
           device,
-          callbacks,
-          distilation=True):
+          callbacks):
     save_dir, epochs, batch_size, weights, single_cls, evolve, data, cfg, resume, noval, nosave, workers, freeze, = \
         Path(opt.save_dir), opt.epochs, opt.batch_size, opt.weights, opt.single_cls, opt.evolve, opt.data, opt.cfg, \
         opt.resume, opt.noval, opt.nosave, opt.workers, opt.freeze
     
-    teacher_weight = opt.teacher_weight
-    
-    stu_feature_adapt = nn.Sequential(nn.Conv2d(768, 1024, 3, padding=1),
-                                              nn.ReLU()).to(device)
-    
+    if opt.teacher_weight:
+        teacher_weight = opt.teacher_weight
 
     # Directories
     w = save_dir / 'weights'  # weights dir
@@ -125,8 +120,9 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
         ckpt = torch.load(weights, map_location=device)  # load checkpoint
         model = Model(cfg or ckpt['model'].yaml, ch=3, nc=nc, anchors=hyp.get('anchors')).to(device)  # create
         
-        teacher_ckpt = torch.load(teacher_weight, map_location=device) 
-        teacher_model = Model(cfg or teacher_ckpt['model'].yaml, ch=3, nc=nc, anchors=hyp.get('anchors')).to(device)  # create
+        if opt.teacher_weight:
+            teacher_ckpt = torch.load(teacher_weight, map_location=device) 
+            teacher_model = Model(cfg or teacher_ckpt['model'].yaml, ch=3, nc=nc, anchors=hyp.get('anchors')).to(device)  # create
         
         exclude = ['anchor'] if (cfg or hyp.get('anchors')) and not resume else []  # exclude keys
         csd = ckpt['model'].float().state_dict()  # checkpoint state_dict as FP32
@@ -214,11 +210,15 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
         logging.warning('DP not recommended, instead use torch.distributed.run for best DDP Multi-GPU results.\n'
                         'See Multi-GPU Tutorial at https://github.com/ultralytics/yolov5/issues/475 to get started.')
         model = torch.nn.DataParallel(model)
+        if opt.teacher_weight:
+            teacher_model = torch.nn.DataParallel(teacher_model)
 
     # SyncBatchNorm
     if opt.sync_bn and cuda and RANK != -1:
         model = torch.nn.SyncBatchNorm.convert_sync_batchnorm(model).to(device)
-        teacher_model = torch.nn.SyncBatchNorm.convert_sync_batchnorm(teacher_model).to(device)
+
+        if opt.teacher_weight:
+            teacher_model = torch.nn.SyncBatchNorm.convert_sync_batchnorm(teacher_model).to(device)
         LOGGER.info('Using SyncBatchNorm()')
 
     # Trainloader
@@ -255,7 +255,8 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
     # DDP mode
     if cuda and RANK != -1:
         model = DDP(model, device_ids=[LOCAL_RANK], output_device=LOCAL_RANK)
-        teacher_model = DDP(teacher_model, device_ids=[LOCAL_RANK], output_device=LOCAL_RANK)
+        if opt.teacher_weight:
+            teacher_model = DDP(teacher_model, device_ids=[LOCAL_RANK], output_device=LOCAL_RANK)
 
     # Model parameters
     hyp['box'] *= 3. / nl  # scale to layers
@@ -267,13 +268,14 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
     model.class_weights = labels_to_class_weights(dataset.labels, nc).to(device) * nc  # attach class weights
     model.names = names
     
-    teacher_model.nc = nc  # attach number of classes to model
-    teacher_model.hyp = hyp  # attach hyperparameters to model
-    teacher_model.class_weights = labels_to_class_weights(dataset.labels, nc).to(device) * nc  # attach class weights
-    teacher_model.names = names
+    if opt.teacher_weight:
+        teacher_model.nc = nc  # attach number of classes to model
+        teacher_model.hyp = hyp  # attach hyperparameters to model
+        teacher_model.class_weights = labels_to_class_weights(dataset.labels, nc).to(device) * nc  # attach class weights
+        teacher_model.names = names
     
-    for param in teacher_model.parameters():
-        param.requires_grad = False
+        for param in teacher_model.parameters():
+            param.requires_grad = False
 
     # Start training
     t0 = time.time()
@@ -290,9 +292,24 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
                 f'Using {train_loader.num_workers} dataloader workers\n'
                 f"Logging results to {colorstr('bold', save_dir)}\n"
                 f'Starting training for {epochs} epochs...')
+                
+    
+    if opt.teacher_weight:
+        dump_image = torch.zeros((1, 3, opt.imgsz, opt.imgsz), device=device)
+        targets = torch.Tensor([[0, 0, 0, 0, 0, 0]]).to(device)
+        _, features, _ = model(dump_image, target=targets)  # forward
+        _, teacher_feature, _ = teacher_model(dump_image, target=targets) 
+        
+        _, student_channel, student_out_size, _ = features.shape
+        _, teacher_channel, teacher_out_size, _ = teacher_feature.shape
+        
+        stu_feature_adapt = nn.Sequential(nn.Conv2d(student_channel, teacher_channel, 3, padding=1, stride=int(student_out_size / teacher_out_size)), nn.ReLU()).to(device)
+                  
+                
     for epoch in range(start_epoch, epochs):  # epoch ------------------------------------------------------------------
         model.train()
-        teacher_model.eval()
+        if opt.teacher_weight:
+            teacher_model.eval()
 
         # Update image weights (optional, single-GPU only)
         if opt.image_weights:
@@ -339,7 +356,7 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
             with amp.autocast(enabled=cuda):
                 targets = targets.to(device)
                 
-                if distilation:
+                if opt.teacher_weight:
                     pred, features, _ = model(imgs, target=targets)  # forward
                     _, teacher_feature, mask = teacher_model(imgs, target=targets) 
                     loss, loss_items = compute_loss(pred, targets, stu_feature_adapt(features), teacher_feature.detach(), mask.detach())  # loss scaled by batch_size
@@ -467,7 +484,7 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
 def parse_opt(known=False):
     parser = argparse.ArgumentParser()
     parser.add_argument('--weights', type=str, default=ROOT / 'yolov5s.pt', help='initial weights path')
-    parser.add_argument('--teacher_weight', type=str, default= 'weight/yolov5l6.pt', help='initial weights path')
+    parser.add_argument('--teacher_weight', type=str, default= '', help='initial weights path')
     parser.add_argument('--cfg', type=str, default='', help='model.yaml path')
     parser.add_argument('--data', type=str, default=ROOT / 'data/coco128.yaml', help='dataset.yaml path')
     parser.add_argument('--hyp', type=str, default=ROOT / 'data/hyps/hyp.scratch.yaml', help='hyperparameters path')
@@ -511,7 +528,7 @@ def main(opt, callbacks=Callbacks()):
     if not os.path.exists('./outputs'): os.makedirs('./outputs')
     
     if not os.path.exists('./dataset.zip'):
-        gdd.download_file_from_google_drive(file_id='1cm3tbxCsj7fTKskmS4vCC2RXvW2O-Zt3', dest_path='./dataset.zip', showsize=True)
+        gdd.download_file_from_google_drive(file_id='1aX2m27L_CDfc5aO8ZylMTNAeOOr7028a', dest_path='./dataset.zip', showsize=True)
         
         with ZipFile('./dataset.zip', 'r') as zipObj:
             zipObj.extractall()
