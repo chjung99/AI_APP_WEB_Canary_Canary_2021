@@ -3,14 +3,14 @@ const express = require('express')
 const router = express.Router()
 const mysql = require('mysql');
 
-var db = mysql.createConnection({
-	host : 'localhost',
-	user : 'root',
-	password : process.env.db_password,
-	database : 'node_db'
-})
+// var db = mysql.createConnection({
+// 	host : 'localhost',
+// 	user : 'root',
+// 	password : process.env.db_password,
+// 	database : 'node_db'
+// })
 
-db.connect();
+// db.connect();
 
 const Authentication = (req,res,next)=>{
 	if (req.session.d_num && req.session.isAuth == true){

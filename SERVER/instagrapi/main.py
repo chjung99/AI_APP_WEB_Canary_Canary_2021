@@ -27,3 +27,18 @@ password = instagram_config['password']
 
 get_logined_client(cl, id, password)
 
+async def main():
+
+    sched = BlockingScheduler({'apscheduler.job_defaults.max_instances': 2})
+    # sched = BlockingScheduler()
+    # Schedule job_function to be called every two seconds
+    # while True:
+    sched.add_job(check_unread, 'interval', seconds=2)
+    sched.start()
+    print('schedule started')
+         # for each_task in tasks:
+
+    #tasks = [] -> tasks list의 전역 함수 선언...?
+
+if __name__ == "__main__":
+    asyncio.run(main())
