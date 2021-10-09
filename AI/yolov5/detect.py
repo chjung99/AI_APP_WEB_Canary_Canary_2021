@@ -33,24 +33,22 @@ def detect(args):
     # strength = args.strength
     output_warning_path = args.output_warning_path
     model = torch.hub.load('ultralytics/yolov5', 'custom', path=weight_path)
-    
+
     # Inference
     results = model(input_image_path)
     img = cv2.imread(input_image_path)
+    CLASS_LIST = ['항공모함', '방탄조끼', '포', '모니터', '군용 차량', '노트북', '군복', '미사일', '모니터', '서류', '부대마크', '리볼버', '소총', '탱크', '군 항공기', '군 표지판']
 
     if activeBlur == True:
         # TODO : Blur
         print("Not yet!")
     else:
         warn_list = []
-        warn_dict = {1: '방탄조끼', 6: '군복'}
         for xmin, ymin, xmax, ymax, conf, class_num in results.xyxy[0]:
             class_num = int(class_num)
-            if class_num == 1 or class_num == 6:
-                #print(class_num)
-                #print(type(class_num))
-                warn_list.append(warn_dict[class_num])
-                print("Military uniform or bulletproof vest detected. Pass mosaic")
+            warn_list.append(CLASS_LIST[class_num])
+            if class_num == 6:
+                print("Military uniform is detected. Pass mosaic")
                 continue
 
             xmin = int(xmin); xmax = int(xmax); ymin = int(ymin); ymax = int(ymax);
@@ -62,7 +60,7 @@ def detect(args):
 
             #cx = (xmin + xmax) / 2
             #cy = (ymin + ymax) / 2  # center value 지정
-            #s = (str / 100) ** 2
+            #s = (str / 100) ** 0.5
             #xlen = (xmax - cx) * s
             #ylen = (ymax - cy) * s
 
@@ -81,9 +79,10 @@ def detect(args):
         cv2.imwrite(output_image_path, img)
         warn_list = ','.join(list(set(warn_list)))
         if warn_list:
+            # 각 객체의 조합에 따른 시나리오 추가 필요
             warn_text = f'{warn_list}이/가 감지되었습니다. 해당 사진이 보안에 저촉된다면 삭제해주시길 바랍니다.'
         else:
-            warn_text = ''
+            warn_text = '아무런 객체가 검출되지 않았습니다.'
         with open(output_warning_path, 'w') as f:
             f.write(warn_text)
 
@@ -95,7 +94,7 @@ parser.add_argument('--input_image_path', '-i', help='Input image path')
 parser.add_argument('--output_image_path', '-o', help='Output image path')
 parser.add_argument('--weight_path', '-w', help='Weight path')
 parser.add_argument('--blur', '-b', action="store_true")
-# parser.add_argument('--strength', '-s', type='int', default=100, choices=[50, 75, 100]) # test 후 결과에 따라 강도 조정 예정
+# parser.add_argument('--strength', '-s', type='int', default=100, choices=[50, 75, 100]) # test 후 결과에 따라 강도 조정 예정 --> 찬호님이 자동 적응 mosaic 진행중
 parser.add_argument('--output_warning_path', '-o2', help='Warning text path')
 
 # TODO: arg로 mosaic 강도를 입력받고, 그 만큼 면적을 줄여서 return
