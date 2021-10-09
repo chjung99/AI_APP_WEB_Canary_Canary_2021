@@ -11,13 +11,15 @@ from utils.download_image_from_DM import *
 from utils.detect_images import *
 from utils.send_DM import *
 
-CHECK_PER_INTERVAL = 100
-LAST_CHECK_TIME = datetime.datetime(2021, 10, 6, 13, 7, 50, 823287, tzinfo=datetime.timezone.utc) # Interval마다 변경될 예정
-
 TASK = []
 
 cl = Client()
 get_logined_client(cl, id, password)
+
+def auto_progress(cl):
+    download_imaged_from_DM(cl)
+    detect_images()
+    send_DM(cl)
 
 async def main():
 
@@ -25,7 +27,7 @@ async def main():
     # sched = BlockingScheduler()
     # Schedule job_function to be called every two seconds
     # while True:
-    sched.add_job(download_imaged_from_DM(cl), 'interval', seconds=2)
+    sched.add_job(auto_progress(), 'interval', seconds=2, args=cl)
     sched.start()
     print('schedule started')
          # for each_task in tasks:

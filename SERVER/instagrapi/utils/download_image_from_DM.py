@@ -5,10 +5,10 @@ import datetime
 import json
 import os
 from utils.get_client import *
-import utils.image_path
+from utils.image_path import *
 
 CHECK_PER_INTERVAL = 100
-LAST_CHECK_TIME = datetime.datetime(2021, 10, 6, 13, 7, 50, 823287, tzinfo=datetime.timezone.utc) # Interval마다 변경될 예정
+last_check_time = datetime.datetime(2021, 10, 6, 13, 7, 50, 823287, tzinfo=datetime.timezone.utc) # initial value. 함수가 호출 될 때마다 변경 
 
 '''
 # used in case of debug
@@ -26,8 +26,9 @@ def list_unread_thread(cl):
 
 def get_unread_message_list_from_thread(thread):
     total_messages_number = len(thread.messages)
+    last_check_time = datetime.datetime.now()
     for i in range(0, total_messages_number):
-        if thread.messages[i].timestamp <= LAST_CHECK_TIME:
+        if thread.messages[i].timestamp <= last_check_time:
             break
     return thread.messages[0 : i+1]
 

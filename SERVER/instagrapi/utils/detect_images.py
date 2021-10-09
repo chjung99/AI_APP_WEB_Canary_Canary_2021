@@ -1,7 +1,7 @@
 # TODO : image를 download 한 후, Canary_YOLOv5 에서 detect.py 돌리기
 # 처리 완료 했으면 이미지 삭제하기
 from tqdm import tqdm
-import utils.image_path
+from utils.image_path import *
 
 import os
 

@@ -4,7 +4,7 @@ import os
 from tqdm import tqdm
 import json
 from utils.get_client import *
-import utils.image_path
+from utils.image_path import *
 
 '''
 # used in case of debug
