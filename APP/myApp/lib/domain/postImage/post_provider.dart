@@ -20,5 +20,5 @@ class PostProvider extends GetConnect {
           "img_binary": img_binary,
         }),
       );
-  Future<http.Response> getImage() => http.get(host3);
+  
 }

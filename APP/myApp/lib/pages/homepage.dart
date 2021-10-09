@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:praticesig/components/app_bar_maker.dart';
 import 'package:praticesig/components/button_style.dart';
 import 'package:praticesig/components/logo.dart';
-import 'package:praticesig/pages/pick_image_page.dart';
+import 'package:praticesig/components/progress_bar.dart';
+
+import 'package:praticesig/pages/option_page.dart';
 
 import 'package:praticesig/pages/post_username_page.dart';
 
@@ -10,13 +13,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xff6E9FED),
-      ),
+      appBar: appbarmaker(),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            createProgressBar(true, true, false),
             SizedBox(height: 50),
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
@@ -31,8 +33,8 @@ class HomePage extends StatelessWidget {
                       fontFamily: "BlackHanSans",
                     ),
                   ),
-                  SizedBox(width: 5),
-                  Logo(
+                  const SizedBox(width: 5),
+                  const Logo(
                     image: "CANARY.png",
                     width: 55,
                     height: 55,
@@ -65,16 +67,24 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 50),
             TextButton(
-              child: const GradationButton(title: "go"),
+              child: const GradationButton(
+                title: "go",
+                width: 400,
+                height: 50,
+              ),
               onPressed: () {
-                Get.to(() => PickImagePage());
+                Get.to(() => PostUserNamePage());
               },
             ),
             const SizedBox(height: 8.0),
             TextButton(
-              child: const GradationButton(title: "help"),
+              child: const GradationButton(
+                title: "help",
+                width: 400,
+                height: 50,
+              ),
               onPressed: () {
-                Get.to(() => PostUserNamePage());
+                Get.to(() => OptionPage());
               },
             ),
           ],

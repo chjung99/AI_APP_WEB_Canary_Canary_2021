@@ -3,14 +3,17 @@ import 'package:flutter/widgets.dart';
 
 class GradationButton extends StatelessWidget {
   final String title;
-  const GradationButton({required this.title});
+  final double width;
+  final double height;
+  const GradationButton(
+      {required this.title, required this.width, required this.height});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      width: 400,
-      height: 50,
+      width: this.width, //400
+      height: this.height, //50
       decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: <Color>[
