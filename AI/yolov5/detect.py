@@ -30,7 +30,7 @@ def attemp_download_weight():
             json_data['version'] = version
             with open('./weight/config.json', 'w') as json_file: json.dump(json_data, json_file)
             
-    except requests.exceptions.ConnectionError:
+    except:
         if os.path.exists('./weight/yolov5m6.pt'):
             os.remove('./weight/yolov5m6.pt')
         
