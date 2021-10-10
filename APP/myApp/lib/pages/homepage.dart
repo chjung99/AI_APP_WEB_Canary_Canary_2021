@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:praticesig/components/app_bar_maker.dart';
 import 'package:praticesig/components/button_style.dart';
+import 'package:praticesig/components/custom_text.dart';
 import 'package:praticesig/components/logo.dart';
 import 'package:praticesig/components/progress_bar.dart';
 
 import 'package:praticesig/pages/option_page.dart';
 
-import 'package:praticesig/pages/post_username_page.dart';
+import 'package:praticesig/pages/signin.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,22 +21,13 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            createProgressBar(true, true, false),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Row(
                 children: [
-                  const Text(
-                    "카나리아",
-                    style: TextStyle(
-                      fontSize: 60,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.indigo,
-                      fontFamily: "BlackHanSans",
-                    ),
-                  ),
-                  const SizedBox(width: 5),
+                  customText(text: "카나리아", size: 60),
+                  SizedBox(width: 5),
                   const Logo(
                     image: "CANARY.png",
                     width: 55,
@@ -47,25 +41,17 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const Text(
-                    "모두를 위한 군사보안 경보기",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.indigo,
-                      fontFamily: "BlackHanSans",
-                    ),
-                  ),
+                  customText(text: "모두를 위한 군사보안 경보기", size: 20),
                 ],
               ),
             ),
             const SizedBox(height: 48.0),
-            Logo(
+            const Logo(
               image: "OSAM.jpg",
               width: 150,
               height: 150,
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             TextButton(
               child: const GradationButton(
                 title: "go",
@@ -73,7 +59,7 @@ class HomePage extends StatelessWidget {
                 height: 50,
               ),
               onPressed: () {
-                Get.to(() => PostUserNamePage());
+                Get.to(() => SignInPage());
               },
             ),
             const SizedBox(height: 8.0),

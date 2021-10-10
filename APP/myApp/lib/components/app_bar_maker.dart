@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:praticesig/color.dart';
 
 AppBar appbarmaker() {
   return AppBar(
-    backgroundColor: const Color(0xff6E9FED),
+    backgroundColor: primaryColor,
   );
 }
