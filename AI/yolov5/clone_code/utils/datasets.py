@@ -535,13 +535,14 @@ class LoadImagesAndLabels(Dataset):  # for training/testing
 
         hyp = self.hyp
         mosaic = self.mosaic and random.random() < hyp['mosaic']
-        # TODO : Change Mosaic augmentation
+
         if mosaic:
-            mosaic_9 = self.hyp['mosaic_9'] != 0 and random.random() < self.hyp['mosaic_9']
-            # Load mosaic
+            mosaic_9 = hyp['mosaic_9'] != 0 and random.random() < hyp['mosaic_9']
+
             if mosaic_9:
                 img, labels = load_mosaic9(self, index)
             else:
+                # Load mosaic
                 img, labels = load_mosaic(self, index)
             shapes = None
 
@@ -604,8 +605,9 @@ class LoadImagesAndLabels(Dataset):  # for training/testing
         # Convert
         img = img.transpose((2, 0, 1))[::-1]  # HWC to CHW, BGR to RGB
         img = np.ascontiguousarray(img)
-
-        return torch.from_numpy(img), labels_out, self.img_files[index], shapes
+        img = torch.from_numpy(img)
+        
+        return img, labels_out, self.img_files[index], shapes
 
     @staticmethod
     def collate_fn(batch):
