@@ -37,7 +37,7 @@ def get_request_from_DM(message):
     if get_media_type_of_message(message) == -1:  # Check 'text'
         detection_mode = parse('/{}', message.text)
         if detection_mode == None:
-            print_invalid()
+            print_help()
         else:
             if detection_mode[0] == 'help':
                 print_help()
@@ -50,7 +50,7 @@ def get_request_from_DM(message):
             else:
                 print_invalid()
     else:
-        print_invalid()
+        print_help()
 
 # For debug
 
