@@ -1,22 +1,17 @@
 # 카나리아 : 모두를 위한 군사보안 경보 시스템
 
 <p align='center'>
-<img src="https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/image/canary_2.0.jpg" alter="LOGO"/>
+<img src="https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/image/canary_2.0.jpg" alter="LOGO"/><br>
+ <img src='https://img.shields.io/badge/Version-0.8.0-blue?style=for-the-badge&logo'>
+ <a href='https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/LICENSE'><img src='https://img.shields.io/badge/License-GNU-blue?style=for-the-badge&logo'></a>
 </p>
-
-## 프로젝트 소개
-<!--본 프로젝트는 사용자에게 보안 내용을 제거하는 기능을 가진 카메라를 제공함으로서,  
-* **군 내에서 카메라를 사용 가능하게 함**과 동시에,
-*  SNS에 올릴 사진의 보안 위반 가능성을 경고하여 사용자가 **자발적으로** 보안을 준수 할 수 있게 합니다. -->
-
-### Canary?
 
 Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 있는 요소를 식별하고, 이를 사용자에게 경고해주는 통합 보안 경보 시스템입니다. 
 카메라 기능과 SNS 탐지 기능으로 구성되어 있으며, 처리된 사진에는 워터마크가 들어가 처리 여부를 쉽게 식별할 수 있습니다.
 
-## 기획 문서 
+
 <details>
- <summary>주제</summary>
+ <summary>주제 정의 문서</summary>
  
  ### 문제 발견하기
    - 2018년 12월 27일 국방부는 ‘병영문화 혁신 정책’으로 병사들의 일과 후 핸드폰 사용을 결정했습니다. 
@@ -38,7 +33,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 </details>
 
 <details>
- <summary>사용자</summary>
+ <summary>사용자 정의 문서</summary>
  
  ### 페르소나
  ![페르소나](https://user-images.githubusercontent.com/40621030/134792500-00226c5c-592b-4298-aeb8-fb155704278f.png)
@@ -64,13 +59,13 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  <summary>서비스</summary>
  
  ### User-case Diagram
- <img src="https://user-images.githubusercontent.com/40621030/134690667-abe8f797-01a8-44db-ae89-ef7809c22d64.png"/>
+ <p align='center'><img src="https://user-images.githubusercontent.com/40621030/134690667-abe8f797-01a8-44db-ae89-ef7809c22d64.png" height=300/></p>
  
  ### Sequence Diagram
- <img src="https://user-images.githubusercontent.com/40621030/134693210-0aa1a63a-0399-485a-88be-24e829067813.png"/>
+  <p align='center'><img src="https://user-images.githubusercontent.com/40621030/134693210-0aa1a63a-0399-485a-88be-24e829067813.png" height=300/></p>
  
  ### Architecture
- <img src="https://user-images.githubusercontent.com/40621030/134756413-d331fa9b-62f8-4dc4-a492-58dd53056a19.png"/>
+  <p align='center'><img src="https://user-images.githubusercontent.com/40621030/134756413-d331fa9b-62f8-4dc4-a492-58dd53056a19.png" height=300/></p>
 </details>
 
 ## 화면 정의
@@ -133,7 +128,14 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 </table>
  
 ### Front-end
- -  Flutter 등 사용한 front-end 프레임워크 
+<table>
+ <tr>
+  <td align='center'><img src='https://user-images.githubusercontent.com/40621030/136700782-179675b0-9bae-4ecf-b94a-e73073d24be5.png' height=80></td>
+ </tr>
+ <tr>
+  <td align='center'>Flutter</td>
+ </tr>
+</table>
 
 ### AI
  <table>
