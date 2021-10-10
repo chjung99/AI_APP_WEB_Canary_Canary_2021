@@ -325,6 +325,10 @@ Conclusion: They are providing almost the same precision. Tips: set `force_input
 
 <img src="https://raw.githubusercontent.com/zylo117/Yet-Another-Efficient-Pytorch/master/test/img_inferred_d0_official.jpg" width="640">
 
+
+## canary weights
+- [efficientdet-d4](https://drive.google.com/file/d/1dgzbDFbxbaLsRxkHMFykAWshEqbn7PJE/view?usp=sharing)
+- [efficientdet-d3](https://drive.google.com/file/d/1JUff1FIjxABqpEFSanODgSpf6MdwIbs5/view?usp=sharing)
 ## References
 
 Appreciate the great work from the following repositories:
