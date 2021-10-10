@@ -6,11 +6,16 @@
 | efficientdet-d3(83epoch) |   0.484   |  0.590 |  
 
 
+
 <table>
     
 # Canary weights
 - [efficientdet-d4](https://drive.google.com/file/d/1dgzbDFbxbaLsRxkHMFykAWshEqbn7PJE/view?usp=sharing)
 - [efficientdet-d3](https://drive.google.com/file/d/1JUff1FIjxABqpEFSanODgSpf6MdwIbs5/view?usp=sharing)
+
+# Command
+! python train.py -c 4 -p canary --lr 1e-3 --batch_size 2 --load_weights weights/efficientdet-d4.pth  --num_epochs 300 --save_interval 4022 --log_path 'logs/'
+    
     
 ## git clone from https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch
 # Yet Another EfficientDet Pytorch
