@@ -7,14 +7,14 @@ class GradationButton extends StatelessWidget {
   final double width;
   final double height;
   const GradationButton(
-      {required this.title, required this.width, required this.height});
+      {required this.title, this.width = 400, this.height = 50});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      width: this.width, //400
-      height: this.height, //50
+      width: this.width,
+      height: this.height,
       decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: <Color>[

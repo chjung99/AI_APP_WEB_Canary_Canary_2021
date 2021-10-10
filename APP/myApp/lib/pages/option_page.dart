@@ -5,6 +5,7 @@ import 'package:praticesig/components/custom_button.dart';
 import 'package:praticesig/components/custom_text.dart';
 import 'package:praticesig/pages/camera_page.dart';
 import 'package:praticesig/pages/gallery_page.dart';
+import 'package:praticesig/size.dart';
 
 class OptionPage extends StatelessWidget {
   const OptionPage({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class OptionPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             const SizedBox(height: 120),
-            customText(text: "Choose Image", size: 40),
+            customText(text: "Choose Image", size: titleTextSize),
             const SizedBox(height: 5),
             const Text("카메라와 갤러리 중 선택해주세요"),
             const SizedBox(height: 70),

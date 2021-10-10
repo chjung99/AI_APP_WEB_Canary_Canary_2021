@@ -42,9 +42,7 @@ class _GalleryPageState extends State<GalleryPage> {
           children: [
             const SizedBox(height: 40),
             createProgressBar(false, false, false),
-            // 이미지 화면에 표시
             const SizedBox(height: 30),
-            // 이미지 화면에 표시
             InkWell(
               onTap: () {
                 _openImageFile();
@@ -53,14 +51,11 @@ class _GalleryPageState extends State<GalleryPage> {
                 child: _image == null ? noImageContainer() : imageContainer(),
               ),
             ),
-
             const SizedBox(height: 40),
-            // 이미지를 서버로 보내는 버튼
             TextButton(
               child: const GradationButton(
                 title: "post server",
                 width: 300,
-                height: 50,
               ),
               onPressed: () async {
                 if (uploadImage) {
