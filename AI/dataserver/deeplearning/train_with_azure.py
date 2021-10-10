@@ -19,6 +19,8 @@ from .models import TrainedModel
 def train(download_url, epoch=300):
     with open('./deeplearning/kwoledge_distillation/azure_config.json') as json_file:
         azure_config = json.load(json_file)
+        
+        
     
     interactive_auth = InteractiveLoginAuthentication(tenant_id=azure_config['interactive_auth'])
     subscription_id = azure_config['subscription_id']
