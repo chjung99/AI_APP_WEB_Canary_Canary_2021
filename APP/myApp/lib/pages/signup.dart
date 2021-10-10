@@ -7,6 +7,8 @@ import 'package:praticesig/components/custom_text_form_field.dart';
 import 'package:praticesig/pages/signin.dart';
 import 'package:praticesig/util/validator_util.dart';
 
+import '../size.dart';
+
 class SignUpPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _name = TextEditingController();
@@ -23,12 +25,12 @@ class SignUpPage extends StatelessWidget {
       body: Center(
         child: ListView(
           shrinkWrap: true,
-          padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: marginHorizontalSize),
           children: <Widget>[
-            const SizedBox(height: 48),
-            customText(text: "Sign Up", size: 40),
+            const SizedBox(height: marginVerticalSize),
+            customText(text: "Sign Up", size: titleTextSize),
             const Text("군번과 비밀번호를 입력해주세요"),
-            const SizedBox(height: 48),
+            const SizedBox(height: marginVerticalSize),
             Form(
               key: _formKey,
               child: Column(
@@ -39,21 +41,21 @@ class SignUpPage extends StatelessWidget {
                     hint: "이름을",
                     controller: _name,
                   ),
-                  SizedBox(height: 3),
+                  const SizedBox(height: 10),
                   CustomTextFormField(
                     signIn: false,
                     funValidator: validateUsername(),
                     hint: "계급을",
                     controller: _classes,
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 10),
                   CustomTextFormField(
                     signIn: false,
                     funValidator: validateUsername(),
                     hint: "군번을",
                     controller: _d_num,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   CustomTextFormField(
                     signIn: false,
                     funValidator: validateUsername(),
@@ -63,14 +65,10 @@ class SignUpPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 48,
-            ),
+            const SizedBox(height: marginVerticalSize),
             TextButton(
               child: const GradationButton(
                 title: "가입완료",
-                width: 400,
-                height: 50,
               ),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
@@ -81,7 +79,6 @@ class SignUpPage extends StatelessWidget {
                 }
               },
             ),
-            SizedBox(height: 10),
           ],
         ),
       ),

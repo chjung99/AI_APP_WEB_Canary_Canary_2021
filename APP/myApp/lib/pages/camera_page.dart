@@ -23,10 +23,7 @@ class _CameraPageState extends State<CameraPage> {
   String text = "post server";
   XFile? _image;
   final ImagePicker _picker = ImagePicker();
-  //dynamic _file;
   final PostRepository p = PostRepository();
-
-  // 이미지 고르기
 
   Future _openCameraFile() async {
     _image = await _picker.pickImage(source: ImageSource.camera);
@@ -42,9 +39,7 @@ class _CameraPageState extends State<CameraPage> {
           children: [
             const SizedBox(height: 40),
             createProgressBar(false, false, false),
-            // 이미지 화면에 표시
             const SizedBox(height: 30),
-            // 이미지 화면에 표시
             InkWell(
               onTap: () {
                 _openCameraFile();
@@ -79,14 +74,11 @@ class _CameraPageState extends State<CameraPage> {
                       ),
               ),
             ),
-
             const SizedBox(height: 40),
-            // 이미지를 서버로 보내는 버튼
             TextButton(
               child: const GradationButton(
                 title: "post server",
                 width: 300,
-                height: 50,
               ),
               onPressed: () async {
                 if (uploadImage) {

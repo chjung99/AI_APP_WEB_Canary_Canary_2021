@@ -11,6 +11,7 @@ import 'package:praticesig/domain/user/user_repository.dart';
 import 'package:get/get.dart';
 import 'package:praticesig/pages/option_page.dart';
 import 'package:praticesig/pages/signup.dart';
+import 'package:praticesig/size.dart';
 import 'package:praticesig/util/validator_util.dart';
 
 class SignInPage extends StatelessWidget {
@@ -19,24 +20,21 @@ class SignInPage extends StatelessWidget {
   final _d_num = TextEditingController();
 
   final UserRepository u = UserRepository();
-  final _image = Image.asset('assets/nike.png');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //body나 scaffold 위젯이 높이가 정의된 스크린 키보드에 의해 스스로 크기를 재조정.
       resizeToAvoidBottomInset: true,
-      //https://api.flutter.dev/flutter/material/Scaffold/extendBody.html
       extendBody: true,
       appBar: appbarmaker(),
       body: Center(
         child: ListView(
           shrinkWrap: true,
-          padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: marginHorizontalSize),
           children: <Widget>[
-            customText(text: "Login", size: 40),
+            customText(text: "Login", size: titleTextSize),
             const Text("군번과 비밀번호를 입력해주세요"),
-            const SizedBox(height: 48),
+            const SizedBox(height: marginVerticalSize),
             Form(
               key: _formKey,
               child: Column(
@@ -56,14 +54,10 @@ class SignInPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 48,
-            ),
+            const SizedBox(height: marginVerticalSize),
             TextButton(
               child: const GradationButton(
                 title: "go",
-                width: 400,
-                height: 50,
               ),
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {

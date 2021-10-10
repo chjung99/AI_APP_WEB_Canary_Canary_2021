@@ -12,9 +12,3 @@ class UserRepository {
     }
   }
 }
-
-//   Future<void> postUserName(String name, String d_num) async {
-//     LoginReqDto loginReqDto = LoginReqDto(name, d_num);
-//     await _userProvider.postUserNamePage(loginReqDto.toJson());
-//   }
-// }

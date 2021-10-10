@@ -8,6 +8,7 @@ import 'package:praticesig/components/logo.dart';
 import 'package:praticesig/pages/option_page.dart';
 
 import 'package:praticesig/pages/signin.dart';
+import 'package:praticesig/size.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,9 +21,9 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 50),
+            const SizedBox(height: marginVerticalSize),
             Padding(
-              padding: const EdgeInsets.only(left: 20.0),
+              padding: const EdgeInsets.only(left: marginHorizontalSize),
               child: Row(
                 children: [
                   customText(text: "카나리아", size: 60),
@@ -36,7 +37,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 20.0),
+              padding: const EdgeInsets.only(right: marginHorizontalSize),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -44,18 +45,17 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 48.0),
+            const SizedBox(height: marginVerticalSize),
             const Logo(
               image: "OSAM.jpg",
               width: 150,
               height: 150,
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: marginVerticalSize),
             TextButton(
               child: const GradationButton(
                 title: "go",
-                width: 400,
-                height: 50,
+                width: 340,
               ),
               onPressed: () {
                 Get.to(() => SignInPage(), transition: Transition.rightToLeft);
@@ -65,8 +65,7 @@ class HomePage extends StatelessWidget {
             TextButton(
               child: const GradationButton(
                 title: "help",
-                width: 400,
-                height: 50,
+                width: 340,
               ),
               onPressed: () {
                 Get.to(() => const OptionPage(),
