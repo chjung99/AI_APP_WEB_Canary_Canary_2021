@@ -1,56 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:praticesig/components/button_style.dart';
-import 'package:praticesig/components/logo.dart';
-import 'package:praticesig/components/progress_bar.dart';
+import 'package:praticesig/components/app_bar_maker.dart';
+import 'package:praticesig/components/custom_button.dart';
+
+import 'package:praticesig/components/custom_progress_bar.dart';
 import 'package:praticesig/domain/postImage/post.dart';
 
 import 'package:praticesig/domain/postImage/post_repository.dart';
 import 'package:praticesig/pages/resultpage.dart';
 
-class PickImagePage extends StatefulWidget {
-  const PickImagePage({Key? key}) : super(key: key);
+class CameraPage extends StatefulWidget {
+  const CameraPage({Key? key}) : super(key: key);
 
   @override
-  _PickImagePageState createState() => _PickImagePageState();
+  _CameraPageState createState() => _CameraPageState();
 }
 
-class _PickImagePageState extends State<PickImagePage> {
-  // Widget createProgressBar() {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     children: [
-  //       Container(
-  //         alignment: Alignment.center,
-  //         height: 20,
-  //         width: 20,
-  //         child: Text(
-  //           "1",
-  //           style: TextStyle(color: Colors.black),
-  //         ),
-  //         decoration: BoxDecoration(
-  //           color: Colors.green,
-  //           shape: BoxShape.circle,
-  //         ),
-  //       ),
-  //       //Icon(Icons.ac_unit),
-  //       Container(
-  //         height: 5,
-  //         width: 150,
-  //         color: Colors.black,
-  //       ),
-  //       Icon(Icons.ac_unit),
-  //       Container(
-  //         height: 5,
-  //         width: 150,
-  //         color: Colors.black,
-  //       ),
-  //       Icon(Icons.ac_unit),
-  //     ],
-  //   );
-  // }
-
+class _CameraPageState extends State<CameraPage> {
   bool uploadImage = false;
 
   String text = "post server";
@@ -60,11 +27,6 @@ class _PickImagePageState extends State<PickImagePage> {
   final PostRepository p = PostRepository();
 
   // 이미지 고르기
-  Future _openImageFile() async {
-    _image = await _picker.pickImage(source: ImageSource.gallery);
-    setState(() {});
-    uploadImage = true;
-  }
 
   Future _openCameraFile() async {
     _image = await _picker.pickImage(source: ImageSource.camera);
@@ -74,25 +36,18 @@ class _PickImagePageState extends State<PickImagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xff6E9FED),
-        title: Logo(
-          image: "CANARY.png",
-          width: 50,
-          height: 50,
-        ),
-      ),
+      appBar: appbarmaker(),
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 20),
-            createProgressBar(),
+            const SizedBox(height: 20),
+            createProgressBar(false, false, false),
             // 이미지 화면에 표시
-            SizedBox(height: 100),
+            const SizedBox(height: 50),
             // 이미지 화면에 표시
             InkWell(
               onTap: () {
-                _openImageFile();
+                _openCameraFile();
               },
               child: Container(
                 child: _image == null
@@ -125,25 +80,19 @@ class _PickImagePageState extends State<PickImagePage> {
               ),
             ),
 
-            // 이미지 고르는 버튼
-            TextButton(
-              child: GradationButton(title: "Camera"),
-              onPressed: () {
-                _openCameraFile();
-              },
-            ),
             const SizedBox(height: 40),
             // 이미지를 서버로 보내는 버튼
             TextButton(
-              child: GradationButton(title: "post server"),
+              child: const GradationButton(
+                title: "post server",
+                width: 400,
+                height: 50,
+              ),
               onPressed: () async {
                 if (uploadImage) {
                   Post _imgId = await p.postImage(_image!);
-                  print(_imgId);
                   String success = _imgId.imd_id;
-                  print(_imgId.imd_id);
                   if (success.length > 0) {
-                    print(success);
                     Get.to(() => ResultPage(), arguments: success);
                   }
                 } else {

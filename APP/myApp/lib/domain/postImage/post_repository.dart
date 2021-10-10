@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
-import 'package:praticesig/components/dto/image_req_dto.dart';
+
 import 'package:praticesig/domain/postImage/post.dart';
 import 'package:praticesig/domain/postImage/post_provider.dart';
 
