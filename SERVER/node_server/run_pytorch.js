@@ -3,22 +3,15 @@ const spawn = require('child_process').spawn
 const yolov5_dir = '/workspace/AI_APP_WEB_Canary_Canary/AI/yolov5'
 console.log(yolov5_dir)
 
-function pytorch_model(upload_img,level) {
+function pytorch_model(upload_img) {
     // Promise return function
     return new Promise((res,rej)=>{
         console.log('pytorch model activated')
         console.log(upload_img)
-<<<<<<< HEAD
-        
-        yolo_levels = [(1,'yolov5s6.py'),(2,'yolov5m6.py'),(3,'yolov5l6.py')]
-        model_level = yolo_levels[level-1]
-        const PytorchProcess = spawn('python3',[`${yolov5_dir}/detect.py`,'-w',`${yolov5_dir}/weight/${model_level}`,'-i', `./org_images/${upload_img}.jpg`,'-o',`./prc_images/prc_${upload_img}_lv${level}.jpg`])
-=======
     
         // const PytorchProcess = spawn('python3',['./yolov5/detect.py','-w','./yolov5/weight/yolov5m6.pt','-i', `./org_images/${upload_img}.jpg`,'-o',`./prc_images/prc_${upload_img}.jpg`])
     
-        const PytorchProcess = spawn('python3',[`${yolov5_dir}/detect.py`,'-w',`${yolov5_dir}/weight/yolov5s6.py`,'-i', `./org_images/${upload_img}.jpg`,'-o',`./prc_images/prc_${upload_img}.jpg`,'-o2',`./warnings/${upload_img}_warning.txt`])
->>>>>>> ea79169d4268bee6a81e24edd19cd4a15cc35566
+        const PytorchProcess = spawn('python3',[`${yolov5_dir}/detect.py`,'-w',`${yolov5_dir}/weight/yolov5m6.py`,'-i', `./org_images/${upload_img}.jpg`,'-o',`./prc_images/prc_${upload_img}.jpg`,'-o2',`./warnings/prc_${upload_img}_warning.txt`])
     
 
         PytorchProcess.stdout.on('data', (data) =>{
@@ -53,7 +46,7 @@ function pytorch_model(upload_img,level) {
         PytorchProcess.on('close',(result)=>{
             console.log(result)
             console.log('Processed Closed')
-            res(`prc_${upload_img}_lv${level}`) // prc_id
+            res(`prc_${upload_img}`) // prc_id
         })
         
         console.log('Running Yolov5 Pytorch Model')
