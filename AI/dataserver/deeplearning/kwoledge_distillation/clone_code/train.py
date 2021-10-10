@@ -14,6 +14,7 @@ import random
 import sys
 import time
 import urllib
+import urllib.request
 from copy import deepcopy
 from pathlib import Path
 
@@ -521,7 +522,7 @@ def parse_opt(known=False):
     parser.add_argument('--local_rank', type=int, default=-1, help='DDP parameter, do not modify')
     parser.add_argument('--freeze', type=int, default=0, help='Number of layers to freeze. backbone=10, all=24')
     parser.add_argument('--patience', type=int, default=100, help='EarlyStopping patience (epochs without improvement)')
-    parser.add_argument('--download_url', type=str)
+    parser.add_argument('--data_url', type=str)
     opt = parser.parse_known_args()[0] if known else parser.parse_args()
     return opt
 
@@ -530,7 +531,7 @@ def main(opt, callbacks=Callbacks()):
     if not os.path.exists('./outputs'): os.makedirs('./outputs')
     
     if not os.path.exists('./dataset.zip'):
-        urllib.urlretrieve(opt.download_url, "./dataset.zip") 
+        urllib.request.urlretrieve(opt.data_url, "./dataset.zip") 
         
         with ZipFile('./dataset.zip', 'r') as zipObj:
             zipObj.extractall()

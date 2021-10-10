@@ -56,7 +56,7 @@ def train(download_url, epoch=300):
     # Finally, use the environment in the ScriptRunConfig:
     src = ScriptRunConfig(source_directory=DEPLOY_CONTAINER_FOLDER_PATH,
                           script=SCRIPT_FILE_TO_EXECUTE,
-                          arguments=['--img', 640, '--batch', 32, '--epochs', epoch, '--data', 'data/dataset.yaml', '--weights', 'yolov5m6.pt'],
+                          arguments=['--img', 640, '--batch', 32, '--epochs', epoch, '--data', 'data/dataset.yaml', '--weights', 'yolov5m6.pt', '--data_url', download_url],
                           compute_target=compute_target,
                           environment=pytorch_env)
     
@@ -69,7 +69,8 @@ def train(download_url, epoch=300):
     
     if not os.path.exists('./media'):
         os.makedirs('./media')
-        
+    
+    print("download_files")
     run.download_file(name='outputs/best.pt', output_file_path=model_path)
     run.download_file(name='outputs/results.csv', output_file_path=results_path)
     
