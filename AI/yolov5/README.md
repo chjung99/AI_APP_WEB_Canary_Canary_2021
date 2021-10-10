@@ -1,22 +1,13 @@
 # Canary yolov5
 
-## Prepare dataset
+## Train yolov5 in local
 ```
-pip install -r requirements.txt
-cd datasetup
-python download_imagenet_data.py
-python download_custom_data.py
+python clone_code/train.py --img 640 --batch 16 --epochs 3 --data data/dataset.yaml --weights yolov5m6.pt
 ```
 
-## Train yolov5
+## Train yolov5 in azure
 ```
-cd ..
-git clone https://github.com/ultralytics/yolov5 clone_code
-mv datasetup/dataset clone_code
-cd clone_code
-mv dataset/dataset.yaml data/dataset.yaml
-pip install -r requirements.txt
-python train.py --img 640 --batch 16 --epochs 3 --data data/dataset.yaml --weights yolov5m6.pt
+python train_with_azure.py
 ```
 
 ## Mosaic image
