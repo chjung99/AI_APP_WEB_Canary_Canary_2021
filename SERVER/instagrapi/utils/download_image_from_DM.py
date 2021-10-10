@@ -10,6 +10,15 @@ from utils.image_path import *
 CHECK_PER_INTERVAL = 100
 last_check_time = datetime.datetime(2021, 10, 6, 13, 7, 50, 823287, tzinfo=datetime.timezone.utc) # initial value. 함수가 호출 될 때마다 변경 
 
+if __name__ == '__main__':
+	if __package__ is None:
+		import sys
+		from os import path
+		print(path.dirname(path.dirname(path.dirname(path.dirname(path.abspath(__file__))))))
+		sys.path.append(path.dirname(path.dirname(path.dirname(path.dirname(path.abspath(__file__))))))
+		from SERVER.instagrapi.utils.image_path import *
+		from SERVER.instagrapi.utils.get_client import *
+
 '''
 # used in case of debug
 cl = Client()
