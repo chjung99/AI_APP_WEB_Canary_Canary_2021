@@ -37,10 +37,7 @@ def attemp_download_weight():
             
             urllib.request.urlretrieve(model_url, 'weight/yolov5m6.pt') 
             
-    except:
-        if os.path.exists('./weight/yolov5m6.pt'):
-            os.remove('./weight/yolov5m6.pt')
-        
+    except:       
         yolov5m6_id = '1QUaufxw06NVPyn_tIm0qBdOy5ewQ5ffi'
         gdd.download_file_from_google_drive(file_id=yolov5m6_id, dest_path=f'weight/yolov5m6.pt', showsize=True)
 
