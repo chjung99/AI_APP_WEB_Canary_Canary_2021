@@ -35,22 +35,22 @@ app.use(session({
 	saveUninitialized:true,
 }))
 
-var db = mysql.createConnection({
-	host : 'localhost',
-	user : 'root',
-	password : process.env.db_password,
-	database : 'node_db'
-})
+// var db = mysql.createConnection({
+// 	host : 'localhost',
+// 	user : 'root',
+// 	password : process.env.db_password,
+// 	database : 'node_db'
+// })
 
-db.connect();
+// db.connect();
 
-db.query('SELECT * FROM user_t',(err,result)=>{
-	if(err) {
-		throw err
-	} else {
-		console.log(result)
-	}
-})
+// db.query('SELECT * FROM user_t',(err,result)=>{
+// 	if(err) {
+// 		throw err
+// 	} else {
+// 		console.log(result)
+// 	}
+// })
 
 const testRouter = require('./routes/test')
 const indexRouter = require('./routes/index')
