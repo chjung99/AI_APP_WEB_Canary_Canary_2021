@@ -121,21 +121,37 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 
 ## 기술 스택 (Technique Used) 
 ### Server(back-end)
- - Node.js 기반 서버
- - express 프레임 워크 사용
- - MySQL 데이터 베이스 사용
+<table>
+ <tr>
+  <td><a href='https://nodejs.org/ko/'><img src='https://user-images.githubusercontent.com/40621030/136699173-a5a2e626-9161-4e30-85fd-93898671896e.png' height=80/></a></td>
+  <td><a href='https://www.mysql.com/'><img src='https://user-images.githubusercontent.com/40621030/136699174-e540729d-0092-447c-b672-dfa5dcfd41a7.png' height=80/></a></td>
+ </tr>
+ <tr>
+  <td>Node js</td>
+  <td>MySQL</td>
+ </tr>
+</table>
  
 ### Front-end
  -  Flutter 등 사용한 front-end 프레임워크 
 
 ### AI
- - Pytorch
-   - YOLOv5 (Object Detection)
- - OpenCV
- - cvat.org
- - Roboflow
+ <table>
+ <tr>
+  <td><a href="https://pytorch.org/"><img src='https://user-images.githubusercontent.com/40621030/136698820-2c869052-ff44-4629-b1b9-7e1ae02df669.png' height=80></a></td>
+  <td><a href="https://opencv.org/"><img src='https://user-images.githubusercontent.com/40621030/136698821-10434eb5-1a98-4108-8082-f68297012724.png' height=80></a></td>
+  <td><a href="https://cvat.org/"><img src='https://user-images.githubusercontent.com/40621030/136698825-f2e1816f-580b-4cf1-960d-295e9f18a329.png' height=80></a></td>
+  <td><a href="https://roboflow.com/"><img src='https://user-images.githubusercontent.com/40621030/136698826-e18a44a9-63d1-498b-a63f-c76bdc603f3b.png' height=80></a></td>
+ </tr>
+ <tr>
+  <td align='center'>PyTorch</td>
+  <td align='center'>OpenCV</td>
+  <td align='center'>CVAT</td>
+  <td align='center'>Roboflow</td>
+ </tr>
+ </table>
  <details>
- <summary>기술 설명</summary>
+ <summary>AI 설명</summary>
  
  ### 사용 모델
  - YOLOV5 ([original github](https://github.com/ultralytics/yolov5))
@@ -147,45 +163,64 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
    <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136683028-fb1ca2f0-97c0-4581-9b7a-64e26536d7af.png' width="500"/></p>
  - mosaic augmetation에서 mosaic_9 augmentation 추가  
  
- ### 성능
- |    enhance    |   model  | precision | recall | mAP_0.5 | mAP_0.5:0.95 |
- |:-------------:|:--------:|:---------:|:------:|:-------:|:------------:|
- |      None     | yolov5m6 |   0.736   |  0.779 |  0.815  |     0.599    |  
- | mosaic_9 50%  | yolov5m6 |   0.756   |  0.775 |  0.809  |     0.602    |
- | mosaic_9 100% | yolov5m6 |   0.739   |  0.813 |  0.806  |     0.594    |
+ ### 성능 향상
+ |         enhance        |   model  | precision | recall | mAP_0.5 | mAP_0.5:0.95 |
+ |:----------------------:|:--------:|:---------:|:------:|:-------:|:------------:|
+ |          None          | yolov5m6 |   0.736   |  0.779 |  0.815  |     0.599    |  
+ |     mosaic_9 50%       | yolov5m6 |   0.756   |  0.775 |  0.809  |     0.602    |
+ |     mosaic_9 100%      | yolov5m6 |   0.739   |  0.813 |  0.806  |     0.594    |
+ | knowledge distillation | yolov5m6 |           |        |         |              |
  
+ <table>
+  <tr>
+   <td align='center'>Original Image</td>
+   <td align='center'>Result Image</td>
+  </tr>
+  <tr>
+   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/136698552-42c71108-9efc-4c88-a68a-3f5aec8452c6.jpg' width="500"/></td>
+   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/136698553-a00eb618-7783-41d9-bd2c-203dbbd60946.jpg' width="500"/></td>
+  </tr>
+ </table>
  
+ ### 실행 및 예시 ([link](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI/yolov5))
+</details>
+
+### MLOps
+<table>
+ <tr>
+  <td align='center'><a href='https://www.djangoproject.com/'><img src='https://user-images.githubusercontent.com/40621030/136699403-d6ac76a2-7294-4936-acef-163f8c40ed96.png' height=80/></a></td>
+  <td align='center'><a href='https://www.django-rest-framework.org/'><img src='https://user-images.githubusercontent.com/40621030/136699327-88e2bfb9-72d9-4f44-b6b0-8d5911777dbf.png' height=80/></a></td>
+  <td align='center'><a href='https://aws.amazon.com/ko/'><img src='https://user-images.githubusercontent.com/40621030/136699330-313bfbb5-8d53-4aae-b5c1-cb39392a027e.png' height=80/></a></td>
+ </tr>
+ <tr>
+  <td align='center'>Node js</td>
+  <td align='center'>MySQL</td>
+  <td align='center'>AWS</td>
+ </tr>
+</table>
+<details>
+ <summary>MLOps 설명</summary>
+ <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136700081-b195dfa6-1c21-4983-a4cd-463f7e584091.PNG' height='300'><p>
+ 다양한 플랫폼으로 모델 학습을 자동화 할 수 있도록 REST API서버로 구성했습니다. 데이터, 모델 버전관리를 자동으로 해주고, 최신 버전의 모델을 detection code가 자동으로 업데이트 되도록 구성했습니다.  
  
- </details>
+ ### 코드 및 실행 ([link](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI/dataserver))
+</details>
 
 ---
 
 ## 설치 안내 (Installation Process)
-<details>
- <summary>Flutter</summary>
-</details>
-<details>
- <summary>Node js</summary>
-</details>
-<details>
- <summary>Deep learning</summary>
+### Flutter
+
+### Node js
+
+### Deep learning
  
  ```bash
  git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
  cd AI_APP_WEB_Canary_Canary/AI/kwoledge_distillation/clone_code
  pip install -r requirements.txt
  
- cd datasetup
- python download_imagenet_data.py
- python download_custom_data.py 
- 
- git clone https://github.com/ultralytics/yolov5 clone_code
- mv datasetup/dataset clone_code
- cd clone_code
- mv dataset/dataset.yaml data/dataset.yaml
- 
- pip install -r requirements.txt
- python train.py --img 640 --batch 16 --epochs 3 --data data/dataset.yaml --weights yolov5m6.pt
+ python train.py --img 640 --batch 16 --epochs 300 --data data/dataset.yaml --weights yolov5m6.pt
  ```
 </details>
 
