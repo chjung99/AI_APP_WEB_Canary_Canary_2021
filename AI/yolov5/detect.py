@@ -12,12 +12,13 @@ def attemp_download_weight():
     if not os.path.exists('./weight'):
         os.makedirs('./weight')
     
-    with open('./config.json') as json_file:
-        json_data = json.load(json_file)
-    
+ 
     if os.path.exists('./weight/yolov5m6.pt'): return
     
     try:
+        with open('./config.json') as json_file:
+            json_data = json.load(json_file)
+    
         data = requests.get("http://52.14.108.141:8080/deeplearning/models").json()
         version = data['version']
         model_url = data['file']
