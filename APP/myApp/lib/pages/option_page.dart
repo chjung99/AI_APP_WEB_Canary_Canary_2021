@@ -37,7 +37,7 @@ class OptionPage extends StatelessWidget {
   TextButton toGallery() {
     return TextButton(
       onPressed: () {
-        Get.to(() => GalleryPage());
+        Get.to(() => GalleryPage(), transition: Transition.rightToLeft);
       },
       child: Container(
         width: 170,
@@ -59,7 +59,7 @@ class OptionPage extends StatelessWidget {
   TextButton toCamera() {
     return TextButton(
       onPressed: () {
-        Get.to(() => const CameraPage());
+        Get.to(() => const CameraPage(), transition: Transition.rightToLeft);
       },
       child: Container(
         width: 170,

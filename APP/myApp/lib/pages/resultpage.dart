@@ -20,7 +20,9 @@ class _ResultPageState extends State<ResultPage> {
   void initState() {
     super.initState();
     var host3 =
-        "https://osamhack2021-ai-app-web-canary-canary-g4x9r75r6fq49-4000.githubpreview.dev/img/output-params/$value";
+        "https://osam-project-testing-tkqtg.run.goorm.io/img/output-params/$value";
+
+    ///$value
     outputImage = o.getImage(host3);
   }
 
@@ -30,6 +32,7 @@ class _ResultPageState extends State<ResultPage> {
       appBar: appbarmaker(),
       body: Column(
         children: [
+          const SizedBox(height: 20),
           createProgressBar(true, false, false),
           const SizedBox(
             height: 100,

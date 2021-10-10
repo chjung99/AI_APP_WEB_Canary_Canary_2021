@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                 height: 50,
               ),
               onPressed: () {
-                Get.to(() => SignInPage());
+                Get.to(() => SignInPage(), transition: Transition.rightToLeft);
               },
             ),
             const SizedBox(height: 8.0),
@@ -69,7 +69,8 @@ class HomePage extends StatelessWidget {
                 height: 50,
               ),
               onPressed: () {
-                Get.to(() => const OptionPage());
+                Get.to(() => const OptionPage(),
+                    transition: Transition.rightToLeft);
               },
             ),
           ],

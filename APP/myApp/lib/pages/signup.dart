@@ -26,7 +26,7 @@ class SignUpPage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
             const SizedBox(height: 48),
-            customText(text: "회원가입", size: 40),
+            customText(text: "Sign Up", size: 40),
             const Text("군번과 비밀번호를 입력해주세요"),
             const SizedBox(height: 48),
             Form(
