@@ -35,7 +35,7 @@ def attemp_download_weight():
         
         if json_data['version'] < version or not os.path.exists('weight/yolov5m6.pt'):
             json_data['version'] = version
-            with open('./weight/config.json', 'w') as json_file: json.dump(json_data, json_file)
+            with open('./config.json', 'w') as json_file: json.dump(json_data, json_file)
             
             
             urllib.request.urlretrieve(model_url, 'weight/yolov5m6.pt') 
