@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:praticesig/color.dart';
 
 class GradationButton extends StatelessWidget {
   final String title;
@@ -14,12 +15,11 @@ class GradationButton extends StatelessWidget {
       alignment: Alignment.center,
       width: this.width, //400
       height: this.height, //50
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: <Color>[
-              Color(0xFF0D47A1),
-              Color(0xFF1976D2),
-              Color(0xFF42A5F5),
+              primaryColor,
+              secondaryColor,
             ],
           ),
           borderRadius: BorderRadius.all(Radius.circular(20.0))),

@@ -40,10 +40,10 @@ class _CameraPageState extends State<CameraPage> {
       body: Center(
         child: Column(
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
             createProgressBar(false, false, false),
             // 이미지 화면에 표시
-            const SizedBox(height: 50),
+            const SizedBox(height: 30),
             // 이미지 화면에 표시
             InkWell(
               onTap: () {
@@ -85,7 +85,7 @@ class _CameraPageState extends State<CameraPage> {
             TextButton(
               child: const GradationButton(
                 title: "post server",
-                width: 400,
+                width: 300,
                 height: 50,
               ),
               onPressed: () async {
