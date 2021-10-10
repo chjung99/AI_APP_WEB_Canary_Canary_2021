@@ -130,11 +130,33 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 
 ### AI
  - Pytorch
-   - YOLOv5
- - Object Detection
+   - YOLOv5 (Object Detection)
  - OpenCV
  - cvat.org
  - Roboflow
+ <details>
+ <summary>기술 설명</summary>
+ 
+ ### 사용 모델
+ - YOLOV5 ([original github](https://github.com/ultralytics/yolov5))
+<p align='center'><img src='https://user-images.githubusercontent.com/40621030/136682963-80100da0-c31c-4df4-8bff-583e1c1c62f1.png' width="500"/></p>
+
+ 
+ ### 추가 기법
+ - knowledge distillation ([paper link](https://arxiv.org/abs/1906.03609)) 
+   <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136683028-fb1ca2f0-97c0-4581-9b7a-64e26536d7af.png' width="500"/></p>
+ - mosaic augmetation에서 mosaic_9 augmentation 추가  
+ 
+ ### 성능
+ |    enhance    |   model  | precision | recall | mAP_0.5 | mAP_0.5:0.95 |
+ |:-------------:|:--------:|:---------:|:------:|:-------:|:------------:|
+ |      None     | yolov5m6 |   0.736   |  0.779 |  0.815  |     0.599    |  
+ | mosaic_9 50%  | yolov5m6 |   0.756   |  0.775 |  0.809  |     0.602    |
+ | mosaic_9 100% | yolov5m6 |   0.739   |  0.813 |  0.806  |     0.594    |
+ 
+ 
+ 
+ </details>
 
 ---
 
