@@ -4,6 +4,7 @@ import cv2
 import os
 import json
 import requests
+import urllib.request
 from google_drive_downloader import GoogleDriveDownloader as gdd
 
 MOSAIC_RATIO = 0.05
@@ -12,29 +13,33 @@ def attemp_download_weight():
     if not os.path.exists('./weight'):
         os.makedirs('./weight')
     
-    with open('./config.json') as json_file:
-        json_data = json.load(json_file)
-    
-    if os.path.exists('./weight/yolov5m6.pt'): return
+    if os.path.exists('./config.json'):
+        with open('./config.json') as json_file:
+            json_data = json.load(json_file)
+    else:
+        json_data = {"version": 0}
+        with open('./config.json', 'w') as outfile:
+            json.dump(json_data, outfile)
+            
     
     try:
         data = requests.get("http://52.14.108.141:8080/deeplearning/models").json()
+        print(data)
         version = data['version']
         model_url = data['file']
         
-        print(data)
-        
-        if json_data['version'] < version:
-            r = requests.get(model_url)
-            with open('./weight/yolov5m6.pt', 'wb') as f: f.write(r.content)
+        if json_data['version'] < version or not os.path.exists(weight/yolov5m6.pt):
             json_data['version'] = version
             with open('./weight/config.json', 'w') as json_file: json.dump(json_data, json_file)
+            
+            
+            urllib.request.urlretrieve(model_url, 'weight/yolov5m6.pt') 
             
     except:
         if os.path.exists('./weight/yolov5m6.pt'):
             os.remove('./weight/yolov5m6.pt')
         
-        yolov5m6_id = '1F6e6fztaSjzY_XZMFqqrLJv-QDo5eQ_a'
+        yolov5m6_id = '1QUaufxw06NVPyn_tIm0qBdOy5ewQ5ffi'
         gdd.download_file_from_google_drive(file_id=yolov5m6_id, dest_path=f'weight/yolov5m6.pt', showsize=True)
 
     
@@ -105,4 +110,4 @@ parser.add_argument('--output_warning_path', '-o2', help='Warning text path')
 args = parser.parse_args()
 
 attemp_download_weight()
-# detect(args)
+detect(args)
