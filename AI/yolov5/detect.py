@@ -9,20 +9,23 @@ from google_drive_downloader import GoogleDriveDownloader as gdd
 
 MOSAIC_RATIO = 0.05
 
-def attemp_download_weight():
-    if not os.path.exists('./weight'):
-        os.makedirs('./weight')
-    
-    if os.path.exists('./config.json'):
-        with open('./config.json') as json_file:
+def check_config(path='./config.json'):
+    if os.path.exists(path):
+        with open(path) as json_file:
             json_data = json.load(json_file)
     else:
         json_data = {"version": 0}
-        with open('./config.json', 'w') as outfile:
+        with open(path 'w') as outfile:
             json.dump(json_data, outfile)
 
+def attemp_download_weight():
+    if not os.path.exists('./weight'): os.makedirs('./weight')
+    
+    config_path = './config.json'
+    check_config(config_path)
+    
     try:
-        with open('./config.json') as json_file:
+        with open(config_path) as json_file:
             json_data = json.load(json_file)
     
         data = requests.get("http://52.14.108.141:8080/deeplearning/models").json()
@@ -30,7 +33,7 @@ def attemp_download_weight():
         version = data['version']
         model_url = data['file']
         
-        if json_data['version'] < version or not os.path.exists(weight/yolov5m6.pt):
+        if json_data['version'] < version or not os.path.exists('weight/yolov5m6.pt'):
             json_data['version'] = version
             with open('./weight/config.json', 'w') as json_file: json.dump(json_data, json_file)
             
