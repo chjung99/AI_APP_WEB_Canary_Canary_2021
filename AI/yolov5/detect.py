@@ -15,7 +15,7 @@ def check_config(path='./config.json'):
             json_data = json.load(json_file)
     else:
         json_data = {"version": 0}
-        with open(path 'w') as outfile:
+        with open(path, 'w') as outfile:
             json.dump(json_data, outfile)
 
 def attemp_download_weight():
@@ -70,6 +70,7 @@ def detect(args):
         warn_list = []
         for xmin, ymin, xmax, ymax, conf, class_num in results.xyxy[0]:
             class_num = int(class_num)
+            if class_num >= 16: continue
             warn_list.append(CLASS_LIST[class_num])
             if class_num == 6:
                 print("Military uniform is detected. Pass mosaic")
