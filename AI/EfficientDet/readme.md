@@ -1,3 +1,18 @@
+# Canary project
+
+|   model  | Average Precision  | Averagerecall | 
+|:--------:|:---------:|:------:|
+| efficientdet-d4_(26epoch) |   0.310   |  0.430 |  
+| efficientdet-d3(83epoch) |   0.484   |  0.590 |  
+
+
+<table>
+    
+# Canary weights
+- [efficientdet-d4](https://drive.google.com/file/d/1dgzbDFbxbaLsRxkHMFykAWshEqbn7PJE/view?usp=sharing)
+- [efficientdet-d3](https://drive.google.com/file/d/1JUff1FIjxABqpEFSanODgSpf6MdwIbs5/view?usp=sharing)
+    
+## git clone from https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch
 # Yet Another EfficientDet Pytorch
 
 The pytorch re-implement of the official [EfficientDet](https://github.com/google/automl/tree/master/efficientdet) with SOTA performance in real time, original paper link: <https://arxiv.org/abs/1911.09070>
@@ -326,9 +341,7 @@ Conclusion: They are providing almost the same precision. Tips: set `force_input
 <img src="https://raw.githubusercontent.com/zylo117/Yet-Another-Efficient-Pytorch/master/test/img_inferred_d0_official.jpg" width="640">
 
 
-## canary weights
-- [efficientdet-d4](https://drive.google.com/file/d/1dgzbDFbxbaLsRxkHMFykAWshEqbn7PJE/view?usp=sharing)
-- [efficientdet-d3](https://drive.google.com/file/d/1JUff1FIjxABqpEFSanODgSpf6MdwIbs5/view?usp=sharing)
+
 ## References
 
 Appreciate the great work from the following repositories:
