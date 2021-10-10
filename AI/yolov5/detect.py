@@ -3,6 +3,7 @@ import argparse
 import cv2
 import os
 import json
+import requests
 from google_drive_downloader import GoogleDriveDownloader as gdd
 
 MOSAIC_RATIO = 0.05
@@ -11,16 +12,32 @@ def attemp_download_weight():
     if not os.path.exists('./weight'):
         os.makedirs('./weight')
     
-    # with open('./weight/config.json') as json_file:
-    #     json_data = json.load(json_file)
+    with open('./config.json') as json_file:
+        json_data = json.load(json_file)
+    
+    if os.path.exists('./weight/yolov5m6.pt'): return
+    
+    try:
+        data = requests.get("http://52.14.108.141:8080/deeplearning/models").json()
+        version = data['version']
+        model_url = data['file']
         
+        print(data)
+        
+        if json_data['version'] < version:
+            r = requests.get(model_url)
+            with open('./weight/yolov5m6.pt', 'wb') as f: f.write(r.content)
+            json_data['version'] = version
+            with open('./weight/config.json', 'w') as json_file: json.dump(json_data, json_file)
+            
+    except requests.exceptions.ConnectionError:
+        if os.path.exists('./weight/yolov5m6.pt'):
+            os.remove('./weight/yolov5m6.pt')
+        
+        yolov5m6_id = '1F6e6fztaSjzY_XZMFqqrLJv-QDo5eQ_a'
+        gdd.download_file_from_google_drive(file_id=yolov5m6_id, dest_path=f'weight/yolov5m6.pt', showsize=True)
     
-    yolov5l6_id = '1sYHRy8uvBFJbNOPzOlzjEh3VUorHTy8S'
-    yolov5m6_id = '1F6e6fztaSjzY_XZMFqqrLJv-QDo5eQ_a'
-    yolov5s6_id = '1eAxFouSUlFlnMiooidbV3uI37hq5xXLo'
     
-    for Id, file_name in ((yolov5s6_id, 'yolov5s6.pt'), (yolov5m6_id, 'yolov5m6.pt'), (yolov5l6_id, 'yolov5l6.pt')):
-        gdd.download_file_from_google_drive(file_id=Id, dest_path=f'weight/{file_name}', showsize=True)
 
 # def mosaic()
 
@@ -46,23 +63,7 @@ def detect(args):
                 print("Military uniform or bulletproof vest detected. Pass mosaic")
                 continue
 
-            xmin = int(xmin); xmax = int(xmax); ymin = int(ymin); ymax = int(ymax);
-
-            #img_100 = img[:, :]
-            #img_75 = img[:, :]
-            #img_50 = img[:, :]
-
-
-            #cx = (xmin + xmax) / 2
-            #cy = (ymin + ymax) / 2  # center value 지정
-            #xlen = (xmax - cx) * str / 100
-            #ylen = (ymax - cy) * str / 100
-
-            #ymin_scaled = cy - ylen 
-            #ymax_scaled = cy + ylen 
-            #xmin_scaled = cx - xlen
-            #xmax_scaled = cx + xlen 
-
+            xmin = int(xmin); xmax = int(xmax); ymin = int(ymin); ymax = int(ymax)
             src = img[ymin: ymax, xmin: xmax]   # 관심영역 지정
 
 

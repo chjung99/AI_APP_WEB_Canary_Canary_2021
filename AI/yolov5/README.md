@@ -22,7 +22,6 @@ python train.py --img 640 --batch 16 --epochs 3 --data data/dataset.yaml --weigh
 ## Mosaic image
 ```
 pip install -qr https://raw.githubusercontent.com/ultralytics/yolov5/master/requirements.txt  # install dependencies
-pip install opencv-python googledrivedownloader
 python detect.py -w [WEIGHT PATH] -i [INPUT IMAGE PATH] -o [OUTPUT IMAGE PATH]
 ```
 ex)
