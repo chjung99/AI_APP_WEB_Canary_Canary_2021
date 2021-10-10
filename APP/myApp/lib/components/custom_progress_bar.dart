@@ -8,9 +8,7 @@ Column buildBar() {
         width: 180,
         color: Colors.black,
       ),
-      SizedBox(
-        height: 20,
-      ),
+      const SizedBox(height: 20),
     ],
   );
 }
@@ -27,7 +25,7 @@ Container buildIcon(int iconColor, IconData numIcon, String page) {
         ),
         Text(
           page,
-          style: TextStyle(fontSize: 7, color: Colors.black),
+          style: const TextStyle(fontSize: 7, color: Colors.black),
         ),
       ],
     ),
@@ -40,13 +38,13 @@ Container buildCheckIcon(String page) {
     width: 40,
     child: Column(
       children: [
-        Icon(
+        const Icon(
           Icons.check_circle,
           color: Colors.blue,
         ),
         Text(
           page,
-          style: TextStyle(fontSize: 7, color: Colors.black),
+          style: const TextStyle(fontSize: 7, color: Colors.black),
         ),
       ],
     ),

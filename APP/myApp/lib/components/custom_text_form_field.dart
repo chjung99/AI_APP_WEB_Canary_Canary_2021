@@ -21,7 +21,9 @@ class CustomTextFormField extends StatelessWidget {
         validator: funValidator,
         decoration: InputDecoration(
           hintText: "$hint 입력하세요",
-          suffixIcon: (signIn) ? Icon(Icons.account_box_outlined) : Icon(null),
+          suffixIcon: (signIn)
+              ? const Icon(Icons.account_box_outlined)
+              : const Icon(null),
           border: (signIn)
               ? null
               : OutlineInputBorder(

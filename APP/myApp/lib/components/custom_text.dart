@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:praticesig/color.dart';
 
 Text customText({required String text, required double size}) {
   return Text(
@@ -6,7 +7,7 @@ Text customText({required String text, required double size}) {
     style: TextStyle(
       fontSize: size,
       fontWeight: FontWeight.bold,
-      color: Colors.indigo,
+      color: primaryColor,
       fontFamily: "BlackHanSans",
     ),
   );

@@ -2,12 +2,12 @@
 // 애니메이션 : https://github.com/yumi0629/FlutterUI
 import 'package:flutter/material.dart';
 import 'package:praticesig/components/app_bar_maker.dart';
-import 'package:praticesig/components/button_style.dart';
+import 'package:praticesig/components/custom_button.dart';
+import 'package:praticesig/components/custom_text.dart';
 import 'package:praticesig/components/custom_text_form_field.dart';
 
 import 'package:praticesig/domain/user/user_repository.dart';
 
-import 'package:praticesig/pages/gallery_page.dart';
 import 'package:get/get.dart';
 import 'package:praticesig/pages/option_page.dart';
 import 'package:praticesig/pages/signup.dart';
@@ -34,16 +34,7 @@ class SignInPage extends StatelessWidget {
           shrinkWrap: true,
           padding: const EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
-            const Text(
-              "카나리아",
-              style: TextStyle(
-                fontSize: 40,
-                color: Colors.indigo,
-                fontWeight: FontWeight.bold,
-                fontFamily: "BlackHanSans",
-              ),
-              textAlign: TextAlign.left,
-            ),
+            customText(text: "로그인", size: 40),
             const Text("군번과 비밀번호를 입력해주세요"),
             const SizedBox(height: 48),
             Form(
@@ -86,12 +77,12 @@ class SignInPage extends StatelessWidget {
                 }
               },
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextButton(
               onPressed: () {
                 Get.to(() => SignUpPage());
               },
-              child: Text(
+              child: const Text(
                 "회원가입 하러가기",
                 style: TextStyle(color: Colors.black),
               ),

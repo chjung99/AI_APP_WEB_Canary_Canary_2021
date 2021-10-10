@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:praticesig/domain/postImage/post.dart';
 
 var host2 = Uri.parse(
     "https://osamhack2021-ai-app-web-canary-canary-g4x9r75r6fq49-4000.githubpreview.dev/img/upload");
@@ -20,5 +19,4 @@ class PostProvider extends GetConnect {
           "img_binary": img_binary,
         }),
       );
-  
 }

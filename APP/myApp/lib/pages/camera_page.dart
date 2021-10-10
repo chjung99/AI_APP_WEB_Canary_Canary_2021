@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:praticesig/components/app_bar_maker.dart';
-import 'package:praticesig/components/button_style.dart';
+import 'package:praticesig/components/custom_button.dart';
 
-import 'package:praticesig/components/progress_bar.dart';
+import 'package:praticesig/components/custom_progress_bar.dart';
 import 'package:praticesig/domain/postImage/post.dart';
 
 import 'package:praticesig/domain/postImage/post_repository.dart';
 import 'package:praticesig/pages/resultpage.dart';
 
 class CameraPage extends StatefulWidget {
+  const CameraPage({Key? key}) : super(key: key);
+
   @override
   _CameraPageState createState() => _CameraPageState();
 }
@@ -41,7 +43,7 @@ class _CameraPageState extends State<CameraPage> {
             const SizedBox(height: 20),
             createProgressBar(false, false, false),
             // 이미지 화면에 표시
-            const SizedBox(height: 100),
+            const SizedBox(height: 50),
             // 이미지 화면에 표시
             InkWell(
               onTap: () {

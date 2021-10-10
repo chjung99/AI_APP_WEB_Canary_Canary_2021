@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:praticesig/components/app_bar_maker.dart';
-import 'package:praticesig/components/button_style.dart';
+import 'package:praticesig/components/custom_button.dart';
+import 'package:praticesig/components/custom_text.dart';
 import 'package:praticesig/components/custom_text_form_field.dart';
 import 'package:praticesig/pages/signin.dart';
 import 'package:praticesig/util/validator_util.dart';
@@ -25,6 +26,9 @@ class SignUpPage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
             const SizedBox(height: 48),
+            customText(text: "회원가입", size: 40),
+            const Text("군번과 비밀번호를 입력해주세요"),
+            const SizedBox(height: 48),
             Form(
               key: _formKey,
               child: Column(
@@ -37,23 +41,24 @@ class SignUpPage extends StatelessWidget {
                   ),
                   SizedBox(height: 3),
                   CustomTextFormField(
-                      signIn: false,
-                      funValidator: validateUsername(),
-                      hint: "계급을",
-                      controller: _classes),
-                  SizedBox(height: 3),
+                    signIn: false,
+                    funValidator: validateUsername(),
+                    hint: "계급을",
+                    controller: _classes,
+                  ),
+                  SizedBox(height: 5),
                   CustomTextFormField(
                     signIn: false,
                     funValidator: validateUsername(),
                     hint: "군번을",
                     controller: _d_num,
                   ),
-                  SizedBox(height: 3),
+                  SizedBox(height: 10),
                   CustomTextFormField(
                     signIn: false,
                     funValidator: validateUsername(),
                     hint: "비밀번호를",
-                    controller: _d_num,
+                    controller: _password,
                   ),
                 ],
               ),
@@ -63,7 +68,7 @@ class SignUpPage extends StatelessWidget {
             ),
             TextButton(
               child: const GradationButton(
-                title: "작성완료",
+                title: "가입완료",
                 width: 400,
                 height: 50,
               ),

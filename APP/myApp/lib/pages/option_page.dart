@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:praticesig/components/app_bar_maker.dart';
-import 'package:praticesig/components/button_style.dart';
+import 'package:praticesig/components/custom_button.dart';
+import 'package:praticesig/components/custom_text.dart';
 import 'package:praticesig/pages/camera_page.dart';
 import 'package:praticesig/pages/gallery_page.dart';
 
@@ -16,24 +17,11 @@ class OptionPage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            SizedBox(height: 120),
-            Text(
-              "Choose Image",
-              style: TextStyle(
-                fontSize: 40,
-                color: Color(0xff6E9FED),
-                fontWeight: FontWeight.bold,
-                fontFamily: "BlackHanSans",
-              ),
-              textAlign: TextAlign.left,
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text("카메라와 갤러리 중 선택해주세요"),
-            SizedBox(
-              height: 70,
-            ),
+            const SizedBox(height: 120),
+            customText(text: "Choose Image", size: 40),
+            const SizedBox(height: 5),
+            const Text("카메라와 갤러리 중 선택해주세요"),
+            const SizedBox(height: 70),
             Row(
               children: <Widget>[
                 toGallery(),
@@ -71,7 +59,7 @@ class OptionPage extends StatelessWidget {
   TextButton toCamera() {
     return TextButton(
       onPressed: () {
-        Get.to(() => CameraPage());
+        Get.to(() => const CameraPage());
       },
       child: Container(
         width: 170,
@@ -80,7 +68,7 @@ class OptionPage extends StatelessWidget {
           children: [
             Icon(Icons.photo_camera),
             GradationButton(
-              title: "Gallery",
+              title: "Camera",
               width: 120,
               height: 120,
             ),

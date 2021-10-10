@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:praticesig/components/app_bar_maker.dart';
-import 'package:praticesig/components/progress_bar.dart';
+import 'package:praticesig/components/custom_progress_bar.dart';
 import 'package:praticesig/domain/output/output.dart';
 import 'package:praticesig/domain/output/output_repository.dart';
 
@@ -39,15 +39,20 @@ class _ResultPageState extends State<ResultPage> {
               future: outputImage,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return Image.memory(base64.decode(snapshot.data!.output));
-                  //return Container(
-                  //widt :
-                  //height :
-                  //child : Column (
-                  // Image.memory(base64.endcode(snapshot.data!.img_binary)
-                  // SizedBox(height : ???)
-                  // Text(snapshot.data!.warning, style :  TextStyle(블라블라))))
-                  //)
+                  //return Image.memory(base64.decode(snapshot.data!.output));
+                  return Container(
+                    width: 300,
+                    height: 300,
+                    child: Column(
+                      children: [
+                        Image.memory(
+                          base64.decode(snapshot.data!.prc_img),
+                        ),
+                        SizedBox(height: 20),
+                        Text(snapshot.data!.warning_text),
+                      ],
+                    ),
+                  );
                 } else {
                   return const CircularProgressIndicator();
                 }

@@ -1,4 +1,3 @@
-import 'package:praticesig/domain/user/user.dart';
 import 'package:praticesig/domain/user/user_provider.dart';
 
 class UserRepository {

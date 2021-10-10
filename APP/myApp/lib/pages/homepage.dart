@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:praticesig/components/app_bar_maker.dart';
-import 'package:praticesig/components/button_style.dart';
+import 'package:praticesig/components/custom_button.dart';
 import 'package:praticesig/components/custom_text.dart';
 import 'package:praticesig/components/logo.dart';
-import 'package:praticesig/components/progress_bar.dart';
 
 import 'package:praticesig/pages/option_page.dart';
 
@@ -27,7 +26,7 @@ class HomePage extends StatelessWidget {
               child: Row(
                 children: [
                   customText(text: "카나리아", size: 60),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   const Logo(
                     image: "CANARY.png",
                     width: 55,
@@ -70,7 +69,7 @@ class HomePage extends StatelessWidget {
                 height: 50,
               ),
               onPressed: () {
-                Get.to(() => OptionPage());
+                Get.to(() => const OptionPage());
               },
             ),
           ],
