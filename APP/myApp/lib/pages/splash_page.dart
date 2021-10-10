@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:praticesig/pages/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:praticesig/color.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Color(0xffFAF4C0),
+      backgroundColor: splashBackgroundColor,
       body: new Center(
         child: Container(
           child: new Image.asset(
