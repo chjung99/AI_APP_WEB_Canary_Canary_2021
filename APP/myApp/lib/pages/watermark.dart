@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image/image.dart' as ui;
+import 'package:praticesig/components/app_bar_maker.dart';
 
 class WaterMarkPage extends StatefulWidget {
   @override
@@ -22,9 +23,7 @@ class _WaterMarkPageState extends State<WaterMarkPage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("Watermark Example"),
-        ),
+        appBar: appbarmaker(),
         body: Center(
           child: Column(
             children: [
