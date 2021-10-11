@@ -3,16 +3,16 @@
 <p align='center'>
 <img src="https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/image/canary_2.0.jpg" alter="LOGO"/><br>
  <img src='https://img.shields.io/badge/Version-0.8.0-blue?style=for-the-badge&logo'>
- <a href='https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/LICENSE'><img src='https://img.shields.io/badge/License-GNU-blue?style=for-the-badge&logo'></a>
+ <a href='https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/LICENSE'><img src='https://img.shields.io/badge/License-GNU GPL v3.0-blue?style=for-the-badge&logo'></a>
 </p>
 
-Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 있는 요소를 식별하고, 이를 사용자에게 경고해주는 통합 보안 경보 시스템입니다. 
+Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 있는 요소를 식별하고, 자동 모자이크 처리를 하고, 이를 사용자에게 경고해주는 통합 보안 경보 시스템입니다. 
 카메라 기능과 SNS 탐지 기능으로 구성되어 있으며, 처리된 사진에는 워터마크가 들어가 처리 여부를 쉽게 식별할 수 있습니다.
 
 ## 🗂️프로젝트 소개
-<!--본 프로젝트는 사용자에게 보안 내용을 제거하는 기능을 가진 카메라를 제공함으로서,  
+본 프로젝트는 사용자에게 보안 내용을 제거하는 기능을 가진 카메라를 제공함으로서,  
 * **군 내에서 카메라를 사용 가능하게 함**과 동시에,
-*  SNS에 올릴 사진의 보안 위반 가능성을 경고하여 사용자가 **자발적으로** 보안을 준수 할 수 있게 합니다. -->
+*  SNS에 올릴 사진의 보안 위반 가능성을 경고하여 사용자가 **자발적으로** 보안을 준수 할 수 있게 합니다.
 
 
 <details>
@@ -115,6 +115,8 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 * ECMAScript 6 지원 브라우저 사용
 * 권장: Google Chrome 버젼 77 이상
+* python >= 3.6 
+* pytorch >= 1.7
 
 ---
 
@@ -225,11 +227,16 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
  cd AI_APP_WEB_Canary_Canary/AI/kwoledge_distillation/clone_code
  pip install -r requirements.txt
- 
- python train.py --img 640 --batch 16 --epochs 300 --data data/dataset.yaml --weights yolov5m6.pt
  ```
-</details>
 
+### MLOps
+  ```bash
+  git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
+  cd AI_APP_WEB_Canary_Canary/AI/dataserver/
+  pip install -r requirements.txt
+  python manage.py migrate
+  python manage.py runserver
+  ```
 ---
 
 ## 📱프로젝트 사용법 (Getting Started)
