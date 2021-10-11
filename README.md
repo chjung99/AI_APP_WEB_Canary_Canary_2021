@@ -61,16 +61,15 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 
 ## 📈시스템 흐름도
 <details>
- <summary>서비스</summary>
  
  ### User-case Diagram
- <p align='center'><img src="https://user-images.githubusercontent.com/40621030/134690667-abe8f797-01a8-44db-ae89-ef7809c22d64.png" height=300/></p>
+ <p align='center'><img src="https://user-images.githubusercontent.com/40621030/134690667-abe8f797-01a8-44db-ae89-ef7809c22d64.png"/></p>
  
  ### Sequence Diagram
-  <p align='center'><img src="https://user-images.githubusercontent.com/40621030/134693210-0aa1a63a-0399-485a-88be-24e829067813.png" height=300/></p>
+  <p align='center'><img src="https://user-images.githubusercontent.com/40621030/136720501-bbe98072-abbc-4797-a0c2-c66771f7e04a.png"/></p>
  
  ### Architecture
-  <p align='center'><img src="https://user-images.githubusercontent.com/40621030/134756413-d331fa9b-62f8-4dc4-a492-58dd53056a19.png" height=300/></p>
+  <p align='center'><img src="https://user-images.githubusercontent.com/40621030/136720255-0456ffd4-4d7d-4d2e-b5c5-09387c5861fa.png"/></p>
 </details>
 
 ## 📔기능 설명
