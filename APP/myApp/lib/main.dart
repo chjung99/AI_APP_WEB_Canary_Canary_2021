@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:praticesig/pages/homepage.dart';
 
 import 'package:get/get.dart';
+import 'package:praticesig/pages/splash_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +13,10 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       // 라우트 설계 필요없음. GetX 사용 예정
-      home: HomePage(),
+      home: SplashPage(),
+      routes: <String, WidgetBuilder>{
+        '/HomeScreen': (BuildContext context) => HomePage()
+      },
     );
   }
 }

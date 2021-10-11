@@ -5,14 +5,14 @@ const fs = require('fs')
 // pytorch model import
 const pytorch_model = require('../run_pytorch')
 
-var db = mysql.createConnection({
-	host : 'localhost',
-	user : 'root',
-	password : process.env.db_password,
-	database : 'node_db'
-})
+// var db = mysql.createConnection({
+// 	host : 'localhost',
+// 	user : 'root',
+// 	password : process.env.db_password,
+// 	database : 'node_db'
+// })
 
-db.connect();
+// db.connect();
 
 router.get('/main',(req,res)=>{
 	// pytorch model child process testing
@@ -91,8 +91,9 @@ router.get('/output', async (req,res)=>{
 
 // output using request parameters
 
-router.get('/output-params/:img_id/:level', async (req,res)=>{
-
+router.get('/output-params/:img_id', async (req,res)=>{
+// router.get('/output-params/:img_id/:level', async (req,res)=>{ // -> output with levels
+	
 	// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
 	// 	if (err){
 	// 		throw err
@@ -111,7 +112,11 @@ router.get('/output-params/:img_id/:level', async (req,res)=>{
 			console.log(prc_id)
 			const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
 			const processed_img_encoded = Buffer.from(processed_img).toString('base64')
-			res.json({status:200,output:processed_img_encoded})
+			var warning_txt = fs.readFileSync(`warnings/${prc_id}_warning.txt`).toString('utf-8')
+			if (warning_txt.length == 0) {
+				warning_txt = '특이사항 없음'	
+			}
+			res.json({status:200,prc_img:processed_img_encoded,warning_text:warning_txt})
 		}).catch((err)=>{
 			console.error(err)
 			res.json({status:404})
@@ -120,7 +125,7 @@ router.get('/output-params/:img_id/:level', async (req,res)=>{
 		console.error('no img_id in request parameter')
 		res.json({status:404,err_msg:'img_id for output undefined'})
 	}
-	res.json({status:200})
+	
 	
 })
 

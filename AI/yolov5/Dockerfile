@@ -1,68 +1,105 @@
-# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License.
 
-# docker image build
-# docker build --tag canary_yolo:{version} .
+FROM mcr.microsoft.com/azureml/o16n-base/python-assets:20210210.31228572 AS inferencing-assets
 
-# docker run image
-# sudo docker run -it canary_yolo:{version} /bin/bash
+FROM nvidia/cuda@sha256:27f07b36cf5dbf9c148ade5795e53932c421c9526143afc83e4f9dc55fb618fd
 
-# We don't need large linux image! Running on azureml
-FROM debian:buster
+USER root:root
+ENV com.nvidia.cuda.version $CUDA_VERSION
+ENV com.nvidia.volumes.needed nvidia_driver
 
-# TEAM Canary OSAM
-LABEL email="zheedong@gmial.com"
-LABEL name="Canary"
-LABEL version="1.1"
-LABEL description="OSAM Hackerthon"
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+ENV DEBIAN_FRONTEND noninteractive
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64
 
-# Install linux packages
-RUN apt update && apt install -y zip htop screen libgl1-mesa-glx
+# Install Common Dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    # SSH and RDMA
+    libmlx4-1 \
+    libmlx5-1 \
+    librdmacm1 \
+    libibverbs1 \
+    libmthca1 \
+    libdapl2 \
+    dapl2-utils \
+    openssh-client \
+    openssh-server \
+    iproute2 && \
+    # Others
+    apt-get install -y \
+    build-essential \
+    bzip2 \
+    libbz2-1.0 \
+    systemd \
+    git \
+    wget \
+    cpio \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libssl1.0.0 \
+    libsqlite3-0 \
+    libsasl2-2 \
+    libgcrypt20 \
+    slapd \
+    ca-certificates \
+    perl \
+    zlib1g \
+    e2fsprogs \
+    krb5-kdc \
+    apt \
+    p11-kit \
+    libp11-kit0 \
+    tar \
+    fuse && \
+    apt-get clean -y && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN apt-get install python3 -y
-RUN apt-get install python3-pip -y
+# Inference
+# Copy logging utilities, nginx and rsyslog configuration files, IOT server binary, etc.
+COPY --from=inferencing-assets /artifacts /var/
+RUN /var/requirements/install_system_requirements.sh && \
+    cp /var/configuration/rsyslog.conf /etc/rsyslog.conf && \
+    cp /var/configuration/nginx.conf /etc/nginx/sites-available/app && \
+    ln -s /etc/nginx/sites-available/app /etc/nginx/sites-enabled/app && \
+    rm -f /etc/nginx/sites-enabled/default
+ENV SVDIR=/var/runit
+ENV WORKER_TIMEOUT=300
+EXPOSE 5001 8883 8888
 
-# Install sudo
-RUN apt-get update \
- && apt-get install -y sudo
+# Conda Environment
+ENV MINICONDA_VERSION py37_4.9.2
+ENV PATH /opt/miniconda/bin:$PATH
+RUN wget -qO /tmp/miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
+    bash /tmp/miniconda.sh -bf -p /opt/miniconda && \
+    conda clean -ay && \
+    rm -rf /opt/miniconda/pkgs && \
+    rm /tmp/miniconda.sh && \
+    find / -type d -name __pycache__ | xargs rm -rf
 
-RUN adduser --disabled-password --gecos '' docker
-RUN adduser docker sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# Intel MPI installation
+ENV INTEL_MPI_VERSION 2018.3.222
+ENV PATH $PATH:/opt/intel/compilers_and_libraries/linux/mpi/bin64
+RUN cd /tmp && \
+    wget -q "http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/13063/l_mpi_${INTEL_MPI_VERSION}.tgz" && \
+    tar zxvf l_mpi_${INTEL_MPI_VERSION}.tgz && \
+    sed -i -e 's/^ACCEPT_EULA=decline/ACCEPT_EULA=accept/g' /tmp/l_mpi_${INTEL_MPI_VERSION}/silent.cfg && \
+    cd /tmp/l_mpi_${INTEL_MPI_VERSION} && \
+    ./install.sh -s silent.cfg --arch=intel64 && \
+    cd / && \
+    rm -rf /tmp/l_mpi_${INTEL_MPI_VERSION}* && \
+    rm -rf /opt/intel/compilers_and_libraries_${INTEL_MPI_VERSION}/linux/mpi/intel64/lib/debug* && \
+    echo "source /opt/intel/compilers_and_libraries_${INTEL_MPI_VERSION}/linux/mpi/intel64/bin/mpivars.sh" >> ~/.bashrc
 
-# USER docker
-
-# libffi package 연결
-# RUN sudo ln -s /usr/lib/x86_64-linux-gnu/libffi.so.7 /usr/lib/x86_64-linux-gnu/libffi.so.6
-
-# Install python dependencies
-COPY requirements.txt .
-RUN python3 -m pip install --upgrade pip
-RUN python3 -m pip install --no-cache -r requirements.txt 
-
-# TODO : Add python to PATH
-# RUN export PATH=/Users/docker/Library/Python/3.7/bin:$PATH
-
-# AzureML package
-RUN python3 -m pip install --no-cache azureml-core
-
-# requirements for detection
-RUN python3 -m pip install --no-cache -qr https://raw.githubusercontent.com/ultralytics/yolov5/master/requirements.txt
-RUN python3 -m pip install opencv-python googledrivedownloader
-
-# Create working directory
-RUN sudo mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-
-# Copy contents
-COPY . /usr/src/app
-
-# Set environment variables
-ENV HOME=/usr/src/app
-
-# Usage Examples -------------------------------------------------------------------------------------------------------
-
-# Train
-# ENTRYPOINT ["sudo", "python3", "train_with_azure.py"]
-
-# Detect
-# ENTRYPOINT ["sudo", "python3", "detect.py"]
+# Msodbcsql17 installation
+RUN apt-get update && \
+    apt-get install -y curl && \
+    curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
+    curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
+    apt-get update && \
+    ACCEPT_EULA=Y apt-get install -y msodbcsql17
+    
+RUN apt-get update
+RUN apt-get -y install libgl1-mesa-glx

@@ -4,8 +4,12 @@ class CustomTextFormField extends StatelessWidget {
   final String hint;
   final funValidator;
   final controller;
+  final bool signIn;
   const CustomTextFormField(
-      {required this.funValidator, this.controller, required this.hint});
+      {required this.funValidator,
+      this.controller,
+      required this.hint,
+      required this.signIn});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,14 @@ class CustomTextFormField extends StatelessWidget {
         validator: funValidator,
         decoration: InputDecoration(
           hintText: "$hint 입력하세요",
-          suffixIcon: Icon(Icons.account_box_outlined),
+          suffixIcon: (signIn)
+              ? const Icon(Icons.account_box_outlined)
+              : const Icon(null),
+          border: (signIn)
+              ? null
+              : OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
         ),
         style: _theme.inputDecorationTheme.labelStyle,
       ),

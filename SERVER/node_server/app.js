@@ -35,22 +35,22 @@ app.use(session({
 	saveUninitialized:true,
 }))
 
-var db = mysql.createConnection({
-	host : 'localhost',
-	user : 'root',
-	password : process.env.db_password,
-	database : 'node_db'
-})
+// var db = mysql.createConnection({
+// 	host : 'localhost',
+// 	user : 'root',
+// 	password : process.env.db_password,
+// 	database : 'node_db'
+// })
 
-db.connect();
+// db.connect();
 
-db.query('SELECT * FROM user_t',(err,result)=>{
-	if(err) {
-		throw err
-	} else {
-		console.log(result)
-	}
-})
+// db.query('SELECT * FROM user_t',(err,result)=>{
+// 	if(err) {
+// 		throw err
+// 	} else {
+// 		console.log(result)
+// 	}
+// })
 
 const testRouter = require('./routes/test')
 const indexRouter = require('./routes/index')
@@ -72,6 +72,7 @@ app.engine('html', require('ejs').renderFile);
 //images폴더에 관하여 정적인 접근을 가능하게 해줌 ex: https://osam-project-testing-tkqtg.run.goorm.io/sample.jpg 는 images 폴더 안의 sample.jpg를 출력해준다.
 app.use(express.static(path.join(__dirname, 'org_images')));
 app.use(express.static(path.join(__dirname, 'prc_images'))); // 처리된 이미지 폴더 
+app.use(express.static(path.join(__dirname, 'warnings'))); // 처리된 이미지 폴더 
 
 // app.use((req, res, next) => {
 // 	const err = new Error('Not Found');
