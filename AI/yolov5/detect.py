@@ -30,7 +30,7 @@ def attemp_download_weight():
         with open(config_path) as json_file:
             json_data = json.load(json_file)
         
-        data = requests.get("http://3.143.240.128:8080/deeplearning/models").json()
+        data = requests.get("http://3.143.240.128:8080/deeplearning/models", timeout=1).json()
         matrix = data['matrix']
         model_url = data['file']
         
