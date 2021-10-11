@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:praticesig/components/app_bar_maker.dart';
-import 'package:praticesig/components/custom_button.dart';
-import 'package:praticesig/components/custom_progress_bar.dart';
-import 'package:praticesig/domain/output/output.dart';
-import 'package:praticesig/domain/output/output_repository.dart';
-import 'package:praticesig/pages/savepage.dart';
+import 'package:myapp/components/app_bar_maker.dart';
+import 'package:myapp/components/custom_button.dart';
+import 'package:myapp/components/custom_progress_bar.dart';
+import 'package:myapp/domain/output/output.dart';
+import 'package:myapp/domain/output/output_repository.dart';
+import 'package:myapp/screens/savepage.dart';
 
 class ResultPage extends StatefulWidget {
   @override
