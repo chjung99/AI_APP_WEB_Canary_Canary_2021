@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:praticesig/components/app_bar_maker.dart';
-import 'package:praticesig/components/custom_button.dart';
+import 'package:myapp/components/app_bar_maker.dart';
+import 'package:myapp/components/custom_button.dart';
 
-import 'package:praticesig/components/custom_progress_bar.dart';
-import 'package:praticesig/domain/postImage/post.dart';
+import 'package:myapp/components/custom_progress_bar.dart';
+import 'package:myapp/domain/postImage/post.dart';
 
-import 'package:praticesig/domain/postImage/post_repository.dart';
-import 'package:praticesig/pages/resultpage.dart';
+import 'package:myapp/domain/postImage/post_repository.dart';
+import 'package:myapp/screens/resultpage.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({Key? key}) : super(key: key);

@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:praticesig/domain/postImage/post.dart';
-import 'package:praticesig/domain/postImage/post_provider.dart';
+import 'package:myapp/domain/postImage/post.dart';
+import 'package:myapp/domain/postImage/post_provider.dart';
 
 class PostRepository {
   final PostProvider _postProvider = PostProvider();

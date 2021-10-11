@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:praticesig/components/app_bar_maker.dart';
-import 'package:praticesig/components/custom_button.dart';
-import 'package:praticesig/components/custom_text.dart';
-import 'package:praticesig/components/logo.dart';
+import 'package:myapp/components/app_bar_maker.dart';
+import 'package:myapp/components/custom_button.dart';
+import 'package:myapp/components/custom_text.dart';
+import 'package:myapp/components/logo.dart';
 
-import 'package:praticesig/pages/option_page.dart';
-
-import 'package:praticesig/pages/signin.dart';
-import 'package:praticesig/size.dart';
+import 'package:myapp/screens/signinpage.dart';
+import 'package:myapp/size.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -67,10 +65,7 @@ class HomePage extends StatelessWidget {
                 title: "help",
                 width: 340,
               ),
-              onPressed: () {
-                Get.to(() => const OptionPage(),
-                    transition: Transition.rightToLeft);
-              },
+              onPressed: () {},
             ),
           ],
         ),

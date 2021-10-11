@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:praticesig/components/app_bar_maker.dart';
-import 'package:praticesig/components/custom_button.dart';
-import 'package:praticesig/components/custom_text.dart';
-import 'package:praticesig/components/custom_text_form_field.dart';
-import 'package:praticesig/pages/signin.dart';
-import 'package:praticesig/util/validator_util.dart';
+import 'package:myapp/components/app_bar_maker.dart';
+import 'package:myapp/components/custom_button.dart';
+import 'package:myapp/components/custom_text.dart';
+import 'package:myapp/components/custom_text_form_field.dart';
+import 'package:myapp/screens/signinpage.dart';
+import 'package:myapp/util/validator_util.dart';
 
 import '../size.dart';
 
