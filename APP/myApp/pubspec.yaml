@@ -35,6 +35,7 @@ dependencies:
   validators: ^3.0.0
   image: ^3.0.5
   animated_text_kit: ^4.2.1
+  gallery_saver: ^2.3.1
   
   
 
