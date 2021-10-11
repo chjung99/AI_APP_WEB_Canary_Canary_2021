@@ -310,3 +310,7 @@ runs/
 wandb/
 *.pt
 outputs/
+
+# node server ignore
+org_images/
+prc_images/
