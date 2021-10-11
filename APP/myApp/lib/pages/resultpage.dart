@@ -16,19 +16,12 @@ class ResultPage extends StatefulWidget {
 class _ResultPageState extends State<ResultPage> {
   final OutputRepository o = OutputRepository();
   var value = Get.arguments;
-  late Future<Output> outputImage;
-
-  @override
-  void initState() {
-    super.initState();
-    var host3 =
-        "https://osam-project-testing-tkqtg.run.goorm.io/img/output-params/$value";
-
-    outputImage = o.getImage(host3);
-  }
 
   @override
   Widget build(BuildContext context) {
+    var pre_img = value[0];
+    var warning_text = value[1];
+
     return Scaffold(
       appBar: appbarmaker(),
       body: Column(
@@ -37,38 +30,33 @@ class _ResultPageState extends State<ResultPage> {
           createProgressBar(true, false, false),
           const SizedBox(height: 30),
           Center(
-            child: FutureBuilder<Output>(
-              future: outputImage,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  showWarningDialog(context, snapshot);
-                  return Column(
-                    children: [
-                      Container(
-                        width: 300,
-                        height: 300,
-                        child: Image.memory(
-                          base64.decode(snapshot.data!.prc_img),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      TextButton(
-                        child: const GradationButton(
-                          title: "save",
-                          width: 300,
-                        ),
-                        onPressed: () {
-                          Get.to(() => SavePage(),
-                              transition: Transition.rightToLeft);
-                        },
-                      ),
-                    ],
-                  );
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              },
+            child: Column(
+              children: [
+                InkWell(
+                  onTap: () {
+                    showWarningDialog(context, warning_text);
+                  },
+                  child: Container(
+                    width: 300,
+                    height: 300,
+                    child: Image.memory(
+                      base64.decode(pre_img),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                TextButton(
+                  child: const GradationButton(
+                    title: "save",
+                    width: 300,
+                  ),
+                  onPressed: () {
+                    Get.to(() => SavePage(),
+                        transition: Transition.rightToLeft);
+                  },
+                ),
+              ],
             ),
           ),
         ],
@@ -76,26 +64,30 @@ class _ResultPageState extends State<ResultPage> {
     );
   }
 
-  Future<void> showWarningDialog(
-      BuildContext context, AsyncSnapshot<Output> snapshot) {
-    return Future(
-      () {
-        // Future Callback
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('⚠ Warning ⚠'),
-            content: Text(snapshot.data!.warning_text),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.of(context).pop('알겠습니다!'),
-                child: const Text(
-                  '알겠습니다!',
-                  style: TextStyle(color: Colors.red),
-                ),
-              )
-            ],
-          ),
+  void showWarningDialog(BuildContext context, String warning_text) {
+    showDialog(
+      context: context,
+      //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          //Dialog Main Title
+          title: const Text('⚠ Warning ⚠'),
+          content: Text(warning_text),
+          //
+
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop('알겠습니다!'),
+              child: const Text(
+                '알겠습니다!',
+                style: TextStyle(color: Colors.red),
+              ),
+            )
+          ],
         );
       },
     );
