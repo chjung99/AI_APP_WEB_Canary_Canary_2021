@@ -23,8 +23,8 @@ python detect.py -w ./weight/yolov5m6.pt -i ./image/soldier2.jpg -o ./image/out.
 ![in](image/soldier2.jpg)
 ![out](image/yolov5l6.jpg)
 
-## Test_detect
-!python test_detect.py -i ./input_sample.jpg -o ./output_sample.jpg -w ./best.pt -o2 ./out_warn.txt -s 0 -d user_id -o3 ./out_log.txt
+## Detect
+!python detect.py -i ./input_sample.jpg -o ./output_sample.jpg -w ./best.pt -o2 ./out_warn.txt -s 0 -d user_id -o3 ./out_log.txt
 
 
 
