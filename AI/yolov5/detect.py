@@ -147,8 +147,7 @@ def detect(args):
                 warn_text += warning_sns
                 warn_text += '또한 개인 신상 정보, 부대마크 및 명칭 노출에도 주의해 주세요.'
                 warn_text += warning_law
-              warning_sns
-              risk_level=1
+                risk_level=1
         else:
             warn_text = '아무런 객체가 검출되지 않았습니다.'
             risk_level=0
