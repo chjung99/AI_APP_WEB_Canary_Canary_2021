@@ -13,10 +13,12 @@ def check_config(path='./config.json'):
     if os.path.exists(path):
         with open(path) as json_file:
             json_data = json.load(json_file)
-    else:
-        json_data = {"version": 0}
-        with open(path, 'w') as outfile:
-            json.dump(json_data, outfile)
+        
+        if 'matrix' in json_data.keys(): return
+    
+    json_data = {"matrix": 0}
+    with open(path, 'w') as outfile:
+        json.dump(json_data, outfile)
 
 def attemp_download_weight():
     if not os.path.exists('./weight'): os.makedirs('./weight')
@@ -27,20 +29,21 @@ def attemp_download_weight():
     try:
         with open(config_path) as json_file:
             json_data = json.load(json_file)
-    
-        data = requests.get("http://52.14.108.141:8080/deeplearning/models").json()
-        print(data)
-        version = data['version']
+        
+        data = requests.get("http://3.143.240.128:8080/deeplearning/models").json()
+        matrix = data['matrix']
         model_url = data['file']
         
-        if json_data['version'] < version or not os.path.exists('weight/yolov5m6.pt'):
-            json_data['version'] = version
+        if json_data['matrix'] < matrix or not os.path.exists('weight/yolov5m6.pt'):
+            print('download file from django...')
+            json_data['matrix'] = matrix
             with open('./config.json', 'w') as json_file: json.dump(json_data, json_file)
             
             
             urllib.request.urlretrieve(model_url, 'weight/yolov5m6.pt') 
             
     except:       
+        print('download file from google drive...')
         yolov5m6_id = '1QUaufxw06NVPyn_tIm0qBdOy5ewQ5ffi'
         gdd.download_file_from_google_drive(file_id=yolov5m6_id, dest_path=f'weight/yolov5m6.pt', showsize=True)
 
