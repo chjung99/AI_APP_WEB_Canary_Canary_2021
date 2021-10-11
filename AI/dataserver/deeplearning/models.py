@@ -25,6 +25,7 @@ class TrainedModel(models.Model):
     file = models.FileField()
     result = models.FileField()
     create_at = models.DateTimeField(default=timezone.now)
+    matrix = models.FloatField()
     
     def delete(self, *args, **kargs):
         if self.file:   os.remove(os.path.join(settings.MEDIA_ROOT, self.file.path))
