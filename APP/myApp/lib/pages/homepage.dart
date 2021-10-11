@@ -5,8 +5,6 @@ import 'package:praticesig/components/custom_button.dart';
 import 'package:praticesig/components/custom_text.dart';
 import 'package:praticesig/components/logo.dart';
 
-import 'package:praticesig/pages/option_page.dart';
-
 import 'package:praticesig/pages/signin.dart';
 import 'package:praticesig/size.dart';
 
@@ -67,10 +65,7 @@ class HomePage extends StatelessWidget {
                 title: "help",
                 width: 340,
               ),
-              onPressed: () {
-                Get.to(() => const OptionPage(),
-                    transition: Transition.rightToLeft);
-              },
+              onPressed: () {},
             ),
           ],
         ),

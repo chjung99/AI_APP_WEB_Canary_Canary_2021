@@ -8,7 +8,7 @@ import 'package:praticesig/components/custom_progress_bar.dart';
 import 'package:praticesig/domain/postImage/post.dart';
 
 import 'package:praticesig/domain/postImage/post_repository.dart';
-import 'package:praticesig/pages/resultpage.dart';
+import 'package:praticesig/pages/loading.dart';
 
 class GalleryPage extends StatefulWidget {
   const GalleryPage({Key? key}) : super(key: key);
@@ -62,7 +62,7 @@ class _GalleryPageState extends State<GalleryPage> {
                   Post _imgId = await p.postImage(_image!);
                   String success = _imgId.imd_id;
                   if (success.length > 0) {
-                    Get.to(() => ResultPage(), arguments: success);
+                    Get.to(() => LoadingPage(), arguments: success);
                   }
                 } else {
                   Get.snackbar("사진이 없습니다", "사진을 골라주세요!");
