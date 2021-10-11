@@ -24,12 +24,7 @@ def attemp_download_weight():
     config_path = './config.json'
     check_config(config_path)
     
-<<<<<<< HEAD
-    yolov5l6_id = '1sYHRy8uvBFJbNOPzOlzjEh3VUorHTy8S'
-    #yolov5m6_id = '1F6e6fztaSjzY_XZMFqqrLJv-QDo5eQ_a'
-    yolov5m6_id = '1nxdwpSNVziDeHIKUORpvR-dil6NvH955'
-    yolov5s6_id = '1eAxFouSUlFlnMiooidbV3uI37hq5xXLo'
-=======
+
     try:
         with open(config_path) as json_file:
             json_data = json.load(json_file)
@@ -50,7 +45,7 @@ def attemp_download_weight():
         yolov5m6_id = '1QUaufxw06NVPyn_tIm0qBdOy5ewQ5ffi'
         gdd.download_file_from_google_drive(file_id=yolov5m6_id, dest_path=f'weight/yolov5m6.pt', showsize=True)
 
->>>>>>> c9b6bd488ed4702f09fbaff395c79f3e92a1fd82
+
     
 
 # def mosaic()
@@ -96,11 +91,8 @@ def detect(args):
             xmin = int(xmin); xmax = int(xmax); ymin = int(ymin); ymax = int(ymax)
             src = img[ymin: ymax, xmin: xmax]   # 관심영역 지정
             class_num = int(class_num)
-<<<<<<< HEAD
-            print(class_num)
-=======
+
             if class_num >= 16: continue
->>>>>>> c9b6bd488ed4702f09fbaff395c79f3e92a1fd82
             warn_list.append(CLASS_LIST[class_num])
             if class_num == 6:
                 
