@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:praticesig/pages/homepage.dart';
+import 'package:myapp/screens/homepage.dart';
 
 import 'package:get/get.dart';
-import 'package:praticesig/pages/splash_page.dart';
+import 'package:myapp/screens/splash_page.dart';
 
 void main() => runApp(MyApp());
 

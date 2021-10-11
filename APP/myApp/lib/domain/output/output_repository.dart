@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:praticesig/domain/output/output_provider.dart';
+import 'package:myapp/domain/output/output_provider.dart';
 
 import 'output.dart';
 

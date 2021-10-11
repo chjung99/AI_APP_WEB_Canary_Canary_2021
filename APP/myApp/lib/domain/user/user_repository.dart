@@ -1,4 +1,4 @@
-import 'package:praticesig/domain/user/user_provider.dart';
+import 'package:myapp/domain/user/user_provider.dart';
 
 class UserRepository {
   final UserProvider _userProvider = UserProvider();

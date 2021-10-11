@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:praticesig/components/app_bar_maker.dart';
-import 'package:praticesig/components/custom_button.dart';
-import 'package:praticesig/components/custom_progress_bar.dart';
-import 'package:praticesig/domain/output/output.dart';
-import 'package:praticesig/domain/output/output_repository.dart';
-import 'package:praticesig/pages/resultpage.dart';
+import 'package:myapp/components/app_bar_maker.dart';
+import 'package:myapp/components/custom_button.dart';
+import 'package:myapp/components/custom_progress_bar.dart';
+import 'package:myapp/domain/output/output.dart';
+import 'package:myapp/domain/output/output_repository.dart';
+import 'package:myapp/screens/resultpage.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({Key? key}) : super(key: key);

@@ -1,18 +1,18 @@
 // UI 모음집 :  https://github.com/lohanidamodar/flutter_ui_challenges
 // 애니메이션 : https://github.com/yumi0629/FlutterUI
 import 'package:flutter/material.dart';
-import 'package:praticesig/components/app_bar_maker.dart';
-import 'package:praticesig/components/custom_button.dart';
-import 'package:praticesig/components/custom_text.dart';
-import 'package:praticesig/components/custom_text_form_field.dart';
+import 'package:myapp/components/app_bar_maker.dart';
+import 'package:myapp/components/custom_button.dart';
+import 'package:myapp/components/custom_text.dart';
+import 'package:myapp/components/custom_text_form_field.dart';
 
-import 'package:praticesig/domain/user/user_repository.dart';
+import 'package:myapp/domain/user/user_repository.dart';
 
 import 'package:get/get.dart';
-import 'package:praticesig/pages/option_page.dart';
-import 'package:praticesig/pages/signup.dart';
-import 'package:praticesig/size.dart';
-import 'package:praticesig/util/validator_util.dart';
+import 'package:myapp/screens/optionpage.dart';
+import 'package:myapp/screens/signuppage.dart';
+import 'package:myapp/size.dart';
+import 'package:myapp/util/validator_util.dart';
 
 class SignInPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();

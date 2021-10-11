@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:praticesig/components/app_bar_maker.dart';
-import 'package:praticesig/components/custom_button.dart';
-import 'package:praticesig/components/custom_text.dart';
-import 'package:praticesig/pages/camera_page.dart';
-import 'package:praticesig/pages/gallery_page.dart';
-import 'package:praticesig/size.dart';
+import 'package:myapp/components/app_bar_maker.dart';
+import 'package:myapp/components/custom_button.dart';
+import 'package:myapp/components/custom_text.dart';
+import 'package:myapp/screens/camera_page.dart';
+import 'package:myapp/screens/gallery_page.dart';
+import 'package:myapp/size.dart';
 
 class OptionPage extends StatelessWidget {
   const OptionPage({Key? key}) : super(key: key);

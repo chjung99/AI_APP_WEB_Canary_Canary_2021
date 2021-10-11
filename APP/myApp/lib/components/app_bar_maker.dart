@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:praticesig/color.dart';
+import 'package:myapp/color.dart';
 
 AppBar appbarmaker() {
   return AppBar(
