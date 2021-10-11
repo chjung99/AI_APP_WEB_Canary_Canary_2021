@@ -109,28 +109,45 @@ def detect(args):
         cv2.imwrite(output_image_path, img)
         warn_list = ','.join(list(set(warn_list)))
 
+        warning_law = '군사기밀 유출시 군형법 제80조, 군사기밀보호법, 국가보안법에 의거한 처벌 가능성이 있습니다.'
+        warning_sns = "훈련 중 카메라 사용은 군 SNS 행동강령에 해당될 수도 있습니다."
+
         if warn_list:
             warn_text = f'{warn_list} (이/가) 감지되었습니다.'
             if ("모니터" in warn_list or "서류" in warn_list or "노트북" in warn_list):
-              warn_text +='혹시 지금 군사 기밀을 노출하진 않으셨나요?'
-              risk_level=5
+                warn_text +='혹시 지금 군사 기밀을 노출하진 않으셨나요?'
+                warn_text += warning_law
+                risk_level=5
             elif ("소총" in warn_list or "리볼버" in warn_list or "포" in warn_list or "탱크" in warn_list or "군항공기" in warn_list or "미사일" in warn_list or "방탄조끼" in warn_list):
-              warn_text +='지금 훈련 중이신가요? 훈련모습 촬영은 규정에 어긋납니다!'
-              risk_level=3
+                warn_text +='지금 훈련 중이신가요?'
+                warn_text += "소규모 부대 현행작전 등 단순한 군 활동 내용은 보안 사고에 해당하지 않지만,"
+                warn_text += warning_sns
+                risk_level=3
             elif ('군용 차량' in warn_list):
-              warn_text +='군용 차량을 촬영하셨네요.차종 및 번호판 식별 위험이있습니다.'
-              risk_level=2
+                warn_text += '군용 차량을 촬영하셨네요. 차종 및 번호판 식별 위험이있습니다.'
+                warn_text += warning_law
+                risk_level=2
             elif ('부대마크' in warn_list):
-              warn_text +='부대마크 및 명칭 노출은 군사보안에 위배되는 사항입니다.'
-              risk_level=2
+                warn_text +='부대마크 및 명칭 노출은 군사보안에 위배되는 사항입니다.'
+                warn_text += warning_law
+                risk_level=2
             elif ('항공모함' in warn_list):
-              warn_text +='설마 한미연합훈련 중 카메라를 사용하시는 건 아니겠죠?'
-              risk_level=2
+                warn_text +='설마 한미연합훈련 중 카메라를 사용하시는 건 아니겠죠?'
+                warn_text += warning_sns
+                warn_text += "또한, 무기체계의 제원 및 외형사진 등 공공기관, 대외학술지를 통해 이미 공개된 내용이 아닌, 특별 관리하는 무기체계 및 비공개 무기체계 자료에 대한 내용은 보안 위반입니다."
+                warn_text += warning_law
+                risk_level=2
             elif ('군 표지판' in warn_list):
-              warn_text +='군 표지판 촬영은 부대 위치가 식별될 위험이 있습니다.'
-              risk_level=3
+                warn_text += '군 표지판 촬영은 부대 위치가 식별될 위험이 있습니다.'
+                warn_text += "대규모 부대의 위치 및 좌표, 고유명칭 · 통상명칭 등을 한번에 표시한 것은 보안 위반입니다."
+                warn_text += warning_law
+                risk_level=3
             else:
-              warn_text +='군복을 입고 찍는 기념 사진인가요? 훈련 중이 아니길 빌어요!'
+                warn_text +='군복을 입고 찍는 기념 사진인가요? 훈련 중이 아니길 빌어요!'
+                warn_text += warning_sns
+                warn_text += '또한 개인 신상 정보, 부대마크 및 명칭 노출에도 주의해 주세요.'
+                warn_text += warning_law
+              warning_sns
               risk_level=1
         else:
             warn_text = '아무런 객체가 검출되지 않았습니다.'
