@@ -7,7 +7,7 @@ class FileAdmin(admin.ModelAdmin):
     list_display  = ['id', 'file', 'upload_at']
 
 class TrainModelAdmin(admin.ModelAdmin):
-    list_display  = ['version', 'file', 'result']
+    list_display  = ['version', 'file', 'result', 'matrix']
 
 admin.site.register(File, FileAdmin)
 admin.site.register(TrainedModel, TrainModelAdmin)

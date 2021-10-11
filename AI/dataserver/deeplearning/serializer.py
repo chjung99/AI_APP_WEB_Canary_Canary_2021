@@ -18,3 +18,4 @@ class TrainModelSerializer(serializers.Serializer):
     file = serializers.FileField(required=True)
     result = serializers.FileField(required=True)
     version = serializers.IntegerField(required=True)
+    matrix = serializers.FloatField(required=True)

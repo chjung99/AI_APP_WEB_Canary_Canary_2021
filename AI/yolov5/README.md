@@ -2,7 +2,7 @@
 
 ## Train yolov5 in local
 ```
-python clone_code/train.py --img 640 --batch 16 --epochs 3 --data data/dataset.yaml --weights yolov5m6.pt
+python clone_code/train.py --img 640 --batch 1 --epochs 3 --data data/dataset.yaml --weights yolov5m6.pt
 ```
 
 ## Train yolov5 in azure
