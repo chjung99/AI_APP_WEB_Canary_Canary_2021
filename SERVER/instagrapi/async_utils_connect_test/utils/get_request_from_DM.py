@@ -6,6 +6,8 @@ IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/as
 IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/images_detect_output'
 WARNING_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/warning'
 
+async_img_download_root = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs'
+
 # For debug
 '''
 cl = Client()
@@ -28,14 +30,37 @@ def make_directory_save_images(message):
         print("Error : Creating directory " + path)
     return path
 
-async def send_help(cl,thread_id):
-    # cl.direct_send(thread_ids = [thread.id], text = "==== How to use ====\n1. DM detection\nPlease send me one photo")
-    # cl.direct_send(thread_ids = [thread.id], text = "2. Feed detection\nPlease send me '/feed n'\n(Most recent feed number is 1)")
-    # cl.direct_send(thread_ids = [thread.id], text = "3. Story detection\nPlease send me '/story n'\n(Most recent story number is 1)")
-    cl.direct_answer(thread_id,'=== How To Use=== \n 1. 포스트 검사하기 : 명령어 \n 2. 스토리 검사하기')
+# async로 형식 전환중
+async def send_help(cl,user_id):
+    # Thread_id로도 DM 전송 가능하지만 user_id의 범용성이 더 높기에 user_id 채택
+    # cl.direct_answer(thread_id,'=== How To Use=== \n 1. 포스트 검사하기 : 명령어 \n 2. 스토리 검사하기')
+    cl.direct_send('=== How To Use=== \n 1. 포스트 검사하기 : 명령어 \n 2. 스토리 검사하기', user_ids=[user_id])
+    
+# 지원하지 않은 명령어
+async def send_invalid(cl,user_id):
+    # cl.direct_answer(thread_id,"지원하지 않은 명령어 입니다. 도움말을 보시려면 '도움 또는 Help'를 전송해주세요")
+    cl.direct_send("지원하지 않은 명령어 입니다. 도움말을 보시려면 '도움 또는 Help'를 전송해주세요", user_ids=[user_id])
 
-def send_invalid(thread):
-    cl.direct_send(thread_ids = [thread.id], text = "Invalid execution! If you need help, please send me '/help'")
+async def post_check(cl,user_id,thread_id):
+    cl.direct_send('게시물 순서를 입력해주세요. \n최근 게시물부터 1->2->3 입니다')
+    
+
+async def read_all_posts(cl,user_id):
+    # test user_id = 50160424289
+    # user의 posts를 list로 저장 : user_posts
+    user_posts = cl.user_medias_v1(user_id)
+    posts_len = len(user_posts)
+    for idx in range(posts_len):
+        post_pk = user_posts[idx].pk
+        post_type = user_posts[idx].media_type
+        if post_type == 1:
+            cl.photo_download(post_pk,async_img_download_root)
+        elif post_type == 8:
+            cl.album_download(post_pk,async_img_download_root)
+        else:
+            print('사진의 media type이 아닙니다')
+    print('reading process done')
+
 
 def send_invalid_bound(thread):
     cl.direct_send(thread_ids = [thread.id], text = "Invalid bound! If you need help, please send me '/help'")
