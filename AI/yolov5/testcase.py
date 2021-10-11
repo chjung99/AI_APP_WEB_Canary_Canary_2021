@@ -47,8 +47,8 @@ class canaryAiTest(unittest.TestCase):
         attemp_download_weight()
         assert os.path.exists('weight/yolov5m6.pt')
     
-    def test_detect(self):
-        # args를 인자로 받아서 어떻게 test?
+    #def test_detect(self):
+        # args를 인자로 어떻게 받아서 어떻게 test?
 
     
 
