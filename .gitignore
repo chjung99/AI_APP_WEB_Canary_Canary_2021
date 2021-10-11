@@ -312,5 +312,5 @@ wandb/
 outputs/
 
 # node server ignore
-SERVER/node_server/org_images/
+SERVER/node_server/org_images
 SERVER/node_server/prc_images/
