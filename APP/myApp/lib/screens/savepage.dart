@@ -107,7 +107,7 @@ class SavePage extends StatelessWidget {
                 const SizedBox(height: 20),
                 TextButton(
                   child: const GradationButton(
-                    title: "새로운 사진 테스트 하기",
+                    title: "Try Again",
                     width: 300,
                   ),
                   onPressed: () {
