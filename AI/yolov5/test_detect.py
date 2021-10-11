@@ -138,7 +138,7 @@ def detect(args):
         with open(output_warning_path, 'w') as f:
             f.write(warn_text)
         with open(output_log_path, 'w') as f:
-            log_text='user_id:'+f'{args.user_id}/object:'+f'{warn_list}/risk:'+f'{risk_level}'
+            log_text='user_id:'+f'{args.user_id}/object:'+f'{warn_list}/risk level:'+f'{risk_level}'
             f.write(log_text)
 
 
