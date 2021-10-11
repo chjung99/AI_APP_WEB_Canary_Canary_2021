@@ -1,7 +1,15 @@
 import time
 import asyncio
+import os
+
 from instagrapi import Client
-from utils import get_request_from_DM # local Utils function import
+
+from utils.get_client import *
+from utils.download_image_from_DM import *
+from utils.detect_images import *
+from utils.send_DM import *
+from utils.get_request_from_DM import * # local Utils function import
+
 
 cl = Client()
 cl.login('osam_canary','admin0408')
@@ -37,7 +45,7 @@ async def msg_handler(messages):
                 await img_process(msg)
             elif msg_data[0] == 'Help' or '도움':
                 # thread_id = msg_data[1] # Thread_id 의 idx : 1
-                await get_request_from_DM.send_help(thread_id)
+                await send_help(cl,thread_id) # cl = Client Pass
             else:
                 print('지원되지 않은 명령어 입니다')
             
