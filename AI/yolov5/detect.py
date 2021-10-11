@@ -9,35 +9,41 @@ from google_drive_downloader import GoogleDriveDownloader as gdd
 
 MOSAIC_RATIO = 0.05
 
-def attemp_download_weight():
-    if not os.path.exists('./weight'):
-        os.makedirs('./weight')
-    
-    if os.path.exists('./config.json'):
-        with open('./config.json') as json_file:
+def check_config(path='./config.json'):
+    if os.path.exists(path):
+        with open(path) as json_file:
             json_data = json.load(json_file)
-    else:
-        json_data = {"version": 0}
-        with open('./config.json', 'w') as outfile:
-            json.dump(json_data, outfile)
+        
+        if 'matrix' in json_data.keys(): return
+    
+    json_data = {"matrix": 0}
+    with open(path, 'w') as outfile:
+        json.dump(json_data, outfile)
 
-    try:
-        with open('./config.json') as json_file:
-            json_data = json.load(json_file)
+def attemp_download_weight():
+    if not os.path.exists('./weight'): os.makedirs('./weight')
     
-        data = requests.get("http://52.14.108.141:8080/deeplearning/models").json()
-        print(data)
-        version = data['version']
+    config_path = './config.json'
+    check_config(config_path)
+    
+    try:
+        with open(config_path) as json_file:
+            json_data = json.load(json_file)
+        
+        data = requests.get("http://3.143.240.128:8080/deeplearning/models", timeout=1).json()
+        matrix = data['matrix']
         model_url = data['file']
         
-        if json_data['version'] < version or not os.path.exists(weight/yolov5m6.pt):
-            json_data['version'] = version
-            with open('./weight/config.json', 'w') as json_file: json.dump(json_data, json_file)
+        if json_data['matrix'] < matrix or not os.path.exists('weight/yolov5m6.pt'):
+            print('download file from django...')
+            json_data['matrix'] = matrix
+            with open('./config.json', 'w') as json_file: json.dump(json_data, json_file)
             
             
             urllib.request.urlretrieve(model_url, 'weight/yolov5m6.pt') 
             
     except:       
+        print('download file from google drive...')
         yolov5m6_id = '1QUaufxw06NVPyn_tIm0qBdOy5ewQ5ffi'
         gdd.download_file_from_google_drive(file_id=yolov5m6_id, dest_path=f'weight/yolov5m6.pt', showsize=True)
 
@@ -67,6 +73,7 @@ def detect(args):
         warn_list = []
         for xmin, ymin, xmax, ymax, conf, class_num in results.xyxy[0]:
             class_num = int(class_num)
+            if class_num >= 16: continue
             warn_list.append(CLASS_LIST[class_num])
             if class_num == 6:
                 print("Military uniform is detected. Pass mosaic")

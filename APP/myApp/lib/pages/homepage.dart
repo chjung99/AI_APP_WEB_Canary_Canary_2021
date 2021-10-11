@@ -1,38 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:praticesig/components/button_style.dart';
+import 'package:praticesig/components/app_bar_maker.dart';
+import 'package:praticesig/components/custom_button.dart';
+import 'package:praticesig/components/custom_text.dart';
 import 'package:praticesig/components/logo.dart';
-import 'package:praticesig/pages/pick_image_page.dart';
 
-import 'package:praticesig/pages/post_username_page.dart';
+import 'package:praticesig/pages/option_page.dart';
+
+import 'package:praticesig/pages/signin.dart';
+import 'package:praticesig/size.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xff6E9FED),
-      ),
+      appBar: appbarmaker(),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 50),
+            const SizedBox(height: marginVerticalSize),
             Padding(
-              padding: const EdgeInsets.only(left: 20.0),
+              padding: const EdgeInsets.only(left: marginHorizontalSize),
               child: Row(
                 children: [
-                  const Text(
-                    "카나리아",
-                    style: TextStyle(
-                      fontSize: 60,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.indigo,
-                      fontFamily: "BlackHanSans",
-                    ),
-                  ),
-                  SizedBox(width: 5),
-                  Logo(
+                  customText(text: "카나리아", size: 60),
+                  const SizedBox(width: 5),
+                  const Logo(
                     image: "CANARY.png",
                     width: 55,
                     height: 55,
@@ -41,40 +37,39 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 20.0),
+              padding: const EdgeInsets.only(right: marginHorizontalSize),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const Text(
-                    "모두를 위한 군사보안 경보기",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.indigo,
-                      fontFamily: "BlackHanSans",
-                    ),
-                  ),
+                  customText(text: "모두를 위한 군사보안 경보기", size: 20),
                 ],
               ),
             ),
-            const SizedBox(height: 48.0),
-            Logo(
+            const SizedBox(height: marginVerticalSize),
+            const Logo(
               image: "OSAM.jpg",
               width: 150,
               height: 150,
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: marginVerticalSize),
             TextButton(
-              child: const GradationButton(title: "go"),
+              child: const GradationButton(
+                title: "go",
+                width: 340,
+              ),
               onPressed: () {
-                Get.to(() => PickImagePage());
+                Get.to(() => SignInPage(), transition: Transition.rightToLeft);
               },
             ),
             const SizedBox(height: 8.0),
             TextButton(
-              child: const GradationButton(title: "help"),
+              child: const GradationButton(
+                title: "help",
+                width: 340,
+              ),
               onPressed: () {
-                Get.to(() => PostUserNamePage());
+                Get.to(() => const OptionPage(),
+                    transition: Transition.rightToLeft);
               },
             ),
           ],
