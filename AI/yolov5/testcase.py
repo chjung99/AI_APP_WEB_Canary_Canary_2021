@@ -37,8 +37,12 @@ class canaryAiTest(unittest.TestCase):
             with open(path) as json_file:
                 json_data = json.load(json_file)
                 self.assertIsNotNone(json_data)
-                json.dump(json_data, outfile)
+
     
+    def test_download_file_from_google_drive(self):
+        download_file_from_google_drive()
+        assert os.path.exists('weight/yolov5m6.pt')
+
     def test_attemp_download_weight(self):
         attemp_download_weight()
         assert os.path.exists('weight/yolov5m6.pt')
