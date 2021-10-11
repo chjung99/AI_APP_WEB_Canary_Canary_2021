@@ -183,8 +183,8 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
    <td align='center'>Result Image</td>
   </tr>
   <tr>
-   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/136698552-42c71108-9efc-4c88-a68a-3f5aec8452c6.jpg' width="500"/></td>
    <td align='center'><img src='https://user-images.githubusercontent.com/40621030/136698553-a00eb618-7783-41d9-bd2c-203dbbd60946.jpg' width="500"/></td>
+   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/136698552-42c71108-9efc-4c88-a68a-3f5aec8452c6.jpg' width="500"/></td>
   </tr>
  </table>
  
