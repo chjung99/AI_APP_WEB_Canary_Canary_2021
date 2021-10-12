@@ -12,7 +12,9 @@ from utils.get_request_from_DM import * # local Utils function import
 
 
 cl = Client()
-cl.login('osam_testbot','admin0408!')
+cl.login('osam_canary','admin0408!')
+# cl.login('osam_testbot','admin0408')
+# cl.login('osam_canary1','admin0408')
 messages = [] 
 
 async def check_unread(messages):
@@ -52,11 +54,11 @@ async def msg_handler(messages):
                 print('Help Route')
                 # thread_id = msg_data[1] # Thread_id 의 idx : 1
                 await send_help(cl,user_id) # cl = Client Pass
-            elif msg == '게시물 전체 검사':
+            elif msg == '게시물 3개 검사':
                 print('Post Check Route')
                 await read_all_posts(cl,user_id)
-            # elif msg == '게시물 검사':
-            #     await post_check(cl,user_id,thread_id)
+            elif msg == '게시물 검사':
+                await post_check(cl,user_id,thread_id)
             else:
                 print('Invalid Command Route')
                 await send_invalid(cl,user_id)
