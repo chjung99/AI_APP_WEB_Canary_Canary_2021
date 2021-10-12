@@ -48,8 +48,8 @@ async def post_check(cl,user_id,thread_id):
 async def read_all_posts(cl,user_id):
     # test user_id = 50160424289
     # user의 posts를 list로 저장 : user_posts
-    user_posts = cl.user_medias_v1(user_id)
-    posts_len = len(user_posts)
+    posts_len = cl.user_info(user_id).media_count
+    user_posts = cl.user_medias(user_id, posts_len)
     for idx in range(posts_len):
         post_pk = user_posts[idx].pk
         post_type = user_posts[idx].media_type
