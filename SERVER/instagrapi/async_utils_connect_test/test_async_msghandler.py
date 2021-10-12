@@ -56,7 +56,7 @@ async def msg_handler(messages):
                 await send_help(cl,user_id) # cl = Client Pass
             elif msg == '게시물 3개 검사':
                 print('Post Check Route')
-                await read_all_posts(cl,user_id)
+                await get_recent_three_unchecked_medias(cl,user_id)
             elif msg == '게시물 검사':
                 await post_check(cl,user_id,thread_id)
             else:
@@ -77,8 +77,8 @@ async def main(messages) :
     await asyncio.gather(
         check_unread(messages),
         msg_handler(messages), # 하나의 함수당 Thread 1로 작동하는 개념 (동시에 하나의 명령씩 수행 가능)
-        # msg_handler(messages),
-        # msg_handler(messages),
+        msg_handler(messages),
+        msg_handler(messages),
     )
     
 if __name__ == "__main__":
