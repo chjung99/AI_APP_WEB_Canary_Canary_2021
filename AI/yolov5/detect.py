@@ -8,19 +8,7 @@ import urllib.request
 from google_drive_downloader import GoogleDriveDownloader as gdd
 
 MOSAIC_RATIO = 0.05
-
-<<<<<<< HEAD
-def check_config(path='./config.json'):
-    print(1)
-    if os.path.exists(path):
-        with open(path) as json_file:
-            json_data = json.load(json_file)
-    else:
-        json_data = {"version": 0}
-        with open(path, 'w') as outfile:
-            json.dump(json_data, outfile)
-    print(2)
-=======
+git
 def check_config(path="./config.json"):
     if os.path.exists(path):
         with open(path) as json_file:
@@ -36,7 +24,6 @@ def download_file_from_google_drive():
     print("download model from google drive")
     yolov5m6_id = "1QUaufxw06NVPyn_tIm0qBdOy5ewQ5ffi"
     gdd.download_file_from_google_drive(file_id=yolov5m6_id, dest_path=f"weight/yolov5m6.pt", showsize=True)
->>>>>>> a79eb51fa3376c8a37422fae77b385a6a033909a
 
 def attemp_download_weight():
     if not os.path.exists("./weight"): os.makedirs("./weight")
@@ -51,17 +38,9 @@ def attemp_download_weight():
         
         print(4)
     
-<<<<<<< HEAD
-        data = requests.get("http://52.14.108.141:8080/deeplearning/models").json()
-        print(5)
-        print(data)
-        version = data['version']
-        model_url = data['file']
-=======
         data = requests.get("http://3.143.240.128:8080/deeplearning/models", timeout=1).json()
         matrix = data["matrix"]
         model_url = data["file"]
->>>>>>> a79eb51fa3376c8a37422fae77b385a6a033909a
         
         if json_data["matrix"] < matrix or not os.path.exists("weight/yolov5m6.pt"):
             print("download model from django")
@@ -70,13 +49,7 @@ def attemp_download_weight():
             urllib.request.urlretrieve(model_url, "weight/yolov5m6.pt") 
             
     except:       
-<<<<<<< HEAD
-        print(5)
-        yolov5m6_id = '1QUaufxw06NVPyn_tIm0qBdOy5ewQ5ffi'
-        gdd.download_file_from_google_drive(file_id=yolov5m6_id, dest_path=f'weight/yolov5m6.pt', showsize=True)
-=======
         download_file_from_google_drive()
->>>>>>> a79eb51fa3376c8a37422fae77b385a6a033909a
 
     
 
