@@ -43,24 +43,79 @@ async def send_invalid(cl,user_id):
 
 async def post_check(cl,user_id,thread_id):
     cl.direct_send('게시물 순서를 입력해주세요. \n최근 게시물부터 1->2->3 입니다')
+    post_num = cl.direct_messages(thread_id) # 해당 Thread의 메세지를 읽어온다 -> 가장 최근은 [0]
+    user_posts = cl.user_medias(user_id) # cl.user_medias_v1(user_id) -> low level method
+    request_post = user_posts[post_num] # 사용자가 검사를 요청한 게시물 : request_post
+    target_pk = request_post.pk
+    target_type = request_post.media_type
     
+    if target_type == 1:
+        cl.photo_download(target_pk,async_img_download_root)
+    elif target_type == 8:
+        cl.album_download(target_pk,async_img_download_root)
+    else:
+        cl.direct_send('지원하지 않는 형식의 게시물입니다. 현재는 사진과 앨범 게시물들만 검사 가능합니다')
 
-async def read_all_posts(cl,user_id):
-    # test user_id = 50160424289
-    # user의 posts를 list로 저장 : user_posts
-    posts_len = cl.user_info(user_id).media_count
-    user_posts = cl.user_medias(user_id, posts_len)
-    for idx in range(posts_len):
-        post_pk = user_posts[idx].pk
-        post_type = user_posts[idx].media_type
-        if post_type == 1:
-            cl.photo_download(post_pk,async_img_download_root)
-        elif post_type == 8:
-            cl.album_download(post_pk,async_img_download_root)
+def get_pk_from_user(users):
+    return users.pk
+
+def get_recent_three_unchecked_medias(cl,user_id):
+    # osam_testbot.user_id = 50160424289
+    # user의 posts를 list로 저장 : user_posts_for_test
+    MY_PK = 49617754574 
+
+    raw_medias_len = cl.user_info(user_id).media_count   # total media length
+    print(f'raw_medias_len : {raw_medias_len}')
+
+    raw_user_medias = cl.user_medias(user_id, raw_medias_len) # default amount = 20
+    # print(raw_user_medias)
+
+    user_medias_for_test = [] # 검사할 Posts 대상들의 리스트 
+    
+    # 검사 대상을 3개의 Post로 한정 짓는다.
+    count_three = 0
+    for idx in range(0,raw_medias_len):
+        print(idx)
+        test_target_media_id = raw_user_medias[idx].id
+        print(f'test_target_media_id : {test_target_media_id}')
+
+        media_likers_list = cl.media_likers(test_target_media_id)
+        # print(f'media_likers_list : {media_likers_list}')
+
+        _media_likers_pk_list = list(map(get_pk_from_user, media_likers_list)) 
+        print(f'_media_likers_pk_list : {_media_likers_pk_list}')
+
+        if not MY_PK in _media_likers_pk_list:     
+            user_medias_for_test.append(raw_user_medias[idx])
+            count_three += 1
+
+        if count_three >= 3:
+            break
+    
+    print(f'user_medias_for_test : {user_medias_for_test}')
+
+    for idx in range(0, len(user_medias_for_test)):
+        media_pk = user_medias_for_test[idx].pk
+        media_type = user_medias_for_test[idx].media_type
+        media_id = user_medias_for_test[idx].id # post_pk + '_' + user_id = post_id
+        if media_type == 1:
+            cl.media_like(media_id) # 사진에 좋아요를 남김으로써 검사 완료 표시
+            cl.photo_download(media_pk,async_img_download_root)
+        elif media_type == 8:
+            cl.media_like(media_id)
+            cl.album_download(media_pk, async_img_download_root)
         else:
+            cl.media_like(media_id)
             print('사진의 media type이 아닙니다')
-    print('reading process done')
 
+    print('3 Posts reading process done')
+
+# Test
+cl = Client()
+cl.login('osam_canary', 'admin0408!')
+get_recent_three_unchecked_medias(cl, 50160424289)
+
+######
 
 def send_invalid_bound(thread):
     cl.direct_send(thread_ids = [thread.id], text = "Invalid bound! If you need help, please send me '/help'")
