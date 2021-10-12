@@ -535,12 +535,7 @@ def main(opt, callbacks=Callbacks()):
     if not os.path.exists('./weight'):
         os.makedirs('./weight')
         
-    yolov5l6_id = '1sYHRy8uvBFJbNOPzOlzjEh3VUorHTy8S'
-    yolov5m6_id = '1F6e6fztaSjzY_XZMFqqrLJv-QDo5eQ_a'
-    yolov5s6_id = '1eAxFouSUlFlnMiooidbV3uI37hq5xXLo'
-    
-    for Id, file_name in ((yolov5s6_id, 'yolov5s6.pt'), (yolov5m6_id, 'yolov5m6.pt'), (yolov5l6_id, 'yolov5l6.pt')):
-        gdd.download_file_from_google_drive(file_id=Id, dest_path=f'weight/{file_name}', showsize=True)
+    gdd.download_file_from_google_drive(file_id='1QUaufxw06NVPyn_tIm0qBdOy5ewQ5ffi', dest_path=f'weight/yolov5m6.pt', showsize=True)
     
     # Checks
     set_logging(RANK)
