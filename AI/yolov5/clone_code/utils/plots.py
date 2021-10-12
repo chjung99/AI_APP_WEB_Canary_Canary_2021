@@ -394,13 +394,13 @@ def plot_evolve(evolve_csv='path/to/evolve.csv'):  # from utils.plots import *; 
     print(f'Saved {f}')
 
 
-def plot_results(file='outputs/results.csv', dir=''):
+def plot_results(file='outputs/results.csv', dir='outputs'):
     # Plot training results.csv. Usage: from utils.plots import *; plot_results('path/to/results.csv')
     save_dir = Path(file).parent if file else Path(dir)
     fig, ax = plt.subplots(2, 5, figsize=(12, 6), tight_layout=True)
     ax = ax.ravel()
     files = list(save_dir.glob('results*.csv'))
-    assert len(files), f'No results.csv files found in {save_dir.resolve()}, nothing to plot.'
+    # assert len(files), f'No results.csv files found in {save_dir.resolve()}, nothing to plot.'
     for fi, f in enumerate(files):
         try:
             data = pd.read_csv(f)

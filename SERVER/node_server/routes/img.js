@@ -108,11 +108,15 @@ router.get('/output-params/:img_id', async (req,res)=>{
 	console.log('params input', req.params)
 
 	if (req.params.img_id){
-		await pytorch_model(req.params.img_id,req.params.level).then((prc_id) =>{
+		await pytorch_model(req.params.img_id).then((prc_id) =>{
 			console.log(prc_id)
 			const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
 			const processed_img_encoded = Buffer.from(processed_img).toString('base64')
-			res.json({status:200,output:processed_img_encoded})
+			var warning_txt = fs.readFileSync(`warnings/${prc_id}_warning.txt`).toString('utf-8')
+			if (warning_txt.length == 0) {
+				warning_txt = '특이사항 없음'	
+			}
+			res.json({status:200,prc_img:processed_img_encoded,warning_text:warning_txt})
 		}).catch((err)=>{
 			console.error(err)
 			res.json({status:404})
@@ -121,10 +125,7 @@ router.get('/output-params/:img_id', async (req,res)=>{
 		console.error('no img_id in request parameter')
 		res.json({status:404,err_msg:'img_id for output undefined'})
 	}
-<<<<<<< HEAD
-=======
 	
->>>>>>> ea79169d4268bee6a81e24edd19cd4a15cc35566
 	
 })
 
