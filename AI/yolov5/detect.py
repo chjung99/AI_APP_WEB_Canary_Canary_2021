@@ -8,7 +8,7 @@ import urllib.request
 from google_drive_downloader import GoogleDriveDownloader as gdd
 
 MOSAIC_RATIO = 0.05
-git
+
 def check_config(path="./config.json"):
     if os.path.exists(path):
         with open(path) as json_file:
@@ -30,13 +30,11 @@ def attemp_download_weight():
     
     config_path = "./config.json"
     check_config(config_path)
-    print(3)
     
     try:
         with open(config_path) as json_file:
             json_data = json.load(json_file)
         
-        print(4)
     
         data = requests.get("http://3.143.240.128:8080/deeplearning/models", timeout=1).json()
         matrix = data["matrix"]
@@ -58,13 +56,13 @@ def attemp_download_weight():
 def detect(args):
 # Model
     input_image_path = args.input_image_path
-    output_image_path = args.output_image_path
+    # output_image_path = args.output_image_path
     
     weight_path = args.weight_path
     activeBlur = args.blur
     # strength = args.strength
-    output_warning_path = args.output_warning_path
-    output_log_path=args.output_log_path
+    # output_warning_path = args.output_warning_path
+    # output_log_path=args.output_log_path
     
     try:
         model = torch.hub.load("ultralytics/yolov5", "custom", path=weight_path)
@@ -75,15 +73,28 @@ def detect(args):
 
     # Inference
     results = model(input_image_path)
-    img = cv2.imread(input_image_path)
+    return results
+
+
+def mosaic(results, args):
+    input_image_path = args.input_image_path
+    output_image_path = args.output_image_path
     
+    # weight_path = args.weight_path
+    active_Blur = args.blur
+    strength = args.strength
+    output_warning_path = args.output_warning_path
+    output_log_path=args.output_log_path
+    
+    img = cv2.imread(input_image_path)
+
     class_list = ["항공모함", "방탄조끼", "포", "모니터", "군용 차량", "노트북", "군복", "미사일", "모니터", "서류", "부대마크", "리볼버", "소총", "탱크", "군 항공기", "군 표지판"]
     scenario_log_list = [("설마 한미연합훈련 중 카메라를 사용하시는 건 아니겠죠?", 2), ("지금 훈련 중이신가요? 훈련모습 촬영은 규정에 어긋납니다!", 3), ("혹시 지금 군사 기밀을 노출하진 않으셨나요?", 5),
         ("군용 차량을 촬영하셨네요.차종 및 번호판 식별 위험이있습니다.", 2), ("군 표지판 촬영은 부대 위치가 식별될 위험이 있습니다.", 3), ("부대마크 및 명칭 노출은 군사보안에 위배되는 사항입니다.")]
 
     class_senerio_map = {0: 0, 1:1, 2:1, 3: 2, 4:3, 5:2, 6:1, 7:1, 8:2, 9:1, 10:5, 11:1, 12:1, 13:1, 14:1, 15:4}
     
-    if activeBlur == True:
+    if active_Blur == True:
         # TODO : Blur
         print("Not yet!")
     else:
@@ -117,7 +128,7 @@ def detect(args):
             
             img[ymin: ymax, xmin: xmax] = src   # 원본 이미지에 적용
 
-        if args.strength == 0 and flag==0 :
+        if strength == 0 and flag == 0 :
           for data in keep_data:
             
             img[data[1]:data[3],data[0]:data[2]]=data[4]
@@ -155,16 +166,14 @@ parser.add_argument("--blur", "-b", action="store_true")
 parser.add_argument("--output_warning_path", "-o2", help="Warning text path")
 parser.add_argument("--server_url", "-u", help="Warning text path")
 
-
-parser.add_argument("--strength", "-s", type=int, default=1, choices=[0,1]) # test 후 결과에 따라 강도 조정 예정 --> 찬호님이 자동 적응 mosaic 진행중
+parser.add_argument("--strength", "-s", type=int, default=1, choices=[0,1])
 parser.add_argument("--user_id", "-d", help="user_id") # user_id from front
 parser.add_argument("--output_log_path", "-o3", help="output_log_path") # user_id from front
 # TODO: arg로 mosaic 강도를 입력받고, 그 만큼 면적을 줄여서 return
-# TODO: output_warning_path를 입력받아 군복, 방탄조끼 class가 포함되어 있을 시 경고문 전달? 해결
-
 
 args = parser.parse_args()
-print(0)
+
 attemp_download_weight()
-print(99)
-detect(args)
+
+results = detect(args)
+mosaic(results, args)

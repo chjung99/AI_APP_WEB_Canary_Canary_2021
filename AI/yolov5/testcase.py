@@ -3,6 +3,9 @@ import os
 import argparse
 from detect import *
 
+# $sudo apt install libbz2-dev 
+# bz2 module 오류?
+
 def customf():
     return "Test"
 
@@ -10,6 +13,7 @@ class canaryAiTest(unittest.TestCase):
 
     def __init__(self):
         self.args = None
+        self.results = None
 
     def setUp(self):
         self.file_name = 'testfile.txt'
@@ -51,18 +55,25 @@ class canaryAiTest(unittest.TestCase):
         attemp_download_weight()
         assert os.path.exists('weight/yolov5m6.pt')
     
-    def test_detect(self):
-        detect(self.args)
+    def test_detect_work(self):
+        assert os.path.exists(self.args.input_image_path)
+        results = detect(self.args)
+        self.assertIsNotNone(results)
+        self.results = results
+
+
         # args를 인자로 어떻게 받아서 어떻게 test?
     
-    def test_model_work(self):
-        assert os.path.exists(self.args.input_image_path)
+    def test_mosaic_work(self):
+        mosaic(self.results, self.args)
         assert os.path.exists(self.args.output_image_path)
         assert os.path.exists(self.args.output_warning_path)
         assert os.path.exists(self.args.output_log_path)
         # 각 파일의 내용을 확인해서 하기?
         # detect.py를 리팩토링해서 잘 정리해서 단위로 테스트하기?
         # 음..
+
+canaryAiTest()
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('--input_image_path', '-i', help='Input image path')
