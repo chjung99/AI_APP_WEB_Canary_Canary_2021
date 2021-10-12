@@ -21,11 +21,12 @@ def check_config(path="./config.json"):
         json.dump(json_data, outfile)
 
 def download_file_from_google_drive():
-    print("download model from google drive")
-    yolov5m6_id = "1QUaufxw06NVPyn_tIm0qBdOy5ewQ5ffi"
-    gdd.download_file_from_google_drive(file_id=yolov5m6_id, dest_path=f"weight/yolov5m6.pt", showsize=True)
+    if not os.path.exists("weight/yolov5m6.pt"):
+        print("download model from google drive")
+        yolov5m6_id = "1QUaufxw06NVPyn_tIm0qBdOy5ewQ5ffi"
+        gdd.download_file_from_google_drive(file_id=yolov5m6_id, dest_path=f"weight/yolov5m6.pt", showsize=True)
 
-def attemp_download_weight():
+def attemp_download_weight(args):
     if not os.path.exists("./weight"): os.makedirs("./weight")
     
     config_path = "./config.json"
@@ -35,7 +36,7 @@ def attemp_download_weight():
         with open(config_path) as json_file:
             json_data = json.load(json_file)
     
-        data = requests.get("http://3.143.240.128:8080/deeplearning/models", timeout=1).json()
+        data = requests.get(f"{args.server_url}/deeplearning/models", timeout=1).json()
         matrix = data["matrix"]
         model_url = data["file"]
         
@@ -140,6 +141,13 @@ def detect(args):
         with open(output_log_path, "w") as f:
             log_text="user_id:"+f"{args.user_id}/object:"+f"{warn_object_txt}/risk level:"+f"{risk_level}"
             f.write(log_text)
+            
+        try:
+            print("send log")
+            data = {'log': str(warn_object_txt), 'username': str(args.user_id)} 
+            res = requests.post(f"{args.server_url}/deeplearning/log/api", data=data, timeout=1)
+        except:
+            print("send fail")
 
 
 
@@ -150,7 +158,7 @@ parser.add_argument("--weight_path", "-w", help="Weight path")
 parser.add_argument("--blur", "-b", action="store_true")
 
 parser.add_argument("--output_warning_path", "-o2", help="Warning text path")
-parser.add_argument("--server_url", "-u", help="Warning text path")
+parser.add_argument("--server_url", "-u", default='http://3.143.240.128:8080', help="Django URL")
 
 
 parser.add_argument("--strength", "-s", type=int, default=1, choices=[0,1]) # test 후 결과에 따라 강도 조정 예정 --> 찬호님이 자동 적응 mosaic 진행중
@@ -161,5 +169,5 @@ parser.add_argument("--output_log_path", "-o3", help="output_log_path") # user_i
 
 
 args = parser.parse_args()
-attemp_download_weight()
+attemp_download_weight(args)
 detect(args)
