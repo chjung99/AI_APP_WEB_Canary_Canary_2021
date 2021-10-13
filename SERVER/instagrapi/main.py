@@ -6,26 +6,20 @@ import os
 import asyncio
 from apscheduler.schedulers.blocking import BlockingScheduler
 
-from directMessage.image_download_from_DM import *
-from directMessage.detect_images import *
-from directMessage.send_DM import *
-
-CHECK_PER_INTERVAL = 100
-LAST_CHECK_TIME = datetime.datetime(2021, 10, 6, 13, 7, 50, 823287, tzinfo=datetime.timezone.utc) # Interval마다 변경될 예정
+from utils.get_client import *
+from utils.download_image_from_DM import *
+from utils.detect_images import *
+from utils.send_DM import *
 
 TASK = []
 
-IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/images'
-IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/images_detect_output'
-WARNING_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/warning'
-
 cl = Client()
-with open('/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/instagram_config.json') as json_file:
-    instagram_config = json.load(json_file)
-id = instagram_config['id']
-password = instagram_config['password']
-
 get_logined_client(cl, id, password)
+
+def auto_progress(cl):
+    download_imaged_from_DM(cl)
+    detect_images()
+    send_DM(cl)
 
 async def main():
 
@@ -33,7 +27,7 @@ async def main():
     # sched = BlockingScheduler()
     # Schedule job_function to be called every two seconds
     # while True:
-    sched.add_job(check_unread, 'interval', seconds=2)
+    sched.add_job(auto_progress(), 'interval', seconds=2, args=cl)
     sched.start()
     print('schedule started')
          # for each_task in tasks:
