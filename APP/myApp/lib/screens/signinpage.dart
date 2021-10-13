@@ -5,6 +5,7 @@ import 'package:myapp/components/app_bar_maker.dart';
 import 'package:myapp/components/custom_button.dart';
 import 'package:myapp/components/custom_text.dart';
 import 'package:myapp/components/custom_text_form_field.dart';
+import 'package:myapp/domain/user/user.dart';
 
 import 'package:myapp/domain/user/user_repository.dart';
 
@@ -32,7 +33,10 @@ class SignInPage extends StatelessWidget {
           shrinkWrap: true,
           padding: const EdgeInsets.symmetric(horizontal: marginHorizontalSize),
           children: <Widget>[
-            customText(text: "Login", size: titleTextSize),
+            Text(
+              "Login",
+              style: CustomText(size: titleTextSize),
+            ),
             const Text("군번과 비밀번호를 입력해주세요"),
             const SizedBox(height: marginVerticalSize),
             Form(
@@ -61,11 +65,15 @@ class SignInPage extends StatelessWidget {
               ),
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  int success =
-                      await u.postUserName(_d_num.text, _password.text);
-                  if (success == 1) {
+                  User user =
+                      await u.login(_d_num.text.trim(), _password.text.trim());
+                  if (user.status == 200) {
                     Get.to(() => const OptionPage(),
                         transition: Transition.rightToLeft);
+                  } else if (user.status == 500) {
+                    Get.snackbar("로그인 실패", "비밀번호가 틀렸습니다");
+                  } else {
+                    Get.snackbar("로그인 실패", "등록되지 않은 군번입니다");
                   }
                 } else {
                   Get.snackbar("로그인 실패", "정보를 정확히 입력해주세요!");
