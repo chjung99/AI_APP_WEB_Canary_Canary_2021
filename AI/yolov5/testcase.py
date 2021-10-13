@@ -82,6 +82,9 @@ class canaryAiTest(unittest.TestCase):
         # 각 파일의 내용을 확인해서 하기?
         # detect.py를 리팩토링해서 잘 정리해서 단위로 테스트하기?
         # 음...
+    
+    def test_progress_work(self):
+        assert os.path.exists("image/progress_"+args.user_id+'.txt')
 
 
 parser = argparse.ArgumentParser(description="Process some integers.")

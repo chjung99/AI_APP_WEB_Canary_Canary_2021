@@ -8,6 +8,7 @@ import urllib.request
 from google_drive_downloader import GoogleDriveDownloader as gdd
 
 MOSAIC_RATIO = 0.05
+progress_path = "image/progress_"
 
 def check_config(path="./config.json"):
     if os.path.exists(path):
@@ -37,6 +38,8 @@ def attemp_download_weight():
         
     
         data = requests.get("http://3.143.240.128:8080/deeplearning/models", timeout=1).json()
+        with open(progress_path, 'a') as pro:
+            pro.write("서버에 접속 중...\n")
         matrix = data["matrix"]
         model_url = data["file"]
         
@@ -55,6 +58,8 @@ def attemp_download_weight():
 
 def detect(args):
 # Model
+    with open(progress_path, 'a') as pro:
+        pro.write("보안위반 가능성 오브젝트 검사 중...\n")
     input_image_path = args.input_image_path
     # output_image_path = args.output_image_path
     
@@ -77,6 +82,8 @@ def detect(args):
 
 
 def mosaic(results, args):
+    with open(progress_path, 'a') as pro:
+        pro.write("보안위반 가능성 오브젝트 처리 중...\n")
     input_image_path = args.input_image_path
     output_image_path = args.output_image_path
     
@@ -90,7 +97,7 @@ def mosaic(results, args):
 
     class_list = ["항공모함", "방탄조끼", "포", "모니터", "군용 차량", "노트북", "군복", "미사일", "모니터", "서류", "부대마크", "리볼버", "소총", "탱크", "군 항공기", "군 표지판"]
     scenario_log_list = [("설마 한미연합훈련 중 카메라를 사용하시는 건 아니겠죠?", 2), ("지금 훈련 중이신가요? 훈련모습 촬영은 규정에 어긋납니다!", 3), ("혹시 지금 군사 기밀을 노출하진 않으셨나요?", 5),
-        ("군용 차량을 촬영하셨네요.차종 및 번호판 식별 위험이있습니다.", 2), ("군 표지판 촬영은 부대 위치가 식별될 위험이 있습니다.", 3), ("부대마크 및 명칭 노출은 군사보안에 위배되는 사항입니다.")]
+        ("군용 차량을 촬영하셨네요.차종 및 번호판 식별 위험이있습니다.", 2), ("군 표지판 촬영은 부대 위치가 식별될 위험이 있습니다.", 3), ("부대마크 및 명칭 노출은 군사보안에 위배되는 사항입니다.", 3)]
 
     class_senerio_map = {0: 0, 1:1, 2:1, 3: 2, 4:3, 5:2, 6:1, 7:1, 8:2, 9:1, 10:5, 11:1, 12:1, 13:1, 14:1, 15:4}
     
@@ -134,6 +141,9 @@ def mosaic(results, args):
             img[data[1]:data[3],data[0]:data[2]]=data[4]
           
         cv2.imwrite(output_image_path, img)
+
+        with open(progress_path, 'a') as pro:
+            pro.write("경고문 작성 중...\n")
         
         risk_level=0
         
@@ -154,6 +164,9 @@ def mosaic(results, args):
         with open(output_log_path, "w") as f:
             log_text="user_id:"+f"{args.user_id}/object:"+f"{warn_object_txt}/risk level:"+f"{risk_level}"
             f.write(log_text)
+        
+        with open(progress_path, 'a') as pro:
+            pro.write("처리된 이미지 반환 중...\n")
 
 
 
@@ -172,6 +185,10 @@ parser.add_argument("--output_log_path", "-o3", help="output_log_path") # user_i
 # TODO: arg로 mosaic 강도를 입력받고, 그 만큼 면적을 줄여서 return
 
 args = parser.parse_args()
+
+progress_path += (args.user_id + '.txt')
+with open(progress_path, 'w') as pro:
+    pro.write("")
 
 attemp_download_weight()
 
