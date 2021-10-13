@@ -8,7 +8,7 @@ import urllib.request
 from google_drive_downloader import GoogleDriveDownloader as gdd
 
 MOSAIC_RATIO = 0.05
-progress_path = "image/progress_"
+#progress_path = "image/progress_"
 
 def check_config(path="./config.json"):
     if os.path.exists(path):
@@ -39,8 +39,8 @@ def attemp_download_weight(args):
         
 
         data = requests.get(f"{args.server_url}/deeplearning/models", timeout=1).json()
-        with open(progress_path, "w") as pro:
-            pro.write("서버에 접속 중...\n")
+        #with open(progress_path, "w") as pro:
+            #pro.write("서버에 접속 중...\n")
 
         matrix = data["matrix"]
         model_url = data["file"]
@@ -60,8 +60,8 @@ def attemp_download_weight(args):
 
 def detect(args):
 # Model
-    with open(progress_path, "a") as pro:
-        pro.write("보안위반 가능성 오브젝트 검사 중...\n")
+    #with open(progress_path, "a") as pro:
+        #pro.write("보안위반 가능성 오브젝트 검사 중...\n")
     input_image_path = args.input_image_path
     # output_image_path = args.output_image_path
     
@@ -85,8 +85,8 @@ def detect(args):
 
 
 def mosaic(results, args):
-    with open(progress_path, "a") as pro:
-        pro.write("보안위반 가능성 오브젝트 처리 중...\n")
+    #with open(progress_path, "a") as pro:
+        #pro.write("보안위반 가능성 오브젝트 처리 중...\n")
     input_image_path = args.input_image_path
     output_image_path = args.output_image_path
     
@@ -167,8 +167,8 @@ def mosaic(results, args):
           
         cv2.imwrite(output_image_path, img)
 
-        with open(progress_path, "a") as pro:
-            pro.write("경고문 작성 중...\n")
+        #with open(progress_path, "a") as pro:
+            #pro.write("경고문 작성 중...\n")
         
         risk_level=0
         
@@ -193,8 +193,8 @@ def mosaic(results, args):
             log_text="user_id:"+f"{args.user_id}/object:"+f"{warn_object_txt}/risk level:"+f"{risk_level}"
             f.write(log_text)
             
-        with open(progress_path, "a") as pro:
-            pro.write("처리된 이미지 반환 중...\n")  
+        #with open(progress_path, "a") as pro:
+            #pro.write("처리된 이미지 반환 중...\n")  
             
         try:
             print("send log")
@@ -221,7 +221,7 @@ parser.add_argument("--output_log_path", "-o3", help="output_log_path") # user_i
 
 args = parser.parse_args()
 
-progress_path += (args.user_id + '.txt')
+#progress_path += (args.user_id + '.txt')
 
 attemp_download_weight()
 
