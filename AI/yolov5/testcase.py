@@ -1,24 +1,27 @@
 import unittest
-import os
 import argparse
+import os
+import json
 from detect import *
 
-# $sudo apt install libbz2-dev 
-# bz2 module 오류?
+global args
 
 def customf():
     return "Test"
 
-class canaryAiTest(unittest.TestCase):
-
+class testArgs:
     def __init__(self):
         self.args = None
-        self.results = None
+
+class canaryAiTest(unittest.TestCase):
 
     def setUp(self):
         self.file_name = 'testfile.txt'
         with open(self.file_name, 'wt') as f:
             f.write("""Unittest test""".strip())
+
+        self.args = None
+        self.results = None
     
     def tearDown(self):
         """Delete file at end of test"""
@@ -38,8 +41,9 @@ class canaryAiTest(unittest.TestCase):
             a = []
             a[1]
 
-    def test_check_config(self, path='./config.json'):
-        check_config(path)
+    def test_check_config(self):
+        path = "/config.json"
+        check_config()
 
         if os.path.exists(path):
             with open(path) as json_file:
@@ -56,41 +60,47 @@ class canaryAiTest(unittest.TestCase):
         assert os.path.exists('weight/yolov5m6.pt')
     
     def test_detect_work(self):
-        assert os.path.exists(self.args.input_image_path)
-        results = detect(self.args)
+        assert os.path.exists(args.input_image_path)
+        global result
+        try: 
+            results = detect(args)
+        except:
+            raise ValueError
         self.assertIsNotNone(results)
-        self.results = results
 
 
         # args를 인자로 어떻게 받아서 어떻게 test?
     
     def test_mosaic_work(self):
-        mosaic(self.results, self.args)
-        assert os.path.exists(self.args.output_image_path)
-        assert os.path.exists(self.args.output_warning_path)
-        assert os.path.exists(self.args.output_log_path)
+        try:
+            mosaic(results, args)
+        except:
+            raise ValueError
+        assert os.path.exists(args.output_image_path)
+        assert os.path.exists(args.output_warning_path)
+        assert os.path.exists(args.output_log_path)
         # 각 파일의 내용을 확인해서 하기?
         # detect.py를 리팩토링해서 잘 정리해서 단위로 테스트하기?
-        # 음..
+        # 음...
 
-canaryAiTest()
 
-parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--input_image_path', '-i', help='Input image path')
-parser.add_argument('--output_image_path', '-o', help='Output image path')
-parser.add_argument('--weight_path', '-w', help='Weight path')
-parser.add_argument('--blur', '-b', action="store_true")
-parser.add_argument('--output_warning_path', '-o2', help='Warning text path')
-parser.add_argument('--strength', '-s', type=int, default=1, choices=[0,1]) # test 후 결과에 따라 강도 조정 예정 --> 찬호님이 자동 적응 mosaic 진행중
-parser.add_argument('--user_id', '-d', help='user_id') # user_id from front
-parser.add_argument('--output_log_path', '-o3', help='output_log_path') # user_id from front
+parser = argparse.ArgumentParser(description="Process some integers.")
+parser.add_argument("--input_image_path", "-i", help="Input image path")
+parser.add_argument("--output_image_path", "-o", help="Output image path")
+parser.add_argument("--weight_path", "-w", help="Weight path")
+parser.add_argument("--blur", "-b", action="store_true")
+
+parser.add_argument("--output_warning_path", "-o2", help="Warning text path")
+parser.add_argument("--server_url", "-u", help="Warning text path")
+
+parser.add_argument("--strength", "-s", type=int, default=1, choices=[0,1])
+parser.add_argument("--user_id", "-d", help="user_id") # user_id from front
+parser.add_argument("--output_log_path", "-o3", help="output_log_path") # user_id from front
+# TODO: arg로 mosaic 강도를 입력받고, 그 만큼 면적을 줄여서 return
+
 args = parser.parse_args()
-canaryAiTest.args = args
-# canaryAiTest.i_path = args.input_image_path
-# canaryAiTest.o_path = args.output_image_path
-# canaryAiTest.o2_path = args.output_warning_path
-# canaryAiTest.o3_path = args.output_log_path
+
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(__name__, argv=['main'], exit=False)
     
