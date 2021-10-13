@@ -18,15 +18,8 @@ python detect.py -w [WEIGHT PATH] -i [INPUT IMAGE PATH] -o [OUTPUT IMAGE PATH] -
 ```
 ex)
 ```
-python detect.py -w ./weight/yolov5m6.pt -i ./image/soldier2.jpg -o ./image/out.jpg -o2 ./image/out_warning.txt
+python detect.py -w ./weight/yolov5m6.pt -i ./image/soldier2.jpg -o ./image/out.jpg -o2 ./image/out_warning.txt -o3 ./out_log.txt
 ```
-![in](image/soldier2.jpg)
-![out](image/yolov5l6.jpg)
-
-## Detect
-!python detect.py -i ./input_sample.jpg -o ./output_sample.jpg -w ./best.pt -o2 ./out_warn.txt -s 0 -d user_id -o3 ./out_log.txt
-
-
 
 ### Example
 ##### input_sample

@@ -172,12 +172,12 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  - mosaic augmetation에서 mosaic_9 augmentation 추가  
  
  ### 성능 향상
- |         enhance        |   model  | precision | recall | mAP_0.5 | mAP_0.5:0.95 |
- |:----------------------:|:--------:|:---------:|:------:|:-------:|:------------:|
- |          None          | yolov5m6 |   0.736   |  0.779 |  0.815  |     0.599    |  
- |     mosaic_9 50%       | yolov5m6 |   0.756   |  0.775 |  0.809  |     0.602    |
- |     mosaic_9 100%      | yolov5m6 |   0.739   |  0.813 |  0.806  |     0.594    |
- | knowledge distillation | yolov5m6 |           |        |         |              |
+ |       enhance     |   model  | precision | recall | mAP_0.5 | mAP_0.5:0.95 |
+ |:-----------------:|:--------:|:---------:|:------:|:-------:|:------------:|
+ |        None       | yolov5m6 |   0.736   |  0.779 |  0.815  |     0.599    |  
+ |   mosaic_9 50%    | yolov5m6 |   0.756   |  0.775 |  0.809  |     0.602    |
+ |   mosaic_9 100%   | yolov5m6 |   0.739   |  0.813 |  0.806  |     0.594    |
+ | self distillation | yolov5m6 |   0.722   |  0.822 |  0.807  |     0.592    |
  
  <table>
   <tr>
