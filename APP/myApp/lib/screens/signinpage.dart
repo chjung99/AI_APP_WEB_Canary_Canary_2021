@@ -1,5 +1,3 @@
-// UI 모음집 :  https://github.com/lohanidamodar/flutter_ui_challenges
-// 애니메이션 : https://github.com/yumi0629/FlutterUI
 import 'package:flutter/material.dart';
 import 'package:myapp/components/app_bar_maker.dart';
 import 'package:myapp/components/custom_button.dart';
@@ -45,7 +43,7 @@ class SignInPage extends StatelessWidget {
                 children: [
                   CustomTextFormField(
                     signIn: true,
-                    funValidator: validateUsername(),
+                    funValidator: validateDnum(),
                     hint: "군번을",
                     controller: _d_num,
                   ),
