@@ -1,17 +1,22 @@
-# 카나리아 : 모두를 위한 군사보안 경보 시스템
+# 🐤카나리아 : 모두를 위한 군사보안 경보 시스템
 
 <p align='center'>
-<img src="https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/image/canary_2.0.jpg" alter="LOGO"/><br>
+<img src="https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/image/canary_2.0.png" alter="LOGO"/><br>
  <img src='https://img.shields.io/badge/Version-0.8.0-blue?style=for-the-badge&logo'>
- <a href='https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/LICENSE'><img src='https://img.shields.io/badge/License-GNU-blue?style=for-the-badge&logo'></a>
+ <a href='https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/LICENSE'><img src='https://img.shields.io/badge/License-GNU GPL v3.0-blue?style=for-the-badge&logo'></a>
 </p>
 
-Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 있는 요소를 식별하고, 이를 사용자에게 경고해주는 통합 보안 경보 시스템입니다. 
+Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 있는 요소를 식별하고, 자동 모자이크 처리를 하고, 이를 사용자에게 경고해주는 통합 보안 경보 시스템입니다. 
 카메라 기능과 SNS 탐지 기능으로 구성되어 있으며, 처리된 사진에는 워터마크가 들어가 처리 여부를 쉽게 식별할 수 있습니다.
+
+## 🗂️프로젝트 소개
+본 프로젝트는 사용자에게 보안 내용을 제거하는 기능을 가진 카메라를 제공함으로서,  
+* **군 내에서 카메라를 사용 가능하게 함**과 동시에,
+*  SNS에 올릴 사진의 보안 위반 가능성을 경고하여 사용자가 **자발적으로** 보안을 준수 할 수 있게 합니다.
 
 
 <details>
- <summary>주제 정의 문서</summary>
+ <summary>📃주제 정의 문서</summary>
  
  ### 문제 발견하기
    - 2018년 12월 27일 국방부는 ‘병영문화 혁신 정책’으로 병사들의 일과 후 핸드폰 사용을 결정했습니다. 
@@ -33,7 +38,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 </details>
 
 <details>
- <summary>사용자 정의 문서</summary>
+ <summary>🗒사용자 정의 문서</summary>
  
  ### 페르소나
  ![페르소나](https://user-images.githubusercontent.com/40621030/134792500-00226c5c-592b-4298-aeb8-fb155704278f.png)
@@ -50,25 +55,24 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  3. 잠시 후, "모니터가 감지되었습니다. 해당 부분을 모자이크합니다"라는 팝업과 함께 해당 부분이 모자이크가 된다.
  4. 이후 사진에 워터마크가 새겨진다. 워터마크에는 안준호 이병의 정보가 암호화된 채로 담겨 있다.
  5. 모자이크가 된 사진을 SNS에 올려 자랑한다.
- 
- 
 </details>
 
-## 시스템 흐름도
 <details>
- <summary>서비스</summary>
- 
+ <summary>📈시스템 흐름도</summary>
  ### User-case Diagram
- <p align='center'><img src="https://user-images.githubusercontent.com/40621030/134690667-abe8f797-01a8-44db-ae89-ef7809c22d64.png" height=300/></p>
+ <p align='center'><img src="https://user-images.githubusercontent.com/40621030/134690667-abe8f797-01a8-44db-ae89-ef7809c22d64.png"/></p>
  
  ### Sequence Diagram
-  <p align='center'><img src="https://user-images.githubusercontent.com/40621030/134693210-0aa1a63a-0399-485a-88be-24e829067813.png" height=300/></p>
+  <p align='center'><img src="https://user-images.githubusercontent.com/40621030/136720501-bbe98072-abbc-4797-a0c2-c66771f7e04a.png"/></p>
  
  ### Architecture
-  <p align='center'><img src="https://user-images.githubusercontent.com/40621030/134756413-d331fa9b-62f8-4dc4-a492-58dd53056a19.png" height=300/></p>
+  <p align='center'><img src="https://user-images.githubusercontent.com/40621030/136720255-0456ffd4-4d7d-4d2e-b5c5-09387c5861fa.png"/></p>
 </details>
 
-## 화면 정의
+
+## 📔기능 설명
+
+### 🖥화면 정의
 <table>
  <tr>
   <td><img src="https://user-images.githubusercontent.com/40621030/134689804-f72fc601-00cb-462b-a332-a1bcb62ad8a1.png" width="230"/></td>
@@ -82,7 +86,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 </table>
 
 <details>
- <summary>설명</summary>
+ <summary>📝세부 설명</summary>
  
   앱을 처음 실행 시, 사용자는 자신의 성명과 군번을 통해 회원가입을 진행합니다. 이 정보는 암호화되어 저장됩니다.
 
@@ -99,7 +103,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 
   처리된 사진이 반환될 때, 앞서 서술한 성명과 군번을 암호화한 값이 포함된 워터마크가 남습니다. 이를 이용하여 사진 처리자의 신원을 파악하거나 이미지 처리 여부를 눈으로 식별할 수 있습니다.
 
-  세부 기능은 다음과 같습니다.
+  자세한 기능은 다음과 같습니다.
 
   - 카메라 모드: 사진을 촬영하고 서버로 전송하여 보안 위반 요소를 식별 후 적절한 강도로 모자이크 처리하여 반환됩니다.
   - 갤러리 모드: 갤러리에 이미 저장된 사진을 모자이크 할 필요가 있을 시, 해당 사진을 업로드하여 카메라로 촬영할 때와 동일하게 모자이크 처리를 할 수 있습니다.
@@ -111,10 +115,12 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 * ECMAScript 6 지원 브라우저 사용
 * 권장: Google Chrome 버젼 77 이상
+* python >= 3.6 
+* pytorch >= 1.7
 
 ---
 
-## 기술 스택 (Technique Used) 
+## 🔨기술 스택 (Technique Used) 
 ### Server(back-end)
 <table>
  <tr>
@@ -179,8 +185,8 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
    <td align='center'>Result Image</td>
   </tr>
   <tr>
-   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/136698552-42c71108-9efc-4c88-a68a-3f5aec8452c6.jpg' width="500"/></td>
    <td align='center'><img src='https://user-images.githubusercontent.com/40621030/136698553-a00eb618-7783-41d9-bd2c-203dbbd60946.jpg' width="500"/></td>
+   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/136698552-42c71108-9efc-4c88-a68a-3f5aec8452c6.jpg' width="500"/></td>
   </tr>
  </table>
  
@@ -210,7 +216,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 
 ---
 
-## 설치 안내 (Installation Process)
+## 💽설치 안내 (Installation Process)
 ### Flutter
 
 ### Node js
@@ -221,14 +227,19 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
  cd AI_APP_WEB_Canary_Canary/AI/kwoledge_distillation/clone_code
  pip install -r requirements.txt
- 
- python train.py --img 640 --batch 16 --epochs 300 --data data/dataset.yaml --weights yolov5m6.pt
  ```
-</details>
 
+### MLOps
+  ```bash
+  git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
+  cd AI_APP_WEB_Canary_Canary/AI/dataserver/
+  pip install -r requirements.txt
+  python manage.py migrate
+  python manage.py runserver
+  ```
 ---
 
-## 프로젝트 사용법 (Getting Started)
+## 📱프로젝트 사용법 (Getting Started)
 <!--
 **마크다운 문법을 이용하여 자유롭게 기재**
 
@@ -242,7 +253,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 
 ---
 
-## 프로젝트 전망
+## 📈프로젝트 전망
 
 - 장병 사기진작  
 군 장병들은 본 어플을 활용함으로써 군 내부에서도 위에서 언급한 것과 같이 다양한 방식으로 카메라를 사용할 수 있을 것입니다. 또한, 제한받고 있던 자유에 대한 권리를 일부 인정함으로써 장병들에 대한 대우가 점차 나아지는 것은 물론, 장병들의 사기가 오르고 그간의 속박감에서 일부 벗어나 
@@ -253,7 +264,7 @@ Instagram의 Canary 계정을 팔로우한 계정들의 스토리, 게시글을 
 
 - 추가예정...
 
-### 개선/발전 방향
+### 💡개선/발전 방향
 
 - 타 SNS와의 연계  
 현재 Instagram 계정만 지원하는 경보기 기능을 facebook 등의 타 SNS에서도 지원함으로써 보안성을 강화할 수 있습니다.
@@ -271,7 +282,7 @@ Instagram의 Canary 계정을 팔로우한 계정들의 스토리, 게시글을 
 
 ---
 
-## 팀 정보 (Team Information)
+## 🕋팀 정보 (Team Information)
 
 <table>
  <tr>

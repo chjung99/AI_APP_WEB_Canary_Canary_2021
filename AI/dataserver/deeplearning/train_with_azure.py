@@ -2,25 +2,27 @@ import os
 import shutil
 import json
 import time
+import csv
+import numpy as np
 
-from azureml.core.workspace import Workspace
-from azureml.core import Experiment
-from azureml.core import Environment
-
+from azureml.core import Experiment, ScriptRunConfig, Environment
 from azureml.core.compute import ComputeTarget, AmlCompute
+from azureml.core.runconfig import DockerConfiguration
+from azureml.core.workspace import Workspace
 from azureml.core.compute_target import ComputeTargetException
 from azureml.core.authentication import InteractiveLoginAuthentication
 
-from azureml.core import ScriptRunConfig
-from azureml.core.runconfig import DockerConfiguration
 
 from .models import TrainedModel
+
+def fitness(x):
+    # Model fitness as a weighted combination of metrics
+    w = [0.0, 0.0, 0.1, 0.9]  # weights for [P, R, mAP@0.5, mAP@0.5:0.95]
+    return (x[:, :4] * w).sum(1)
 
 def train(download_url, epoch=300):
     with open('./deeplearning/kwoledge_distillation/azure_config.json') as json_file:
         azure_config = json.load(json_file)
-        
-        
     
     interactive_auth = InteractiveLoginAuthentication(tenant_id=azure_config['interactive_auth'])
     subscription_id = azure_config['subscription_id']
@@ -76,9 +78,19 @@ def train(download_url, epoch=300):
     run.download_file(name='outputs/best.pt', output_file_path=model_path)
     run.download_file(name='outputs/results.csv', output_file_path=results_path)
     
+    dat = open(results_path) 
+    reader = csv.reader(dat)
+    results = np.ndarray(list(reader)[1:])
+    
+    best = 0
+    
+    for result in results:
+        best = max(fitness(result), best)
+    
     train_model = TrainedModel()
     train_model.file.name = model_path
     train_model.result.name = results_path
+    train_model.matrix = best
     
     train_model.save()
     

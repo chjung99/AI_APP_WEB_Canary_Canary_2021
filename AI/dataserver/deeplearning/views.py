@@ -48,7 +48,7 @@ class TrainModelViewSet(viewsets.ModelViewSet):
     serializer_class = TrainModelSerializer
     
     def retrieve(self, request, *args, **kwargs):
-        instance = self.get_queryset().latest('version')
+        instance = self.get_queryset().latest('matrix')
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
         
