@@ -27,6 +27,7 @@ SECRET_KEY = '6!kiccbj%466nx-vdwd7mew9p(gf4f!+k4+7m%8i0r&f=4+hwd'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '18bb4baef6ac46a6af265a0a6cb78513.vfs.cloud9.us-east-2.amazonaws.com',
     '3.143.240.128',
 ]
 

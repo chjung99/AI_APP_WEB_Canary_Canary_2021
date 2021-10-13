@@ -22,11 +22,12 @@ def check_config(path="./config.json"):
         json.dump(json_data, outfile)
 
 def download_file_from_google_drive():
-    print("download model from google drive")
-    yolov5m6_id = "1QUaufxw06NVPyn_tIm0qBdOy5ewQ5ffi"
-    gdd.download_file_from_google_drive(file_id=yolov5m6_id, dest_path=f"weight/yolov5m6.pt", showsize=True)
+    if not os.path.exists("weight/yolov5m6.pt"):
+        print("download model from google drive")
+        yolov5m6_id = "1QUaufxw06NVPyn_tIm0qBdOy5ewQ5ffi"
+        gdd.download_file_from_google_drive(file_id=yolov5m6_id, dest_path=f"weight/yolov5m6.pt", showsize=True)
 
-def attemp_download_weight():
+def attemp_download_weight(args):
     if not os.path.exists("./weight"): os.makedirs("./weight")
     
     config_path = "./config.json"
@@ -36,10 +37,11 @@ def attemp_download_weight():
         with open(config_path) as json_file:
             json_data = json.load(json_file)
         
-    
-        data = requests.get("http://3.143.240.128:8080/deeplearning/models", timeout=1).json()
-        with open(progress_path, 'a') as pro:
+
+        data = requests.get(f"{args.server_url}/deeplearning/models", timeout=1).json()
+        with open(progress_path, "w") as pro:
             pro.write("서버에 접속 중...\n")
+
         matrix = data["matrix"]
         model_url = data["file"]
         
@@ -58,7 +60,7 @@ def attemp_download_weight():
 
 def detect(args):
 # Model
-    with open(progress_path, 'a') as pro:
+    with open(progress_path, "a") as pro:
         pro.write("보안위반 가능성 오브젝트 검사 중...\n")
     input_image_path = args.input_image_path
     # output_image_path = args.output_image_path
@@ -82,7 +84,7 @@ def detect(args):
 
 
 def mosaic(results, args):
-    with open(progress_path, 'a') as pro:
+    with open(progress_path, "a") as pro:
         pro.write("보안위반 가능성 오브젝트 처리 중...\n")
     input_image_path = args.input_image_path
     output_image_path = args.output_image_path
@@ -142,7 +144,7 @@ def mosaic(results, args):
           
         cv2.imwrite(output_image_path, img)
 
-        with open(progress_path, 'a') as pro:
+        with open(progress_path, "a") as pro:
             pro.write("경고문 작성 중...\n")
         
         risk_level=0
@@ -164,9 +166,17 @@ def mosaic(results, args):
         with open(output_log_path, "w") as f:
             log_text="user_id:"+f"{args.user_id}/object:"+f"{warn_object_txt}/risk level:"+f"{risk_level}"
             f.write(log_text)
-        
-        with open(progress_path, 'a') as pro:
-            pro.write("처리된 이미지 반환 중...\n")
+            
+        with open(progress_path, "a") as pro:
+            pro.write("처리된 이미지 반환 중...\n")  
+            
+        try:
+            print("send log")
+            data = {'log': str(warn_object_txt), 'username': str(args.user_id)} 
+            res = requests.post(f"{args.server_url}/deeplearning/log/api", data=data, timeout=1)
+        except:
+            print("send fail")
+
 
 
 
@@ -177,7 +187,7 @@ parser.add_argument("--weight_path", "-w", help="Weight path")
 parser.add_argument("--blur", "-b", action="store_true")
 
 parser.add_argument("--output_warning_path", "-o2", help="Warning text path")
-parser.add_argument("--server_url", "-u", help="Warning text path")
+parser.add_argument("--server_url", "-u", default='http://3.143.240.128:8080', help="Django URL")
 
 parser.add_argument("--strength", "-s", type=int, default=1, choices=[0,1])
 parser.add_argument("--user_id", "-d", help="user_id") # user_id from front
@@ -187,10 +197,9 @@ parser.add_argument("--output_log_path", "-o3", help="output_log_path") # user_i
 args = parser.parse_args()
 
 progress_path += (args.user_id + '.txt')
-with open(progress_path, 'w') as pro:
-    pro.write("")
 
 attemp_download_weight()
 
 results = detect(args)
 mosaic(results, args)
+

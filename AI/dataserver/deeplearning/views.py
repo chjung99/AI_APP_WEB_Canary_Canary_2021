@@ -5,8 +5,10 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
-from .serializer import FileSerializer, TrainModelSerializer
-from .models import File, TrainedModel
+from django.views import generic
+
+from .serializer import FileSerializer, TrainModelSerializer, LogModelSerializer
+from .models import File, TrainedModel, Log
 from .train_with_azure import train
 
 class FileViewSet(viewsets.ModelViewSet):
@@ -51,4 +53,13 @@ class TrainModelViewSet(viewsets.ModelViewSet):
         instance = self.get_queryset().latest('matrix')
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
-        
+
+class LogModelViewt(viewsets.ModelViewSet):
+    queryset = Log.objects.all()
+    serializer_class = LogModelSerializer
+
+class LogView(generic.ListView):
+    model = Log
+    queryset = Log.objects.all()
+    context_object_name = 'logs'
+    template_name = 'book/list.html'
