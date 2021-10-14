@@ -21,19 +21,18 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  ### 문제 발견하기
    - 2018년 12월 27일 국방부는 ‘병영문화 혁신 정책’으로 병사들의 일과 후 핸드폰 사용을 결정했습니다. 
    - 이 영향으로 군대 내의 많은 부조리가 사라졌고 병사들의 스트레스가 줄어드는 등 여러 긍정적인 효과가 나타났습니다.  
-   - 하지만 휴대폰의 중요한 기능인 카메라 사용을 할 수 없어 추억 남기기, 부모님께 자신의 모습 보여드리기, 공익을 위한 제보 등 카메라가 있어야만 가능한 일들을 할 수 없게 되었습니다.  
+   - 하지만 군사 보안을 이유로 휴대폰의 중요한 기능 중 하나인 카메라 사용을 전면적으로 통제 하고 있는 상황입니다.  
  
  ### 문제 정의
- - '국방모바일보안' 어플로 군 장병들의 카메라 사용 자체가 차단된 상황.
- - 일방적인 통제로 인한 장병들의 사기 저하
- - 추억 남기기, 부모님께 자신의 모습 보여드리기, 공익을 위한 제보 등 카메라가 있어야만 가능한 일들을 할 수 없음
- -그러나 카메라 사용을 무턱대고 허용 시 군사기밀 등의 유출 가능성이 존재, 국가 안보에 심각한 위협이 가해질 수 있음
- - 함부로 카메라 사용을 허용할 수는 없는 상황
+ - 현재 '국방모바일보안' 어플로 군 장병들의 카메라 사용이 전면적으로 차단된 상황입니다.
+ - 추억 남기기, 부모님께 자신의 모습 보여드리기, 공익을 위한 제보 등 카메라가 있어야만 가능한 일들을 할 수 없고, 이로 인한 장병들의 사기 저하가 발생하고 있습니다.
+ - 그러나 카메라 사용을 제약 없이 허용할 시 군사기밀 등의 유출 가능성이 존재, 국가 안보에 심각한 위협이 가해질 수 있습니다.
  
  ### 아이디어 내기
  
  - 보안 위반 가능성이 있는 요소들을 식별하여 모자이크 처리를 해 주는 카메라를 만들 것입니다.
- - 또한 동시에 SNS를 모니터링하여, 보안위반 가능성이 있는 사진들에 대해 게시자에게 경고해줄 것입니다.
+ - 모호한 군사 보안 규정을 사용자에게 정확하게 알려주어, 보안 사고를 사전에 방지합니다.
+ - 또한, 이미 업로드 된 SNS 게시글도 사용자가 요청한다면 보안위반 가능성을 경고해 줄 것입니다.
  
 </details>
 
@@ -55,10 +54,21 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  3. 잠시 후, "모니터가 감지되었습니다. 해당 부분을 모자이크합니다"라는 팝업과 함께 해당 부분이 모자이크가 된다.
  4. 이후 사진에 워터마크가 새겨진다. 워터마크에는 안준호 이병의 정보가 암호화된 채로 담겨 있다.
  5. 모자이크가 된 사진을 SNS에 올려 자랑한다.
+ 
+ #### #2
+ *긴 군생활을 끝내고 드디어 전역한 최종훈 병장. 같이 전역하는 동기들과 기념 사진을 찍는다.*
+ 
+ 0. 최종훈 병장과 동기들은 부대 앞에서 기념 사진을 촬영한다.
+ 1. SNS에 이 글을 게시하기 전, 최종훈 병장은 혹시 사진에 군사보안 위반은 없는지 걱정된다.
+ 2. 어플리케이션을 실행한 후, 방금 전 찍은 사진을 갤러리에서 선택한다.
+ 3. 잠시 후, "부대 마크, 군용 표지판이 감지되었습니다. 이는 군사보안 위반입니다."라는 메시지와 함게 해당 부분이 모자이크 된다.
+ 4. 최종훈 병장은 안심하면서 SNS에 사진을 업로드 한다.
+ 
 </details>
 
 <details>
  <summary>📈시스템 흐름도</summary>
+ 
  ### User-case Diagram
  <p align='center'><img src="https://user-images.githubusercontent.com/40621030/134690667-abe8f797-01a8-44db-ae89-ef7809c22d64.png"/></p>
  
@@ -172,12 +182,12 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  - mosaic augmetation에서 mosaic_9 augmentation 추가  
  
  ### 성능 향상
- |         enhance        |   model  | precision | recall | mAP_0.5 | mAP_0.5:0.95 |
- |:----------------------:|:--------:|:---------:|:------:|:-------:|:------------:|
- |          None          | yolov5m6 |   0.736   |  0.779 |  0.815  |     0.599    |  
- |     mosaic_9 50%       | yolov5m6 |   0.756   |  0.775 |  0.809  |     0.602    |
- |     mosaic_9 100%      | yolov5m6 |   0.739   |  0.813 |  0.806  |     0.594    |
- | knowledge distillation | yolov5m6 |           |        |         |              |
+ |       enhance     |   model  | precision | recall | mAP_0.5 | mAP_0.5:0.95 |
+ |:-----------------:|:--------:|:---------:|:------:|:-------:|:------------:|
+ |        None       | yolov5m6 |   0.736   |  0.779 |  0.815  |     0.599    |  
+ |   mosaic_9 50%    | yolov5m6 |   0.756   |  0.775 |  0.809  |     0.602    |
+ |   mosaic_9 100%   | yolov5m6 |   0.739   |  0.813 |  0.806  |     0.594    |
+ | self distillation | yolov5m6 |   0.722   |  0.822 |  0.807  |     0.592    |
  
  <table>
   <tr>
@@ -210,6 +220,40 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  <summary>MLOps 설명</summary>
  <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136700081-b195dfa6-1c21-4983-a4cd-463f7e584091.PNG' height='300'><p>
  다양한 플랫폼으로 모델 학습을 자동화 할 수 있도록 REST API서버로 구성했습니다. 데이터, 모델 버전관리를 자동으로 해주고, 최신 버전의 모델을 detection code가 자동으로 업데이트 되도록 구성했습니다.  
+ 
+ ### API문서
+ *account*
+ **POST /account/login**  
+ > parameters: {"username": "string", "password": string"}   
+ > status: 201   
+ > respose: {"message": "string", "token": string}   
+ 
+ *deeplearning*
+ **GET /deeplearning/files**  
+ > status: 200  
+ > response: { "count": 0, "next": "string", "previous": "string", "results": [{"file": "string"}]}   
+ 
+ **POST /deeplearning/files**  
+ > parameters: {"file": [FILE]}  
+ > status: 200  
+ > response: {"file": "string"}  
+ 
+ **GET /deeplearning/log**
+ > response {"count": 0, "next": "string", "previous": "string", "results": [{"username": "string", "log": "string", "create_at": "2021-10-14T13:50:37.279Z"}]}  
+ 
+ **POST /deeplearning/log**
+ > parameters: {"username": "string", "log": "string", "create_at": "2021-10-14T13:52:33.709Z"}  
+ > status: 201  
+ > response: {"username": "string", "log": "string", "create_at": "2021-10-14T13:52:33.709Z"}  
+ 
+ **GET /deeplearning/models
+ > status: 200  
+ > response: {"file": "string", "result": "string", "version": 0, "matrix": 0}  
+ 
+ **POST /deeplearning/train**
+ > headers: {'Authorization': f'Bearer [TOKEN]'}  
+ > status: 201  
+ > response: {"file": "string"}  
  
  ### 코드 및 실행 ([link](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI/dataserver))
 </details>

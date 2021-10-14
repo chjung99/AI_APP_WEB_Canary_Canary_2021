@@ -77,19 +77,37 @@ router.post('/create-user', async (req,res)=>{
     
 })
 
-router.post('/login',async(req,res)=>{
+router.post('/login',async (req,res)=>{
+	const {d_num} = req.body
 	const {password} = req.body
-	const user = 0 // select where from DB
-	if (user == null){
-		res.json({status:404,msg:'User Not Foud'})
-	}
+	const db_result = await new Promise((resolve,reject)=> 
+		db.query('SELECT name,d_num,password FROM user_t WHERE d_num = ?',[d_num],(err,result)=>{
+			if (err){
+				reject (err)
+			} else {
+				console.log(result) // result 출력
+				if(result.length == 0){
+					resolve (false)
+					res.json({status:404,msg:'User Not Found'})
+				} else { // 즉 해당 d_num을 가진 User 존재 시 -> resolve로 Pass
+					resolve (result)
+					// res.json({status:200,msg:'User Found'})
+				}
+			}
+		})
+	)
+	
 	try {
-		if (await bcrypt.compare(password,user.password)){
-			res.send('Login Success')
+		if( await bcrypt.compare(password,db_result[0].password)){
+			res.json({status:200,msg:`User : ${db_result[0].name} => Login Successful`})
+		}	else {
+			console.log('Wrong PW')
+			res.json({status:500,msg:'Wrong PassWord - Re Enter PW'})
 		}
-	} catch{
-		
+	} catch (err) {
+		console.error(err)
 	}
+	
 })
 
 

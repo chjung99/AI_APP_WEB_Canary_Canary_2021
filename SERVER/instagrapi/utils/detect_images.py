@@ -1,10 +1,7 @@
 # TODO : image를 download 한 후, Canary_YOLOv5 에서 detect.py 돌리기
 # 처리 완료 했으면 이미지 삭제하기
 from tqdm import tqdm
-
-IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/images'
-IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/images_detect_output'
-WARNING_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/warning'
+from utils.image_path import *
 
 import os
 
@@ -43,7 +40,7 @@ def make_directory_save_warning(user_output_path):
         print("Error : Creating directory " + path)
     return path
 
-def main():
+def detect_images():
     test_needed_user_list = os.listdir(f'{IMAGE_DOWNLOAD_ROOT}')
     test_needed_user_number = len(test_needed_user_list)
 
@@ -71,4 +68,4 @@ def main():
 
             detect(args)
 
-# main()
+# detect_images()
