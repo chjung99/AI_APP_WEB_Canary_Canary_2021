@@ -18,7 +18,7 @@ def train(args, token):
 SERVER_IP = 'http://3.143.240.128:8080'
 
 parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--upload_url', '-u', default=f'{SERVER_IP}/deeplearning/upload')
+parser.add_argument('--upload_url', '-u', default=f'{SERVER_IP}/deeplearning/files')
 parser.add_argument('--train_url', '-t', default=f'{SERVER_IP}/deeplearning/train')
 parser.add_argument('--login_url', '-l', default=f'{SERVER_IP}/account/login')
 parser.add_argument('--file_path', '-f')
