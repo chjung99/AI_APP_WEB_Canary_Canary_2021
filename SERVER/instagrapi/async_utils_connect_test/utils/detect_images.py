@@ -1,9 +1,9 @@
 # TODO : image를 download 한 후, Canary_YOLOv5 에서 detect.py 돌리기
 # 처리 완료 했으면 이미지 삭제하기
-from tqdm import tqdm
-from utils.image_path import *
-
 import os
+
+from tqdm import tqdm
+# from async_utils_connect_test.utils.image_path import *
 
 class detectArgs:
     input_image_path = ''
@@ -13,14 +13,15 @@ class detectArgs:
     output_warning_path = ''
 
 if __name__ == '__main__':
-	if __package__ is None:
-		import sys
-		from os import path
-		# print(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) ))
-		sys.path.append(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) ))
-		from AI.yolov5.detect import *
+    if __package__ is None:
+        import sys
+        from os import path
+            # print(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) ))
+            sys.path.append(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) ))
+            from AI.yolov5.detect import *
+            from SERVER.instagrapi.async_utils_connect_test.utils.image_path import *
 	else:
-		from ......AI.yolov5 import detect
+        from ......AI.yolov5 import detect
 
 def make_directory_save_images(user_output_path):
     path = f'{IMAGE_OUTPUT_ROOT}/{user_output_path}'
