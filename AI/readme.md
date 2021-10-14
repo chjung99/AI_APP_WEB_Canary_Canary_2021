@@ -8,5 +8,6 @@
 ## Train weight django
 
 ```
+cd django_restapi_test_code
 python train_starter_django.py -f [FILE PATH]
 ```
