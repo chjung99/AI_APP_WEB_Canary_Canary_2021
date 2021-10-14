@@ -223,7 +223,7 @@ args = parser.parse_args()
 
 #progress_path += (args.user_id + '.txt')
 
-attemp_download_weight()
+attemp_download_weight(args)
 
 results = detect(args)
 mosaic(results, args)
