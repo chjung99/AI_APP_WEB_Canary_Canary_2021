@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import File, TrainedModel, Log
 
 class FileSerializer(serializers.Serializer):
-    file = serializers.FileField(required=True)
+    file = serializers.FileField(required=True) 
     
     def create(self, validated_data):
         file = File.objects.create(
@@ -24,6 +24,7 @@ class TrainModelSerializer(serializers.Serializer):
 class LogModelSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     log = serializers.CharField(required=True)
+    create_at = serializers.DateTimeField(required=False)
     
     def create(self, validated_data):
         log = Log.objects.create(
