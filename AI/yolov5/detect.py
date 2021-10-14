@@ -172,4 +172,4 @@ parser.add_argument("--output_log_path", "-o3", help="output_log_path") # user_i
 
 args = parser.parse_args()
 attemp_download_weight(args)
-detect(args)
+# detect(args)
