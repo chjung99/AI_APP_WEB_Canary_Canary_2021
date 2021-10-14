@@ -34,11 +34,12 @@ class TrainedModel(models.Model):
     
     def __str__(self):
         return str(self.file.name) + '_' + str(self.version)
-        
+
+     
 class Log(models.Model):
     username = models.CharField(max_length=30)
     log = models.CharField(max_length=500)
-    create_at = models.DateField(default=timezone.now)
+    create_at = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
         return f'[{self.create_at}] {self.username}: {self.log}'

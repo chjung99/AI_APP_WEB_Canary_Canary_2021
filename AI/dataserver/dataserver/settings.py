@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'deeplearning.apps.DeeplearningConfig',
     'account.apps.AccountConfig',
     'rest_framework',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

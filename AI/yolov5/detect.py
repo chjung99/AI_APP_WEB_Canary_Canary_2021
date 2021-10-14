@@ -48,7 +48,7 @@ def attemp_download_weight(args):
         if json_data["matrix"] < matrix or not os.path.exists("weight/yolov5m6.pt"):
             print("download model from django")
             json_data["matrix"] = matrix
-            with open("./weight/config.json", "w") as json_file: json.dump(json_data, json_file)
+            with open(config_path, "w") as json_file: json.dump(json_data, json_file)
             urllib.request.urlretrieve(model_url, "weight/yolov5m6.pt") 
             
     except:       
@@ -199,7 +199,7 @@ def mosaic(results, args):
         try:
             print("send log")
             data = {'log': str(warn_object_txt), 'username': str(args.user_id)} 
-            res = requests.post(f"{args.server_url}/deeplearning/log/api", data=data, timeout=1)
+            res = requests.post(f"{args.server_url}/deeplearning/log", data=data, timeout=1)
         except:
             print("send fail")
 
