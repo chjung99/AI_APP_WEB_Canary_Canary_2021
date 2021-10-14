@@ -42,6 +42,22 @@ def make_directory_save_warning(user_output_path):
         print("Error : Creating directory " + path)
     return path
 
+def test_detect_images():
+    IMAGE_NAME = 'osam_testbot_2681938662589354460.jpg'
+    IMAGE_INPUT_PATH = f'{Roots.IMAGE_DOWNLOAD_ROOT}/{IMAGE_NAME}'
+    IMAGE_OUTPUT_PATH = f'{Roots.IMAGE_OUTPUT_ROOT}/{IMAGE_NAME}'
+    WARNING_OUTPUT_PATH = f'{Roots.WARNING_OUTPUT_ROOT}/{IMAGE_NAME}'+('.txt')
+    LOG_OUTPUT_PATH = f'{Roots.LOG_OUTPUT_ROOT}/{IMAGE_NAME}'+('.txt')
+
+    args = detectArgs()
+    args.input_image_path = f'{IMAGE_INPUT_PATH}'
+    args.output_image_path = f'{IMAGE_OUTPUT_PATH}'
+    args.weight_path = './weight/yolov5m6.pt'
+    args.output_warning_path = f'{WARNING_OUTPUT_PATH}'
+    args.output_log_path = f'{LOG_OUTPUT_PATH}'
+
+    detect(args)
+
 def detect_images():
     print('Start Detecting Imgs')
     test_needed_user_list = os.listdir(f'{Roots.IMAGE_DOWNLOAD_ROOT}')
@@ -58,13 +74,10 @@ def detect_images():
         for j in tqdm(range(0, test_needed_photo_number)):
             print("== Photo Number : %d ==" % j)
             user_photo_path = f'{test_needed_user_list[i]}/{test_needed_photo_list[j]}'
-            IMAGE_INPUT_PATH = f'{IMAGE_DOWNLOAD_ROOT}/{user_photo_path}'
-            IMAGE_OUTPUT_PATH = f'{IMAGE_OUTPUT_ROOT}/{user_photo_path}'
-            WARNING_OUTPUT_PATH = f'{WARNING_OUTPUT_ROOT}/{user_photo_path}'+('.txt')
-            LOG_OUTPUT_PATH = f'{LOG_OUTPUT_ROOT}/{user_photo_path}'+('.txt')
             IMAGE_INPUT_PATH = f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_photo_path}'
             IMAGE_OUTPUT_PATH = f'{Roots.IMAGE_OUTPUT_ROOT}/{user_photo_path}'
             WARNING_OUTPUT_PATH = f'{Roots.WARNING_OUTPUT_ROOT}/{user_photo_path}'+('.txt')
+            LOG_OUTPUT_PATH = f'{Roots.LOG_OUTPUT_ROOT}/{user_photo_path}'+('.txt')
 
             args = detectArgs()
             args.input_image_path = f'{IMAGE_INPUT_PATH}'
@@ -73,6 +86,7 @@ def detect_images():
             args.output_warning_path = f'{WARNING_OUTPUT_PATH}'
             args.output_log_path = f'{LOG_OUTPUT_PATH}'
 
-            # detect(args)
+            detect(args)
 
-detect_images()
+# detect_images()
+test_detect_images()
