@@ -8,6 +8,7 @@ import urllib.request
 from google_drive_downloader import GoogleDriveDownloader as gdd
 
 MOSAIC_RATIO = 0.05
+#progress_path = "image/progress_"
 
 def check_config(path="./config.json"):
     if os.path.exists(path):
@@ -35,8 +36,12 @@ def attemp_download_weight(args):
     try:
         with open(config_path) as json_file:
             json_data = json.load(json_file)
-    
+        
+
         data = requests.get(f"{args.server_url}/deeplearning/models", timeout=1).json()
+        #with open(progress_path, "w") as pro:
+            #pro.write("서버에 접속 중...\n")
+
         matrix = data["matrix"]
         model_url = data["file"]
         
@@ -55,14 +60,16 @@ def attemp_download_weight(args):
 
 def detect(args):
 # Model
+    #with open(progress_path, "a") as pro:
+        #pro.write("보안위반 가능성 오브젝트 검사 중...\n")
     input_image_path = args.input_image_path
-    output_image_path = args.output_image_path
+    # output_image_path = args.output_image_path
     
     weight_path = args.weight_path
     activeBlur = args.blur
     # strength = args.strength
-    output_warning_path = args.output_warning_path
-    output_log_path=args.output_log_path
+    # output_warning_path = args.output_warning_path
+    # output_log_path=args.output_log_path
     
     try:
         model = torch.hub.load("ultralytics/yolov5", "custom", path=weight_path)
@@ -73,6 +80,22 @@ def detect(args):
 
     # Inference
     results = model(input_image_path)
+
+    return results
+
+
+def mosaic(results, args):
+    #with open(progress_path, "a") as pro:
+        #pro.write("보안위반 가능성 오브젝트 처리 중...\n")
+    input_image_path = args.input_image_path
+    output_image_path = args.output_image_path
+    
+    # weight_path = args.weight_path
+    active_Blur = args.blur
+    strength = args.strength
+    output_warning_path = args.output_warning_path
+    output_log_path=args.output_log_path
+
     img = cv2.imread(input_image_path)
 
     warning_law = '군사기밀 유출시 군사기밀보호법, 보안업무규정, 정보 및 보안업무기획·조정규정, 정보통신기반 보호법, 군사기지 및 군사시설 보호법, 군형법 80조에 의거한 처벌 가능성이 있습니다.'
@@ -91,14 +114,19 @@ def detect(args):
         자신이 복무했던 부대 위치 및 찾아가는 방법
         ＊ 단, 대규모 부대의 위치 및 좌표, 고유명칭ㆍ통상명칭 등을 한번에 표시한 것은 신고대상임."""
     # 출처 : https://www.dssc.mil.kr/dssckr/151/subview.do
+
     
+    img = cv2.imread(input_image_path)
+
     class_list = ["항공모함", "방탄조끼", "포", "모니터", "군용 차량", "노트북", "군복", "미사일", "모니터", "서류", "부대마크", "리볼버", "소총", "탱크", "군 항공기", "군 표지판"]
-    scenario_log_list = [("설마 한미연합훈련 중 카메라를 사용하시는 건 아니겠죠?" + warning_sns, 2), ("지금 훈련 중이신가요? 훈련모습 촬영은 규정에 어긋납니다!" + warning_sns, 3), ("혹시 지금 군사 기밀을 노출하진 않으셨나요?", 5),
-        ("군용 차량을 촬영하셨네요. 차종 및 번호판 식별 위험이있습니다.", 2), ("군 표지판 촬영은 부대 위치가 식별될 위험이 있습니다.", 3), ("부대마크 및 명칭 노출은 군사보안에 위배되는 사항입니다.")]
+
+    scenario_log_list = [("설마 한미연합훈련 중 카메라를 사용하시는 건 아니겠죠?", 2), ("지금 훈련 중이신가요? 훈련모습 촬영은 규정에 어긋납니다!", 3), ("혹시 지금 군사 기밀을 노출하진 않으셨나요?", 5),
+        ("군용 차량을 촬영하셨네요.차종 및 번호판 식별 위험이있습니다.", 2), ("군 표지판 촬영은 부대 위치가 식별될 위험이 있습니다.", 3), ("부대마크 및 명칭 노출은 군사보안에 위배되는 사항입니다.", 3)]
+
 
     class_senerio_map = {0: 0, 1:1, 2:1, 3: 2, 4:3, 5:2, 6:1, 7:1, 8:2, 9:1, 10:5, 11:1, 12:1, 13:1, 14:1, 15:4}
     
-    if activeBlur == True:
+    if active_Blur == True:
         # TODO : Blur
         print("Not yet!")
     else:
@@ -132,12 +160,16 @@ def detect(args):
             
             img[ymin: ymax, xmin: xmax] = src   # 원본 이미지에 적용
 
-        if args.strength == 0 and flag==0 :
+        if strength == 0 and flag == 0 :
           for data in keep_data:
             
             img[data[1]:data[3],data[0]:data[2]]=data[4]
           
         cv2.imwrite(output_image_path, img)
+
+        #with open(progress_path, "a") as pro:
+            #pro.write("경고문 작성 중...\n")
+        
         risk_level=0
         
         warn_object_txt = ",".join(map(lambda x: class_list[x], object_list))
@@ -161,12 +193,16 @@ def detect(args):
             log_text="user_id:"+f"{args.user_id}/object:"+f"{warn_object_txt}/risk level:"+f"{risk_level}"
             f.write(log_text)
             
+        #with open(progress_path, "a") as pro:
+            #pro.write("처리된 이미지 반환 중...\n")  
+            
         try:
             print("send log")
             data = {'log': str(warn_object_txt), 'username': str(args.user_id)} 
             res = requests.post(f"{args.server_url}/deeplearning/log/api", data=data, timeout=1)
         except:
             print("send fail")
+
 
 
 
@@ -179,14 +215,16 @@ parser.add_argument("--blur", "-b", action="store_true")
 parser.add_argument("--output_warning_path", "-o2", help="Warning text path")
 parser.add_argument("--server_url", "-u", default='http://3.143.240.128:8080', help="Django URL")
 
-
-parser.add_argument("--strength", "-s", type=int, default=1, choices=[0,1]) # test 후 결과에 따라 강도 조정 예정 --> 찬호님이 자동 적응 mosaic 진행중
+parser.add_argument("--strength", "-s", type=int, default=1, choices=[0,1])
 parser.add_argument("--user_id", "-d", help="user_id") # user_id from front
 parser.add_argument("--output_log_path", "-o3", help="output_log_path") # user_id from front
-# TODO: arg로 mosaic 강도를 입력받고, 그 만큼 면적을 줄여서 return
-# TODO: output_warning_path를 입력받아 군복, 방탄조끼 class가 포함되어 있을 시 경고문 전달? 해결
-
 
 args = parser.parse_args()
-attemp_download_weight(args)
-detect(args)
+
+#progress_path += (args.user_id + '.txt')
+
+attemp_download_weight()
+
+results = detect(args)
+mosaic(results, args)
+
