@@ -1,1 +1,0 @@
-user_id:test_id/object:부대마크/risk level:3
