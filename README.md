@@ -79,6 +79,8 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
   <p align='center'><img src="https://user-images.githubusercontent.com/40621030/136720255-0456ffd4-4d7d-4d2e-b5c5-09387c5861fa.png"/></p>
 </details>
 
+\> 🖊[개발 문서](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/wiki)
+
 
 ## 📔기능 설명
 
@@ -400,6 +402,17 @@ Instagram의 Canary 계정을 팔로우한 계정들의 스토리, 게시글을 
 </table>
 
 ---
+<!--
+## 개발 및 협업 플랫폼
+- Azure ML Learning Studio
+- Github
+- Google meet
+- Goorm IDE
+- Slack
+- Zoom
+
+---
+-->
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
  * [GNU GPL](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/LICENSE)
