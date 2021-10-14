@@ -24,6 +24,7 @@ class TrainModelSerializer(serializers.Serializer):
 class LogModelSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     log = serializers.CharField(required=True)
+    create_at = serializers.DateField(required=True)
     
     def create(self, validated_data):
         log = Log.objects.create(
