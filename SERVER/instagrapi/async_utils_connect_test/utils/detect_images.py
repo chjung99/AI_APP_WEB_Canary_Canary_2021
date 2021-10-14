@@ -31,13 +31,6 @@ if __name__ == '__main__':
         sys.path.append(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
         from AI.yolov5.detect import *
         from SERVER.instagrapi.async_utils_connect_test.utils.image_path import *
-<<<<<<< HEAD
-=======
-		
-    else:
-        from ....AI.yolov5 import detect
-    
->>>>>>> 937933f30225b55376fe82b6fef17cddd233ed96
 
 def make_directory_save_images(user_output_path):
     path = f'{Roots.IMAGE_OUTPUT_ROOT}/{user_output_path}'
