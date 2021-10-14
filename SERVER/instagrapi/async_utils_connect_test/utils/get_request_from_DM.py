@@ -2,9 +2,11 @@ from argparse import *
 from instagrapi import *
 from parse import *
 
-IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/images'
-IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/images_detect_output'
-WARNING_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/warning'
+from image_path import Roots
+
+# IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/images'
+# IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/images_detect_output'
+# WARNING_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/warning'
 
 async_img_download_root = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs'
 
@@ -14,6 +16,10 @@ cl = Client()
 cl.login('osam_canary', 'admin0408')
 '''
 
+# cl = Client()
+# cl.login('osam_canary', 'admin0408!')
+
+
 def get_media_type_of_message(message):
     # In case of text
     if message.media == None:
@@ -22,7 +28,7 @@ def get_media_type_of_message(message):
         return message.media.media_type
 
 def make_directory_save_images(message):
-    path = f'{IMAGE_DOWNLOAD_ROOT}/{message.user_id}'
+    path = f'{Roots.IMAGE_DOWNLOAD_ROOT}/{message.user_id}'
     try:
         if not os.path.exists(path):
             os.makedirs(path)
