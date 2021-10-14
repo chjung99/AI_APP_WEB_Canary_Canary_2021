@@ -1,7 +1,7 @@
 import time
 import asyncio
 import os
-from multiprocessing import Process
+from multiprocessing import Process, Manager, Array
 
 from instagrapi import Client
 
@@ -9,14 +9,16 @@ from instagrapi import Client
 # from utils.download_image_from_DM import *
 # from utils.detect_images import *
 # from utils.send_DM import *
-from utils.get_request_from_DM import * # local Utils function import
 
+from utils.get_request_from_DM import * # local Utils function import
+from utils.detect_images import *  
 
 cl = Client()
 cl.login('osam_canary','admin0408!')
 # cl.login('osam_testbot','admin0408')
 # cl.login('osam_canary1','admin0408')
-msg_wait_list = [] #전체 처리해야 될 메세지
+
+# msg_wait_list = [] #전체 처리해야 될 메세지
 Processes = [] #처리해야 할 process 리스트
 
 class Message():
@@ -24,9 +26,9 @@ class Message():
     def __init__(self):
         pass
 
-    async def check_unread(self): # global msg_wait_list를 pass
+    async def check_unread(self,msg_wait_list): # global msg_wait_list를 pass
         while True: 
-            global msg_wait_list
+            # global msg_wait_list
             await asyncio.sleep(1) # 1초 interval로 Thread 읽어옴
             unread_threads = cl.direct_threads(20,'unread')
             unread_len = len(unread_threads)
@@ -41,9 +43,9 @@ class Message():
                     msg_wait_list.append((msg,user_id,thread_id)) # msg_wait_list에 msg와 thread_id 를 추가
             
 
-    async def msg_handler(self):
+    async def msg_handler(self,msg_wait_list):
         while True:
-            global msg_wait_list
+            # global msg_wait_list
             if msg_wait_list:
                 print(msg_wait_list)
                 print('Msg READ')
@@ -77,11 +79,11 @@ class Message():
                 await asyncio.sleep(1)
 
 
-    def read_process(self):
-        asyncio.run(self.check_unread())
+    def read_process(self,msg_wait_list):
+        asyncio.run(self.check_unread(msg_wait_list))
     
-    def handle_process(self):
-        asyncio.run(self.msg_handler())
+    def handle_process(self,msg_wait_list):
+        asyncio.run(self.msg_handler(msg_wait_list))
 
 #### 
 
@@ -121,28 +123,25 @@ class Message():
 #             print('no messages left')
 #             await asyncio.sleep(1)
 
-
-def sync_func():
-    while True:
-        print('This is SYNC_FUNC')
-        time.sleep(3)
-        print('Sleep Done')
-    
 if __name__ == "__main__":
-    # async function들은 Class 이용해서 process activate
-    # msg 읽어오기
-    read_msg = Process(target=Message().read_process)
-    read_msg.start()
-    Processes.append(read_msg)
 
-    #msg handling
-    handle_msg = Process(target=Message().handle_process)
-    handle_msg.start()
-    Processes.append(handle_msg)
+        manager = Manager()
+        msg_wait_list = manager.list()
 
-    for p in Processes:
-        p.join()
-        print(msg_wait_list)
+        # async function들은 Class 이용해서 process activate
+        # msg 읽어오기
+        read_msg = Process(target=Message().read_process,args=(msg_wait_list,))
+        read_msg.start()
+        Processes.append(read_msg)
+
+        #msg handling
+        handle_msg = Process(target=Message().handle_process,args=(msg_wait_list,))
+        handle_msg.start()
+        Processes.append(handle_msg)
+
+        for p in Processes:
+            p.join()
+            print(msg_wait_list)
     
     # # Test1
     # while True:

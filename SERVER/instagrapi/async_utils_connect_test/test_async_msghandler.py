@@ -63,7 +63,6 @@ async def msg_handler(messages):
                 print('Invalid Command Route')
                 await send_invalid(cl,user_id)
                 
-
         else:
             print('no messages left')
             await asyncio.sleep(1)
