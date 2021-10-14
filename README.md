@@ -221,6 +221,40 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136700081-b195dfa6-1c21-4983-a4cd-463f7e584091.PNG' height='300'><p>
  다양한 플랫폼으로 모델 학습을 자동화 할 수 있도록 REST API서버로 구성했습니다. 데이터, 모델 버전관리를 자동으로 해주고, 최신 버전의 모델을 detection code가 자동으로 업데이트 되도록 구성했습니다.  
  
+ ### API문서
+ *account*
+ **POST /account/login**  
+ > parameters: {"username": "string", "password": string"}   
+ > status: 201   
+ > respose: {"message": "string", "token": string}   
+ 
+ *deeplearning*
+ **GET /deeplearning/files**  
+ > status: 200  
+ > response: { "count": 0, "next": "string", "previous": "string", "results": [{"file": "string"}]}   
+ 
+ **POST /deeplearning/files**  
+ > parameters: {"file": [FILE]}  
+ > status: 200  
+ > response: {"file": "string"}  
+ 
+ **GET /deeplearning/log**
+ > response {"count": 0, "next": "string", "previous": "string", "results": [{"username": "string", "log": "string", "create_at": "2021-10-14T13:50:37.279Z"}]}  
+ 
+ **POST /deeplearning/log**
+ > parameters: {"username": "string", "log": "string", "create_at": "2021-10-14T13:52:33.709Z"}  
+ > status: 201  
+ > response: {"username": "string", "log": "string", "create_at": "2021-10-14T13:52:33.709Z"}  
+ 
+ **GET /deeplearning/models
+ > status: 200  
+ > response: {"file": "string", "result": "string", "version": 0, "matrix": 0}  
+ 
+ **POST /deeplearning/train**
+ > headers: {'Authorization': f'Bearer [TOKEN]'}  
+ > status: 201  
+ > response: {"file": "string"}  
+ 
  ### 코드 및 실행 ([link](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI/dataserver))
 </details>
 
