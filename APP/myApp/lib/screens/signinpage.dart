@@ -66,7 +66,7 @@ class SignInPage extends StatelessWidget {
                   User user =
                       await u.login(_d_num.text.trim(), _password.text.trim());
                   if (user.status == 200) {
-                    Get.to(() => const OptionPage(),
+                    Get.to(() => OptionPage(),
                         transition: Transition.rightToLeft);
                   } else if (user.status == 500) {
                     Get.snackbar("로그인 실패", "비밀번호가 틀렸습니다");
@@ -81,7 +81,9 @@ class SignInPage extends StatelessWidget {
             const SizedBox(height: 10),
             TextButton(
               onPressed: () {
-                Get.to(() => SignUpPage(), transition: Transition.upToDown);
+                Get.to(() => SignUpPage(),
+                    arguments: _d_num.text.trim(),
+                    transition: Transition.upToDown);
               },
               child: const Text(
                 "회원가입 하러가기",
