@@ -535,11 +535,7 @@ def main(opt, callbacks=Callbacks()):
             urllib.request.urlretrieve(opt.data_url, "./dataset.zip") 
         except:
             gdd.download_file_from_google_drive(file_id='1aX2m27L_CDfc5aO8ZylMTNAeOOr7028a', dest_path='./dataset.zip', showsize=True)
-<<<<<<< HEAD
-            
-=======
-        
->>>>>>> 8162f0f41068b33dfb13cf8d6b04268b257df60d
+
         with ZipFile('./dataset.zip', 'r') as zipObj:
             zipObj.extractall()
             

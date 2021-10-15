@@ -25,6 +25,7 @@ class TrainedModel(models.Model):
     file = models.FileField()
     result = models.FileField()
     create_at = models.DateTimeField(default=timezone.now)
+    matrix = models.FloatField()
     
     def delete(self, *args, **kargs):
         if self.file:   os.remove(os.path.join(settings.MEDIA_ROOT, self.file.path))
@@ -33,3 +34,12 @@ class TrainedModel(models.Model):
     
     def __str__(self):
         return str(self.file.name) + '_' + str(self.version)
+
+     
+class Log(models.Model):
+    username = models.CharField(max_length=30)
+    log = models.CharField(max_length=500)
+    create_at = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return f'[{self.create_at}] {self.username}: {self.log}'

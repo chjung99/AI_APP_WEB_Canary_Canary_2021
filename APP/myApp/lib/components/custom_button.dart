@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:myapp/color.dart';
+import 'package:praticesig/color.dart';
 
 class GradationButton extends StatelessWidget {
   final String title;
