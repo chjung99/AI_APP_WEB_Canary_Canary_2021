@@ -51,17 +51,18 @@ router.post('/post-test',(req,res)=>{
 router.post('/create-user', async (req,res)=>{
 	try{
 		const {name} = req.body
-		const {d_num} = req.body
-		const {password} = req.body
+		const d_num = parseInt(req.body.d_num) // str 형태의 d_num -> int로 파싱
+		const password = req.body.password.replace(/ /g, "")
 		
 		// 보안성 위해 bcrypt 이용 PW 암호화
 		const hashedPW = await bcrypt.hash(password,8) // 8은 salt를 의미
-		console.log(hashedPW)
 		const user = {name:name,d_num:d_num,password:hashedPW}
+		console.log(user)
 		// user add to DB code
 		await db.query('INSERT INTO user_t(name,d_num,password) VALUES(?,?,?)',[name,d_num,hashedPW],(err,result)=>{
 			if (err) {
 				throw err
+				console.log('DB Insert ERROR : Failed To Insert')
 				res.json({status:500})
 			}
 			else {
@@ -78,6 +79,7 @@ router.post('/create-user', async (req,res)=>{
 })
 
 router.post('/login',async (req,res)=>{
+	console.log(req.body)
 	const {d_num} = req.body
 	const {password} = req.body
 	const db_result = await new Promise((resolve,reject)=> 

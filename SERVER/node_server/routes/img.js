@@ -4,6 +4,7 @@ const mysql = require('mysql')
 const fs = require('fs')
 // pytorch model import
 const pytorch_model = require('../run_pytorch')
+const bcrypt = require('bcrypt')
 
 // var db = mysql.createConnection({
 // 	host : 'localhost',
@@ -91,7 +92,7 @@ router.get('/output', async (req,res)=>{
 
 // output using request parameters
 
-router.get('/output-params/:img_id', async (req,res)=>{
+router.get('/output-params/:img_id/:d_num', async (req,res)=>{
 // router.get('/output-params/:img_id/:level', async (req,res)=>{ // -> output with levels
 	
 	// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
@@ -106,8 +107,11 @@ router.get('/output-params/:img_id', async (req,res)=>{
 	console.log('img output(params method) router activated')
 
 	console.log('params input', req.params)
-
+	console.log('User D_NUM ', req.params.d_num )
+	const {d_num} = req.params
+	
 	if (req.params.img_id){
+		const hashed_d_num = await bcrypt.hash(d_num,8)
 		await pytorch_model(req.params.img_id).then((prc_id) =>{
 			console.log(prc_id)
 			const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
@@ -116,7 +120,7 @@ router.get('/output-params/:img_id', async (req,res)=>{
 			if (warning_txt.length == 0) {
 				warning_txt = '특이사항 없음'	
 			}
-			res.json({status:200,prc_img:processed_img_encoded,warning_text:warning_txt})
+			res.json({status:200,prc_img:processed_img_encoded,warning_text:warning_txt,hashed_d_num:hashed_d_num})
 		}).catch((err)=>{
 			console.error(err)
 			res.json({status:404})
