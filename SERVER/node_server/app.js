@@ -56,6 +56,7 @@ const testRouter = require('./routes/test')
 const indexRouter = require('./routes/index')
 const authRouter = require('./routes/auth')
 const imgRouter = require('./routes/img')
+const databaseRouter = require('./routes/database')
 
 app.use('/test',testRouter)
 app.use('/',indexRouter)

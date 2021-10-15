@@ -2,18 +2,13 @@ const express = require('express')
 const router = express.Router()
 const mysql = require('mysql')
 const fs = require('fs')
+
 // pytorch model import
 const pytorch_model = require('../run_pytorch')
 const bcrypt = require('bcrypt')
 
-// var db = mysql.createConnection({
-// 	host : 'localhost',
-// 	user : 'root',
-// 	password : process.env.db_password,
-// 	database : 'node_db'
-// })
-
-// db.connect();
+const getDB = require('./database').getDB
+const db = getDB()
 
 router.get('/main',(req,res)=>{
 	// pytorch model child process testing
@@ -26,6 +21,7 @@ router.post('/upload',async (req,res)=>{
 	console.log('img input router activated')
     console.log(req.session)
 	const uploaded_img_binary = req.body.img_binary
+	const {d_num} = req.body // upload하는 user의 D_num
 
 	const decoded_img = Buffer.from(uploaded_img_binary,'base64')
 	
@@ -40,52 +36,18 @@ router.post('/upload',async (req,res)=>{
 			console.log('original img save success')
 		}	
 	});
-		// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
-	// 	if (err){
-	// 		throw err
-	// 	}
-	// 	else {
-	// 		console.log(result + 'from /img/upload')
-	// 	}
-	// })
+	
+	// 사용자 업로드 Log 남기기
+	db.query('INSERT INTO upload_t(uploader_d_num,img_id) VALUES(?,?)',[d_num,img_id],(err,result)=>{
+		if (err){
+			throw err
+		}
+		else {
+			console.log(result + 'from /img/upload')
+		}
+		})
 
 	res.json({status:200,imd_id:img_id,session:req.session})
-	
-})
-
-router.get('/output', async (req,res)=>{
-
-	// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
-	// 	if (err){
-	// 		throw err
-	// 	}
-	// 	else {
-	// 		console.log(result + 'from /img/upload')
-	// 	}
-	// })
-
-	console.log('img output(session method) router activated')
-	console.log(req.session)
-
-	console.log('session input img_d :' ,req.session.img_id)
-	if (req.session.img_id){
-		await pytorch_model(req.session.img_id).then((prc_id) =>{
-			console.log('process img : ' ,prc_id)
-			const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
-			const processed_img_encoded = Buffer.from(processed_img).toString('base64')
-			res.json({status:200,output:processed_img_encoded})
-		}).catch((err)=>{
-			console.error(err)
-			res.json({status:404})
-		})
-	} else {
-		console.error('no img_id in request.session')
-		res.json({status:404,err_msg:'img_id for output undefined'})
-	}
-
-
-	// 아래 방법도 되지만 Error handling 위해 Promise를 활용
-	// await pytorch_model(req.session.input)
 
 })
 

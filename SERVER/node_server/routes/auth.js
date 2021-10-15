@@ -4,14 +4,8 @@ const router = express.Router()
 const mysql = require('mysql');
 const bcrypt = require('bcrypt')
 
-var db = mysql.createConnection({
-	host : 'localhost',
-	user : 'node_admin',
-	password : process.env.db_password,
-	database : 'node_db'
-})
-
-db.connect();
+const getDB = require('./database').getDB
+const db = getDB()
 
 const Authentication = (req,res,next)=>{
 	if (req.session.d_num && req.session.isAuth == true){
@@ -20,32 +14,6 @@ const Authentication = (req,res,next)=>{
 		res.redirect('/')
 	}
 }
-
-
-// 전체 user_t 조회 router
-router.get('/get-test', async (req,res)=>{
-    console.log('Postman Request Successful')
-	var db_result
-	await db.query('SELECT * FROM user_t', (err,result)=>{
-		if (err) {
-			throw err
-			res.json({status:500,message:"DB 조회 실패..."})
-		} else { // err가 나지 않으면
-			console.log(result)
-			res.json({status:200,message:'DB 조회 성공',result:result})
-		}
-	})
-})
-
-// 210927 post-req -> session 연결 성공
-router.post('/post-test',(req,res)=>{
-    const {name} = req.body
-    const {d_num} = req.body
-    // req.session.d_num = d_num
-    console.log(name)
-    console.log(d_num)
-    res.json({status:200,name:name,d_num:d_num})
-})
 
 // User 회원가입 Router
 router.post('/create-user', async (req,res)=>{
@@ -61,9 +29,13 @@ router.post('/create-user', async (req,res)=>{
 		// user add to DB code
 		await db.query('INSERT INTO user_t(name,d_num,password) VALUES(?,?,?)',[name,d_num,hashedPW],(err,result)=>{
 			if (err) {
-				throw err
 				console.log('DB Insert ERROR : Failed To Insert')
-				res.json({status:500})
+				console.error(err.errno)
+				if (err.errno == 1062) {
+					res.json({status:405,msg:"User with Input D_num Already Exists"})	
+				} else {
+					res.json({status:500})
+				}
 			}
 			else {
 				console.log(result)
@@ -79,6 +51,7 @@ router.post('/create-user', async (req,res)=>{
 })
 
 router.post('/login',async (req,res)=>{
+	
 	const {d_num} = req.body
 	const {password} = req.body
 	const db_result = await new Promise((resolve,reject)=> 
@@ -90,7 +63,7 @@ router.post('/login',async (req,res)=>{
 				if(result.length == 0){
 					resolve (false)
 					res.json({status:404,msg:'User Not Found'})
-				} else { // 즉 해당 d_num을 가진 User 존재 시 -> resolve로 Pass
+				} else { // 즉 해당 d_num을 가진 User 존재 시 -> resolve로 db_result에 Pass
 					resolve (result)
 					// res.json({status:200,msg:'User Found'})
 				}
@@ -111,28 +84,6 @@ router.post('/login',async (req,res)=>{
 	
 })
 
-
-// 210918 request 받기 성공
-router.post('/user_data',async (req,res)=>{
-	const {name} = req.body
-	const {d_num} = req.body
-    console.log('User name request: ' + name)
-    console.log('Dog Num request : ' + d_num)
-    req.session.d_num = d_num //session에 d_num 저장
-    req.session.isAuth = true
-    // req.session.save()
-
-    //db 연결 테스트
-    await db.query('SELECT * FROM user_t',(err,result)=>{
-        if(err) {
-            throw err
-        } else {
-            console.log(result + 'from user auth page')
-        }
-    })
-
-    res.json({status:200,d_num:d_num,isAuth:req.session.isAuth})
-})
 
 module.exports = router
 

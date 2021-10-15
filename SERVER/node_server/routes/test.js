@@ -5,6 +5,17 @@ const fs = require('fs')
 const multer = require('multer')
 const axios = require('axios')
 
+const getDB = require('./database').getDB
+const db = getDB()
+
+db.query('SELECT * FROM user_t WHERE id < 14',(err,result)=>{
+	if(err) {
+		throw err
+	} else {
+		console.log(result)
+	}
+})
+
 //multer에 들어갈 storage 객체 생성
 const storage = multer.diskStorage({
 	// fs 속 위치를 지정해주는 destination
@@ -149,6 +160,91 @@ router.get('/session',(req,res)=>{
 router.get('/session2',(req,res)=>{
 	res.send({status:200,session:req.session})
 })
+
+
+// 전체 user_t 조회 router
+router.get('/get-test', async (req,res)=>{
+    console.log('Postman Request Successful')
+	var db_result
+	await db.query('SELECT * FROM user_t', (err,result)=>{
+		if (err) {
+			throw err
+			res.json({status:500,message:"DB 조회 실패..."})
+		} else { // err가 나지 않으면
+			console.log('DB 조회 성공')
+			res.json({status:200,message:'DB 조회 성공',result:result})
+		}
+	})
+})
+
+// 210927 post-req -> session 연결 성공
+router.post('/post-test',(req,res)=>{
+    const {name} = req.body
+    const {d_num} = req.body
+    // req.session.d_num = d_num
+    console.log(name)
+    console.log(d_num)
+    res.json({status:200,name:name,d_num:d_num})
+})
+
+// 210918 request 받기 성공
+router.post('/user_data',async (req,res)=>{
+	const {name} = req.body
+	const {d_num} = req.body
+    console.log('User name request: ' + name)
+    console.log('Dog Num request : ' + d_num)
+    req.session.d_num = d_num //session에 d_num 저장
+    req.session.isAuth = true
+    // req.session.save()
+
+    //db 연결 테스트
+    await db.query('SELECT * FROM user_t',(err,result)=>{
+        if(err) {
+            throw err
+        } else {
+            console.log(result + 'from user auth page')
+        }
+    })
+
+    res.json({status:200,d_num:d_num,isAuth:req.session.isAuth})
+})
+
+router.get('/output-session', async (req,res)=>{
+
+	// db.query('INSERT INTO user_upload_t ()',(err,result)=>{
+	// 	if (err){
+	// 		throw err
+	// 	}
+	// 	else {
+	// 		console.log(result + 'from /img/upload')
+	// 	}
+	// })
+
+	console.log('img output(session method) router activated')
+	console.log(req.session)
+
+	console.log('session input img_d :' ,req.session.img_id)
+	if (req.session.img_id){
+		await pytorch_model(req.session.img_id).then((prc_id) =>{
+			console.log('process img : ' ,prc_id)
+			const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
+			const processed_img_encoded = Buffer.from(processed_img).toString('base64')
+			res.json({status:200,output:processed_img_encoded})
+		}).catch((err)=>{
+			console.error(err)
+			res.json({status:404})
+		})
+	} else {
+		console.error('no img_id in request.session')
+		res.json({status:404,err_msg:'img_id for output undefined'})
+	}
+
+
+	// 아래 방법도 되지만 Error handling 위해 Promise를 활용
+	// await pytorch_model(req.session.input)
+
+})
+
 
 
 module.exports = router
