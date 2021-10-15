@@ -153,8 +153,8 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
   <td><a href='https://www.mysql.com/'><img src='https://user-images.githubusercontent.com/40621030/136699174-e540729d-0092-447c-b672-dfa5dcfd41a7.png' height=80/></a></td>
  </tr>
  <tr>
-  <td>Node js</td>
-  <td>MySQL</td>
+  <td align='center'>Node js</td>
+  <td align='center'>MySQL</td>
  </tr>
 </table>
  
@@ -353,51 +353,51 @@ Instagram의 Canary 계정을 팔로우한 계정들의 스토리, 게시글을 
  </tr>
    
  <tr>
-  <td><img src="https://avatars.githubusercontent.com/u/86545225?v=4" width="50" height="50"></td>
-  <td>Jaeyo Shin</td>
-  <td>Leader</td>
-  <td><a href="https://github.com/j-mayo"><img src="http://img.shields.io/badge/j_mayo-green?style=social&logo=github"/></a></td>
-  <td><a href="mailto:tlswody5110@naver.com"><img src="https://img.shields.io/badge/tlswody5110@naver.com-green?logo=gmail&style=social"/></a></td>
+  <td align='center'><img src="https://avatars.githubusercontent.com/u/86545225?v=4" width="50" height="50"></td>
+  <td align='center'>Jaeyo Shin</td>
+  <td align='center'>Leader</td>
+  <td align='center'><a href="https://github.com/j-mayo"><img src="http://img.shields.io/badge/j_mayo-green?style=social&logo=github"/></a></td>
+  <td align='center'><a href="mailto:tlswody5110@naver.com"><img src="https://img.shields.io/badge/tlswody5110@naver.com-green?logo=gmail&style=social"/></a></td>
  </tr>
 
  <tr>
-  <td><img src="https://avatars.githubusercontent.com/u/76638529?v=4" width="50" height="50"></td>
-  <td>June Seo</td>
-  <td>Back-End (node.js)</td>
-  <td><a href="https://github.com/giirafe"><img src="http://img.shields.io/badge/giirafe-green?style=social&logo=github"/></a></td>
-  <td><a href="mailto:seojune408@gmail.com"><img src="https://img.shields.io/badge/seojune408@gmail.com-green?logo=gmail&style=social"/></a></td>
+  <td align='center'><img src="https://avatars.githubusercontent.com/u/76638529?v=4" width="50" height="50"></td>
+  <td align='center'>June Seo</td>
+  <td align='center'>Back-End (node.js)</td>
+  <td align='center'><a href="https://github.com/giirafe"><img src="http://img.shields.io/badge/giirafe-green?style=social&logo=github"/></a></td>
+  <td align='center'><a href="mailto:seojune408@gmail.com"><img src="https://img.shields.io/badge/seojune408@gmail.com-green?logo=gmail&style=social"/></a></td>
  </tr>
  
  <tr>
-  <td><img src="https://avatars.githubusercontent.com/u/54922625?v=4" width="50" height="50"></td>
-  <td>Huijae Ryu</td>
-  <td>Front-End (Flutter)</td>
-  <td><a href="https://github.com/hellohidi"><img src="http://img.shields.io/badge/hellohidi-green?style=social&logo=github"/></a></td>
-  <td><a href="mailto:fbgmlwo123@naver.com"><img src="https://img.shields.io/badge/fbgmlwo123@naver.com-green?logo=gmail&style=social"/></a></td>
+  <td align='center'><img src="https://avatars.githubusercontent.com/u/54922625?v=4" width="50" height="50"></td>
+  <td align='center'>Huijae Ryu</td>
+  <td align='center'>Front-End (Flutter)</td>
+  <td align='center'><a href="https://github.com/hellohidi"><img src="http://img.shields.io/badge/hellohidi-green?style=social&logo=github"/></a></td>
+  <td align='center'><a href="mailto:fbgmlwo123@naver.com"><img src="https://img.shields.io/badge/fbgmlwo123@naver.com-green?logo=gmail&style=social"/></a></td>
  </tr>
 
  <tr>
-  <td><img src="https://avatars.githubusercontent.com/u/62923434?v=4" width="50" height="50"></td>
-  <td>Chanho Jung</td>
-  <td>Deep Learning (Pytorch)</td>
-  <td><a href="https://github.com/chjung99"><img src="http://img.shields.io/badge/chjung99-green?style=social&logo=github"/></a></td>
-  <td><a href="mailto:cksgh1168@gmail.com"><img src="https://img.shields.io/badge/cksgh1168@gmail.com-green?logo=gmail&style=social"/></a></td>
+  <td align='center'><img src="https://avatars.githubusercontent.com/u/62923434?v=4" width="50" height="50"></td>
+  <td align='center'>Chanho Jung</td>
+  <td align='center'>Deep Learning (Pytorch)</td>
+  <td align='center'><a href="https://github.com/chjung99"><img src="http://img.shields.io/badge/chjung99-green?style=social&logo=github"/></a></td>
+  <td align='center'><a href="mailto:cksgh1168@gmail.com"><img src="https://img.shields.io/badge/cksgh1168@gmail.com-green?logo=gmail&style=social"/></a></td>
  </tr>
 
  <tr>
-  <td><img src="https://avatars.githubusercontent.com/u/35412648?v=4" width="50" height="50"></td>
-  <td>Donghwan Chi</td>
-  <td>Deep Learning (Pytorch)</td>
-  <td><a href="https://github.com/zheedong"><img src="http://img.shields.io/badge/zheedong-green?style=social&logo=github"/></a></td>
-  <td><a href="mailto:zheedong@gmail.com"><img src="https://img.shields.io/badge/zheedong@gmail.com-green?logo=gmail&style=social"/></a></td>
+  <td align='center'><img src="https://avatars.githubusercontent.com/u/35412648?v=4" width="50" height="50"></td>
+  <td align='center'>Donghwan Chi</td>
+  <td align='center'>Deep Learning (Pytorch)</td>
+  <td align='center'><a href="https://github.com/zheedong"><img src="http://img.shields.io/badge/zheedong-green?style=social&logo=github"/></a></td>
+  <td align='center'><a href="mailto:zheedong@gmail.com"><img src="https://img.shields.io/badge/zheedong@gmail.com-green?logo=gmail&style=social"/></a></td>
  </tr>
    
  <tr>
-  <td><img src="https://avatars.githubusercontent.com/u/40621030?v=4" width="50" height="50"></td>
-  <td>Wonbeom Jang</td>
-  <td>Deep Learning (Pytorch)</td>
-  <td><a href="https://github.com/wonbeomjang"><img src="http://img.shields.io/badge/wonbeomjang-green?style=social&logo=github"/></a></td>
-  <td><a href="mailto:jtiger958@gmail.com"><img src="https://img.shields.io/badge/jtiger958@gmail.com-green?logo=gmail&style=social"/></a></td>
+  <td align='center'><img src="https://avatars.githubusercontent.com/u/40621030?v=4" width="50" height="50"></td>
+  <td align='center'>Wonbeom Jang</td>
+  <td align='center'>Deep Learning (Pytorch)</td>
+  <td align='center'><a href="https://github.com/wonbeomjang"><img src="http://img.shields.io/badge/wonbeomjang-green?style=social&logo=github"/></a></td>
+  <td align='center'><a href="mailto:jtiger958@gmail.com"><img src="https://img.shields.io/badge/jtiger958@gmail.com-green?logo=gmail&style=social"/></a></td>
  </tr>
 </table>
 
@@ -407,27 +407,27 @@ Instagram의 Canary 계정을 팔로우한 계정들의 스토리, 게시글을 
 
 <table>
  <tr>
-  <td><a href="https://azure.microsoft.com/ko-kr/services/machine-learning/"><img src="https://raw.githubusercontent.com/github/explore/eaef8552d8b082ffafe2bfc8a5023d47da904aac/topics/azure/azure.png" height=80/></a></td>
-  <td><a href="https://github.com/"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" height=80/></a></td>
-  <td><a href="https://meet.google.com/"><img src="https://user-images.githubusercontent.com/86545225/137439170-9500c5b2-c47a-4ecc-b588-8c0b14e0eb3b.png" height=80/></a></td>
+  <td align='center'><a href="https://azure.microsoft.com/ko-kr/services/machine-learning/"><img src="https://raw.githubusercontent.com/github/explore/eaef8552d8b082ffafe2bfc8a5023d47da904aac/topics/azure/azure.png" height=80/></a></td>
+  <td align='center'><a href="https://github.com/"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" height=80/></a></td>
+  <td align='center'><a href="https://meet.google.com/"><img src="https://user-images.githubusercontent.com/86545225/137439170-9500c5b2-c47a-4ecc-b588-8c0b14e0eb3b.png" height=80/></a></td>
  </tr>
  
  <tr>
-  <td>Azure ML Studio</td>
-  <td>Github</td>
-  <td>Google meet</td>
+  <td align='center'>Azure ML Studio</td>
+  <td align='center'>Github</td>
+  <td align='center'>Google meet</td>
  </tr>
  
  <tr>
-  <td><a href="https://ide.goorm.io/"><img src="https://user-images.githubusercontent.com/86545225/137440873-5d17c954-2db2-44bd-8c7c-a0795b7ff49b.jpg" height=80/></a></td>
-  <td><a href="https://slack.com/"><img src="https://user-images.githubusercontent.com/40621030/136699174-e540729d-0092-447c-b672-dfa5dcfd41a7.png" height=80/></a></td>
-  <td><a href="https://zoom.us/"><img src="https://user-images.githubusercontent.com/86545225/137440645-636a8078-208b-4542-bbfd-2823f0572e1c.png" height=80/></a></td>
+  <td align='center'><a href="https://ide.goorm.io/"><img src="https://user-images.githubusercontent.com/86545225/137440873-5d17c954-2db2-44bd-8c7c-a0795b7ff49b.jpg" height=80/></a></td>
+  <td align='center'><a href="https://slack.com/"><img src="https://user-images.githubusercontent.com/40621030/136699174-e540729d-0092-447c-b672-dfa5dcfd41a7.png" height=80/></a></td>
+  <td align='center'><a href="https://zoom.us/"><img src="https://user-images.githubusercontent.com/86545225/137440645-636a8078-208b-4542-bbfd-2823f0572e1c.png" height=80/></a></td>
  </tr>
  
  <tr>
-  <td>GoormIDE</td>
-  <td>Slack</td>
-  <td>Zoom></td>
+  <td align='center'>GoormIDE</td>
+  <td align='center'>Slack</td>
+  <td align='center'>Zoom></td>
  </tr>
 </table>
 
