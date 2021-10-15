@@ -359,11 +359,11 @@ Canary app의 경우 Android용으로만 개발되었습니다. Instagram siren�
 
 ## 🕋팀 정보 (Team Information)
 
-왜 군인들은 카메라를 자유롭게 쓰지 못 할까?
-언제부턴가 가지게 된 이 의문이, 해커톤 경험조차 없는 장병들을 움직이게 했습니다. 
-군인들의 자유로운 카메라 사용과, 흔들리지 않는 편안한 국가 보안을 위해 육군 및 국직부대 병사 6명이 모였습니다.  
+**왜** 군인들은 카메라를 자유롭게 쓰지 못 할까?  
+언제부턴가 들었던 이 의문이, 해커톤 경험조차 없는 육군 및 국직부대 병사 6명을 모이게 했습니다.  
+군인들의 자유로운 카메라 사용과, 흔들리지 않는 국가 보안을 위해.
 
-안녕하십니까, Team Canary입니다. 
+안녕하십니까, Team Canary입니다.  
 
 <table>
  <tr>
@@ -377,7 +377,7 @@ Canary app의 경우 Android용으로만 개발되었습니다. Instagram siren�
  <tr>
   <td align='center'><img src="https://avatars.githubusercontent.com/u/86545225?v=4" width="50" height="50"></td>
   <td align='center'>Jaeyo Shin</td>
-  <td align='center'>Leader</td>
+  <td align='center'>Leader / Deep Learning (Pytorch)</td>
   <td align='center'><a href="https://github.com/j-mayo"><img src="http://img.shields.io/badge/j_mayo-green?style=social&logo=github"/></a></td>
   <td align='center'><a href="mailto:tlswody5110@naver.com"><img src="https://img.shields.io/badge/tlswody5110@naver.com-green?logo=gmail&style=social"/></a></td>
  </tr>
