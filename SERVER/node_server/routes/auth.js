@@ -79,7 +79,6 @@ router.post('/create-user', async (req,res)=>{
 })
 
 router.post('/login',async (req,res)=>{
-	console.log(req.body)
 	const {d_num} = req.body
 	const {password} = req.body
 	const db_result = await new Promise((resolve,reject)=> 
