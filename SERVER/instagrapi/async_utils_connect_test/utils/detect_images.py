@@ -88,5 +88,5 @@ def detect_images():
 
             detect(args)
 
-# detect_images()
-test_detect_images()
+detect_images()
+# test_detect_images()

@@ -54,11 +54,12 @@ async def post_check(cl,user_id,thread_id):
     request_post = user_posts[post_num] # 사용자가 검사를 요청한 게시물 : request_post
     target_pk = request_post.pk
     target_type = request_post.media_type
+    user_pk = cl.user_info(user_id).pk
     
     if target_type == 1:
-        cl.photo_download(target_pk,async_img_download_root)
+        cl.photo_download(target_pk,f'{async_img_download_root}/{user_pk}')
     elif target_type == 8:
-        cl.album_download(target_pk,async_img_download_root)
+        cl.album_download(target_pk,f'{async_img_download_root}/{user_pk}')
     else:
         cl.direct_send('지원하지 않는 형식의 게시물입니다. 현재는 사진과 앨범 게시물들만 검사 가능합니다')
 
@@ -115,11 +116,11 @@ async def download_media(cl,medias):
     for idx in range(medias_len):
         media_pk = medias[idx].pk
         media_type = medias[idx].media_type
-        media_id = medias[idx].id
+        user_info = cl.media_user(media_pk)
         if media_type == 1:
-            cl.photo_download(media_pk,async_img_download_root)
+            cl.photo_download(media_pk,f'{async_img_download_root}/{user_info.pk}')
         elif media_type == 8:
-            cl.album_download(media_pk,async_img_download_root)
+            cl.album_download(media_pk,f'{async_img_download_root}/{user_info.pk}')
         else:
             print(f'{idx} 미디어의 media type이 지원이 불가합니다')
 
