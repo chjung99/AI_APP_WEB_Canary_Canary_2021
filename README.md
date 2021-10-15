@@ -10,7 +10,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 카메라 기능과 SNS 탐지 기능으로 구성되어 있으며, 처리된 사진에는 워터마크가 들어가 처리 여부를 쉽게 식별할 수 있습니다.
 
 ## 🗂️프로젝트 소개
-본 프로젝트는 사용자에게 보안 내용을 제거하는 기능을 가진 카메라를 제공함으로서,  
+본 프로젝트는 사진의 보안 내용을 제거하는 기능과 그러한 기능을 가진 카메라를 제공함으로서,  
 * **군 내에서 카메라를 사용 가능하게 함**과 동시에,
 *  SNS에 올릴 사진의 보안 위반 가능성을 경고하여 사용자가 **자발적으로** 보안을 준수 할 수 있게 합니다.
 
@@ -21,19 +21,18 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  ### 문제 발견하기
    - 2018년 12월 27일 국방부는 ‘병영문화 혁신 정책’으로 병사들의 일과 후 핸드폰 사용을 결정했습니다. 
    - 이 영향으로 군대 내의 많은 부조리가 사라졌고 병사들의 스트레스가 줄어드는 등 여러 긍정적인 효과가 나타났습니다.  
-   - 하지만 휴대폰의 중요한 기능인 카메라 사용을 할 수 없어 추억 남기기, 부모님께 자신의 모습 보여드리기, 공익을 위한 제보 등 카메라가 있어야만 가능한 일들을 할 수 없게 되었습니다.  
+   - 하지만 군사 보안을 이유로 휴대폰의 중요한 기능 중 하나인 카메라 사용을 전면적으로 통제 하고 있는 상황입니다.  
  
  ### 문제 정의
- - '국방모바일보안' 어플로 군 장병들의 카메라 사용 자체가 차단된 상황.
- - 일방적인 통제로 인한 장병들의 사기 저하
- - 추억 남기기, 부모님께 자신의 모습 보여드리기, 공익을 위한 제보 등 카메라가 있어야만 가능한 일들을 할 수 없음
- -그러나 카메라 사용을 무턱대고 허용 시 군사기밀 등의 유출 가능성이 존재, 국가 안보에 심각한 위협이 가해질 수 있음
- - 함부로 카메라 사용을 허용할 수는 없는 상황
+ - 현재 '국방모바일보안' 어플로 군 장병들의 카메라 사용이 전면적으로 차단된 상황입니다.
+ - 추억 남기기, 부모님께 자신의 모습 보여드리기, 공익을 위한 제보 등 카메라가 있어야만 가능한 일들을 할 수 없고, 이로 인한 장병들의 사기 저하가 발생하고 있습니다.
+ - 그러나 카메라 사용을 제약 없이 허용할 시 군사기밀 등의 유출 가능성이 존재, 국가 안보에 심각한 위협이 가해질 수 있습니다.
  
  ### 아이디어 내기
  
  - 보안 위반 가능성이 있는 요소들을 식별하여 모자이크 처리를 해 주는 카메라를 만들 것입니다.
- - 또한 동시에 SNS를 모니터링하여, 보안위반 가능성이 있는 사진들에 대해 게시자에게 경고해줄 것입니다.
+ - 모호한 군사 보안 규정을 사용자에게 정확하게 알려주어, 보안 사고를 사전에 방지합니다.
+ - 또한, 이미 업로드 된 SNS 게시글도 사용자가 요청한다면 보안위반 가능성을 경고해 줄 것입니다.
  
 </details>
 
@@ -55,10 +54,21 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  3. 잠시 후, "모니터가 감지되었습니다. 해당 부분을 모자이크합니다"라는 팝업과 함께 해당 부분이 모자이크가 된다.
  4. 이후 사진에 워터마크가 새겨진다. 워터마크에는 안준호 이병의 정보가 암호화된 채로 담겨 있다.
  5. 모자이크가 된 사진을 SNS에 올려 자랑한다.
+ 
+ #### #2
+ *긴 군생활을 끝내고 드디어 전역한 최종훈 병장. 같이 전역하는 동기들과 기념 사진을 찍는다.*
+ 
+ 0. 최종훈 병장과 동기들은 부대 앞에서 기념 사진을 촬영한다.
+ 1. SNS에 이 글을 게시하기 전, 최종훈 병장은 혹시 사진에 군사보안 위반은 없는지 걱정된다.
+ 2. 어플리케이션을 실행한 후, 방금 전 찍은 사진을 갤러리에서 선택한다.
+ 3. 잠시 후, "부대 마크, 군용 표지판이 감지되었습니다. 이는 군사보안 위반입니다."라는 메시지와 함게 해당 부분이 모자이크 된다.
+ 4. 최종훈 병장은 안심하면서 SNS에 사진을 업로드 한다.
+ 
 </details>
 
 <details>
  <summary>📈시스템 흐름도</summary>
+ 
  ### User-case Diagram
  <p align='center'><img src="https://user-images.githubusercontent.com/40621030/134690667-abe8f797-01a8-44db-ae89-ef7809c22d64.png"/></p>
  
@@ -68,6 +78,8 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  ### Architecture
   <p align='center'><img src="https://user-images.githubusercontent.com/40621030/136720255-0456ffd4-4d7d-4d2e-b5c5-09387c5861fa.png"/></p>
 </details>
+
+\> 🖊[개발 문서](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/wiki)
 
 
 ## 📔기능 설명
@@ -85,29 +97,42 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  </tr>
 </table>
 
+### 📝세부 설명
 <details>
- <summary>📝세부 설명</summary>
+ <summary>(펼치기/접기)</summary>
+ 
+  #### **Canary app**
  
   앱을 처음 실행 시, 사용자는 자신의 성명과 군번을 통해 회원가입을 진행합니다. 이 정보는 암호화되어 저장됩니다.
+  
+  - 카메라 모드: 군 내부에서도 사용 가능한 카메라입니다. 촬영한 사진 안의 보안 위반 요소를 식별 후 모자이크 처리하여 반환합니다.
 
-  - **Canary Camera**(가제): 군 내부에서도 사용 가능한 카메라입니다. 촬영한 사진 안의 보안 위반 요소를 식별 후 모자이크 처리하여 반환합니다.
-  - **Instagram 경보기**(가제): 주요 sns 중 하나인 인스타그램 사용자의 보안 위반 여부를 탐지하고, 사용자에게 direct message로 경고해줍니다.
-  - ...
-
-  사용자가 찍은 사진은 스마트폰에 바로 저장되지 않고 서버에 전송되어, 보안 위반 요소를 식별 후 적절한 강도로 모자이크 처리하여 반환됩니다.
-  보안 위반 요소는 사용자의 소속 부대 및 위치 식별 가능 여부, 기밀 유출 가능 여부 등을 고려하여 다음과 같이 선정하였습니다.
-  >총, 부대마크, 모니터, 서류, 표지판, 포, 차량, 탱크, 군용 비행기, 미사일, 항공모함  
-
-  아래 요소의 경우 촬영 당시 맥락에 따라 보안 여부가 달라지므로, 모자이크 처리는 하지 않되 사용자에게 경고문을 전달합니다.
-  >군복, 방탄조끼
-
-  처리된 사진이 반환될 때, 앞서 서술한 성명과 군번을 암호화한 값이 포함된 워터마크가 남습니다. 이를 이용하여 사진 처리자의 신원을 파악하거나 이미지 처리 여부를 눈으로 식별할 수 있습니다.
-
-  자세한 기능은 다음과 같습니다.
-
-  - 카메라 모드: 사진을 촬영하고 서버로 전송하여 보안 위반 요소를 식별 후 적절한 강도로 모자이크 처리하여 반환됩니다.
+    사용자가 찍은 사진은 스마트폰에 바로 저장되지 않고 서버에 전송되어, 보안 위반 요소를 식별 후 적절한 강도로 모자이크 처리하여 반환됩니다.
+ 
   - 갤러리 모드: 갤러리에 이미 저장된 사진을 모자이크 할 필요가 있을 시, 해당 사진을 업로드하여 카메라로 촬영할 때와 동일하게 모자이크 처리를 할 수 있습니다.
-  - 모자이크 강도 조절: 모자이크가 너무 강할 시 불필요한 부분까지 가릴 수 있습니다. 또는 지나치게 덜 가려서 보안 위반의 위험성이 사라지지 않을 수 있습니다. 사용자가 초기 반환 이미지의 모자이크 정도를 판단 후, 과하거나 부족하다면 강도를 약하게/세게 하여 다시 이미지를 처리합니다. **(향후 개발에 따라 조정 예정)** ex) 단순히 object detect area를 모자이크하면 지나치게 많은 영역이 모자이크되는 현상이 발생할 수 있습니다. 각 class마다 area, shape를 다르게 하여 과도하게 모자이크되는 부분을 최소화합니다.
+ 
+  보안 위반 요소는 사용자의 소속 부대 및 위치 식별 가능 여부, 기밀 유출 가능 여부 등을 고려하여 다음과 같이 선정하였습니다.
+  >총, 방탄조끼, 부대마크, 모니터, 서류, 표지판, 포, 차량, 탱크, 군용 비행기, 미사일, 항공모함  
+
+  군복의 경우 촬영 당시 맥락에 따라 보안 여부가 달라지므로, 모자이크 처리는 하지 않되 사용자에게 경고문을 전달합니다.  
+
+  처리된 사진이 반환될 때, 앞서 서술한 성명과 군번을 암호화한 값이 포함된 워터마크가 새겨집니다. 이를 이용하여 사진 처리자의 신원을 파악하거나 이미지 처리 여부를 눈으로 식별할 수 있습니다.
+ 
+  #### **Admin logweb**
+ 
+  Canary app의 사용 log를 볼 수 있는 webapp입니다.  
+ 
+  해당 log는 관리자 계정을 사용하여 로그인 후 확인할 수 있습니다.  
+ 
+  <p align='center'><img src="https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/image/image.png" width="500" height="250"/></p>
+ 
+  Canary app 사용 날짜와 사용자 id, 이미지에서 검출된 객체에 대한 기록이 남습니다.
+ 
+  #### **Instagram Siren**
+ 
+  **Instagram 경보기**(가제): 주요 sns 중 하나인 인스타그램 사용자의 보안 위반 여부를 탐지하고, 사용자에게 direct message로 경고해줍니다.
+ 
+  (구체적 설명)
 </details>
 
 ---
@@ -210,6 +235,40 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  <summary>MLOps 설명</summary>
  <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136700081-b195dfa6-1c21-4983-a4cd-463f7e584091.PNG' height='300'><p>
  다양한 플랫폼으로 모델 학습을 자동화 할 수 있도록 REST API서버로 구성했습니다. 데이터, 모델 버전관리를 자동으로 해주고, 최신 버전의 모델을 detection code가 자동으로 업데이트 되도록 구성했습니다.  
+ 
+ ### API문서
+ *account*
+ **POST /account/login**  
+ > parameters: {"username": "string", "password": string"}   
+ > status: 201   
+ > respose: {"message": "string", "token": string}   
+ 
+ *deeplearning*
+ **GET /deeplearning/files**  
+ > status: 200  
+ > response: { "count": 0, "next": "string", "previous": "string", "results": [{"file": "string"}]}   
+ 
+ **POST /deeplearning/files**  
+ > parameters: {"file": [FILE]}  
+ > status: 200  
+ > response: {"file": "string"}  
+ 
+ **GET /deeplearning/log**
+ > response {"count": 0, "next": "string", "previous": "string", "results": [{"username": "string", "log": "string", "create_at": "2021-10-14T13:50:37.279Z"}]}  
+ 
+ **POST /deeplearning/log**
+ > parameters: {"username": "string", "log": "string", "create_at": "2021-10-14T13:52:33.709Z"}  
+ > status: 201  
+ > response: {"username": "string", "log": "string", "create_at": "2021-10-14T13:52:33.709Z"}  
+ 
+ **GET /deeplearning/models
+ > status: 200  
+ > response: {"file": "string", "result": "string", "version": 0, "matrix": 0}  
+ 
+ **POST /deeplearning/train**
+ > headers: {'Authorization': f'Bearer [TOKEN]'}  
+ > status: 201  
+ > response: {"file": "string"}  
  
  ### 코드 및 실행 ([link](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI/dataserver))
 </details>
@@ -343,6 +402,35 @@ Instagram의 Canary 계정을 팔로우한 계정들의 스토리, 게시글을 
 </table>
 
 ---
+
+## 개발 및 협업 플랫폼
+
+<table>
+ <tr>
+  <td><a href="https://azure.microsoft.com/ko-kr/services/machine-learning/"><img src="https://raw.githubusercontent.com/github/explore/eaef8552d8b082ffafe2bfc8a5023d47da904aac/topics/azure/azure.png" height=80/></a></td>
+  <td><a href="https://github.com/"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" height=80/></a></td>
+  <td><a href="https://meet.google.com/"><img src="https://user-images.githubusercontent.com/86545225/137439170-9500c5b2-c47a-4ecc-b588-8c0b14e0eb3b.png" height=80/></a></td>
+ </tr>
+ 
+ <tr>
+  <td>Azure ML Studio</td>
+  <td>Github</td>
+  <td>Google meet</td>
+ </tr>
+ 
+ <tr>
+  <td><a href="https://ide.goorm.io/"><img src="https://user-images.githubusercontent.com/86545225/137440873-5d17c954-2db2-44bd-8c7c-a0795b7ff49b.jpg" height=80/></a></td>
+  <td><a href="https://slack.com/"><img src="https://user-images.githubusercontent.com/40621030/136699174-e540729d-0092-447c-b672-dfa5dcfd41a7.png" height=80/></a></td>
+  <td><a href="https://zoom.us/"><img src="https://user-images.githubusercontent.com/86545225/137440645-636a8078-208b-4542-bbfd-2823f0572e1c.png" height=80/></a></td>
+ </tr>
+ 
+ <tr>
+  <td>GoormIDE</td>
+  <td>Slack</td>
+  <td>Zoom></td>
+ </tr>
+</table>
+
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
  * [GNU GPL](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/LICENSE)

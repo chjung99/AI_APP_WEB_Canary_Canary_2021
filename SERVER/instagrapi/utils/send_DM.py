@@ -1,19 +1,16 @@
 # TODO : detect 된 결과를 DM으로 보내주기
-
 from instagrapi import *
 import os
 from tqdm import tqdm
 import json
+from utils.get_client import *
+from utils.image_path import *
 
-IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/images'
-IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/images_detect_output'
-WARNING_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/warning'
-
-def get_logined_client(cl, instagramID, instagramPW):
-    try:
-        cl.account_info()
-    except:
-        cl.login(instagramID,instagramPW)
+'''
+# used in case of debug
+cl = Client()
+get_logined_client(cl, id, password)
+'''
 
 def get_waiting_user_list():
     return os.listdir(IMAGE_OUTPUT_ROOT)
@@ -34,15 +31,7 @@ def delete_detected_images(user_id):
     remove_all_file(f'{IMAGE_OUTPUT_ROOT}/{user_id}')
     remove_all_file(f'{WARNING_OUTPUT_ROOT}/{user_id}')
 
-def main():    # Instagram Client Login
-    with open('/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/instagram_config.json') as json_file:
-        instagram_config = json.load(json_file)
-    id = instagram_config['id']
-    password = instagram_config['password']
-
-    cl = Client()
-    get_logined_client(cl, id, password)
-
+def send_DM(cl):    # Instagram Client Login
     waiting_user_list = get_waiting_user_list()
     waiting_user_list_length = len(waiting_user_list)
 
@@ -54,4 +43,4 @@ def main():    # Instagram Client Login
             # user_ids : It should be list
         delete_detected_images(waiting_user_list[i])
 
-# main()
+# send_DM(cl)

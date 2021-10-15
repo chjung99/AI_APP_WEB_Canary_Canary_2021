@@ -4,16 +4,26 @@ from tqdm import tqdm
 import datetime
 import json
 import os
+from utils.get_client import *
+from utils.image_path import *
 
 CHECK_PER_INTERVAL = 100
-IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/images'
-LAST_CHECK_TIME = datetime.datetime(2021, 10, 6, 13, 7, 50, 823287, tzinfo=datetime.timezone.utc) # Interval마다 변경될 예정
+last_check_time = datetime.datetime(2021, 10, 6, 13, 7, 50, 823287, tzinfo=datetime.timezone.utc) # initial value. 함수가 호출 될 때마다 변경 
 
-def get_logined_client(cl, instagramID, instagramPW):
-    try:
-        cl.account_info()
-    except:
-        cl.login(instagramID,instagramPW)
+if __name__ == '__main__':
+	if __package__ is None:
+		import sys
+		from os import path
+		print(path.dirname(path.dirname(path.dirname(path.dirname(path.abspath(__file__))))))
+		sys.path.append(path.dirname(path.dirname(path.dirname(path.dirname(path.abspath(__file__))))))
+		from SERVER.instagrapi.utils.image_path import *
+		from SERVER.instagrapi.utils.get_client import *
+
+'''
+# used in case of debug
+cl = Client()
+get_logined_client(cl, id, password)
+'''
 
 # Thread : 채팅방
 # Message : 채팅
@@ -25,8 +35,9 @@ def list_unread_thread(cl):
 
 def get_unread_message_list_from_thread(thread):
     total_messages_number = len(thread.messages)
+    last_check_time = datetime.datetime.now()
     for i in range(0, total_messages_number):
-        if thread.messages[i].timestamp <= LAST_CHECK_TIME:
+        if thread.messages[i].timestamp <= last_check_time:
             break
     return thread.messages[0 : i+1]
 
@@ -55,7 +66,7 @@ def get_image_from_message(message, cl):
     else:
         print("No Unread Images. Pass...")
 
-def download_image_for_detect(cl):
+def download_imaged_from_DM(cl):
     unread_thread_list = list_unread_thread(cl)
     for i in range(len(unread_thread_list)):
         print("==Thread Number : %d =="  % i)
@@ -64,17 +75,4 @@ def download_image_for_detect(cl):
             print("==Message Number : %d ==" % j)
             get_image_from_message(unread_messages_list[j], cl)
     
-def main():
-    # Instagram Client Login
-    with open('/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/directMessage/instagram_config.json') as json_file:
-        instagram_config = json.load(json_file)
-    id = instagram_config['id']
-    password = instagram_config['password']
-
-    cl = Client()
-    get_logined_client(cl, id, password)
-
-    # TODO : Unread한 DM에서 사진 경로 받기
-    download_image_for_detect(cl)
-
-# main()
+# download_imaged_from_DM(cl)
