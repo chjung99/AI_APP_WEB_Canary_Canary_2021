@@ -42,12 +42,21 @@ def make_directory_save_warning(user_output_path):
         print("Error : Creating directory " + path)
     return path
 
+def make_directory_save_log(user_output_path):
+    path = f'{Roots.LOG_OUTPUT_ROOT}/{user_output_path}'
+    try:
+        if not os.path.exists(path):
+            os.makedirs(path)
+    except OSError:
+        print("Error : Creating directory " + path)
+    return path
+
 def test_detect_images():
     IMAGE_NAME = 'osam_testbot_2681938662589354460.jpg'
     IMAGE_INPUT_PATH = f'{Roots.IMAGE_DOWNLOAD_ROOT}/{IMAGE_NAME}'
     IMAGE_OUTPUT_PATH = f'{Roots.IMAGE_OUTPUT_ROOT}/{IMAGE_NAME}'
-    WARNING_OUTPUT_PATH = f'{Roots.WARNING_OUTPUT_ROOT}/{IMAGE_NAME}'+('.txt')
-    LOG_OUTPUT_PATH = f'{Roots.LOG_OUTPUT_ROOT}/{IMAGE_NAME}'+('.txt')
+    WARNING_OUTPUT_PATH = f'{Roots.WARNING_OUTPUT_ROOT}/{IMAGE_NAME}'
+    LOG_OUTPUT_PATH = f'{Roots.LOG_OUTPUT_ROOT}/{IMAGE_NAME}'
 
     args = detectArgs()
     args.input_image_path = f'{IMAGE_INPUT_PATH}'
@@ -67,6 +76,7 @@ def detect_images():
         print("== User Number : %d ==" % i)
         make_directory_save_images(test_needed_user_list[i])
         make_directory_save_warning(test_needed_user_list[i])
+        make_directory_save_log(test_needed_user_list[i])
 
         test_needed_photo_list = os.listdir(f'{Roots.IMAGE_DOWNLOAD_ROOT}/{test_needed_user_list[i]}')
         test_needed_photo_number = len(test_needed_photo_list)
