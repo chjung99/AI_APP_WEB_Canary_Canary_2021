@@ -4,6 +4,7 @@ import 'package:myapp/components/app_bar_maker.dart';
 import 'package:myapp/components/custom_button.dart';
 import 'package:myapp/components/custom_text.dart';
 import 'package:myapp/components/custom_text_form_field.dart';
+import 'package:myapp/domain/signup/signup_repository.dart';
 import 'package:myapp/screens/signinpage.dart';
 import 'package:myapp/util/validator_util.dart';
 
@@ -14,7 +15,8 @@ class SignUpPage extends StatelessWidget {
   final _name = TextEditingController();
   final _d_num = TextEditingController();
   final _password = TextEditingController();
-  final _classes = TextEditingController();
+
+  final SignUpRepository s = SignUpRepository();
 
   SignUpPage({Key? key}) : super(key: key);
 
@@ -28,7 +30,10 @@ class SignUpPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: marginHorizontalSize),
           children: <Widget>[
             const SizedBox(height: marginVerticalSize),
-            customText(text: "Sign Up", size: titleTextSize),
+            Text(
+              "Sign up",
+              style: CustomText(size: titleTextSize),
+            ),
             const Text("군번과 비밀번호를 입력해주세요"),
             const SizedBox(height: marginVerticalSize),
             Form(
@@ -44,24 +49,19 @@ class SignUpPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   CustomTextFormField(
                     signIn: false,
-                    funValidator: validateUsername(),
-                    hint: "계급을",
-                    controller: _classes,
-                  ),
-                  const SizedBox(height: 10),
-                  CustomTextFormField(
-                    signIn: false,
-                    funValidator: validateUsername(),
-                    hint: "군번을",
+                    funValidator: validateDnum(),
+                    hint: "군번(-은 제외)을",
                     controller: _d_num,
                   ),
                   const SizedBox(height: 10),
                   CustomTextFormField(
                     signIn: false,
-                    funValidator: validateUsername(),
+                    funValidator: validateEng(),
                     hint: "비밀번호를",
                     controller: _password,
                   ),
+                  SizedBox(height: 5),
+                  validatePassWord(_password),
                 ],
               ),
             ),
@@ -70,10 +70,14 @@ class SignUpPage extends StatelessWidget {
               child: const GradationButton(
                 title: "가입완료",
               ),
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  Get.to(() => SignInPage());
-                  Get.snackbar("회원가입 완료", "회원가입이 완료되었습니다!");
+                  int success = await s.signup(_name.text.trim(),
+                      _d_num.text.trim(), _password.text.trim());
+                  if (success == 1) {
+                    Get.to(() => SignInPage());
+                    Get.snackbar("회원가입 완료", "회원가입이 완료되었습니다!");
+                  }
                 } else {
                   Get.snackbar("회원가입 실패", "누락된 정보를 입력해주세요!");
                 }

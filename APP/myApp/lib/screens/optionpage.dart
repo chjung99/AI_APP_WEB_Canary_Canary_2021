@@ -19,7 +19,10 @@ class OptionPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             const SizedBox(height: 120),
-            customText(text: "Choose Image", size: titleTextSize),
+            Text(
+              "Choose Image",
+              style: CustomText(size: titleTextSize),
+            ),
             const SizedBox(height: 5),
             const Text("카메라와 갤러리 중 선택해주세요"),
             const SizedBox(height: 70),

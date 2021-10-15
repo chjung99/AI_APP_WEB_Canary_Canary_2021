@@ -8,6 +8,8 @@ import 'package:myapp/components/logo.dart';
 import 'package:myapp/screens/signinpage.dart';
 import 'package:myapp/size.dart';
 
+import 'loading.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -24,7 +26,10 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.only(left: marginHorizontalSize),
               child: Row(
                 children: [
-                  customText(text: "카나리아", size: 60),
+                  Text(
+                    "카나리아",
+                    style: CustomText(size: 60),
+                  ),
                   const SizedBox(width: 5),
                   const Logo(
                     image: "CANARY.png",
@@ -39,7 +44,10 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  customText(text: "모두를 위한 군사보안 경보기", size: 20),
+                  Text(
+                    "모두를 위한 군사 경보기",
+                    style: CustomText(size: 20),
+                  ),
                 ],
               ),
             ),
@@ -65,7 +73,9 @@ class HomePage extends StatelessWidget {
                 title: "help",
                 width: 340,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => LoadingPage(), transition: Transition.rightToLeft);
+              },
             ),
           ],
         ),

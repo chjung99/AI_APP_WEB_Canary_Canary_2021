@@ -5,11 +5,13 @@ class CustomTextFormField extends StatelessWidget {
   final funValidator;
   final controller;
   final bool signIn;
-  const CustomTextFormField(
-      {required this.funValidator,
-      this.controller,
-      required this.hint,
-      required this.signIn});
+
+  const CustomTextFormField({
+    required this.funValidator,
+    this.controller,
+    required this.hint,
+    required this.signIn,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,7 @@ class CustomTextFormField extends StatelessWidget {
     return Container(
       width: 400,
       child: TextFormField(
+        obscureText: (hint == "비밀번호를") ? true : false,
         controller: controller,
         validator: funValidator,
         decoration: InputDecoration(
@@ -30,7 +33,6 @@ class CustomTextFormField extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
         ),
-        style: _theme.inputDecorationTheme.labelStyle,
       ),
     );
   }
