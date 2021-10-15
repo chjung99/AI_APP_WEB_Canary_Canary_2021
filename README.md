@@ -402,17 +402,35 @@ Instagram의 Canary 계정을 팔로우한 계정들의 스토리, 게시글을 
 </table>
 
 ---
-<!--
-## 개발 및 협업 플랫폼
-- Azure ML Learning Studio
-- Github
-- Google meet
-- Goorm IDE
-- Slack
-- Zoom
 
----
--->
+## 개발 및 협업 플랫폼
+
+<table>
+ <tr>
+  <td><a href="https://azure.microsoft.com/ko-kr/services/machine-learning/"><img src="https://raw.githubusercontent.com/github/explore/eaef8552d8b082ffafe2bfc8a5023d47da904aac/topics/azure/azure.png" height=80/></a></td>
+  <td><a href="https://github.com/"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" height=80/></a></td>
+  <td><a href="https://meet.google.com/"><img src="https://user-images.githubusercontent.com/86545225/137439170-9500c5b2-c47a-4ecc-b588-8c0b14e0eb3b.png" height=80/></a></td>
+ </tr>
+ 
+ <tr>
+  <td>Azure ML Studio</td>
+  <td>Github</td>
+  <td>Google meet</td>
+ </tr>
+ 
+ <tr>
+  <td><a href="https://ide.goorm.io/"><img src="https://user-images.githubusercontent.com/86545225/137440873-5d17c954-2db2-44bd-8c7c-a0795b7ff49b.jpg" height=80/></a></td>
+  <td><a href="https://slack.com/"><img src="https://user-images.githubusercontent.com/40621030/136699174-e540729d-0092-447c-b672-dfa5dcfd41a7.png" height=80/></a></td>
+  <td><a href="https://zoom.us/"><img src="https://user-images.githubusercontent.com/86545225/137440645-636a8078-208b-4542-bbfd-2823f0572e1c.png" height=80/></a></td>
+ </tr>
+ 
+ <tr>
+  <td>GoormIDE</td>
+  <td>Slack</td>
+  <td>Zoom></td>
+ </tr>
+</table>
+
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
  * [GNU GPL](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/LICENSE)
