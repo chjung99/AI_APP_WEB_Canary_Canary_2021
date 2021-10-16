@@ -89,4 +89,4 @@ def detect_images(user_pk):
     else:
         print("No needed test\n")
 
-detect_images('12345678')
+# detect_images('12345678')

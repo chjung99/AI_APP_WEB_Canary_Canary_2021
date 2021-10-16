@@ -58,7 +58,7 @@ async def msg_handler(messages):
             
             if msg == 'Test':
                 print('Test Route')
-                await Test_img_process(msg)
+                await test_img_process(msg)
             elif msg == '도움':
                 print('Help Route')
                 # thread_id = msg_data[1] # Thread_id 의 idx : 1
@@ -76,7 +76,7 @@ async def msg_handler(messages):
             print('no messages left')
             await asyncio.sleep(1)
 
-async def Test_img_process(msg):
+async def test_img_process(msg):
     await asyncio.sleep(3) # img processing 예상 소요시간 임의 설정
     print(f'{msg} : img_processing done')
 

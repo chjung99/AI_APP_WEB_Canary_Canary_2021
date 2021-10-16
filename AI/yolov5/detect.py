@@ -225,6 +225,5 @@ args = parser.parse_args()
 
 if not args.input_image_path == None:
     attemp_download_weight(args)
-
     results = detect(args)
     mosaic(results, args)
