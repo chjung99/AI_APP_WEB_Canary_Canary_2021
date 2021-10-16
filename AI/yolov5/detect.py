@@ -218,6 +218,7 @@ parser.add_argument("--server_url", "-u", default='http://3.143.240.128:8080', h
 parser.add_argument("--strength", "-s", type=int, default=1, choices=[0,1])
 parser.add_argument("--user_id", "-d", help="user_id") # user_id from front
 parser.add_argument("--output_log_path", "-o3", help="output_log_path") # user_id from front
+<<<<<<< HEAD
 
 args = parser.parse_args()
 
@@ -227,3 +228,11 @@ if not args.input_image_path == None:
     attemp_download_weight(args)
     results = detect(args)
     mosaic(results, args)
+=======
+# TODO: arg로 mosaic 강도를 입력받고, 그 만큼 면적을 줄여서 return
+# TODO: output_warning_path를 입력받아 군복, 방탄조끼 class가 포함되어 있을 시 경고문 전달? 해결
+
+args = parser.parse_args()
+# attemp_download_weight(args)
+# detect(args)
+>>>>>>> b3e7dba760f0b92b16f6050967bc5551a8db1977

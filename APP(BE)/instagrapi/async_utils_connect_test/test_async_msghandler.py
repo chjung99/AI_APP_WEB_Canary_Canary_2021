@@ -8,6 +8,7 @@ from instagrapi import Client
 # from utils.download_image_from_DM import *
 # from utils.detect_images import *
 # from utils.send_DM import *
+<<<<<<< HEAD:APP(BE)/instagrapi/async_utils_connect_test/test_async_msghandler.py
 
 if __name__ == '__main__':
     if __package__ is None:
@@ -18,7 +19,19 @@ if __name__ == '__main__':
         from SERVER.instagrapi.async_utils_connect_test.utils.get_request_from_DM import * # local Utils function import
         from SERVER.instagrapi.async_utils_connect_test.utils.detect_images import * # local Utils function import
         from SERVER.instagrapi.async_utils_connect_test.utils.send_DM import * # local Utils function import
+=======
+# from utils.get_request_from_DM import * # local Utils function import
+>>>>>>> b3e7dba760f0b92b16f6050967bc5551a8db1977:SERVER/instagrapi/async_utils_connect_test/test_async_msghandler.py
 
+if __name__ == '__main__':
+    if __package__ is None:
+        import sys
+        from os import path
+        print(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
+        print(sys.path)
+        from utils.get_request_from_DM import * # local Utils function import
+        from utils.detect_images import * # local Utils function import
+        # from utils.send_DM import * # local Utils function import
 
 cl = Client()
 cl.login('osam_canary','admin0408!')
@@ -65,7 +78,11 @@ async def msg_handler(messages):
                 await send_help(cl,user_id) # cl = Client Pass
             elif msg == '게시물 3개 검사':
                 print('Post Check Route')
+                # 사용자 게시물 다운로드
                 await get_recent_three_unchecked_medias(cl,user_id)
+                # 이후 detect.py 파일 구동(현재 media_detect()는 insta_imgs 파일 내 모든 파일 검사)
+                await media_detect()
+
             elif msg == '게시물 검사':
                 await post_check(cl,user_id,thread_id)
             else:

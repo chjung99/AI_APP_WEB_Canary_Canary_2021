@@ -2,13 +2,30 @@ from argparse import *
 from instagrapi import *
 from parse import *
 
-from image_path import Roots
+# sys.path.insert(0,'/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/utils/')
+# from .image_path import Roots
+# from .make_directory import *
 
-# IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/images'
-# IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/images_detect_output'
-# WARNING_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/warning'
+
+import sys
+from os import path
+print(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
+sys.path.append(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
+# from SERVER.instagrapi.async_utils_connect_test.utils.image_path import Roots
+from SERVER.instagrapi.async_utils_connect_test.utils.make_directory import * # make_directory 함수들 import
+
+class Roots:
+    SYS_PATH_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary'
+    IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs'
+    IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs_detected'
+    WARNING_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs_warnings'
+    LOG_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/log'
+
+
+
 
 async_img_download_root = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs'
+
 
 # For debug
 '''
@@ -104,21 +121,26 @@ async def get_recent_three_unchecked_medias(cl,user_id):
     
     print(f'user_medias_for_test : {user_medias_for_test}')
     
-    await download_media(cl,user_medias_for_test)
+    await download_media(cl,user_medias_for_test,user_id)
 
-    print('3 Posts reading process done')
+    print('3 Posts Downloading process done')
 
 #####
 
 # Media(Album & Photo) Download Function
-async def download_media(cl,medias):
+async def download_media(cl,medias,user_id):
+
+    # User들의 사진을 저장할 directory 생성
+    input_path = save_imgs_INPUT(user_id)
+    print(input_path)
+
     medias_len = len(medias)
     for idx in range(medias_len):
         media_pk = medias[idx].pk
         media_type = medias[idx].media_type
         user_info = cl.media_user(media_pk)
         if media_type == 1:
-            cl.photo_download(media_pk,f'{async_img_download_root}/{user_info.pk}')
+            cl.photo_download(media_pk,f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_info.pk}')
         elif media_type == 8:
             cl.album_download(media_pk,f'{async_img_download_root}/{user_info.pk}')
         else:
