@@ -1,8 +1,0 @@
-path: dataset  # dataset root dir
-train: train  # train images (relative to 'path') 128 images
-val: val  # val images (relative to 'path') 128 images
-test:  # test images (optional)
-
-# Classes
-nc: 16  # number of classes (18 --> 16)
-names: ['n02687172', 'n02916936', 'n02950826', 'n03180011', 'n03594945', 'n03642806', 'n03763968', 'n03773504', 'n03782006',  'mark', 'paper', 'n04086273', 'n04090263', 'n04389033', 'n04552348', 'n06794110']  # class names

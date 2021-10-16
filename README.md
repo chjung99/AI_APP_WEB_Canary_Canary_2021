@@ -215,7 +215,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
   </tr>
  </table>
  
- ### 실행 및 예시 ([link](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI/yolov5))
+ ### 실행 및 예시 ([link](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI(BE)/deeplearning/kwoledge_distillation_yolov5))
 </details>
 
 ### MLOps
