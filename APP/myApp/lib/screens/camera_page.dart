@@ -8,7 +8,7 @@ import 'package:myapp/components/custom_progress_bar.dart';
 import 'package:myapp/domain/postImage/post.dart';
 
 import 'package:myapp/domain/postImage/post_repository.dart';
-import 'package:myapp/screens/resultpage.dart';
+import 'package:myapp/screens/loading.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({Key? key}) : super(key: key);
@@ -21,6 +21,7 @@ class _CameraPageState extends State<CameraPage> {
   bool uploadImage = false;
 
   String text = "post server";
+  String d_num = Get.arguments;
   XFile? _image;
   final ImagePicker _picker = ImagePicker();
   final PostRepository p = PostRepository();
@@ -82,10 +83,14 @@ class _CameraPageState extends State<CameraPage> {
               ),
               onPressed: () async {
                 if (uploadImage) {
-                  Post _imgId = await p.postImage(_image!);
+                  Post _imgId = await p.postImage(_image!, d_num);
                   String success = _imgId.imd_id;
                   if (success.length > 0) {
-                    Get.to(() => ResultPage(), arguments: success);
+                    Get.to(
+                      () => LoadingPage(),
+                      arguments: [success, d_num],
+                      transition: Transition.rightToLeft,
+                    );
                   }
                 } else {
                   Get.snackbar("사진이 없습니다", "사진을 골라주세요!");

@@ -26,8 +26,10 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   void initState() {
     super.initState();
+    String image = value[0];
+    String d_num = value[1];
     var host3 =
-        "https://osam-project-testing-tkqtg.run.goorm.io/img/output-params/$value";
+        "https://osam-project-testing-tkqtg.run.goorm.io/img/output-params/$image/$d_num";
 
     outputImage = o.getImage(host3);
   }
@@ -51,6 +53,7 @@ class _LoadingPageState extends State<LoadingPage> {
                         arguments: [
                           snapshot.data!.prc_img,
                           snapshot.data!.warning_text,
+                          snapshot.data!.hashed_d_num,
                         ],
                       );
                     },
@@ -87,7 +90,8 @@ class _LoadingPageState extends State<LoadingPage> {
       child: AnimatedTextKit(
         animatedTexts: [
           WavyAnimatedText(
-            "잠시만 기다려주세요...",
+            //this.speed = const Duration(milliseconds: 300),
+            "보안위반 가능성 오브젝트 검사 중...",
             textStyle: const TextStyle(
               color: Colors.black,
               fontFamily: 'Gugi',
@@ -95,7 +99,31 @@ class _LoadingPageState extends State<LoadingPage> {
             //CustomText(size: titleTextSize),
           ),
           WavyAnimatedText(
-            '보완 테스트 중입니다...',
+            '보안위반 가능성 오브젝트 처리 중...',
+            textStyle: const TextStyle(
+              color: Colors.black,
+              fontFamily: 'Gugi',
+            ),
+            //CustomText(size: titleTextSize),
+          ),
+          WavyAnimatedText(
+            '경고문 작성 중...',
+            textStyle: const TextStyle(
+              color: Colors.black,
+              fontFamily: 'Gugi',
+            ),
+            //CustomText(size: titleTextSize),
+          ),
+          WavyAnimatedText(
+            '처리된 이미지 반환 중...',
+            textStyle: const TextStyle(
+              color: Colors.black,
+              fontFamily: 'Gugi',
+            ),
+            //CustomText(size: titleTextSize),
+          ),
+          WavyAnimatedText(
+            '잠시만 기다려주세요',
             textStyle: const TextStyle(
               color: Colors.black,
               fontFamily: 'Gugi',
