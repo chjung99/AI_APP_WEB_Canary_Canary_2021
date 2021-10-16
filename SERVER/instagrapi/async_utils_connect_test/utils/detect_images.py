@@ -1,10 +1,21 @@
 # TODO : image를 download 한 후, Canary_YOLOv5 에서 detect.py 돌리기
 # 처리 완료 했으면 이미지 삭제하기
 import os
-
 from tqdm import tqdm
-# from async_utils_connect_test.utils.image_path import *
+import sys
+from os import path
+print(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
+sys.path.append(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
+from AI.yolov5.detect import *
+# from SERVER.instagrapi.async_utils_connect_test.utils.image_path import Roots
+from SERVER.instagrapi.async_utils_connect_test.utils.make_directory import * # make_directory 함수들 import
 
+class Roots:
+    SYS_PATH_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary'
+    IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs'
+    IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs_detected'
+    WARNING_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs_warnings'
+    LOG_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/log'
 
 class detectArgs:
     input_image_path = ''
@@ -16,15 +27,16 @@ class detectArgs:
     user_id = 1234
     output_log_path = ''
 
-if __name__ == '__main__':
-    if __package__ is None:
-        import sys
-        from os import path
-        print(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
-        sys.path.append(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
-        from AI.yolov5.detect import *
-        from SERVER.instagrapi.async_utils_connect_test.utils.image_path import Roots
-        from SERVER.instagrapi.async_utils_connect_test.utils.make_directory import * # make_directory 함수들 import
+# if __name__ == '__main__':
+
+#     if __package__ is None:
+#         import sys
+#         from os import path
+#         print(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
+#         sys.path.append(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
+#         from AI.yolov5.detect import *
+#         from SERVER.instagrapi.async_utils_connect_test.utils.image_path import Roots
+#         from SERVER.instagrapi.async_utils_connect_test.utils.make_directory import * # make_directory 함수들 import
 
 
 # def test_detect_images():
@@ -115,8 +127,11 @@ def media_detect():
             args.weight_path = './weight/yolov5m6.pt'
             args.output_warning_path = f'{WARNING_OUTPUT_PATH}'
             args.output_log_path = f'{LOG_OUTPUT_PATH}'
-
+            
+            print(args)
+            attemp_download_weight(args)
             detect(args)
 
-media_detect()
+# media_detect()
+
 # test_detect_images()

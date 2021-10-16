@@ -2,16 +2,27 @@ from argparse import *
 from instagrapi import *
 from parse import *
 
-import os
-import sys
 # sys.path.insert(0,'/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/utils/')
-from .image_path import Roots
-from .make_directory import *
-from .detect_images import *
+# from .image_path import Roots
+# from .make_directory import *
 
-# IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/images'
-# IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/images_detect_output'
-# WARNING_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/warning'
+
+import sys
+from os import path
+print(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
+sys.path.append(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
+# from SERVER.instagrapi.async_utils_connect_test.utils.image_path import Roots
+from SERVER.instagrapi.async_utils_connect_test.utils.make_directory import * # make_directory 함수들 import
+
+class Roots:
+    SYS_PATH_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary'
+    IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs'
+    IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs_detected'
+    WARNING_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs_warnings'
+    LOG_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/log'
+
+
+
 
 async_img_download_root = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs'
 
@@ -112,10 +123,7 @@ async def get_recent_three_unchecked_medias(cl,user_id):
     
     await download_media(cl,user_medias_for_test,user_id)
 
-    await media_detect()
-    
-
-    print('3 Posts reading process done')
+    print('3 Posts Downloading process done')
 
 #####
 

@@ -1,7 +1,13 @@
 import sys
 import os
-from os import path
-from .image_path import Roots
+
+class Roots:
+    SYS_PATH_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary'
+    IMAGE_DOWNLOAD_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs'
+    IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs_detected'
+    WARNING_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/insta_imgs_warnings'
+    LOG_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/SERVER/instagrapi/async_utils_connect_test/log'
+
 
 def save_imgs_INPUT(user_input_path):
     path = f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_input_path}'

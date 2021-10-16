@@ -169,7 +169,6 @@ parser.add_argument("--output_log_path", "-o3", help="output_log_path") # user_i
 # TODO: arg로 mosaic 강도를 입력받고, 그 만큼 면적을 줄여서 return
 # TODO: output_warning_path를 입력받아 군복, 방탄조끼 class가 포함되어 있을 시 경고문 전달? 해결
 
-
 args = parser.parse_args()
-attemp_download_weight(args)
+# attemp_download_weight(args)
 # detect(args)
