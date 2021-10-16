@@ -13,8 +13,8 @@ if __name__ == '__main__':
     if __package__ is None:
         import sys
         from os import path
-        print(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
-        sys.path.append(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
+        print(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) ))
+        sys.path.append(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) ))
         from SERVER.instagrapi.async_utils_connect_test.utils.get_request_from_DM import * # local Utils function import
         from SERVER.instagrapi.async_utils_connect_test.utils.detect_images import * # local Utils function import
         from SERVER.instagrapi.async_utils_connect_test.utils.send_DM import * # local Utils function import
