@@ -124,7 +124,7 @@ def mosaic(results, args):
         ("군용 차량을 촬영하셨네요.차종 및 번호판 식별 위험이있습니다.", 2), ("군 표지판 촬영은 부대 위치가 식별될 위험이 있습니다.", 3), ("부대마크 및 명칭 노출은 군사보안에 위배되는 사항입니다.", 3)]
 
 
-    class_senerio_map = {0: 0, 1:1, 2:1, 3: 2, 4:3, 5:2, 6:1, 7:1, 8:2, 9:1, 10:5, 11:1, 12:1, 13:1, 14:1, 15:4}
+    class_senerio_map = {0: 0, 1:1, 2:1, 3: 2, 4:3, 5:2, 6:1, 7:1, 8:2, 9:5, 10:2, 11:1, 12:1, 13:1, 14:1, 15:4}
     
     if active_Blur == True:
         # TODO : Blur
@@ -138,7 +138,7 @@ def mosaic(results, args):
           for xmin, ymin, xmax, ymax, conf, class_num in results.xyxy[0]:
               class_num = int(class_num)
               if(class_num!=6):
-                if class_num==3 or class_num==5 or class_num==8 or class_num==9:
+                if class_num==3 or class_num==5 or class_num==8 or class_num==10:
                   flag=1
                   break
                 continue
