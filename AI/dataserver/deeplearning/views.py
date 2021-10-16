@@ -66,3 +66,9 @@ class LogViewset(viewsets.ModelViewSet):
             return Response({'message': 'token is needed'}, status=status.HTTP_401_UNAUTHORIZED)
         
         return super().list(request, *args, **kargs)
+
+
+class LogView(generic.ListView):
+    model = Log
+    context_object_name = 'logs'
+    
