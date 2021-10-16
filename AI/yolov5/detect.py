@@ -152,6 +152,9 @@ def mosaic(results, args):
             class_num = int(class_num)
             if class_num >= 16: continue
             object_list.add(class_num)
+            if class_num == 6:
+                print("Military uniform is detected. Pass mosaic")
+                continue
         
             xmin = int(xmin); xmax = int(xmax); ymin = int(ymin); ymax = int(ymax)
             src = img[ymin: ymax, xmin: xmax]   # 관심영역 지정
