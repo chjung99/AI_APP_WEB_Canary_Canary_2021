@@ -124,7 +124,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  
   해당 log는 관리자 계정을 사용하여 로그인 후 확인할 수 있습니다.  
  
-  <p align='center'><img src="https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/image/image.png" width="500" height="250"/></p>
+  <p align='center'><img src="https://user-images.githubusercontent.com/86545225/137576790-1e7b5459-fdbd-4cc8-9e3b-d27a3bd3b1b4.jpg" width="750" height="250"/></p>
  
   Canary app 사용 날짜와 사용자 id, 이미지에서 검출된 객체에 대한 기록이 남습니다.
  
@@ -442,7 +442,7 @@ Canary app의 경우 Android용으로만 개발되었습니다. Instagram siren�
  
  <tr>
   <td align='center'><a href="https://ide.goorm.io/"><img src="https://user-images.githubusercontent.com/86545225/137440873-5d17c954-2db2-44bd-8c7c-a0795b7ff49b.jpg" height=80/></a></td>
-  <td align='center'><a href="https://slack.com/"><img src="https://user-images.githubusercontent.com/40621030/136699174-e540729d-0092-447c-b672-dfa5dcfd41a7.png" height=80/></a></td>
+  <td align='center'><a href="https://slack.com/"><img src="https://user-images.githubusercontent.com/86545225/137576768-7b07ae82-ea9c-4768-ac5b-5d1f854a2815.jpg" height=80/></a></td>
   <td align='center'><a href="https://zoom.us/"><img src="https://user-images.githubusercontent.com/86545225/137440645-636a8078-208b-4542-bbfd-2823f0572e1c.png" height=80/></a></td>
  </tr>
  
