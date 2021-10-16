@@ -51,23 +51,24 @@ def make_directory_save_log(user_output_path):
         print("Error : Creating directory " + path)
     return path
 
-def detect_images():
+def detect_images(user_pk):
     print('Start Detecting Imgs')
     test_needed_user_list = os.listdir(f'{Roots.IMAGE_DOWNLOAD_ROOT}')
-    test_needed_user_number = len(test_needed_user_list)
 
-    for i in tqdm(range(0, test_needed_user_number)):
-        print("== User Number : %d ==" % i)
-        make_directory_save_images(test_needed_user_list[i])
-        make_directory_save_warning(test_needed_user_list[i])
-        make_directory_save_log(test_needed_user_list[i])
+    print(user_pk)
+    print(test_needed_user_list)
 
-        test_needed_photo_list = os.listdir(f'{Roots.IMAGE_DOWNLOAD_ROOT}/{test_needed_user_list[i]}')
+    if user_pk in test_needed_user_list:
+        make_directory_save_images(user_pk)
+        make_directory_save_warning(user_pk)
+        make_directory_save_log(user_pk)
+
+        test_needed_photo_list = os.listdir(f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_pk}')
         test_needed_photo_number = len(test_needed_photo_list)
 
         for j in tqdm(range(0, test_needed_photo_number)):
             print("== Photo Number : %d ==" % j)
-            user_photo_path = f'{test_needed_user_list[i]}/{test_needed_photo_list[j]}'
+            user_photo_path = f'{user_pk}/{test_needed_photo_list[j]}'
             IMAGE_INPUT_PATH = f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_photo_path}'
             IMAGE_OUTPUT_PATH = f'{Roots.IMAGE_OUTPUT_ROOT}/{user_photo_path}'
             WARNING_OUTPUT_PATH = f'{Roots.WARNING_OUTPUT_ROOT}/{user_photo_path}'+('.txt')
@@ -78,12 +79,14 @@ def detect_images():
             args.output_image_path = f'{IMAGE_OUTPUT_PATH}'
             args.weight_path = './weight/yolov5m6.pt'
             args.output_warning_path = f'{WARNING_OUTPUT_PATH}'
-            args.user_id = "instagram" + f'{test_needed_user_list[i]}'
+            args.user_id = "instagram" + f'{user_pk}'
             print(args.user_id)
             args.output_log_path = f'{LOG_OUTPUT_PATH}'
 
             attemp_download_weight(args)
             results = detect(args)
             mosaic(results, args)
+    else:
+        print("No needed test\n")
 
-detect_images()
+detect_images('12345678')
