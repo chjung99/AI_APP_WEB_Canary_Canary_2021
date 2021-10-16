@@ -15,9 +15,9 @@ if __name__ == '__main__':
         from os import path
         print(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
         sys.path.append(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
-        from AI.yolov5.detect import attemp_download_weight, detect, mosaic
-        from SERVER.instagrapi.async_utils_connect_test.utils.image_path import Roots
         from SERVER.instagrapi.async_utils_connect_test.utils.get_request_from_DM import * # local Utils function import
+        from SERVER.instagrapi.async_utils_connect_test.utils.detect_images import * # local Utils function import
+        from SERVER.instagrapi.async_utils_connect_test.utils.send_DM import * # local Utils function import
 
 
 cl = Client()
