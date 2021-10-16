@@ -16,7 +16,7 @@ class Logo extends StatelessWidget {
     return Column(
       children: [
         Image.asset(
-          "assets/$image",
+          "assets/Image/$image",
           height: height,
           width: width,
           fit: BoxFit.cover,

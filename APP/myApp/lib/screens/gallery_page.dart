@@ -19,6 +19,7 @@ class GalleryPage extends StatefulWidget {
 
 class _GalleryPageState extends State<GalleryPage> {
   bool uploadImage = false;
+  String d_num = Get.arguments;
 
   String text = "post server";
   XFile? _image;
@@ -59,10 +60,14 @@ class _GalleryPageState extends State<GalleryPage> {
               ),
               onPressed: () async {
                 if (uploadImage) {
-                  Post _imgId = await p.postImage(_image!);
+                  Post _imgId = await p.postImage(_image!, d_num);
                   String success = _imgId.imd_id;
                   if (success.length > 0) {
-                    Get.to(() => LoadingPage(), arguments: success);
+                    Get.to(
+                      () => LoadingPage(),
+                      arguments: [success, d_num],
+                      transition: Transition.rightToLeft,
+                    );
                   }
                 } else {
                   Get.snackbar("사진이 없습니다", "사진을 골라주세요!");
