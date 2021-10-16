@@ -10,6 +10,7 @@ from django.views import generic
 from .serializer import FileSerializer, TrainModelSerializer, LogModelSerializer
 from .models import File, TrainedModel, Log
 from .train_with_azure import train
+from .pagination import LogPagination
 
 class FileViewSet(viewsets.ModelViewSet):
     authentication_classes = (JSONWebTokenAuthentication,)
@@ -54,12 +55,14 @@ class TrainModelViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
-class LogModelViewt(viewsets.ModelViewSet):
+
+class LogViewset(viewsets.ModelViewSet):
     queryset = Log.objects.all()
     serializer_class = LogModelSerializer
-
-class LogView(generic.ListView):
-    model = Log
-    queryset = Log.objects.all()
-    context_object_name = 'logs'
-    template_name = 'book/list.html'
+    pagination_class = LogPagination
+    
+    def list(self, request, *args, **kargs):
+        if request.user.is_anonymous:   
+            return Response({'message': 'token is needed'}, status=status.HTTP_401_UNAUTHORIZED)
+        
+        return super().list(request, *args, **kargs)

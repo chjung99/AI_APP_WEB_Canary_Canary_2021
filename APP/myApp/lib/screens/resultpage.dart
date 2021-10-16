@@ -19,9 +19,9 @@ class _ResultPageState extends State<ResultPage> {
 
   @override
   Widget build(BuildContext context) {
-    var pre_img = value[0];
-    var warning_text = value[1];
-
+    String pre_img = value[0];
+    String warning_text = value[1];
+    String hashed_d_num = value[2];
     return Scaffold(
       appBar: appbarmaker(),
       body: Column(
@@ -52,8 +52,14 @@ class _ResultPageState extends State<ResultPage> {
                     width: 300,
                   ),
                   onPressed: () {
-                    Get.to(() => SavePage(),
-                        transition: Transition.rightToLeft);
+                    Get.to(
+                      () => SavePage(),
+                      arguments: [
+                        pre_img,
+                        hashed_d_num,
+                      ],
+                      transition: Transition.rightToLeft,
+                    );
                   },
                 ),
               ],

@@ -21,7 +21,7 @@ if __name__ == '__main__':
         from os import path
         print(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
         sys.path.append(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
-        from AI.yolov5.detect import *
+        from AI.yolov5.detect import attemp_download_weight, detect, mosaic
         from SERVER.instagrapi.async_utils_connect_test.utils.image_path import Roots
 
 def make_directory_save_images(user_output_path):
@@ -51,22 +51,6 @@ def make_directory_save_log(user_output_path):
         print("Error : Creating directory " + path)
     return path
 
-def test_detect_images():
-    IMAGE_NAME = 'osam_testbot_2681938662589354460.jpg'
-    IMAGE_INPUT_PATH = f'{Roots.IMAGE_DOWNLOAD_ROOT}/{IMAGE_NAME}'
-    IMAGE_OUTPUT_PATH = f'{Roots.IMAGE_OUTPUT_ROOT}/{IMAGE_NAME}'
-    WARNING_OUTPUT_PATH = f'{Roots.WARNING_OUTPUT_ROOT}/{IMAGE_NAME}'
-    LOG_OUTPUT_PATH = f'{Roots.LOG_OUTPUT_ROOT}/{IMAGE_NAME}'
-
-    args = detectArgs()
-    args.input_image_path = f'{IMAGE_INPUT_PATH}'
-    args.output_image_path = f'{IMAGE_OUTPUT_PATH}'
-    args.weight_path = './weight/yolov5m6.pt'
-    args.output_warning_path = f'{WARNING_OUTPUT_PATH}'
-    args.output_log_path = f'{LOG_OUTPUT_PATH}'
-
-    detect(args)
-
 def detect_images():
     print('Start Detecting Imgs')
     test_needed_user_list = os.listdir(f'{Roots.IMAGE_DOWNLOAD_ROOT}')
@@ -94,9 +78,12 @@ def detect_images():
             args.output_image_path = f'{IMAGE_OUTPUT_PATH}'
             args.weight_path = './weight/yolov5m6.pt'
             args.output_warning_path = f'{WARNING_OUTPUT_PATH}'
+            args.user_id = "instagram" + f'{test_needed_user_list[i]}'
+            print(args.user_id)
             args.output_log_path = f'{LOG_OUTPUT_PATH}'
 
-            detect(args)
+            attemp_download_weight(args)
+            results = detect(args)
+            mosaic(results, args)
 
 detect_images()
-# test_detect_images()
