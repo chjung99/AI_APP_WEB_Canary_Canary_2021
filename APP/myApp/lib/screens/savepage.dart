@@ -1,80 +1,24 @@
-// import 'dart:typed_data';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:image/image.dart' as ui;
-// import 'package:praticesig/components/app_bar_maker.dart';
-
-// class WaterMarkPage extends StatefulWidget {
-//   @override
-//   _WaterMarkPageState createState() => _WaterMarkPageState();
-// }
-
-// class _WaterMarkPageState extends State<WaterMarkPage> {
-//   var value = Get.arguments;
-//   dynamic _watermarkedImage;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: Scaffold(
-//         appBar: appbarmaker(),
-//         body: Center(
-//           child: Column(
-//             children: [
-//               watermarked(value),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   Image watermarked(dynamic value) {
-//     ui.Image? originalImage = ui.decodeImage(value);
-//     ui.Image? watermarkImage = ui.decodeImage(value);
-
-//     // add watermark over originalImage
-//     // initialize width and height of watermark image
-//     ui.Image image = ui.Image(160, 50);
-//     ui.drawImage(image, watermarkImage!);
-
-//     // give position to watermark over image
-//     // originalImage.width - 160 - 25 (width of originalImage - width of watermarkImage - extra margin you want to give)
-//     // originalImage.height - 50 - 25 (height of originalImage - height of watermarkImage - extra margin you want to give)
-//     ui.copyInto(originalImage!, image,
-//         dstX: originalImage.width - 160 - 25,
-//         dstY: originalImage.height - 50 - 25);
-
-//     // for adding text over image
-//     // Draw some text using 24pt arial font
-//     // 100 is position from x-axis, 120 is position from y-axis
-//     ui.drawString(originalImage, ui.arial_24, 100, 120, 'Think Different');
-
-//     // Store the watermarked image to a File
-//     List<int> wmImage = ui.encodePng(originalImage);
-
-//     return Image.memory(Uint8List.fromList(wmImage));
-//   }
-// }
-
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:image/image.dart' as ui;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myapp/components/app_bar_maker.dart';
 import 'package:myapp/components/custom_button.dart';
 import 'package:myapp/components/custom_progress_bar.dart';
+import 'package:myapp/components/qrcode_maker.dart';
 import 'package:myapp/screens/homepage.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class SavePage extends StatelessWidget {
-  const SavePage({Key? key}) : super(key: key);
+  var value = Get.arguments;
+
+  SavePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String pre_img = value[0];
+    String hashed_d_num = value[1];
     return Scaffold(
       appBar: appbarmaker(),
       body: Column(
@@ -85,24 +29,31 @@ class SavePage extends StatelessWidget {
           Center(
             child: Column(
               children: [
-                InkWell(
-                  onLongPress: () {
-                    showSaveDialog(context);
-                  },
-                  child: Container(
-                    width: 300,
-                    height: 300,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black12,
-                        width: 2,
+                FutureBuilder(
+                  future: qrwatermark(pre_img, hashed_d_num),
+                  builder: (context, AsyncSnapshot<Uint8List> snapshot) {
+                    return InkWell(
+                      onLongPress: () {
+                        showSaveDialog(context, snapshot.data!);
+                      },
+                      child: Container(
+                        width: 300,
+                        height: 300,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black12,
+                            width: 2,
+                          ),
+                        ),
+                        child: (snapshot.hasData)
+                            ? Image.memory(
+                                snapshot.data!,
+                                fit: BoxFit.cover,
+                              )
+                            : Container(),
                       ),
-                    ),
-                    child: Image.asset(
-                      "assets/CANARY.png",
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                    );
+                  },
                 ),
                 const SizedBox(height: 20),
                 TextButton(
@@ -123,7 +74,7 @@ class SavePage extends StatelessWidget {
     );
   }
 
-  void showSaveDialog(BuildContext context) {
+  void showSaveDialog(BuildContext context, Uint8List imagebytes) {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -134,7 +85,7 @@ class SavePage extends StatelessWidget {
           title: const Text('이미지 저장'),
           content: const Text("이미지를 저장하시겠습니까"),
           actions: <Widget>[
-            saveButton(context),
+            saveButton(context, imagebytes),
             notSaveButton(context),
           ],
         );
@@ -154,12 +105,13 @@ class SavePage extends StatelessWidget {
     );
   }
 
-  TextButton saveButton(BuildContext context) {
+  TextButton saveButton(BuildContext context, Uint8List imagebytes) {
     return TextButton(
-      onPressed: () {
+      onPressed: () async {
         Navigator.of(context).pop('yes');
         Get.snackbar("저장 완료", "이미지 저장이 완료되었습니다");
-        //GallerySaver.saveImage("path");
+        await ImageGallerySaver.saveImage(imagebytes); //저장코드
+
         //https://pub.dev/packages/gallery_saver
       },
       child: const Text(
@@ -167,5 +119,25 @@ class SavePage extends StatelessWidget {
         style: TextStyle(color: Colors.black),
       ),
     );
+  }
+
+  Future<Uint8List> qrwatermark(String pre_img, String hashed_d_num) async {
+    List<int> qrlist = await toQrImageData(hashed_d_num);
+
+    ui.Image? originalImage = ui.decodeImage(base64Decode(pre_img));
+
+    ui.Image? qrcodeImage = ui.decodeImage(qrlist);
+
+    ui.Image image = ui.Image(50, 50);
+    ui.drawImage(image, qrcodeImage!);
+    ui.copyInto(
+      originalImage!,
+      image,
+      /***/ dstX: originalImage.width - 50,
+      /***/ dstY: originalImage.height - 50,
+    );
+    List<int> wmImage = ui.encodePng(originalImage);
+
+    return Uint8List.fromList(wmImage);
   }
 }

@@ -11,8 +11,8 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   startTime() async {
-    var _duration = new Duration(seconds: 4);
-    return new Timer(_duration, navigationPage);
+    var _duration = const Duration(seconds: 4);
+    return Timer(_duration, navigationPage);
   }
 
   void navigationPage() {
@@ -27,12 +27,12 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       backgroundColor: splashBackgroundColor,
-      body: new Center(
+      body: Center(
         child: Container(
-          child: new Image.asset(
-            "assets/CANARYLOGO.jpg",
+          child: Image.asset(
+            "assets/Image/CANARYLOGO.jpg",
           ),
         ),
       ),
