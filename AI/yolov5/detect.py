@@ -138,7 +138,7 @@ def mosaic(results, args):
           for xmin, ymin, xmax, ymax, conf, class_num in results.xyxy[0]:
               class_num = int(class_num)
               if(class_num!=6):
-                if class_num==3 or class_num==5 or class_num==8 or class_num==9:
+                if class_num==3 or class_num==5 or class_num==8 or class_num==10:
                   flag=1
                   break
                 continue
