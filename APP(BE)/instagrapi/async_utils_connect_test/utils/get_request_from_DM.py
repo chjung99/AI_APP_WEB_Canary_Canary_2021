@@ -30,7 +30,7 @@ async def send_help(cl,user_id):
 # 지원하지 않은 명령어
 async def send_invalid(cl,user_id):
     # cl.direct_answer(thread_id,"지원하지 않은 명령어 입니다. 도움말을 보시려면 '도움 또는 Help'를 전송해주세요")
-    cl.direct_send("지원하지 않은 명령어 입니다. 도움말을 보시려면 '도움 또는 Help'를 전송해주세요", user_ids=[user_id])
+    cl.direct_send("지원하지 않은 명령어 입니다. \n도움말을 보시려면 '도움 또는 Help'를 전송해주세요", user_ids=[user_id])
 
 async def post_check(cl,user_id,thread_id):
     cl.direct_send('게시물 순서를 입력해주세요. \n최근 게시물부터 1->2->3 입니다')

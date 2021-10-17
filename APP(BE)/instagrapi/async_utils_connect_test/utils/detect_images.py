@@ -41,16 +41,18 @@ async def media_detect(user_pk):
     # make_dir_save_imgs 함수를 통해 insta_imgs 폴더 속에 사용자의 Pk로 된 폴더를 생성한 후 
     # make_directory_save_images(user_output_path)
 
+    # image_download_root directory에 있는 user_pk 폴더의 파일 리스트를 가져온다
     test_needed_photo_list = os.listdir(f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_pk}')
     test_needed_photo_number = len(test_needed_photo_list)
 
     for j in tqdm(range(0, test_needed_photo_number)):
         print("== Photo Number : %d ==" % j)
         user_photo_path = f'{user_pk}/{test_needed_photo_list[j]}'
+        user_warning_path = user_photo_path[:-4]
         IMAGE_INPUT_PATH = f'{Roots.IMAGE_DOWNLOAD_SHELL}/{user_photo_path}'
         IMAGE_OUTPUT_PATH = f'{Roots.IMAGE_OUTPUT_SHELL}/{user_photo_path}'
-        WARNING_OUTPUT_PATH = f'{Roots.WARNING_OUTPUT_SHELL}/{user_photo_path}'+('.txt')
-        LOG_OUTPUT_PATH = f'{Roots.LOG_OUTPUT_SHELL}/{user_photo_path}'+('.txt')
+        WARNING_OUTPUT_PATH = f'{Roots.WARNING_OUTPUT_SHELL}/{user_warning_path}'+('.txt')
+        LOG_OUTPUT_PATH = f'{Roots.LOG_OUTPUT_SHELL}/{user_warning_path}'+('.txt')
 
         args = detectArgs()
         args.input_image_path = f'{IMAGE_INPUT_PATH}'

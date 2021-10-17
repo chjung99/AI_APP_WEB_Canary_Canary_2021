@@ -58,6 +58,7 @@ async def msg_handler(messages):
                 await get_request_from_DM.send_help(cl,user_id) 
             elif msg == '게시물 검사하기':
                 print('Post Check Route')
+                cl.direct_answer(thread_id,'게시물 검사를 실시합니다')
                 # 사용자 게시물 다운로드
                 await get_request_from_DM.get_recent_three_unchecked_medias(cl,user_id)
                 await detect_images.media_detect(user_id)
@@ -65,12 +66,13 @@ async def msg_handler(messages):
             
             elif msg == '스토리 검사하기':
                 print('Story Check Route')
+                cl.direct_answer(thread_id,'스토리 검사를 실시합니다')                
                 # 사용자 스토리 다운로드
                 await get_request_from_DM.get_recent_stories(cl,user_id)
                 await detect_images.media_detect(user_id)
                 await send_DM.send_DM(cl)
 
-            elif msg == '게시물 검사':
+            elif msg == '게시물 테스트':
                 await get_request_from_DM.post_check(cl,user_id,thread_id)
             
             elif type(msg) != str:
