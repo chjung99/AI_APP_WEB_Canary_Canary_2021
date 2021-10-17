@@ -1,6 +1,10 @@
 const spawn = require('child_process').spawn
 
-const yolov5_dir = '/workspace/AI_APP_WEB_Canary_Canary/AI/yolov5'
+// 주최즉 권장 사항에 따라 yolov5_dir 변경
+// const yolov5_dir = '/workspace/AI_APP_WEB_Canary_Canary/AI/yolov5'
+const yolov5_dir = '/workspace/AI_APP_WEB_Canary_Canary/APP(BE)/node_server'
+// detect.py directory 최신화
+// const yolov5_dir = '/workspace/AI_APP_WEB_Canary_Canary/AI(BE)/deeplearning/kwoledge_distillation_yolov5'
 console.log(yolov5_dir)
 
 function pytorch_model(upload_img) {
