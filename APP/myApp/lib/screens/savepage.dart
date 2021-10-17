@@ -48,7 +48,7 @@ class SavePage extends StatelessWidget {
                         child: (snapshot.hasData)
                             ? Image.memory(
                                 snapshot.data!,
-                                fit: BoxFit.cover,
+                                fit: BoxFit.contain,
                               )
                             : Container(),
                       ),
@@ -110,9 +110,7 @@ class SavePage extends StatelessWidget {
       onPressed: () async {
         Navigator.of(context).pop('yes');
         Get.snackbar("저장 완료", "이미지 저장이 완료되었습니다");
-        await ImageGallerySaver.saveImage(imagebytes); //저장코드
-
-        //https://pub.dev/packages/gallery_saver
+        await ImageGallerySaver.saveImage(imagebytes);
       },
       child: const Text(
         'yes',
@@ -123,21 +121,17 @@ class SavePage extends StatelessWidget {
 
   Future<Uint8List> qrwatermark(String pre_img, String hashed_d_num) async {
     List<int> qrlist = await toQrImageData(hashed_d_num);
-
     ui.Image? originalImage = ui.decodeImage(base64Decode(pre_img));
-
     ui.Image? qrcodeImage = ui.decodeImage(qrlist);
-
-    ui.Image image = ui.Image(50, 50);
+    ui.Image image = ui.Image(300, 300);
     ui.drawImage(image, qrcodeImage!);
     ui.copyInto(
       originalImage!,
-      image,
-      /***/ dstX: originalImage.width - 50,
-      /***/ dstY: originalImage.height - 50,
+      qrcodeImage,
+      dstX: originalImage.width - 50,
+      dstY: originalImage.height - 50,
     );
     List<int> wmImage = ui.encodePng(originalImage);
-
     return Uint8List.fromList(wmImage);
   }
 }
