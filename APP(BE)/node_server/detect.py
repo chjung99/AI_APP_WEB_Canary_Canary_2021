@@ -118,13 +118,13 @@ def mosaic(results, args):
     
     img = cv2.imread(input_image_path)
 
-    class_list = ["항공모함", "방탄조끼", "포", "모니터", "군용 차량", "노트북", "군복", "미사일", "모니터", "서류", "부대마크", "리볼버", "소총", "탱크", "군 항공기", "군 표지판"]
+    class_list = ["항공모함", "방탄조끼", "포", "모니터", "군용 차량", "노트북", "군복", "미사일", "모니터", "부대마크", "서류", "리볼버", "소총", "탱크", "군 항공기", "군 표지판"]
 
     scenario_log_list = [("설마 한미연합훈련 중 카메라를 사용하시는 건 아니겠죠?", 2), ("지금 훈련 중이신가요? 훈련모습 촬영은 규정에 어긋납니다!", 3), ("혹시 지금 군사 기밀을 노출하진 않으셨나요?", 5),
         ("군용 차량을 촬영하셨네요.차종 및 번호판 식별 위험이있습니다.", 2), ("군 표지판 촬영은 부대 위치가 식별될 위험이 있습니다.", 3), ("부대마크 및 명칭 노출은 군사보안에 위배되는 사항입니다.", 3)]
 
 
-    class_senerio_map = {0: 0, 1:1, 2:1, 3: 2, 4:3, 5:2, 6:1, 7:1, 8:2, 9:1, 10:5, 11:1, 12:1, 13:1, 14:1, 15:4}
+    class_senerio_map = {0: 0, 1:1, 2:1, 3: 2, 4:3, 5:2, 6:1, 7:1, 8:2, 9:5, 10:2, 11:1, 12:1, 13:1, 14:1, 15:4}
     
     if active_Blur == True:
         # TODO : Blur
@@ -138,7 +138,7 @@ def mosaic(results, args):
           for xmin, ymin, xmax, ymax, conf, class_num in results.xyxy[0]:
               class_num = int(class_num)
               if(class_num!=6):
-                if class_num==3 or class_num==5 or class_num==8 or class_num==9:
+                if class_num==3 or class_num==5 or class_num==8 or class_num==10:
                   flag=1
                   break
                 continue
@@ -152,8 +152,10 @@ def mosaic(results, args):
             class_num = int(class_num)
             if class_num >= 16: continue
             object_list.add(class_num)
-            if(class_num==6):
+            if class_num == 6:
+                print("Military uniform is detected. Pass mosaic")
                 continue
+        
             xmin = int(xmin); xmax = int(xmax); ymin = int(ymin); ymax = int(ymax)
             src = img[ymin: ymax, xmin: xmax]   # 관심영역 지정
             small = cv2.resize(src, None, fx=MOSAIC_RATIO, fy=MOSAIC_RATIO, interpolation=cv2.INTER_NEAREST)
