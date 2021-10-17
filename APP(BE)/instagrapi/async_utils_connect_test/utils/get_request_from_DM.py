@@ -13,7 +13,7 @@ sys.path.append('/workspaces/AI_APP_WEB_Canary_Canary/APP(BE)/instagrapi/async_u
 from make_directory import * # make_directory 함수들 import
 from image_path import Roots
 
-async_img_download_root = Roots.IMAGE_DOWNLOAD_ROOT 
+# async_img_download_root = Roots.IMAGE_DOWNLOAD_ROOT 
 
 def get_media_type_of_message(message):
     # In case of text
@@ -94,6 +94,36 @@ async def get_recent_three_unchecked_medias(cl,user_id):
 
     print('3 Posts Downloading process done')
 
+# story 검사
+async def get_recent_three_stories(cl,user_id):
+
+    raw_stories_len = len(cl.user_stories(user_id))  # total media length
+    print(f'raw_stories_len : {raw_stories_len}')
+
+    raw_user_stories =cl.user_stories(user_id,raw_stories_len) # default amount = 20
+    # print(raw_user_stories)
+
+    user_stories_for_test = [] # 검사할 Posts 대상들의 리스트 
+    
+    # 검사 대상을 3개의 Post로 한정 짓는다.
+    count_three = 0
+    for idx in range(0,raw_stories_len):
+        print(idx)
+        test_target_story_pk = raw_user_stories[idx].pk # story의 pk로 읽음 여부 파악
+        print(f'test_target_media_id : {test_target_story_pk}')
+        if(cl.story_seen([test_target_story_pk]) == False):
+            user_stories_for_test.append(raw_user_stories[idx])
+            count_three += 1
+
+        if count_three >= 3:
+            break
+    
+    print(f'user_medias_for_test : {user_stories_for_test}')
+    
+    await download_story(cl,user_stories_for_test,user_id)
+
+    print('3 Posts Downloading process done')
+
 #####
 
 # Media(Album & Photo) Download Function
@@ -111,6 +141,24 @@ async def download_media(cl,medias,user_id):
         if media_type == 1:
             cl.photo_download(media_pk,f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_info.pk}')
         elif media_type == 8:
-            cl.album_download(media_pk,f'{async_img_download_root}/{user_info.pk}')
+            cl.album_download(media_pk,f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_info.pk}')
         else:
             print(f'{idx} 미디어의 media type이 지원이 불가합니다')
+            
+    
+async def download_story(cl,stories,user_id):
+        # User들의 사진을 저장할 directory 생성
+    input_path = save_imgs_INPUT(user_id)
+    print(input_path)
+
+    stories_len = len(stories)
+    for idx in range(stories_len):
+        story_pk = stories[idx].pk
+        story_type = stories[idx].media_type
+        user_info = stories[idx].user
+
+        # 현재는 사진 검사 기능만 제공
+        if story_type == 1:
+            cl.story_download(story_pk,f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_info.pk}',)
+        else:
+            print('현재 지원하지 않는 미디어 타입입니다')

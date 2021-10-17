@@ -63,6 +63,12 @@ async def msg_handler(messages):
                 # 이후 detect.py 파일 구동(현재 media_detect()는 insta_imgs 파일 내 모든 파일 검사)
                 await detect_images.media_detect(user_id)
                 await send_DM.send_DM(cl)
+            
+            elif msg == '스토리 3개 검사':
+                print('Story Check Route')
+                await get_request_from_DM.get_recent_three_stories(cl,user_id)
+                await detect_images.media_detect(user_id)
+                await send_DM.send_DM(cl)
 
             elif msg == '게시물 검사':
                 await get_request_from_DM.post_check(cl,user_id,thread_id)
