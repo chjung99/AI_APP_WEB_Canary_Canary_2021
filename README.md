@@ -225,12 +225,14 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  </table>
  
  ### 사용 모델
- - YOLOV5 ([original github](https://github.com/ultralytics/yolov5))
+ - YOLOV5 ([original github](https://github.com/ultralytics/yolov5))  
 <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136682963-80100da0-c31c-4df4-8bff-583e1c1c62f1.png' width="500"/></p>
 
  **문제점**  
  
- <img src='https://user-images.githubusercontent.com/26833433/136901921-abcfcd9d-f978-4942-9b97-0e3f202907df.png' width="500"/>
+ <p align='center'><img src='https://user-images.githubusercontent.com/26833433/136901921-abcfcd9d-f978-4942-9b97-0e3f202907df.png' width="500"/></p>  
+ 
+
  1. 낮은 성능
  2. 무거운 모델 (ex. yolov5l6)
  
