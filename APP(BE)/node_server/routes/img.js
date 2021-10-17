@@ -50,8 +50,8 @@ router.post('/upload',async (req,res)=>{
 			console.log(result + 'from /img/upload')
 		}
 		})
-
-	res.json({status:200,imd_id:img_id,session:req.session})
+	// status code 204 or 205로 변경..?
+	res.json({status:200,imd_id:img_id,user_d_num:d_num})
 
 })
 
