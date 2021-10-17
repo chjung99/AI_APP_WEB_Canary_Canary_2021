@@ -12,7 +12,7 @@ from image_path import Roots
 from make_directory import * # import all
 
 '''
-sys.path.append('/workspaces/AI_APP_WEB_Canary_Canary/AI(BE)/deeplearning/knwoledge_distillation_yolov5/yolov5')
+sys.path.append('/workspaces/AI_APP_WEB_Canary_Canary/AI(BE)/deeplearning/kwoledge_distillation_yolov5/yolov5')
 from detect import *
 '''
 

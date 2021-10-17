@@ -20,7 +20,7 @@ class Roots:
     IMAGE_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/APP(BE)/instagrapi/async_utils_connect_test/insta_imgs_detected'
     WARNING_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/APP(BE)/instagrapi/async_utils_connect_test/insta_imgs_warnings'
     LOG_OUTPUT_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/APP(BE)/instagrapi/async_utils_connect_test/log'
-    SYS_PATH_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/\'AI(BE)\'/deeplearning/knowledge_distillation_yolov5/detect.py'
+    SYS_PATH_ROOT = '/workspaces/AI_APP_WEB_Canary_Canary/\'AI(BE)\'/deeplearning/kwoledge_distillation_yolov5/detect.py'
     IMAGE_DOWNLOAD_SHELL = '/workspaces/AI_APP_WEB_Canary_Canary/\'APP(BE)\'/instagrapi/async_utils_connect_test/insta_imgs'
     IMAGE_OUTPUT_SHELL = '/workspaces/AI_APP_WEB_Canary_Canary/\'APP(BE)\'/instagrapi/async_utils_connect_test/insta_imgs_detected'
     WARNING_OUTPUT_SHELL = '/workspaces/AI_APP_WEB_Canary_Canary/\'APP(BE)\'/instagrapi/async_utils_connect_test/insta_imgs_warnings'
