@@ -8,7 +8,8 @@ import 'package:myapp/screens/gallerypage.dart';
 import 'package:myapp/size.dart';
 
 class OptionPage extends StatelessWidget {
-  String d_num = Get.arguments;
+  var d_num = "1234567890";
+  //Get.arguments;
   OptionPage({Key? key}) : super(key: key);
 
   @override

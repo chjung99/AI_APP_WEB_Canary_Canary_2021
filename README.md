@@ -239,16 +239,15 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  **해결방안**  
  
  - knowledge distillation ([paper link](https://arxiv.org/abs/1906.03609)) 
-   <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136683028-fb1ca2f0-97c0-4581-9b7a-64e26536d7af.png' width="500"/></p>
- - mosaic augmetation에서 mosaic_9 augmentation 추가  
+   <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136683028-fb1ca2f0-97c0-4581-9b7a-64e26536d7af.png' width="500"/></p>  
  
  ### 성능 향상
- |       enhance     |   model  | precision | recall | mAP_0.5 | mAP_0.5:0.95 |
- |:-----------------:|:--------:|:---------:|:------:|:-------:|:------------:|
- |        None       | yolov5m6 |   0.736   |  0.779 |  0.815  |     0.599    |  
- |   mosaic_9 50%    | yolov5m6 |   0.756   |  0.775 |  0.809  |     0.602    |
- |   mosaic_9 100%   | yolov5m6 |   0.739   |  0.813 |  0.806  |     0.594    |
- | self distillation | yolov5m6 |   0.722   |  0.822 |  0.807  |     0.592    |
+ |          enhance       |   model  | precision | recall | mAP_0.5 | mAP_0.5:0.95 |
+ |:----------------------:|:--------:|:---------:|:------:|:-------:|:------------:|
+ |           None         | yolov5m6 |   0.736   |  0.779 |  0.815  |     0.599    |  
+ |      mosaic_9 50%      | yolov5m6 |   0.756   |  0.775 |  0.809  |     0.602    |
+ |      mosaic_9 100%     | yolov5m6 |   0.739   |  0.813 |  0.806  |     0.594    |
+ | knowledge distillation | yolov5m6 |   0.722   |  0.822 |  0.807  |     0.592    |
  
  <table>
   <tr>
@@ -279,8 +278,12 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 </table>
 <details>
  <summary>MLOps 설명</summary>
- <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136700081-b195dfa6-1c21-4983-a4cd-463f7e584091.PNG' height='300'><p>
+ <p align='center'><img src='https://user-images.githubusercontent.com/40621030/137613564-50a7af1b-bd68-4deb-8aed-b839e0bbe8fd.PNG' width='500'><p>  
+ 
  다양한 플랫폼으로 모델 학습을 자동화 할 수 있도록 REST API서버로 구성했습니다. 데이터, 모델 버전관리를 자동으로 해주고, 최신 버전의 모델을 detection code가 자동으로 업데이트 되도록 구성했습니다.  
+ 
+ ### Model Architecture
+ <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136700081-b195dfa6-1c21-4983-a4cd-463f7e584091.PNG' height='300'><p>  
  
  ### API문서
  *account*
@@ -316,7 +319,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  > status: 201  
  > response: {"file": "string"}  
  
- ### 코드 및 실행 ([link](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI/dataserver))
+ ### 코드 및 실행 ([link](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI(BE)))
 </details>
 
 ---
@@ -330,14 +333,14 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  
  ```bash
  git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
- cd AI_APP_WEB_Canary_Canary/AI/kwoledge_distillation/clone_code
+ cd AI_APP_WEB_Canary_Canary/'AI(BE)'/deeplearning/kwoledge_distillation_yolov5/
  pip install -r requirements.txt
  ```
 
 ### MLOps
   ```bash
   git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
-  cd AI_APP_WEB_Canary_Canary/AI/dataserver/
+  cd AI_APP_WEB_Canary_Canary/'AI(BE)'/
   pip install -r requirements.txt
   python manage.py migrate
   python manage.py runserver
@@ -375,7 +378,7 @@ Instagram의 Canary 계정을 팔로우한 계정들의 스토리, 게시글을 
 군 내 사이버지식정보방이라는 낙후된 개발 환경, 이마저도 제한적으로 사용할 수 있는 군 장병들로 이뤄진 팀, 보안상의 문제로 인한 국내 군 관련 이미지 데이터셋의 빈약함 등,
 약 1달 동안의 온라인 해커톤으로는 만족스러운 성능을 뽑아내기 어려웠습니다.  
 그러나, 초기 recall 수치 0.65 --> 데이터셋 증강 후 0.77 --> annotation과 self distillation 적용 후 0.82.  
-YOLOv5 모델을 원활히 사용하기 위해선 하나의 class 당 적어도 1300장 이상의 이미지가 필요하나, 데이터셋 증강 후에도 저희는 하나의 class 당 약 100여장 뿐이였습니다. 
+YOLOv5 모델을 원활히 사용하기 위해선 하나의 class 당 적어도 1300장 이상의 이미지가 필요하나, 데이터셋 증강 후에도 저희는 하나의 class 당 약 1000여장 뿐이였습니다. 
 또한 실제 상황과 같은 데이터가 부족해 성능이 낮아지는 현상도 발견했습니다.  
 지속적인 운영을 통해 데이터를 쌓고, 그 데이터를 활용하거나 다른 데이터추가 시 성능이 상승할 것이고 이를 위해 지속적으로 데이터를 수집하여 데이터셋의 크기를 늘려가는 중입니다.
 
@@ -465,7 +468,7 @@ Canary app의 경우 Android용으로만 개발되었습니다. Instagram siren�
  <tr>
   <td align='center'><img src="https://avatars.githubusercontent.com/u/40621030?v=4" width="50" height="50"></td>
   <td align='center'>Wonbeom Jang</td>
-  <td align='center'>Deep Learning (Pytorch)</td>
+  <td align='center'>Deep Learning (Pytorch)<br>MLOps (Django)</td>
   <td align='center'><a href="https://github.com/wonbeomjang"><img src="http://img.shields.io/badge/wonbeomjang-green?style=social&logo=github"/></a></td>
   <td align='center'><a href="mailto:jtiger958@gmail.com"><img src="https://img.shields.io/badge/jtiger958@gmail.com-green?logo=gmail&style=social"/></a></td>
  </tr>
