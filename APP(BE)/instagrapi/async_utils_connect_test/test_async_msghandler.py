@@ -52,26 +52,29 @@ async def msg_handler(messages):
             if msg == 'Test':
                 print('Test Route')
                 await test_img_process(msg)
-            elif msg == '도움':
+            elif msg == '도움' or msg == 'Help':
                 print('Help Route')
                 # thread_id = msg_data[1] # Thread_id 의 idx : 1
-                await get_request_from_DM.send_help(cl,user_id) # cl = Client Pass
-            elif msg == '게시물 3개 검사':
+                await get_request_from_DM.send_help(cl,user_id) 
+            elif msg == '게시물 검사하기':
                 print('Post Check Route')
                 # 사용자 게시물 다운로드
                 await get_request_from_DM.get_recent_three_unchecked_medias(cl,user_id)
-                # 이후 detect.py 파일 구동(현재 media_detect()는 insta_imgs 파일 내 모든 파일 검사)
                 await detect_images.media_detect(user_id)
                 await send_DM.send_DM(cl)
             
-            elif msg == '스토리 3개 검사':
+            elif msg == '스토리 검사하기':
                 print('Story Check Route')
-                await get_request_from_DM.get_recent_three_stories(cl,user_id)
+                # 사용자 스토리 다운로드
+                await get_request_from_DM.get_recent_stories(cl,user_id)
                 await detect_images.media_detect(user_id)
                 await send_DM.send_DM(cl)
 
             elif msg == '게시물 검사':
                 await get_request_from_DM.post_check(cl,user_id,thread_id)
+            
+            elif type(msg) != str:
+                cl.direct_answer(thread_id,'텍스트가 인식되지 않았습니다. \n 텍스트를 입력해주세요')
             else:
                 print('Invalid Command Route')
                 await get_request_from_DM.send_invalid(cl,user_id)

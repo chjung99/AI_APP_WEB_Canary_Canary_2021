@@ -25,8 +25,7 @@ def get_media_type_of_message(message):
 # async로 형식 전환중
 async def send_help(cl,user_id):
     # Thread_id로도 DM 전송 가능하지만 user_id의 범용성이 더 높기에 user_id 채택
-    # cl.direct_answer(thread_id,'=== How To Use=== \n 1. 포스트 검사하기 : 명령어 \n 2. 스토리 검사하기')
-    cl.direct_send('=== How To Use=== \n 1. 포스트 검사하기 : 명령어 \n 2. 스토리 검사하기', user_ids=[user_id])
+    cl.direct_send('=== How To Use=== \n 1. 게시물 검사 명령어(최대 3개씩) : \n 게시물 검사하기 \n 2. 스토리 검사 명령어 : 스토리 검사하기 \n 2.1 스토리 검사 시 주의 사항 : @osam_canary 계정을 \n 스토리에 태그해주세요! \n 2.2 스토리는 한 번에 최대 10개 검사 가능', user_ids=[user_id])
     
 # 지원하지 않은 명령어
 async def send_invalid(cl,user_id):
@@ -95,7 +94,7 @@ async def get_recent_three_unchecked_medias(cl,user_id):
     print('3 Posts Downloading process done')
 
 # story 검사
-async def get_recent_three_stories(cl,user_id):
+async def get_recent_stories(cl,user_id):
 
     MY_USER_NAME = 'osam_canary'
 
@@ -107,7 +106,7 @@ async def get_recent_three_stories(cl,user_id):
 
     user_stories_for_test = [] # 검사할 Posts 대상들의 리스트 
     
-    # 검사 대상을 3개의 Post로 한정 짓는다.
+    # 검사 대상을 10개의 Post로 한정 짓는다.
     count_three = 0
     for idx in range(0,raw_stories_len):
         print(idx)
@@ -120,7 +119,7 @@ async def get_recent_three_stories(cl,user_id):
             user_stories_for_test.append(raw_user_stories[idx])
             count_three += 1
 
-        if count_three >= 3:
+        if count_three >= 10:
             break
     
     print(f'user_medias_for_test : {user_stories_for_test}')
@@ -150,7 +149,7 @@ async def download_media(cl,medias,user_id):
         else:
             print(f'{idx} 미디어의 media type이 지원이 불가합니다')
             
-    
+# Stories Donwload Function
 async def download_story(cl,stories,user_id):
         # User들의 사진을 저장할 directory 생성
     input_path = save_imgs_INPUT(user_id)
