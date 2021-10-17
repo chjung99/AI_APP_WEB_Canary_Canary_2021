@@ -1,6 +1,4 @@
-import time
 import asyncio
-import os
 
 from instagrapi import Client
 
@@ -8,13 +6,17 @@ from instagrapi import Client
 # from utils.download_image_from_DM import *
 # from utils.detect_images import *
 # from utils.send_DM import *
-from utils.get_request_from_DM import * # local Utils function import
 
+import sys
+from os import path
+
+# from utils.detect_images import *
+from utils import get_request_from_DM, send_DM, get_client
+from utils import detect_images
 
 cl = Client()
-cl.login('osam_canary','admin0408!')
-# cl.login('osam_testbot','admin0408')
-# cl.login('osam_canary1','admin0408')
+get_client.get_logined_client(cl)
+
 messages = [] 
 
 async def check_unread(messages):
@@ -28,7 +30,7 @@ async def check_unread(messages):
                 msg = unread_threads[idx].messages[0].text
                 user_id = unread_threads[idx].messages[0].user_id # 메세지 전송한 user의 id 추출
                 thread_id = unread_threads[idx].id # thread ID 추출
-                cl.direct_answer(thread_id,'msg received')
+                cl.direct_answer(thread_id,'메세지 처리 중 입니다')
                 print(msg) # 사용자의 msg 출력
                 messages.append((msg,user_id,thread_id)) # messages list에 msg와 thread_id 를 추가
 
@@ -49,26 +51,41 @@ async def msg_handler(messages):
             
             if msg == 'Test':
                 print('Test Route')
-                await Test_img_process(msg)
-            elif msg == '도움':
+                await test_img_process(msg)
+            elif msg == '도움' or msg == 'Help':
                 print('Help Route')
                 # thread_id = msg_data[1] # Thread_id 의 idx : 1
-                await send_help(cl,user_id) # cl = Client Pass
-            elif msg == '게시물 3개 검사':
+                await get_request_from_DM.send_help(cl,user_id) 
+            elif msg == '게시물 검사하기':
                 print('Post Check Route')
-                await get_recent_three_unchecked_medias(cl,user_id)
-            elif msg == '게시물 검사':
-                await post_check(cl,user_id,thread_id)
+                cl.direct_answer(thread_id,'게시물 검사를 실시합니다')
+                # 사용자 게시물 다운로드
+                await get_request_from_DM.get_recent_three_unchecked_medias(cl,user_id)
+                await detect_images.media_detect(user_id)
+                await send_DM.send_DM(cl)
+            
+            elif msg == '스토리 검사하기':
+                print('Story Check Route')
+                cl.direct_answer(thread_id,'스토리 검사를 실시합니다')                
+                # 사용자 스토리 다운로드
+                await get_request_from_DM.get_recent_stories(cl,user_id)
+                await detect_images.media_detect(user_id)
+                await send_DM.send_DM(cl)
+
+            elif msg == '게시물 테스트':
+                await get_request_from_DM.post_check(cl,user_id,thread_id)
+            
+            elif type(msg) != str:
+                cl.direct_answer(thread_id,'텍스트가 인식되지 않았습니다. \n 텍스트를 입력해주세요')
             else:
                 print('Invalid Command Route')
-                await send_invalid(cl,user_id)
+                await get_request_from_DM.send_invalid(cl,user_id)
                 
-
         else:
             print('no messages left')
             await asyncio.sleep(1)
 
-async def Test_img_process(msg):
+async def test_img_process(msg):
     await asyncio.sleep(3) # img processing 예상 소요시간 임의 설정
     print(f'{msg} : img_processing done')
 
