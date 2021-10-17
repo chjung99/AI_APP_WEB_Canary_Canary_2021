@@ -187,12 +187,55 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  <details>
  <summary>AI 설명</summary>
  
+ ### 사용 데이터셋
+ 
+### Version 1: [ImageNet Object Localization Challenge](https://www.kaggle.com/c/imagenet-object-localization-challenge)  
+ <p align='center'><img src='https://user-images.githubusercontent.com/40621030/137607638-124c1622-6bfe-4a45-a16b-519314916436.jpg' width="500"/></p>  
+ 
+ **문제점**  
+ 
+ 1. 데이터 수 부족
+ 2. 대다수 물체가 정중앙 위치
+ 3. 대다수 물체가 사진 전체를 차지
+ 
+ **해결방안 1 - 데이터 추가**
+ 
+ <table>
+  <tr>
+   <td align='center'>Orignal Dataset</td>
+   <td align='center'>Add more data</td>
+  </tr>
+  <tr>
+   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/137607638-124c1622-6bfe-4a45-a16b-519314916436.jpg' width="500"/></td>
+   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/137607640-9552448f-a39c-4a46-9d50-a523002be0e4.jpg' width="500"/></td>
+  </tr>
+ </table>
+ 
+ **해결방안 2, 3 - augmentation 방법 변경**  
+ 
+ <table>
+  <tr>
+   <td align='center'>기존</td>
+   <td align='center'>변경</td>
+  </tr>
+  <tr>
+   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/137607771-6509a1f3-872a-4bfd-ac0f-389e7dcd8fdc.jpeg' width="500"/></td>
+   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/137607774-68692b66-5324-4184-ba9a-e41151a6a561.jpeg' width="500"/></td>
+  </tr>
+ </table>
+ 
  ### 사용 모델
  - YOLOV5 ([original github](https://github.com/ultralytics/yolov5))
 <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136682963-80100da0-c31c-4df4-8bff-583e1c1c62f1.png' width="500"/></p>
 
+ **문제점**  
  
- ### 추가 기법
+ <img src='https://user-images.githubusercontent.com/26833433/136901921-abcfcd9d-f978-4942-9b97-0e3f202907df.png' width="500"/>
+ 1. 낮은 성능
+ 2. 무거운 모델 (ex. yolov5l6)
+ 
+ **해결방안**  
+ 
  - knowledge distillation ([paper link](https://arxiv.org/abs/1906.03609)) 
    <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136683028-fb1ca2f0-97c0-4581-9b7a-64e26536d7af.png' width="500"/></p>
  - mosaic augmetation에서 mosaic_9 augmentation 추가  
