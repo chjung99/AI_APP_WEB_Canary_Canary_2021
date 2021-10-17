@@ -4,18 +4,14 @@ import os
 from tqdm import tqdm
 import json
 
-if __name__ == '__main__':
-    if __package__ is None:
-        import sys
-        from os import path
-        print(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
-        sys.path.append(path.dirname(path.dirname(path.dirname(path.dirname( path.dirname( path.abspath(__file__) ) )) )))
-        from SERVER.instagrapi.async_utils_connect_test.utils.image_path import Roots
-        from SERVER.instagrapi.async_utils_connect_test.utils.get_client import *
+from image_path import Roots
+from get_client import *
 
 # used in case of debug
+'''
 cl = Client()
-get_logined_client(cl, id, password)
+get_logined_client(cl)
+'''
 
 def get_waiting_user_list():
     return os.listdir(Roots.IMAGE_OUTPUT_ROOT)
@@ -42,7 +38,7 @@ def delete_detected_images(user_id):
     remove_all_file(f'{Roots.WARNING_OUTPUT_ROOT}/{user_id}')
     os.rmdir(f'{Roots.WARNING_OUTPUT_ROOT}/{user_id}')
 
-def send_DM(cl):    # Instagram Client Login
+async def send_DM(cl):    # Instagram Client Login
     waiting_user_list = get_waiting_user_list()
     waiting_user_list_length = len(waiting_user_list)
 
@@ -62,4 +58,4 @@ def send_DM(cl):    # Instagram Client Login
             # user_ids : It should be list
         delete_detected_images(waiting_user_list[i])
 
-send_DM(cl)
+# send_DM(cl)
