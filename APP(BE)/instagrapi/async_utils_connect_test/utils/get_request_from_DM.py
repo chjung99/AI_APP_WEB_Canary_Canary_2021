@@ -13,7 +13,7 @@ sys.path.append('/workspaces/AI_APP_WEB_Canary_Canary/APP(BE)/instagrapi/async_u
 from make_directory import * # make_directory 함수들 import
 from image_path import Roots
 
-# async_img_download_root = Roots.IMAGE_DOWNLOAD_ROOT 
+async_img_download_root = Roots.IMAGE_DOWNLOAD_ROOT 
 
 def get_media_type_of_message(message):
     # In case of text
@@ -97,6 +97,8 @@ async def get_recent_three_unchecked_medias(cl,user_id):
 # story 검사
 async def get_recent_three_stories(cl,user_id):
 
+    MY_USER_NAME = 'osam_canary'
+
     raw_stories_len = len(cl.user_stories(user_id))  # total media length
     print(f'raw_stories_len : {raw_stories_len}')
 
@@ -110,8 +112,11 @@ async def get_recent_three_stories(cl,user_id):
     for idx in range(0,raw_stories_len):
         print(idx)
         test_target_story_pk = raw_user_stories[idx].pk # story의 pk로 읽음 여부 파악
-        print(f'test_target_media_id : {test_target_story_pk}')
-        if(cl.story_seen([test_target_story_pk]) == False):
+        test_target_story_mentions_list = raw_user_stories[idx].mentions
+        test_target_story_mentions_users = list(map(lambda x: x.user.username,test_target_story_mentions_list))
+        print(f'mentioned Users : {test_target_story_mentions_users}')
+
+        if MY_USER_NAME in test_target_story_mentions_users:
             user_stories_for_test.append(raw_user_stories[idx])
             count_three += 1
 
@@ -149,7 +154,7 @@ async def download_media(cl,medias,user_id):
 async def download_story(cl,stories,user_id):
         # User들의 사진을 저장할 directory 생성
     input_path = save_imgs_INPUT(user_id)
-    print(input_path)
+    print('Directory for Stories : ' + input_path)
 
     stories_len = len(stories)
     for idx in range(stories_len):
@@ -159,6 +164,6 @@ async def download_story(cl,stories,user_id):
 
         # 현재는 사진 검사 기능만 제공
         if story_type == 1:
-            cl.story_download(story_pk,f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_info.pk}',)
+            cl.story_download(story_pk,f'{story_pk}',f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_info.pk}')
         else:
-            print('현재 지원하지 않는 미디어 타입입니다')
+            print(f'{idx}는 현재 지원하지 않는 미디어 타입입니다')
