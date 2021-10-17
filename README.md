@@ -278,8 +278,12 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 </table>
 <details>
  <summary>MLOps 설명</summary>
- <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136700081-b195dfa6-1c21-4983-a4cd-463f7e584091.PNG' height='300'><p>
+ <p align='center'><img src='https://user-images.githubusercontent.com/40621030/137613564-50a7af1b-bd68-4deb-8aed-b839e0bbe8fd.PNG' width='500'><p>  
+ 
  다양한 플랫폼으로 모델 학습을 자동화 할 수 있도록 REST API서버로 구성했습니다. 데이터, 모델 버전관리를 자동으로 해주고, 최신 버전의 모델을 detection code가 자동으로 업데이트 되도록 구성했습니다.  
+ 
+ ### Model Architecture
+ <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136700081-b195dfa6-1c21-4983-a4cd-463f7e584091.PNG' height='300'><p>  
  
  ### API문서
  *account*
@@ -315,7 +319,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  > status: 201  
  > response: {"file": "string"}  
  
- ### 코드 및 실행 ([link](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI/dataserver))
+ ### 코드 및 실행 ([link](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI(BE)))
 </details>
 
 ---
@@ -329,14 +333,14 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  
  ```bash
  git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
- cd AI_APP_WEB_Canary_Canary/AI/kwoledge_distillation/clone_code
+ cd AI_APP_WEB_Canary_Canary/'AI(BE)'/deeplearning/kwoledge_distillation_yolov5/
  pip install -r requirements.txt
  ```
 
 ### MLOps
   ```bash
   git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
-  cd AI_APP_WEB_Canary_Canary/AI/dataserver/
+  cd AI_APP_WEB_Canary_Canary/'AI(BE)'/
   pip install -r requirements.txt
   python manage.py migrate
   python manage.py runserver
