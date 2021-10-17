@@ -310,4 +310,5 @@ runs/
 wandb/
 *.pt
 outputs/
-
+org_images/
+prc_images/
