@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:myapp/components/app_bar_maker.dart';
 import 'package:myapp/components/custom_button.dart';
 import 'package:myapp/components/custom_text.dart';
-import 'package:myapp/screens/camera_page.dart';
-import 'package:myapp/screens/gallery_page.dart';
+import 'package:myapp/screens/camerapage.dart';
+import 'package:myapp/screens/gallerypage.dart';
 import 'package:myapp/size.dart';
 
 class OptionPage extends StatelessWidget {

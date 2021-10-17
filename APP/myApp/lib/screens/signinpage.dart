@@ -44,7 +44,7 @@ class SignInPage extends StatelessWidget {
                   CustomTextFormField(
                     signIn: true,
                     funValidator: validateDnum(),
-                    hint: "군번을",
+                    hint: "군번(-은 제외)을",
                     controller: _d_num,
                   ),
                   CustomTextFormField(

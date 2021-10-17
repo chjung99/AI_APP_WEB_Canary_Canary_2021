@@ -8,7 +8,7 @@ import 'package:myapp/components/logo.dart';
 import 'package:myapp/screens/signinpage.dart';
 import 'package:myapp/size.dart';
 
-import 'loading.dart';
+import 'loadingpage.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
