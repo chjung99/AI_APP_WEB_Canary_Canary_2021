@@ -69,4 +69,4 @@ async def media_detect(user_pk):
     else:
         print("No needed test\n")
 
-media_detect(12345678)
+# media_detect(12345678)
