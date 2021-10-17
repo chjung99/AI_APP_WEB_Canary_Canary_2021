@@ -30,7 +30,7 @@ async def check_unread(messages):
                 msg = unread_threads[idx].messages[0].text
                 user_id = unread_threads[idx].messages[0].user_id # 메세지 전송한 user의 id 추출
                 thread_id = unread_threads[idx].id # thread ID 추출
-                cl.direct_answer(thread_id,'메시지 처리 중 입니다')
+                cl.direct_answer(thread_id,'메세지 처리 중 입니다')
                 print(msg) # 사용자의 msg 출력
                 messages.append((msg,user_id,thread_id)) # messages list에 msg와 thread_id 를 추가
 
