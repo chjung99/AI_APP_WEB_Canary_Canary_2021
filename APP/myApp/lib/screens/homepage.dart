@@ -9,6 +9,7 @@ import 'package:myapp/screens/signinpage.dart';
 import 'package:myapp/size.dart';
 
 import 'loadingpage.dart';
+import 'optionpage.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -74,7 +75,7 @@ class HomePage extends StatelessWidget {
                 width: 340,
               ),
               onPressed: () {
-                Get.to(() => LoadingPage(), transition: Transition.rightToLeft);
+                Get.to(() => OptionPage(), transition: Transition.rightToLeft);
               },
             ),
           ],
