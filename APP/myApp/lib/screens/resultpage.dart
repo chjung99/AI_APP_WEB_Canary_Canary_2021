@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:myapp/components/app_bar_maker.dart';
 import 'package:myapp/components/custom_button.dart';
 import 'package:myapp/components/custom_progress_bar.dart';
-import 'package:myapp/domain/output/output.dart';
 import 'package:myapp/domain/output/output_repository.dart';
 import 'package:myapp/screens/savepage.dart';
 

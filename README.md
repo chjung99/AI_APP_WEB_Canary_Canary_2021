@@ -13,6 +13,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 본 프로젝트는 사진의 보안 내용을 제거하는 기능과 그러한 기능을 가진 카메라를 제공함으로서,  
 * **군 내에서 카메라를 사용 가능하게 함**과 동시에,
 *  SNS에 올릴 사진의 보안 위반 가능성을 경고하여 사용자가 **자발적으로** 보안을 준수 할 수 있게 합니다.
+*  또 현재 SNS올라가 있는 게시물을 검사를 해 **보안에 대한 경각심**을 일으킬 수 있습니다.
 
 
 <details>
@@ -186,12 +187,57 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  <details>
  <summary>AI 설명</summary>
  
+ ### 사용 데이터셋
+ 
+### Version 1: [ImageNet Object Localization Challenge](https://www.kaggle.com/c/imagenet-object-localization-challenge)  
+ <p align='center'><img src='https://user-images.githubusercontent.com/40621030/137607638-124c1622-6bfe-4a45-a16b-519314916436.jpg' width="500"/></p>  
+ 
+ **문제점**  
+ 
+ 1. 데이터 수 부족
+ 2. 대다수 물체가 정중앙 위치
+ 3. 대다수 물체가 사진 전체를 차지
+ 
+ **해결방안 1 - 데이터 추가**
+ 
+ <table>
+  <tr>
+   <td align='center'>Orignal Dataset</td>
+   <td align='center'>Add more data</td>
+  </tr>
+  <tr>
+   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/137607638-124c1622-6bfe-4a45-a16b-519314916436.jpg' width="500"/></td>
+   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/137607640-9552448f-a39c-4a46-9d50-a523002be0e4.jpg' width="500"/></td>
+  </tr>
+ </table>
+ 
+ **해결방안 2, 3 - augmentation 방법 변경**  
+ 
+ <table>
+  <tr>
+   <td align='center'>기존</td>
+   <td align='center'>변경</td>
+  </tr>
+  <tr>
+   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/137607771-6509a1f3-872a-4bfd-ac0f-389e7dcd8fdc.jpeg' width="500"/></td>
+   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/137607774-68692b66-5324-4184-ba9a-e41151a6a561.jpeg' width="500"/></td>
+  </tr>
+ </table>
+ 
  ### 사용 모델
- - YOLOV5 ([original github](https://github.com/ultralytics/yolov5))
+ - YOLOV5 ([original github](https://github.com/ultralytics/yolov5))  
 <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136682963-80100da0-c31c-4df4-8bff-583e1c1c62f1.png' width="500"/></p>
 
+ **문제점**  
  
- ### 추가 기법
+ <p align='center'><img src='https://user-images.githubusercontent.com/26833433/136901921-abcfcd9d-f978-4942-9b97-0e3f202907df.png' width="500"/></p>  
+ 
+
+ 1. 낮은 성능
+ 2. 무거운 모델 (ex. yolov5l6)
+ 
+ **해결방안**  
+ 
  - knowledge distillation ([paper link](https://arxiv.org/abs/1906.03609)) 
    <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136683028-fb1ca2f0-97c0-4581-9b7a-64e26536d7af.png' width="500"/></p>
  - mosaic augmetation에서 mosaic_9 augmentation 추가  
@@ -329,12 +375,14 @@ Instagram의 Canary 계정을 팔로우한 계정들의 스토리, 게시글을 
 군 내 사이버지식정보방이라는 낙후된 개발 환경, 이마저도 제한적으로 사용할 수 있는 군 장병들로 이뤄진 팀, 보안상의 문제로 인한 국내 군 관련 이미지 데이터셋의 빈약함 등,
 약 1달 동안의 온라인 해커톤으로는 만족스러운 성능을 뽑아내기 어려웠습니다.  
 그러나, 초기 recall 수치 0.65 --> 데이터셋 증강 후 0.77 --> annotation과 self distillation 적용 후 0.82.  
-YOLOv5 모델을 원활히 사용하기 위해선 하나의 class 당 1300장 이상의 이미지가 필요하나, 데이터셋 증강 후에도 저희는 하나의 class 당 약 7-800여장 뿐이였습니다.  
-즉 데이터 증강 시 성능이 상승할 것이고 이를 위해 지속적으로 데이터를 수집하여 데이터셋의 크기를 늘려가는 중입니다.
+YOLOv5 모델을 원활히 사용하기 위해선 하나의 class 당 적어도 1300장 이상의 이미지가 필요하나, 데이터셋 증강 후에도 저희는 하나의 class 당 약 100여장 뿐이였습니다. 
+또한 실제 상황과 같은 데이터가 부족해 성능이 낮아지는 현상도 발견했습니다.  
+지속적인 운영을 통해 데이터를 쌓고, 그 데이터를 활용하거나 다른 데이터추가 시 성능이 상승할 것이고 이를 위해 지속적으로 데이터를 수집하여 데이터셋의 크기를 늘려가는 중입니다.
 
 - 짧지 않은 이미지 처리 시간
-이는 1. 서버의 성능이 낮고 2. 모델 업로드 시 터미널에서 python을 불러들이는 방식으로 실행하여 시간이 소요됩니다.
-Javascript에서 바로 사용할 수 있게 tensorflow.js를 활용하여 모델을 미리 업로드한 후, 해당 모델을 사용 시 시간을 크게 단축할 수 있어 추후 진행할 예정입니다.
+이는 1. 서버의 성능이 낮고 2. node js와 pytorch간 터미널을 통해 데이터를 교환함으로 패키지로드, 모델로드시 많은 시간이 소요됩니다.  
+따라서 Javascript에서 바로 사용할 수 있게 tensorflow.js를 활용하여 모델을 미리 메모리에 할당 후, semaphore을 변형하여 활용하면 실행시간이 줄어들 것입니다.  
+또한 현재는 knowledge distillation만 적용했지만 추후에 pruning, quantization을 적용하면 동시접속자수를 늘릴 수 있습니다.
 
 - 아이폰 사용자 지원  
 Canary app의 경우 Android용으로만 개발되었습니다. Instagram siren을 통해 아이폰 사용자도 간접적으로 지원하고 있지만, 추후 OS 전용 앱을 개발하여  
