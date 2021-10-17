@@ -41,8 +41,6 @@ Function validateDnum() {
       return "공백이 들어갈 수 없습니다.";
     } else if (value.length != 10) {
       return "군번은 10자리 숫자입니다";
-    } else if (int.tryParse(value) != null) {
-      return "숫자만 입력이 가능합니다";
     } else {
       return null;
     }

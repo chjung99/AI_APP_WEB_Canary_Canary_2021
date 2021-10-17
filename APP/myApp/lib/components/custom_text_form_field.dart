@@ -15,7 +15,6 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
     return Container(
       width: 400,
       child: TextFormField(
