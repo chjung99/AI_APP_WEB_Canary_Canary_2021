@@ -65,11 +65,12 @@ router.get('/output-params/:img_id/:d_num', async (req,res)=>{
 
 	console.log('params input', req.params)
 	console.log('User D_NUM ', req.params.d_num )
+	const {img_id} = req.params
 	const {d_num} = req.params
 	
-	if (req.params.img_id){
+	if (img_id){
 		const hashed_d_num = await bcrypt.hash(d_num,8)
-		await pytorch_model(req.params.img_id).then((prc_id) =>{
+		await pytorch_model(img_id).then((prc_id) =>{
 			console.log(prc_id)
 			const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
 			const processed_img_encoded = Buffer.from(processed_img).toString('base64')
