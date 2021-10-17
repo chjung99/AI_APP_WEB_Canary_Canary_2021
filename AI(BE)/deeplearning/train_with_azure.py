@@ -4,6 +4,7 @@ import json
 import time
 import csv
 import numpy as np
+from numpy import genfromtxt
 
 from azureml.core import Experiment, ScriptRunConfig, Environment
 from azureml.core.compute import ComputeTarget, AmlCompute
@@ -18,9 +19,14 @@ from .models import TrainedModel
 def fitness(x):
     # Model fitness as a weighted combination of metrics
     w = [0.0, 0.0, 0.1, 0.9]  # weights for [P, R, mAP@0.5, mAP@0.5:0.95]
-    return (x[:, :4] * w).sum(1)
+    
+    if x.ndim == 1:
+        return (x[:4] * w).sum()
+    else:
+        return (x[:, :4] * w).sum(1)
+        
 
-def train(download_url, epoch=300):
+def train(download_url, epoch=1):
     with open('./deeplearning/kwoledge_distillation_yolov5/azure_config.json') as json_file:
         azure_config = json.load(json_file)
     
@@ -37,7 +43,7 @@ def train(download_url, epoch=300):
     except:
         print('Workspace not found')
     
-    project_folder = './deeplearning/kwoledge_distillation_yolov5/clone_code'
+    project_folder = './deeplearning/kwoledge_distillation_yolov5/yolov5'
     
     try:
         compute_target = ComputeTarget(workspace=ws, name=cluster_name)
@@ -46,7 +52,7 @@ def train(download_url, epoch=300):
         print('Not Found Exsiting Target Cluster')
     
     # Specify a GPU base image
-    DEPLOY_CONTAINER_FOLDER_PATH = 'deeplearning/kwoledge_distillation_yolov5/clone_code'
+    DEPLOY_CONTAINER_FOLDER_PATH = 'deeplearning/kwoledge_distillation_yolov5/yolov5'
     SCRIPT_FILE_TO_EXECUTE = 'train.py'
     PATH_TO_YAML_FILE='./deeplearning/kwoledge_distillation_yolov5/conda_dependencies.yml'
     
@@ -78,18 +84,24 @@ def train(download_url, epoch=300):
     run.download_file(name='outputs/best.pt', output_file_path=model_path)
     run.download_file(name='outputs/results.csv', output_file_path=results_path)
     
-    dat = open(results_path) 
-    reader = csv.reader(dat)
-    results = np.ndarray(list(reader)[1:])
+    print(os.getcwd())
+    
+    
+    results = genfromtxt(results_path, delimiter=',', skip_header = 1)
+    
+    if results.ndim == 1:
+        results = results[4:8]
+    else:
+        results = results[:, 4:8]
+        
     
     best = 0
     
-    for result in results:
-        best = max(fitness(result), best)
+    best = max(fitness(results), best)
     
     train_model = TrainedModel()
-    train_model.file.name = model_path
-    train_model.result.name = results_path
+    train_model.file.name = model_path.split('/')[-1]
+    train_model.result.name = results_path.split('/')[-1]
     train_model.matrix = best
     
     train_model.save()
