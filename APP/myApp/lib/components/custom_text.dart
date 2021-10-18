@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/color.dart';
+import 'package:praticesig/color.dart';
 
 TextStyle CustomText({required double size}) {
   return TextStyle(
