@@ -345,6 +345,23 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  ### Model Architecture
  <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136700081-b195dfa6-1c21-4983-a4cd-463f7e584091.PNG' height='300'><p>  
  
+ API호출을 통해 file(dataset) upload, train model, check model version, donwload model, insert & select detection log를 할 수 있습니다. 
+ 대략적인 flow는 다음과 같습니다.  
+ 
+ 1. file upload를 통해 데이터셋을 추가합니다.
+ 2. train model을 이용하여 AzureML에 모델 학습을 등록하고 학습이 완료되면 모델 weight와 함께 평가 matrix가 저장됩니다.
+ 3. node js에서 best model을 조회한 후 자신(node js)보다 좋은 모델이 있으면 모델을 업데이트 합니다. 
+ 4. node js에서 보안위반물체를 찾으면 log를 보내 django에 log를 쌓습니다.
+ 5. api 호출을 통해 log를 확인할 수 있습니다.
+ 
+ 해당 서버는 REST API서버이고, 메모리를 사용하면서까지 세션을 유지할 필요가 없다고 판단되어 JWT Authorization을 선택했습니다.  
+ 
+ ### Admin Page
+ ```bash
+ python manage.py createsuperuser
+ ```
+ ** GET /admin
+ 
  ### API문서
  *account*
  **POST /account/login**  
@@ -412,7 +429,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
   cd AI_APP_WEB_Canary_Canary/'AI(BE)'/
   pip install -r requirements.txt
   python manage.py migrate
-  python manage.py runserver
+  python manage.py runserver 0.0.0.0:8080
   ```
 ---
 
@@ -431,7 +448,14 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
   TODO: 사용법 추가
   
   #### 🐤**Admin logweb**
-  TODO: 사용법 추가
+  ```bash
+  git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
+  cd AI_APP_WEB_Canary_Canary/'AI(BE)'/
+  pip install -r requirements.txt
+  python manage.py migrate
+  python manage.py runserver 0.0.0.0:8080
+  ```
+  [API문서](###MLOps) 참고
   
   #### 🐤**Canary in instagram**
   ##### 시작하기 전에
