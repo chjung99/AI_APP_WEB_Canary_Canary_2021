@@ -357,13 +357,14 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 ## 💽설치 안내 (Installation Process)
 ### Flutter
 
-1. 웹앱으로 설치하기
+#### 웹앱으로 설치하기
 ```bash 
  git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary.git
  cd cd AI_APP_WEB_Canary_Canary/APP/myApp
  flutter run -d web-server --web-hostname=0.0.0.0
  ```
-2. 안드로이드 apk 
+#### 안드로이드 apk 설치하기
+
  
 ### Node js
 
