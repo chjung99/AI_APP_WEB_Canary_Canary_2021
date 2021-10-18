@@ -245,7 +245,23 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  </tr>
  </table>
  <details>
- <summary>AI 설명</summary>
+ <summary>📝AI 설명</summary>
+ 
+### Object detection VS Semantic segmentation
+
+- Semantic segmentation: 사람을 제외한 배경을 처리
+  난이도: 상대적으로 낮음(사람을 대상으로 학습된 model 사용)
+  장점: 기존 모델을 사용 시 사람을 깔끔하게 구별 가능
+  단점: 오직 사람/배경만 구별 가능, 사람 앞의 물체에 대해선 감지하지 못할 수 있음
+  (ex: 기밀 문서를 들고 있는 사람)
+  
+- Object detection: 학습한 Class들을 사진 안에서 검출하여 처리
+  난이도: 상대적으로 높음(We need to get dataset, annotate them, train model...)
+  장점: 여러 다양한 class들을 검출하여 사진의 상황을 대략적으로 파악 가능,
+  보안 위반 객체는 detect만 된다면 처리 가능(보안성), 사람 이외의 객체들도 살려낼 수 있음
+  단점: segmentation보다 상대적으로 깔끔하지 못한 사진 처리, 높은 데이터 수집 난이도와 큰 시간 소요
+ 
+보다 높은 보안성을 중시하기로 결정 --> Object detection   
  
  ### 사용 데이터셋
  
@@ -285,7 +301,11 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  </table>
  
  ### 사용 모델
- - YOLOV5 ([original github](https://github.com/ultralytics/yolov5))  
+YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.  
+성능과 학습에 들어가는 시간 등을 종합적으로 판단 --> YOLOv5 결정.
+(Efficientnet: 학습 시간이 지나치게 많이 소요, SSGlite: YOLOv5보다 낮은 성능)
+
+ - YOLOv5 ([original github](https://github.com/ultralytics/yolov5))  
 <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136682963-80100da0-c31c-4df4-8bff-583e1c1c62f1.png' width="500"/></p>
 
  **문제점**  
@@ -322,6 +342,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  
  ### 실행 및 예시 ([link](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI(BE)/deeplearning/kwoledge_distillation_yolov5))
 </details>
+
 
 ### MLOps
 <table>
