@@ -108,17 +108,55 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 ## 📔기능 설명
 
 ### 🖥화면 정의
-<table>
+
+
+ #### 1. splash Page 2. Home page
+ <img src="https://user-images.githubusercontent.com/54922625/137748064-d61f8c27-1eed-4575-9404-2a5a67650b78.PNG" width="230"/><img src="https://user-images.githubusercontent.com/54922625/137746293-99841797-bfe6-4c52-8164-023bcddda8d9.PNG" width="230"/>
+ 
+ #### 3. SignIn Page
+
+ <table>
  <tr>
-  <td><img src="https://user-images.githubusercontent.com/40621030/134689804-f72fc601-00cb-462b-a332-a1bcb62ad8a1.png" width="230"/></td>
-  <td><img src="https://user-images.githubusercontent.com/40621030/134689811-03fca8d5-26fd-4678-a398-df31655ebae5.png" width="230"/></td>
-  <td><img src="https://user-images.githubusercontent.com/40621030/134689813-b89f9162-4e74-48c7-9ac6-57e22f355827.png" width="230"/></td>
+
+  <td><img src="https://user-images.githubusercontent.com/54922625/137751078-0b05d20d-aafa-4a65-96f2-ea967babebab.gif" width="230"/></td>
+  <td><img src="https://user-images.githubusercontent.com/54922625/137751124-dc917eb3-04fb-4e44-a180-68eee8a41973.gif" width="230"/></td>
+  <td><img src="https://user-images.githubusercontent.com/54922625/137751019-747b6942-1a30-476a-9b8e-21e348310b8a.gif" width="230"/></td>
  </tr>
+ 
+ </table>
+ 
+ #### 4. SignUp page
+ <img src="https://user-images.githubusercontent.com/54922625/137750796-27dc9f80-4347-4e8d-894f-9db755f5c34a.gif" width="230/>
+
+ #### 5. Option Page
+ <img src="https://user-images.githubusercontent.com/54922625/137746354-5afa101d-978e-4ca5-bd9a-c8b487319bf4.PNG" width="230"/>
+ 
+ #### 6. Gallery/Camera Page
+ <img src="https://user-images.githubusercontent.com/54922625/137746476-fcb165d4-98da-4041-90ae-aab9e8d17ce5.PNG" width="230"/>
+
+ 
+ #### 7. Loading page
+
+ <table>
  <tr>
-  <td><img src="https://user-images.githubusercontent.com/40621030/134689816-4aeb35f6-ca24-4bc4-a4b5-902318b8d895.png" width="230"/></td>
-  <td><img src="https://user-images.githubusercontent.com/40621030/134766861-33bf44f8-1330-43d2-91af-4a68f2432507.png" width="230"/></td>
+  <td><img src="https://user-images.githubusercontent.com/54922625/137750290-86024cc2-4b62-42d6-b680-aa20ade4e6ce.gif" width="230"/></td>
+  <td><img src="https://user-images.githubusercontent.com/54922625/137750282-ca9dbd1b-b86f-4a1b-bf30-8eecb30094c1.gif" width="230"/></td>
+  <td><img src="https://user-images.githubusercontent.com/54922625/137750273-3d96fd7f-6609-43ec-aa56-b982689e60ba.gif" width="230"/></td>
+  <td><img src="https://user-images.githubusercontent.com/54922625/137750254-5d62b45e-47a8-461d-8d78-1c5bd45f111b.gif" width="230"/></td>
  </tr>
-</table>
+ 
+ </table>
+ 
+ #### 8. Result Page
+ <img src="https://user-images.githubusercontent.com/54922625/137746919-f9230150-7698-48d8-ba68-cbd1eb5f8444.png" width="230"/>
+ <img src="https://user-images.githubusercontent.com/54922625/137746781-89f02b26-959a-44f1-b991-2cb03dc1a85e.PNG" width="230"/>
+ 
+ #### 9. Save Page
+ <img src="https://user-images.githubusercontent.com/54922625/137755272-3191a0e5-69a4-4047-b19d-20fc78f6e285.gif" width="230"/>
+
+ 
+
+
 
 ### 📝세부 설명
 <details>
