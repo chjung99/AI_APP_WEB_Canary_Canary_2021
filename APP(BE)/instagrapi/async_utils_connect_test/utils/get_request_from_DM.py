@@ -87,7 +87,7 @@ async def get_recent_three_unchecked_medias(cl,user_id):
         if count_three >= 3:
             break
     
-    print(f'user_medias_for_test : {user_medias_for_test}')
+    # print(f'user_medias_for_test : {user_medias_for_test}')
     
     await download_media(cl,user_medias_for_test,user_id)
 
@@ -141,6 +141,8 @@ async def download_media(cl,medias,user_id):
     for idx in range(medias_len):
         media_pk = medias[idx].pk
         media_type = medias[idx].media_type
+        # media_url = medias[idx].thumbnail_url
+        # print(media_url)
         user_info = cl.media_user(media_pk)
         if media_type == 1:
             cl.photo_download(media_pk,f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_info.pk}')
