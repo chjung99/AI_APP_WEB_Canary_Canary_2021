@@ -5,27 +5,32 @@ Column buildBar() {
     children: [
       Container(
         height: 1,
-        width: 180,
+        width: 50,
         color: Colors.black,
       ),
-      const SizedBox(height: 20),
+      const SizedBox(height: 10),
     ],
   );
 }
 
 Container buildIcon(int iconColor, IconData numIcon, String page) {
   return Container(
-    height: 40,
-    width: 40,
+    height: 70,
+    width: 70,
     child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Icon(
           numIcon,
-          color: (iconColor == 1) ? Colors.green : Colors.grey,
+          size: 55,
+          color: (iconColor == 1) ? Colors.greenAccent : Colors.grey,
         ),
         Text(
           page,
-          style: const TextStyle(fontSize: 7, color: Colors.black),
+          style: const TextStyle(
+            fontSize: 10,
+            color: Colors.black,
+          ),
         ),
       ],
     ),
@@ -34,17 +39,19 @@ Container buildIcon(int iconColor, IconData numIcon, String page) {
 
 Container buildCheckIcon(String page) {
   return Container(
-    height: 40,
-    width: 40,
+    height: 70,
+    width: 70,
     child: Column(
       children: [
         const Icon(
           Icons.check_circle,
+          size: 50,
           color: Colors.blue,
         ),
         Text(
           page,
-          style: const TextStyle(fontSize: 7, color: Colors.black),
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 5, color: Colors.black),
         ),
       ],
     ),
