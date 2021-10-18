@@ -202,6 +202,24 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
   <td align='center'>Dart</td>
  </tr>
 </table>
+<details>
+ <summary>Flutter / Dart Packages</summary>
+ 
+- [`get: ^4.3.8`](https://pub.dev/packages/get)
+- [`http: ^0.13.3`](https://pub.dev/packages/http)
+- [`validators: ^3.0.0`](https://pub.dev/packages/validators)
+- [`image: ^3.0.5`](https://pub.dev/packages/image)
+- [`image_picker: ^0.8.4+2`](https://pub.dev/packages/image_picker)
+- [`animated_text_kit: ^4.2.1`](https://pub.dev/packages/animated_text_kit)
+- [`flutter_pw_validator: ^1.2.1`](https://pub.dev/packages/flutter_pw_validator)
+- [`string_validator: ^0.3.0`](https://pub.dev/packages/string_validator)
+- [`qr_flutter: ^4.0.0`](https://pub.dev/packages/qr_flutter)
+- [`path_provider: ^2.0.5`](https://pub.dev/packages/path_provider)
+- [`cupertino_icons: ^0.1.2`](https://pub.dev/packages/cupertino_icons)
+
+</details>
+
+
 
 ### AI
  <table>
