@@ -1,1 +1,0 @@
-user_id:1234/object:리볼버/risk level:3
