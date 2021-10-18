@@ -8,7 +8,9 @@ import 'package:myapp/components/custom_button.dart';
 import 'package:myapp/components/custom_progress_bar.dart';
 import 'package:myapp/components/qrcode_maker.dart';
 import 'package:myapp/screens/homepage.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'dart:io';
 
 class SavePage extends StatelessWidget {
   var value = Get.arguments;
@@ -107,10 +109,10 @@ class SavePage extends StatelessWidget {
 
   TextButton saveButton(BuildContext context, Uint8List imagebytes) {
     return TextButton(
-      onPressed: () async {
+      onPressed: () {
         Navigator.of(context).pop('yes');
         Get.snackbar("저장 완료", "이미지 저장이 완료되었습니다");
-        await ImageGallerySaver.saveImage(imagebytes);
+        saveImage(imagebytes);
       },
       child: const Text(
         'yes',
@@ -133,5 +135,15 @@ class SavePage extends StatelessWidget {
     );
     List<int> wmImage = ui.encodePng(originalImage);
     return Uint8List.fromList(wmImage);
+  }
+
+  Future<void> saveImage(Uint8List imagebytes) async {
+    final dir = await getExternalStorageDirectory();
+    final myImagePath = dir!.path + "/canary.png";
+    File imageFile = File(myImagePath);
+    if (!await imageFile.exists()) {
+      imageFile.create(recursive: true);
+    }
+    imageFile.writeAsBytes(imagebytes);
   }
 }

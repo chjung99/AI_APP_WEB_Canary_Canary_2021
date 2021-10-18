@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -64,12 +66,8 @@ class _CameraPageState extends State<CameraPage> {
                         decoration: const BoxDecoration(
                           color: Colors.transparent,
                         ),
-                        child: Image(
-                          image: ResizeImage(
-                            NetworkImage(_image!.path),
-                            width: 300,
-                            height: 300,
-                          ),
+                        child: Image.file(
+                          File(_image!.path),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -103,3 +101,11 @@ class _CameraPageState extends State<CameraPage> {
     );
   }
 }
+
+//  Image(
+//                             image: ResizeImage(
+//                               NetworkImage(_image!.path),
+//                               width: 300,
+//                               height: 300,
+//                             ),
+//                             fit: BoxFit.cover),
