@@ -4,7 +4,7 @@ import 'package:myapp/components/app_bar_maker.dart';
 import 'package:myapp/components/custom_button.dart';
 import 'package:myapp/components/custom_text.dart';
 import 'package:myapp/components/logo.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:myapp/screens/signinpage.dart';
 import 'package:myapp/size.dart';
 
@@ -74,8 +74,14 @@ class HomePage extends StatelessWidget {
                 title: "help",
                 width: 340,
               ),
-              onPressed: () {
-                Get.to(() => OptionPage(), transition: Transition.rightToLeft);
+              onPressed: () async {
+                const url =
+                    "https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary";
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw "Could not launch $url";
+                }
               },
             ),
           ],
