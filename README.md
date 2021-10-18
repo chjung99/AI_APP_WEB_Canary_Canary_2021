@@ -435,6 +435,13 @@ YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.
 
  
 ### Node js
+#### AI(BE)의 requirements가 충족된 상태에서 Node 서버를 구동해야 됩니다.(AI 이미지 처리를 위해)
+```bash
+cd node_server
+npm install # 통해 필요한 패키지들 다운로드
+node app.js (일회성 시행)
+```
+
 
 ### Deep learning
  
