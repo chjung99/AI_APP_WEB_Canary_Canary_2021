@@ -10,7 +10,7 @@ class Post {
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
       imd_id: json['imd_id'].toString(),
-      d_num: json['d_num'],
+      d_num: json['user_d_num'],
     );
   }
 }

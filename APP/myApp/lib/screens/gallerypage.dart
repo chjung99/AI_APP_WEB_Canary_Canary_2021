@@ -12,6 +12,9 @@ import 'package:myapp/domain/postImage/post.dart';
 import 'package:myapp/domain/postImage/post_repository.dart';
 import 'package:myapp/screens/loadingpage.dart';
 
+import '../size.dart';
+import 'homepage.dart';
+
 class GalleryPage extends StatefulWidget {
   const GalleryPage({Key? key}) : super(key: key);
 
@@ -38,42 +41,52 @@ class _GalleryPageState extends State<GalleryPage> {
     return Scaffold(
       appBar: appbarmaker(),
       body: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            createProgressBar(false, false, false),
-            const SizedBox(height: 30),
-            InkWell(
-              onTap: () {
-                _openImageFile();
-              },
-              child: Container(
-                child: _image == null ? noImageContainer() : imageContainer(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: marginHorizontalSize),
+          child: Column(
+            children: [
+              const SizedBox(height: 40),
+              createProgressBar(false, false, false),
+              const SizedBox(height: 30),
+              InkWell(
+                onTap: () {
+                  _openImageFile();
+                },
+                child: Container(
+                  child: _image == null ? noImageContainer() : imageContainer(),
+                ),
               ),
-            ),
-            const SizedBox(height: 40),
-            TextButton(
-              child: const GradationButton(
-                title: "post server",
-                width: 300,
-              ),
-              onPressed: () async {
-                if (uploadImage) {
-                  Post _imgId = await p.postImage(_image!, d_num);
-                  String success = _imgId.imd_id;
-                  if (success.length > 0) {
-                    Get.to(
-                      () => LoadingPage(),
-                      arguments: [success, d_num],
-                      transition: Transition.rightToLeft,
-                    );
+              const SizedBox(height: 40),
+              TextButton(
+                child: const GradationButton(
+                  title: "post server",
+                  width: 300,
+                ),
+                onPressed: () async {
+                  if (uploadImage) {
+                    Post _imgId = await p.postImage(_image!, d_num);
+                    String success = _imgId.imd_id;
+                    print(success);
+                    if (success.length > 0) {
+                      Get.to(
+                        () => LoadingPage(),
+                        arguments: [success, d_num],
+                        transition: Transition.rightToLeft,
+                      );
+                    } else {
+                      Get.to(
+                        () => HomePage(),
+                        arguments: [success, d_num],
+                        transition: Transition.rightToLeft,
+                      );
+                    }
+                  } else {
+                    Get.snackbar("사진이 없습니다", "사진을 골라주세요!");
                   }
-                } else {
-                  Get.snackbar("사진이 없습니다", "사진을 골라주세요!");
-                }
-              },
-            ),
-          ],
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
