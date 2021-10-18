@@ -152,17 +152,25 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
   Canary app 사용 날짜와 사용자 id, 이미지에서 검출된 객체에 대한 기록이 남습니다.
  
   #### 🐤**Canary in instagram**
-  주요 sns 중 하나인 인스타그램 사용자의 보안 위반 여부를 탐지하고, 사용자에게 direct message로 경고해줍니다.
-  ##### 사용법
- instagram에서 "osam_canary"를 검색한 후 팔로우한다. 개인 메시지 (Direct message)로 명령어를 보낸다.
-  ##### 사용 가능한 명령어
+
+  <p align='center'><img src="https://user-images.githubusercontent.com/35412648/137631605-571bf913-a365-408c-9469-8e16ce806443.PNG"/></p>
+   
+  주요 sns 중 하나인 인스타그램 사용자의 보안 위반 여부를 탐지하고, 사용자에게 direct message로 경고해줍니다.  
+  
+  Canary app에서 사용되는 동일한 model로 위협 요소를 탐지하고, 처리된 사진과 경고문을 DM으로 보냅니다.  
+ 
+  비동기적 처리를 통해 동시에 여러 Request가 들어와도 대응할 수 있게 개발되었습니다.
+ 
+  현재 지원되는 검사 기능은 게시물 검사와 스토리 검사입니다.
+ 
+ #### 지원하는 기능
  * 도움 (또는 Help)
- > 1. 사용자에게 사용법을 DM 안내합니다.
+ > 1. 사용자에게 사용법을 DM으로 안내합니다.
  * 게시물 검사하기
- > 1. 사용자가 올린 Post 중, 검사 되지 않은 가장 최근 3개를 검사합니다.
- > 2. 검사가 완료되면 적절히 모자이크 된 이미지와 경고 문구를 DM으로 보내주고, 해당 Post를 Like 합니다.
+ > 1. Canary가 사용자가 올린 Post 중, 검사 되지 않은 가장 최근 3개를 검사합니다.
+ > 2. 검사가 완료되면 적절히 모자이크 된 이미지와 경고 문구를 DM으로 보내줍니다. + Canary가 해당 Post를 Like 합니다.
  * 스토리 검사하기
- > 1. 사용자의 Story 중, osam_canary가 태그 된 story를 검사합니다.
+ > 1. Canary가 사용자의 Story 중, osam_canary가 태그 된 story를 검사합니다.
  > 2. 검사가 완료되면 적절히 모자이크 된 이미지와 경고 문구를 DM으로 보내줍니다.
 </details>
 
@@ -419,7 +427,20 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  편한 마크다운 에디터를 찾아서 사용
  샘플 에디터 [https://stackedit.io/app#](https://stackedit.io/app#)
 -->
-
+  #### 🐤**Canary app**
+  TODO: 사용법 추가
+  
+  #### 🐤**Admin logweb**
+  TODO: 사용법 추가
+  
+  #### 🐤**Canary in instagram**
+  ##### 시작하기 전에
+  instagram에서 'osam_canary'를 follow 한 후, 명령어를 Direct Message로 보낸다
+  ##### 지원 명령어
+  1. 게시물 검사 명령어(최대 3개씩) : 게시물 검사하기
+  2. 스토리 검사 명령어 : 스토리 검사하기  
+  > 2.1 스토리 검사 시 주의 사항 : @osam_canary 계정을 스토리에 태그해주세요!  
+  > 2.2 스토리는 한 번에 최대 10개 검사 가능  
 ---
 
 ## 📈프로젝트 전망
