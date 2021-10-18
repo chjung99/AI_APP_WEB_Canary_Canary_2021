@@ -13,8 +13,7 @@ function pytorch_model(upload_img) {
         console.log('pytorch model activated')
         console.log(upload_img)
     
-        // const PytorchProcess = spawn('python3',['./yolov5/detect.py','-w','./yolov5/weight/yolov5m6.pt','-i', `./org_images/${upload_img}.jpg`,'-o',`./prc_images/prc_${upload_img}.jpg`])
-    
+		// log는 자체 Node_db에 저장하기에 -o3 log 경로는 지정하지 않는다
         const PytorchProcess = spawn('python3',[`${yolov5_dir}/detect.py`,'-w',`${yolov5_dir}/weight/yolov5m6.py`,'-i', `./org_images/${upload_img}.jpg`,'-o',`./prc_images/prc_${upload_img}.jpg`,'-o2',`./warnings/prc_${upload_img}_warning.txt`])
     
 
@@ -42,7 +41,7 @@ function pytorch_model(upload_img) {
             if (signal){
                 console.log(`Process Killed with signal ${signal}`)
             }
-            console.log(`Done !`)
+            console.log(`Pytorch Model Processing Done !`)
             // res(`prc_${upload_img}`) // prc_id
         })
 

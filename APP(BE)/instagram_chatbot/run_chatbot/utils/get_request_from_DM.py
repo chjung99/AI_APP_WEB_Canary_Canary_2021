@@ -25,7 +25,7 @@ def get_media_type_of_message(message):
 # async로 형식 전환중
 async def send_help(cl,user_id):
     # Thread_id로도 DM 전송 가능하지만 user_id의 범용성이 더 높기에 user_id 채택
-    cl.direct_send('=== How To Use=== \n 1. 게시물 검사 명령어(최대 3개씩) : \n 게시물 검사하기 \n 2. 스토리 검사 명령어 : 스토리 검사하기 \n 2.1 스토리 검사 시 주의 사항 : @osam_canary 계정을 \n 스토리에 태그해주세요! \n 2.2 스토리는 한 번에 최대 10개 검사 가능', user_ids=[user_id])
+    cl.direct_send('=== How To Use=== \n 1. 게시물 검사 명령어(최대 3개씩) : \n "게시물 검사하기" \n 2. 스토리 검사 명령어 : "스토리 검사하기" \n 2.1 스토리 검사 시 주의 사항 : @osam_canary 계정을 \n 스토리에 태그해주세요! \n 2.2 태그 시 사진에 최대한 겹치지 않게 해주세요 \n 2.3 스토리는 한 번에 최대 10개 검사 가능 ', user_ids=[user_id])
     
 # 지원하지 않은 명령어
 async def send_invalid(cl,user_id):
@@ -87,7 +87,7 @@ async def get_recent_three_unchecked_medias(cl,user_id):
         if count_three >= 3:
             break
     
-    print(f'user_medias_for_test : {user_medias_for_test}')
+    # print(f'user_medias_for_test : {user_medias_for_test}')
     
     await download_media(cl,user_medias_for_test,user_id)
 
@@ -122,7 +122,7 @@ async def get_recent_stories(cl,user_id):
         if count_three >= 10:
             break
     
-    print(f'user_medias_for_test : {user_stories_for_test}')
+    # print(f'user_medias_for_test : {user_stories_for_test}')
     
     await download_story(cl,user_stories_for_test,user_id)
 
@@ -141,6 +141,8 @@ async def download_media(cl,medias,user_id):
     for idx in range(medias_len):
         media_pk = medias[idx].pk
         media_type = medias[idx].media_type
+        # media_url = medias[idx].thumbnail_url
+        # print(media_url)
         user_info = cl.media_user(media_pk)
         if media_type == 1:
             cl.photo_download(media_pk,f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_info.pk}')
@@ -163,6 +165,6 @@ async def download_story(cl,stories,user_id):
 
         # 현재는 사진 검사 기능만 제공
         if story_type == 1:
-            cl.story_download(story_pk,f'{story_pk}',f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_info.pk}')
+            cl.story_download(story_pk,f'{idx}',f'{Roots.IMAGE_DOWNLOAD_ROOT}/{user_info.pk}')
         else:
             print(f'{idx}는 현재 지원하지 않는 미디어 타입입니다')

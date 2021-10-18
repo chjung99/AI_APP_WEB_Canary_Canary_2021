@@ -12,14 +12,15 @@ const db = getDB()
 
 router.get('/main',(req,res)=>{
 	// pytorch model child process testing
-	pytorch_model('sample_upload') // sample 이미지 명
+	// sample 이미지 명
+	pytorch_model('sample_upload')
 	req.session.name = 'main'
 	res.send({status:200,session:req.session})
 })
 
 router.post('/upload',async (req,res)=>{
 	console.log('img input router activated')
-    console.log(req.session)
+	
 	const uploaded_img_binary = req.body.img_binary
 	const {d_num} = req.body // upload하는 user의 D_num
 
@@ -62,14 +63,16 @@ router.get('/output-params/:img_id/:d_num', async (req,res)=>{
 // router.get('/output-params/:img_id/:level', async (req,res)=>{ // -> output with levels
 
 	console.log('img output(params method) router activated')
-
-	console.log('params input', req.params)
-	console.log('User D_NUM ', req.params.d_num )
+	console.log('Output 요청 User의 군번 : ', req.params.d_num )
+	
 	const {img_id} = req.params
 	const {d_num} = req.params
 	
 	if (img_id){
+		
+		// 처리된 사진의 워터마크에 들어갈 User의 군번을 bcrypt를 이용해 암호화 
 		const hashed_d_num = await bcrypt.hash(d_num,8)
+		// 업로드된 사진을 pytorch_model 구동 
 		await pytorch_model(img_id).then((prc_id) =>{
 			console.log(prc_id)
 			const processed_img = fs.readFileSync(`prc_images/${prc_id}.jpg`)
@@ -87,7 +90,6 @@ router.get('/output-params/:img_id/:d_num', async (req,res)=>{
 		console.error('no img_id in request parameter')
 		res.json({status:404,err_msg:'img_id for output undefined'})
 	}
-	
 	
 })
 

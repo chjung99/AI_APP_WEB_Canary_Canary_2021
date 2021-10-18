@@ -152,17 +152,25 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
   Canary app 사용 날짜와 사용자 id, 이미지에서 검출된 객체에 대한 기록이 남습니다.
  
   #### 🐤**Canary in instagram**
-  주요 sns 중 하나인 인스타그램 사용자의 보안 위반 여부를 탐지하고, 사용자에게 direct message로 경고해줍니다.
-  ##### 사용법
- instagram에서 "osam_canary"를 검색한 후 팔로우한다. 개인 메시지 (Direct message)로 명령어를 보낸다.
-  ##### 사용 가능한 명령어
+
+  <p align='center'><img src="https://user-images.githubusercontent.com/35412648/137631605-571bf913-a365-408c-9469-8e16ce806443.PNG"/></p>
+   
+  주요 sns 중 하나인 인스타그램 사용자의 보안 위반 여부를 탐지하고, 사용자에게 direct message로 경고해줍니다.  
+  
+  Canary app에서 사용되는 동일한 model로 위협 요소를 탐지하고, 처리된 사진과 경고문을 DM으로 보냅니다.  
+ 
+  비동기적 처리를 통해 동시에 여러 Request가 들어와도 대응할 수 있게 개발되었습니다.
+ 
+  현재 지원되는 검사 기능은 게시물 검사와 스토리 검사입니다.
+ 
+ #### 지원하는 기능
  * 도움 (또는 Help)
- > 1. 사용자에게 사용법을 DM 안내합니다.
+ > 1. 사용자에게 사용법을 DM으로 안내합니다.
  * 게시물 검사하기
- > 1. 사용자가 올린 Post 중, 검사 되지 않은 가장 최근 3개를 검사합니다.
- > 2. 검사가 완료되면 적절히 모자이크 된 이미지와 경고 문구를 DM으로 보내주고, 해당 Post를 Like 합니다.
+ > 1. Canary가 사용자가 올린 Post 중, 검사 되지 않은 가장 최근 3개를 검사합니다.
+ > 2. 검사가 완료되면 적절히 모자이크 된 이미지와 경고 문구를 DM으로 보내줍니다. + Canary가 해당 Post를 Like 합니다.
  * 스토리 검사하기
- > 1. 사용자의 Story 중, osam_canary가 태그 된 story를 검사합니다.
+ > 1. Canary가 사용자의 Story 중, osam_canary가 태그 된 story를 검사합니다.
  > 2. 검사가 완료되면 적절히 모자이크 된 이미지와 경고 문구를 DM으로 보내줍니다.
 </details>
 
@@ -237,7 +245,23 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  </tr>
  </table>
  <details>
- <summary>AI 설명</summary>
+ <summary>📝AI 설명</summary>
+ 
+### Object detection VS Semantic segmentation
+
+- Semantic segmentation: 사람을 제외한 배경을 처리
+  난이도: 상대적으로 낮음(사람을 대상으로 학습된 model 사용)
+  장점: 기존 모델을 사용 시 사람을 깔끔하게 구별 가능
+  단점: 오직 사람/배경만 구별 가능, 사람 앞의 물체에 대해선 감지하지 못할 수 있음
+  (ex: 기밀 문서를 들고 있는 사람)
+  
+- Object detection: 학습한 Class들을 사진 안에서 검출하여 처리
+  난이도: 상대적으로 높음(We need to get dataset, annotate them, train model...)
+  장점: 여러 다양한 class들을 검출하여 사진의 상황을 대략적으로 파악 가능,
+  보안 위반 객체는 detect만 된다면 처리 가능(보안성), 사람 이외의 객체들도 살려낼 수 있음
+  단점: segmentation보다 상대적으로 깔끔하지 못한 사진 처리, 높은 데이터 수집 난이도와 큰 시간 소요
+ 
+보다 높은 보안성을 중시하기로 결정 --> Object detection   
  
  ### 사용 데이터셋
  
@@ -277,7 +301,11 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  </table>
  
  ### 사용 모델
- - YOLOV5 ([original github](https://github.com/ultralytics/yolov5))  
+YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.  
+성능과 학습에 들어가는 시간 등을 종합적으로 판단 --> YOLOv5 결정.
+(Efficientnet: 학습 시간이 지나치게 많이 소요, SSGlite: YOLOv5보다 낮은 성능)
+
+ - YOLOv5 ([original github](https://github.com/ultralytics/yolov5))  
 <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136682963-80100da0-c31c-4df4-8bff-583e1c1c62f1.png' width="500"/></p>
 
  **문제점**  
@@ -315,6 +343,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  ### 실행 및 예시 ([link](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI(BE)/deeplearning/kwoledge_distillation_yolov5))
 </details>
 
+
 ### MLOps
 <table>
  <tr>
@@ -336,6 +365,23 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  
  ### Model Architecture
  <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136700081-b195dfa6-1c21-4983-a4cd-463f7e584091.PNG' height='300'><p>  
+ 
+ API호출을 통해 file(dataset) upload, train model, check model version, donwload model, insert & select detection log를 할 수 있습니다. 
+ 대략적인 flow는 다음과 같습니다.  
+ 
+ 1. file upload를 통해 데이터셋을 추가합니다.
+ 2. train model을 이용하여 AzureML에 모델 학습을 등록하고 학습이 완료되면 모델 weight와 함께 평가 matrix가 저장됩니다.
+ 3. node js에서 best model을 조회한 후 자신(node js)보다 좋은 모델이 있으면 모델을 업데이트 합니다. 
+ 4. node js에서 보안위반물체를 찾으면 log를 보내 django에 log를 쌓습니다.
+ 5. api 호출을 통해 log를 확인할 수 있습니다.
+ 
+ 해당 서버는 REST API서버이고, 메모리를 사용하면서까지 세션을 유지할 필요가 없다고 판단되어 JWT Authorization을 선택했습니다.  
+ 
+ ### Admin Page
+ ```bash
+ python manage.py createsuperuser
+ ```
+ ** GET /admin
  
  ### API문서
  *account*
@@ -404,7 +450,7 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
   cd AI_APP_WEB_Canary_Canary/'AI(BE)'/
   pip install -r requirements.txt
   python manage.py migrate
-  python manage.py runserver
+  python manage.py runserver 0.0.0.0:8080
   ```
 ---
 
@@ -419,7 +465,27 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
  편한 마크다운 에디터를 찾아서 사용
  샘플 에디터 [https://stackedit.io/app#](https://stackedit.io/app#)
 -->
-
+  #### 🐤**Canary app**
+  TODO: 사용법 추가
+  
+  #### 🐤**Admin logweb**
+  ```bash
+  git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
+  cd AI_APP_WEB_Canary_Canary/'AI(BE)'/
+  pip install -r requirements.txt
+  python manage.py migrate
+  python manage.py runserver 0.0.0.0:8080
+  ```
+  [API문서](###MLOps) 참고
+  
+  #### 🐤**Canary in instagram**
+  ##### 시작하기 전에
+  instagram에서 'osam_canary'를 follow 한 후, 명령어를 Direct Message로 보낸다
+  ##### 지원 명령어
+  1. 게시물 검사 명령어(최대 3개씩) : 게시물 검사하기
+  2. 스토리 검사 명령어 : 스토리 검사하기  
+  > 2.1 스토리 검사 시 주의 사항 : @osam_canary 계정을 스토리에 태그해주세요!  
+  > 2.2 스토리는 한 번에 최대 10개 검사 가능  
 ---
 
 ## 📈프로젝트 전망

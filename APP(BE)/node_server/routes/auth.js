@@ -50,6 +50,7 @@ router.post('/create-user', async (req,res)=>{
     
 })
 
+// User 로그인 router
 router.post('/login',async (req,res)=>{
 	
 	const {d_num} = req.body
