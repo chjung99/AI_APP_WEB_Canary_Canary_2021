@@ -193,11 +193,33 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 <table>
  <tr>
   <td align='center'><img src='https://user-images.githubusercontent.com/40621030/136700782-179675b0-9bae-4ecf-b94a-e73073d24be5.png' height=80></td>
+  <td align='center'><img src='https://user-images.githubusercontent.com/19565940/137632602-01a7fc0f-00af-49af-bc96-8aee25b83a9d.png' height=80></td>
+  <td align='center'><img src='https://user-images.githubusercontent.com/19565940/137632657-bf613560-c27e-4dcf-b229-024230185e3b.png' height=80></td>
  </tr>
  <tr>
   <td align='center'>Flutter</td>
+  <td align='center'>Libraries from pub.dev</td>
+  <td align='center'>Dart</td>
  </tr>
 </table>
+<details>
+ <summary>Flutter / Dart Packages</summary>
+ 
+- [`get: ^4.3.8`](https://pub.dev/packages/get)
+- [`http: ^0.13.3`](https://pub.dev/packages/http)
+- [`validators: ^3.0.0`](https://pub.dev/packages/validators)
+- [`image: ^3.0.5`](https://pub.dev/packages/image)
+- [`image_picker: ^0.8.4+2`](https://pub.dev/packages/image_picker)
+- [`animated_text_kit: ^4.2.1`](https://pub.dev/packages/animated_text_kit)
+- [`flutter_pw_validator: ^1.2.1`](https://pub.dev/packages/flutter_pw_validator)
+- [`string_validator: ^0.3.0`](https://pub.dev/packages/string_validator)
+- [`qr_flutter: ^4.0.0`](https://pub.dev/packages/qr_flutter)
+- [`path_provider: ^2.0.5`](https://pub.dev/packages/path_provider)
+- [`cupertino_icons: ^0.1.2`](https://pub.dev/packages/cupertino_icons)
+
+</details>
+
+
 
 ### AI
  <table>
@@ -357,6 +379,15 @@ Canary는 머신러닝을 활용하여 사진 안의 보안 위반 가능성이 
 ## 💽설치 안내 (Installation Process)
 ### Flutter
 
+#### 웹앱으로 설치하기
+```bash 
+ git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary.git
+ cd AI_APP_WEB_Canary_Canary/APP/myApp
+ flutter run -d web-server --web-hostname=0.0.0.0
+ ```
+#### 안드로이드 apk 설치하기
+
+ 
 ### Node js
 
 ### Deep learning
@@ -525,14 +556,19 @@ Canary app의 경우 Android용으로만 개발되었습니다. Instagram siren�
   <td align='center'><a href="https://ide.goorm.io/"><img src="https://user-images.githubusercontent.com/86545225/137440873-5d17c954-2db2-44bd-8c7c-a0795b7ff49b.jpg" height=80/></a></td>
   <td align='center'><a href="https://slack.com/"><img src="https://user-images.githubusercontent.com/86545225/137576768-7b07ae82-ea9c-4768-ac5b-5d1f854a2815.jpg" height=80/></a></td>
   <td align='center'><a href="https://zoom.us/"><img src="https://user-images.githubusercontent.com/86545225/137440645-636a8078-208b-4542-bbfd-2823f0572e1c.png" height=80/></a></td>
+  <td align='center'><a href="https://flutlab.io/"><img src="https://img2.apkgit.com/79/com.codegemz.flutlab.installer/1.0.3/icon.png" height=80/></a></td>
  </tr>
  
  <tr>
   <td align='center'>GoormIDE</td>
   <td align='center'>Slack</td>
   <td align='center'>Zoom></td>
+  <td align='center'>FlutLab</td>
  </tr>
+
+   
 </table>
+ 
 
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)

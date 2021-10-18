@@ -47,31 +47,7 @@ class _CameraPageState extends State<CameraPage> {
               onTap: () {
                 _openCameraFile();
               },
-              child: Container(
-                child: _image == null
-                    ? Container(
-                        width: 300,
-                        height: 300,
-                        decoration: const BoxDecoration(
-                          color: Colors.grey,
-                        ),
-                        child: const Text(
-                          '확인할 이미지를 선택해주세요',
-                          textAlign: TextAlign.center,
-                        ),
-                      )
-                    : Container(
-                        width: 300,
-                        height: 300,
-                        decoration: const BoxDecoration(
-                          color: Colors.transparent,
-                        ),
-                        child: Image.file(
-                          File(_image!.path),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-              ),
+              child: (_image == null) ? noImageContainer() : imageContainer(),
             ),
             const SizedBox(height: 40),
             TextButton(
@@ -97,6 +73,43 @@ class _CameraPageState extends State<CameraPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Container imageContainer() {
+    return Container(
+      width: 300,
+      height: 300,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.black12,
+          width: 2,
+        ),
+        color: Colors.transparent,
+      ),
+      child: Image.file(
+        File(_image!.path),
+        fit: BoxFit.cover,
+      ),
+      //
+    );
+  }
+
+  Container noImageContainer() {
+    return Container(
+      width: 300,
+      height: 300,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.black12,
+          width: 2,
+        ),
+        color: Colors.grey,
+      ),
+      child: const Text(
+        '확인할 이미지를 선택해주세요',
+        textAlign: TextAlign.center,
       ),
     );
   }

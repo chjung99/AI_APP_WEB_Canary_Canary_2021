@@ -52,9 +52,7 @@ class _GalleryPageState extends State<GalleryPage> {
                 onTap: () {
                   _openImageFile();
                 },
-                child: Container(
-                  child: _image == null ? noImageContainer() : imageContainer(),
-                ),
+                child: (_image == null) ? noImageContainer() : imageContainer(),
               ),
               const SizedBox(height: 40),
               TextButton(

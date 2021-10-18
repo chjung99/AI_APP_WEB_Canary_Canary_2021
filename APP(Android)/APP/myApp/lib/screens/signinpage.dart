@@ -67,6 +67,7 @@ class SignInPage extends StatelessWidget {
                       await u.login(_d_num.text.trim(), _password.text.trim());
                   if (user.status == 200) {
                     Get.to(() => OptionPage(),
+                        arguments: _d_num.text.trim(),
                         transition: Transition.rightToLeft);
                   } else if (user.status == 500) {
                     Get.snackbar("로그인 실패", "비밀번호가 틀렸습니다");
