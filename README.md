@@ -207,7 +207,7 @@ Canary App, Canary in Instagram, Admin logweb으로 구성되어 있으며, 앱�
 
 <details>
  <summary>Node js 설명</summary>
- ***
+ 
  ### MySQL 데이터베이스 구성
  - Database 명 : Node_db
  - DB 관리자 명 : node_admin
