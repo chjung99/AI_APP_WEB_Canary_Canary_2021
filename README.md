@@ -563,7 +563,7 @@ YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.
 
  
 ### Node js
-#### AI(BE)의 requirements가 충족된 상태에서 Node 서버를 구동해야 됩니다.(AI 이미지 처리를 위해)
+#### AI를 이용하여 이미지를 처리하기 위해, AI(BE)의 requirements가 충족된 상태에서 Node 서버를 구동해야 합니다.
 ```bash
 cd node_server
 npm install # 통해 필요한 패키지들 다운로드
@@ -579,7 +579,7 @@ node app.js (일회성 시행)
  pip install -r requirements.txt
  ```
 
-### MLOps
+### MLOps_
   ```bash
   git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
   cd AI_APP_WEB_Canary_Canary/'AI(BE)'/
@@ -613,7 +613,7 @@ node app.js (일회성 시행)
   python manage.py createsuperuser
   python manage.py runserver 0.0.0.0:8080
   ```
-  [API문서](###MLOps-) 참고
+  [API문서](###MLOps) 참고
   
   #### 🐤**Canary in instagram**
   ##### 시작하기 전에
