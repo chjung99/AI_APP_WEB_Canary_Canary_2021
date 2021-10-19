@@ -204,6 +204,97 @@ Canary App, Canary in Instagram, Admin logweb으로 구성되어 있으며, 앱�
   <td align='center'>MySQL</td>
  </tr>
 </table>
+
+<details>
+ <summary>Node js 설명</summary>
+ ***
+ ### MySQL 데이터베이스 구성
+ - Database 명 : Node_db
+ - DB 관리자 명 : node_admin
+
+ - User Table
+   - id : 유저 id
+   - name : 유저 이름
+   - d_num : 유저 군번
+   - password : 유저 비밀번호
+   - time : 유저 생성 TimeStamp
+ ```
+ mysql> desc user_t;
+ +----------+-------------+------+-----+-------------------+----------------+
+ | Field    | Type        | Null | Key | Default           | Extra          |
+ +----------+-------------+------+-----+-------------------+----------------+
+ | id       | int(10)     | NO   | PRI | NULL              | auto_increment |
+ | name     | varchar(20) | NO   |     | NULL              |                |
+ | d_num    | varchar(10) | NO   | UNI | NULL              |                |
+ | password | varchar(70) | NO   |     | NULL              |                |
+ | time     | datetime    | YES  |     | CURRENT_TIMESTAMP |                |
+ +----------+-------------+------+-----+-------------------+----------------+
+
+ mysql> select * from user_t;
+ +----+-------------+------------+--------------------------------------------------------------+---------------------+
+ | id | name        | d_num      | password                                                     | time                |
+ +----+-------------+------------+--------------------------------------------------------------+---------------------+
+ | 23 | test user   | 2000001111 | 1234                                                         | 2021-10-15 14:19:17 |
+ | 24 | 211015User2 | 2001112234 | $2b$08$lXHyNYavVlyr71UyREC54eppxSfTZGq41by4o9VeeqFfmE8oETJbO | 2021-10-15 14:47:18 |
+ | 25 | 오삼핵      | 2176032332 | $2b$08$B85JF1HCTvsYcGvZlFuG2OXlBNvascx6sD/La/k1x.VxO35whIa1i | 2021-10-15 14:50:49 |
+ | 26 | 211012User  | 2012341234 | $2b$08$8OBxs8J3Qu9VKyno4KltXuVykBIOYUgX0Apf9NXdECF4cWt4XzVuC | 2021-10-16 07:53:41 |
+ +----+-------------+------------+--------------------------------------------------------------+---------------------+
+ ```
+
+ - Upload Table
+   - uploader_d_num : 업로드 유저의 군번
+   - img_id : 유저 업로드 img id
+   - upload_time : img 업로드 TimeStamp
+ ```
+ mysql> desc upload_t;
+ +----------------+-------------+------+-----+-------------------+-------+
+ | Field          | Type        | Null | Key | Default           | Extra |
+ +----------------+-------------+------+-----+-------------------+-------+
+ | uploader_d_num | varchar(10) | NO   | MUL | NULL              |       |
+ | img_id         | varchar(30) | NO   | PRI | NULL              |       |
+ | upload_time    | datetime    | YES  |     | CURRENT_TIMESTAMP |       |
+ +----------------+-------------+------+-----+-------------------+-------+
+
+ mysql> select * from upload_t;
+ +----------------+-----------------------+---------------------+
+ | uploader_d_num | img_id                | upload_time         |
+ +----------------+-----------------------+---------------------+
+ | 2176000528     | decoded_1634309470576 | 2021-10-15 14:51:10 |
+ | 2176000528     | decoded_1634309639604 | 2021-10-15 14:53:59 |
+ | 2176000528     | decoded_1634309884641 | 2021-10-15 14:58:04 |
+ | 2176000528     | decoded_1634310044242 | 2021-10-15 15:00:44 |
+ | 2001112234     | decoded_1634370069825 | 2021-10-16 07:41:09 |
+ | 2001112234     | decoded_1634370191443 | 2021-10-16 07:43:11 |
+ +----------------+-----------------------+---------------------+
+ ```
+
+ ***
+  ### API문서
+  *auth - Authentication Handling*
+
+  **POST /auth/create-user**  
+  > parameters: {"name": "string", "d_num":"string", "password": "string"}   
+  > status: 201   
+  > respose: {"status":201,"user_name":name,"msg":'User Created Successful'}
+
+  **POST /auth/login**  
+  > parameters: {"d_num": "string", "password": "string"}   
+  > status: 200   
+  > respose: {"status":200,"msg":"User : ${db_result[0].name} => Login Successful"}
+
+
+  *img - Images Handling*
+
+  **POST /img/upload**
+  > parameters: {"img_binary":"base64 encoded string","d_num":"string"}   
+  > status: 200 -> 204 or 205로 변경 고려   
+  > respose: {"status":200,"imd_id":img_id,"user_d_num":d_num}
+
+  **GET /img/output-params/:img_id/:d_num**
+  > parameters: {"name": "string", "d_num":"string", "password": "string"}   
+  > status: 200   
+  > respose: {"status":201,"user_name":name,"msg":'User Created Successful'}
+ </details>
  
 ### Front-end
 <table>
