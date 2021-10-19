@@ -144,15 +144,20 @@ Canary App, Canary in Instagram, Admin logweb으로 구성되어 있으며, 앱�
  또한, 회원가입 시 입력한 군번을 암호화한 값을 이용해 만든 QR코드가 사진에 추가됩니다. 이를 이용하여 사진 처리자의 신원을 파악하거나 이미지 처리 여부를 눈으로 식별할 수 있습니다.  
  *(여기에 이미지 업로드 사진, 이미지 처리 후 사진, 저장 전 사진 추가해주세요)*  
 
- ### 🐤**Admin logweb**
+ ### 🐤**Admin Server**
 
- Canary app의 사용 log를 볼 수 있는 webapp입니다.  
-
- 해당 log는 관리자 계정을 사용하여 로그인 후 확인할 수 있습니다.  
-
- <p align='center'><img src="https://user-images.githubusercontent.com/86545225/137576790-1e7b5459-fdbd-4cc8-9e3b-d27a3bd3b1b4.jpg" width="750" height="250"/></p>
-
+ Canary app의 사용 log를 보고와 model, dataset version관리를 할 수 있는 API Server입니다.  
+ node js에서도 해당 기능을 쓰는 만큼 여러 플랫폼에서 접근 가능하도록 REST API Server로 구성했습니다.
+ 
+ <p align='center'><img src="https://user-images.githubusercontent.com/40621030/137884075-bed5c980-72db-472e-820d-6754080d704c.PNG" height="250"/></p>
  Canary app 사용 날짜와 사용자 id, 이미지에서 검출된 객체에 대한 기록이 남습니다.
+ 
+ <p align='center'><img src="https://user-images.githubusercontent.com/40621030/137884362-a8e7f87f-167c-4294-ba99-07ebadb3d6e2.PNG" height="250"/></p>
+ 성능이 가장 좋은 모델의 weight 주소를 조회하여 canary server의 모델을 최신모델로 업데이트 할 수 있습니다.
+ 
+ Django를 사용했기 때문에 Django admin 또한 사용할 수 있습니다.
+ <p align='center'><img src="https://user-images.githubusercontent.com/86545225/137576790-1e7b5459-fdbd-4cc8-9e3b-d27a3bd3b1b4.jpg" height="250"/></p>
+
 
  ### 🐤**Canary in instagram**
 
