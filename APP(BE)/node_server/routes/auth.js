@@ -43,7 +43,6 @@ router.post('/create-user', async (req,res)=>{
 				res.json({status:201,user_name:name,msg:'User Created Successful'})
 			}
 		})
-		 // status code 201 = POST Request Handled and Created
 	} catch {
 		res.json({status:500}) // fulfilled request failed
 	}
@@ -65,7 +64,6 @@ router.post('/login',async (req,res)=>{
 					res.json({status:404,msg:'User Not Found'})
 				} else { // 즉 해당 d_num을 가진 User 존재 시 -> resolve로 db_result에 Pass
 					resolve (result)
-					// res.json({status:200,msg:'User Found'})
 				}
 			}
 		})

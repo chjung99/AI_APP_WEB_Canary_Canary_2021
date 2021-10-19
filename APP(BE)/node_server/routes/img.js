@@ -17,6 +17,7 @@ router.get('/main',(req,res)=>{
 	res.send({status:200,session:req.session})
 })
 
+// Image Upload Router
 router.post('/upload',async (req,res)=>{
 	console.log('img input router activated')
     console.log(req.session)
@@ -56,15 +57,12 @@ router.post('/upload',async (req,res)=>{
 })
 
 
-// output using request parameters
-
+// Image Ouput Router : output using request parameters
 router.get('/output-params/:img_id/:d_num', async (req,res)=>{
-// router.get('/output-params/:img_id/:level', async (req,res)=>{ // -> output with levels
 
 	console.log('img output(params method) router activated')
-
-	console.log('params input', req.params)
-	console.log('User D_NUM ', req.params.d_num )
+	console.log('Output Request User의 군번 ', req.params.d_num )
+	
 	const {img_id} = req.params
 	const {d_num} = req.params
 	

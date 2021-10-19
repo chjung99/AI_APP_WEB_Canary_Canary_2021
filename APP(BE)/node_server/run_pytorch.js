@@ -1,7 +1,6 @@
 const spawn = require('child_process').spawn
 
 // 주최즉 권장 사항에 따라 yolov5_dir 변경
-// const yolov5_dir = '/workspace/AI_APP_WEB_Canary_Canary/AI/yolov5'
 const yolov5_dir = '/workspace/AI_APP_WEB_Canary_Canary/APP(BE)/node_server'
 // detect.py directory 최신화
 // const yolov5_dir = '/workspace/AI_APP_WEB_Canary_Canary/AI(BE)/deeplearning/kwoledge_distillation_yolov5'
@@ -13,8 +12,8 @@ function pytorch_model(upload_img) {
         console.log('pytorch model activated')
         console.log(upload_img)
     
-        // const PytorchProcess = spawn('python3',['./yolov5/detect.py','-w','./yolov5/weight/yolov5m6.pt','-i', `./org_images/${upload_img}.jpg`,'-o',`./prc_images/prc_${upload_img}.jpg`])
-    
+    	
+		// Node_DB의 upload_t로 별도로 log를 저장하기에 로그 저장 경로인 -o3는 별로도 지정해주지 않는다
         const PytorchProcess = spawn('python3',[`${yolov5_dir}/detect.py`,'-w',`${yolov5_dir}/weight/yolov5m6.py`,'-i', `./org_images/${upload_img}.jpg`,'-o',`./prc_images/prc_${upload_img}.jpg`,'-o2',`./warnings/prc_${upload_img}_warning.txt`])
     
 
@@ -42,8 +41,7 @@ function pytorch_model(upload_img) {
             if (signal){
                 console.log(`Process Killed with signal ${signal}`)
             }
-            console.log(`Done !`)
-            // res(`prc_${upload_img}`) // prc_id
+            console.log(`Pytorch Model Processing Done !`)
         })
 
         // spawn으로 생성한 python3 명령어가 실행이 종료되면 'close' emit -> 이후 processed img를 출력해주는 것이 가능하다
