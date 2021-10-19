@@ -463,7 +463,7 @@ YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.
  다양한 플랫폼으로 모델 학습을 자동화 할 수 있도록 REST API서버로 구성했습니다. 데이터, 모델 버전관리를 자동으로 해주고, 최신 버전의 모델을 detection code가 자동으로 업데이트 되도록 구성했습니다.  
  
  ### Model Architecture
- <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136700081-b195dfa6-1c21-4983-a4cd-463f7e584091.PNG' height='300'><p>  
+ <p align='center'><img src='https://user-images.githubusercontent.com/40621030/137886632-edd9ca08-831e-4b29-97da-62b6bae0982b.PNG' height='300'><p>  
  
  API호출을 통해 file(dataset) upload, train model, check model version, donwload model, insert & select detection log를 할 수 있습니다. 
  대략적인 flow는 다음과 같습니다.  
@@ -610,7 +610,7 @@ node app.js (일회성 시행)
 Instagram의 Canary 계정을 팔로우한 계정들의 스토리, 게시글을 스캔하며 보안 위반 요소가 없는지 지속적으로 탐지할 수 있습니다.
 
 - 보안 인식 강화
-(...)
+카나리아 앱을 사용하면 현재 자신이 SNS보안을 어떤식으로 위반했는지 알려줘 병사들의 보안인식 강화하는 효과가 있습니다.
 
 ### 🍎개선할 점
 
@@ -631,7 +631,6 @@ YOLOv5 모델을 원활히 사용하기 위해선 하나의 class 당 적어도 
 Canary app의 경우 Android용으로만 개발되었습니다. Instagram siren을 통해 아이폰 사용자도 간접적으로 지원하고 있지만, 추후 OS 전용 앱을 개발하여  
 더 많은 사용자가 서비스를 원활히 이용하게 할 예정입니다.
 
-- 추가 필요!
 
 ### 💡발전 방향
 
@@ -643,8 +642,6 @@ Canary app의 경우 Android용으로만 개발되었습니다. Instagram siren�
 
 - 국방인사정보체계 연계  
 어플 최초 실행 시 이름과 군번을 이용해 가입한다는 점에서 착안하여, 국방인사정보체계와 연계함으로써 사용자 관리가 수월해질 것입니다. 또 해당 서버를 사용함으로써 보안 사진을 일반 서버에 저장할 때 발생할 수 있는 문제를 해결하고 보안성을 강화할 수 있습니다.
-
-- 추가 필요!
 
 ---
 
