@@ -579,7 +579,7 @@ node app.js (일회성 시행)
  pip install -r requirements.txt
  ```
 
-### MLOps_
+### MLOps
   ```bash
   git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
   cd AI_APP_WEB_Canary_Canary/'AI(BE)'/
