@@ -126,14 +126,28 @@ Canary App, Canary in Instagram, Admin logweb으로 구성되어 있으며, 앱�
  ### 🐤**Canary app**
 
  앱을 처음 실행 시, 사용자는 자신의 성명과 군번을 통해 회원가입을 진행합니다. 이 정보는 암호화되어 저장됩니다.  
- *(여기에 앱 초기 화면, 로그인, 회원가입 창 사진 추가해주세요)*
+
+ <table>
+  <tr>
+   <td><img src="https://user-images.githubusercontent.com/86545225/137917096-372ec2f3-60ab-4e49-ab98-cb87ca96aa88.PNG" width="200"/></td>
+   <td><img src="https://user-images.githubusercontent.com/86545225/137917134-a9d63375-3663-467a-8ea3-2d5a92950085.PNG" width="200"/></td>
+   <td><img src="https://user-images.githubusercontent.com/86545225/137917151-8ddf28a4-6ab6-4ea9-ad38-fcdaf1df0d5c.PNG" width="200"/></td>
+  </tr>
+ </table>
 
  - 카메라 모드: 군 내부에서도 사용 가능한 카메라입니다. 촬영한 사진 안의 보안 위반 요소를 식별 후 모자이크 처리하여 반환합니다.
 
    사용자가 찍은 사진은 스마트폰에 바로 저장되지 않고 서버에 전송되어, 보안 위반 요소를 식별 후 적절한 강도로 모자이크 처리하여 반환됩니다.
 
  - 갤러리 모드: 갤러리에 이미 저장된 사진을 모자이크 할 필요가 있을 시, 해당 사진을 업로드하여 카메라로 촬영할 때와 동일하게 모자이크 처리를 할 수 있습니다.  
- *(여기에 로그인 후의 gallery / camera 선택 나오는 부분 사진 추가해주세요)*
+ 
+ <table>
+  <tr>
+   <td><img src="https://user-images.githubusercontent.com/86545225/137917734-1f88e1c0-5f2f-4f2e-a7f5-d3ddb3019b81.png" width="200"/></td>
+   <td><img src="https://user-images.githubusercontent.com/86545225/137917171-afe0567c-4cc5-4bf7-84dd-862c1cec4819.PNG" width="200"/></td>
+  </tr>
+ <table>
+ 
 
  보안 위반 요소는 사용자의 소속 부대 및 위치 식별 가능 여부, 기밀 유출 가능 여부 등을 고려하여 다음과 같이 선정하였습니다.
  >총, 방탄조끼, 부대마크, 모니터, 서류, 표지판, 포, 차량, 탱크, 군용 비행기, 미사일, 항공모함  
@@ -142,7 +156,18 @@ Canary App, Canary in Instagram, Admin logweb으로 구성되어 있으며, 앱�
  
  처리된 사진이 반환될 때, 검출된 객체에 따라 발생할 수 있는 상황에 대한 경고문을 전송합니다.  
  또한, 회원가입 시 입력한 군번을 암호화한 값을 이용해 만든 QR코드가 사진에 추가됩니다. 이를 이용하여 사진 처리자의 신원을 파악하거나 이미지 처리 여부를 눈으로 식별할 수 있습니다.  
- *(여기에 이미지 업로드 사진, 이미지 처리 후 사진, 저장 전 사진 추가해주세요)*  
+ <table>
+  <tr>
+   <td><img src="https://user-images.githubusercontent.com/86545225/137919288-c90a06c7-c843-407f-ba5e-aed914cf3fd5.PNG" width="200"/></td>
+   <td><img src="https://user-images.githubusercontent.com/86545225/137919350-567523d8-255e-466a-a834-12014eeb4679.PNG" width="200"/></td>
+  </tr>
+ 
+  <tr>
+   <td><img src="https://user-images.githubusercontent.com/86545225/137919337-f2109767-9daa-427d-85f7-2dad831202db.png" width="200"/></td>
+   <td><img src="https://user-images.githubusercontent.com/86545225/137919583-8a2fd884-c0c3-4bfb-8099-aeb03b7ce081.png" width="200"/></td>
+   <td><img src="https://user-images.githubusercontent.com/86545225/137919328-6390d7ea-207c-49c9-a0b8-97c4eab44d47.PNG" width="200"/></td>
+  </tr>
+ <table>
 
  ### 🐤**Admin Server**
 
@@ -443,7 +468,7 @@ YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.
 </details>
 
 
-### MLOps
+### MLOps 
 <table>
  <tr>
   <td align='center'><a href='https://www.djangoproject.com/'><img src='https://user-images.githubusercontent.com/40621030/136699403-d6ac76a2-7294-4936-acef-163f8c40ed96.png' height=80/></a></td>
@@ -588,7 +613,7 @@ node app.js (일회성 시행)
   python manage.py createsuperuser
   python manage.py runserver 0.0.0.0:8080
   ```
-  [API문서](###MLOps) 참고
+  [API문서](###MLOps-) 참고
   
   #### 🐤**Canary in instagram**
   ##### 시작하기 전에
@@ -613,8 +638,8 @@ node app.js (일회성 시행)
 - SNS 보안 강화  
 Instagram의 Canary 계정을 팔로우한 계정들의 스토리, 게시글을 스캔하며 보안 위반 요소가 없는지 지속적으로 탐지할 수 있습니다.
 
-- 보안 인식 강화
-카나리아 앱을 사용하면 현재 자신이 SNS보안을 어떤식으로 위반했는지 알려줘 병사들의 보안인식 강화하는 효과가 있습니다.
+- 보안 인식 강화  
+카나리아 앱을 사용함으로써 자신이 찍거나 업로드한 사진이 SNS보안을 어떤 식으로 위반했는지 알려줘 병사들의 보안인식을 강화하는 효과가 있습니다.
 
 ### 🍎개선할 점
 
