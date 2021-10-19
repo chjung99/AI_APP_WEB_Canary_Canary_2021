@@ -9,7 +9,7 @@ from parse import *
 
 import sys
 from os import path
-sys.path.append('/workspaces/AI_APP_WEB_Canary_Canary/APP(BE)/instagrapi/async_utils_connect_test/utils')
+sys.path.append('/workspaces/AI_APP_WEB_Canary_Canary/APP(BE)/instagram_chatbot/run_chatbot/utils')
 from make_directory import * # make_directory 함수들 import
 from image_path import Roots
 
