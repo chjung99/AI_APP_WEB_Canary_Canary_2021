@@ -383,7 +383,7 @@ YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.
  ```bash
  python manage.py createsuperuser
  ```
- ** GET /admin
+ ** GET /admin**  
  
  ### API문서
  *account*
@@ -410,7 +410,7 @@ YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.
  > status: 201  
  > response: {"username": "string", "log": "string", "create_at": "2021-10-14T13:52:33.709Z"}  
  
- **GET /deeplearning/models
+ **GET /deeplearning/models**  
  > status: 200  
  > response: {"file": "string", "result": "string", "version": 0, "matrix": 0}  
  
@@ -458,6 +458,7 @@ node app.js (일회성 시행)
   git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
   cd AI_APP_WEB_Canary_Canary/'AI(BE)'/
   pip install -r requirements.txt
+  python manage.py createsuperuser
   python manage.py migrate
   python manage.py runserver 0.0.0.0:8080
   ```
@@ -483,6 +484,7 @@ node app.js (일회성 시행)
   cd AI_APP_WEB_Canary_Canary/'AI(BE)'/
   pip install -r requirements.txt
   python manage.py migrate
+  python manage.py createsuperuser
   python manage.py runserver 0.0.0.0:8080
   ```
   [API문서](###MLOps) 참고
