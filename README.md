@@ -480,7 +480,8 @@ YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.
  ```bash
  python manage.py createsuperuser
  ```
- ** GET /admin**  
+ 
+ **GET /admin**  
  
  ### API문서
  *account*
@@ -516,6 +517,9 @@ YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.
  > status: 201  
  > response: {"file": "string"}  
  
+ ### Database Diagram
+ <p align='center'><img src='https://user-images.githubusercontent.com/40621030/137896939-47149c22-b126-46f0-b993-fcc9666db8ce.jpg' width='500'><p>  
+
  ### 코드 및 실행 ([link](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI(BE)))
 </details>
 
