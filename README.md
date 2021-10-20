@@ -540,7 +540,7 @@ YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.
  > response: {"file": "string", "result": "string", "version": 0, "matrix": 0}  
  
  **POST /deeplearning/train**
- > headers: {'Authorization': f'Bearer [TOKEN]'}  
+ > headers: {'Authorization': 'Bearer [TOKEN]'}  
  > status: 201  
  > response: {"file": "string"}  
  
@@ -617,7 +617,7 @@ node app.js (일회성 시행)
   python manage.py createsuperuser
   python manage.py runserver 0.0.0.0:8080
   ```
-  [API문서](###MLOps) 참고
+  [API문서](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/tree/main/AI(BE)##API) 참고
   
   #### 🐤**Canary in instagram**
   ##### 시작하기 전에
