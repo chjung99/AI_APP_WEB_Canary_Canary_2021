@@ -19,9 +19,22 @@ get_client.get_logined_client(cl)
 
 messages = [] 
 
-async def check_unread(messages):
-    while True: 
-        await asyncio.sleep(1) # 1초 interval로 Thread 읽어옴
+# async def check_unread(messages):
+#     while True: 
+#         await asyncio.sleep(1) # 1초 interval로 Thread 읽어옴
+#         unread_threads = cl.direct_threads(20,'unread')
+#         unread_len = len(unread_threads)
+#         print(f'unread msgs remaining : {unread_len}')
+#         if unread_len > 0:
+#             for idx in range(unread_len):
+#                 msg = unread_threads[idx].messages[0].text
+#                 user_id = unread_threads[idx].messages[0].user_id # 메세지 전송한 user의 id 추출
+#                 thread_id = unread_threads[idx].id # thread ID 추출
+#                 cl.direct_answer(thread_id,'메시지 처리 중 입니다')
+#                 print(msg) # 사용자의 msg 출력
+#                 messages.append((msg,user_id,thread_id)) # messages list에 msg와 thread_id 를 추가
+
+def check_unread(messages):
         unread_threads = cl.direct_threads(20,'unread')
         unread_len = len(unread_threads)
         print(f'unread msgs remaining : {unread_len}')
@@ -33,6 +46,7 @@ async def check_unread(messages):
                 cl.direct_answer(thread_id,'메시지 처리 중 입니다')
                 print(msg) # 사용자의 msg 출력
                 messages.append((msg,user_id,thread_id)) # messages list에 msg와 thread_id 를 추가
+
 
 # messages를 읽어온 후 가장 최신의 msg부터 각자 handling 한다.(concurrently라는 가정 하)
 async def msg_handler(messages):
