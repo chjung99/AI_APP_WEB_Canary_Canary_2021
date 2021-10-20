@@ -447,10 +447,11 @@ YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.
  - knowledge distillation ([paper link](https://arxiv.org/abs/1906.03609)) 
    <p align='center'><img src='https://user-images.githubusercontent.com/40621030/136683028-fb1ca2f0-97c0-4581-9b7a-64e26536d7af.png' width="500"/></p>  
  
- ### 성능 향상
+ ### 성능 향상 
  |          enhance       |   model  | precision | recall | mAP_0.5 | mAP_0.5:0.95 |
  |:----------------------:|:--------:|:---------:|:------:|:-------:|:------------:|
- |           None         | yolov5m6 |   0.736   |  0.779 |  0.815  |     0.599    |  
+ |   Before add dataset   | yolov5m6 |   0.602   |  0.651 |  0.671  |     0.535    |  
+ |   None (Add dataset)   | yolov5m6 |   0.736   |  0.779 |  0.815  |     0.599    |  
  |      mosaic_9 50%      | yolov5m6 |   0.756   |  0.775 |  0.809  |     0.602    |
  |      mosaic_9 100%     | yolov5m6 |   0.739   |  0.813 |  0.806  |     0.594    |
  | knowledge distillation | yolov5m6 |   0.722   |  0.822 |  0.807  |     0.592    |
