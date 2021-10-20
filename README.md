@@ -152,7 +152,7 @@ Canary App, Canary in Instagram, Admin logweb으로 구성되어 있으며, 앱�
  
 
  보안 위반 요소는 사용자의 소속 부대 및 위치 식별 가능 여부, 기밀 유출 가능 여부 등을 고려하여 다음과 같이 선정하였습니다.
- >총, 방탄조끼, 부대마크, 모니터, 서류, 표지판, 포, 차량, 탱크, 군용 비행기, 미사일, 항공모함  
+ >총(소총, 리볼버), 방탄조끼, 부대마크, 모니터, 노트북, 서류, 표지판, 포, 차량, 탱크, 군용 비행기, 미사일, 항공모함  
 
  군복의 경우 촬영 당시 맥락에 따라 보안 여부가 달라지므로 모자이크 처리는 하지 않되 사용자가 검출 여부를 인지할 수 있게 합니다.  
  
@@ -489,7 +489,7 @@ YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.
  </tr>
 </table>
 <details>
- <summary>MLOps 설명</summary>
+ <summary>📝MLOps 설명</summary>
  <p align='center'><img src='https://user-images.githubusercontent.com/40621030/137613564-50a7af1b-bd68-4deb-8aed-b839e0bbe8fd.PNG' width='500'><p>  
  
  다양한 플랫폼으로 모델 학습을 자동화 할 수 있도록 REST API서버로 구성했습니다. 데이터, 모델 버전관리를 자동으로 해주고, 최신 버전의 모델을 detection code가 자동으로 업데이트 되도록 구성했습니다.  
@@ -569,14 +569,14 @@ YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.
 #### 안드로이드 apk 설치하기
 
 [apk 파일 링크](https://drive.google.com/file/d/1HYsxGjHF1yBPuWPqCFXf7m7QLAFRb6hg/view?usp=sharing)  
-위의 링크에 들어가셔서 다운로드 후 설치하면 됩니다.
+위의 링크에 들어가셔서 다운로드 후 설치하시면 됩니다.
  
 ### Node js
 #### AI를 이용하여 이미지를 처리하기 위해, AI(BE)의 requirements가 충족된 상태에서 Node 서버를 구동해야 합니다.
 ```bash
 cd node_server
 npm install # 통해 필요한 패키지들 다운로드
-node app.js (일회성 시행)
+node app.js # (일회성 시행)
 ```
 
 
@@ -619,7 +619,7 @@ node app.js (일회성 시행)
   6. option창에서는 갤러리에서 사진을 가져와 처리할 수 있는 Gallery버튼과 카메라로 바로 찍은 사진을 처리하는 Camera 버튼 중에 하나를 선택하면 된다.
   7. 이미지를 고르거나 찍은 후, post server 버튼을 누르면 loading 화면으로 넘어간다.
   8. loading 화면에서 이미지 처리가 완료되면 '결과 보러가기' 버튼이 등장하고, 그 버튼을 누르면 처리된 이미지를 확인 가능한 창으로 넘어간다.
-  9. 보완위반 가능성이 모자이크 처리된 이미지를 클릭하면 그에 관련된 경고문을 확인할 수 있다.
+  9. 보위반 가능성이 모자이크 처리된 이미지를 클릭하면 그에 관련된 경고문을 확인할 수 있다.
   10. 처리된 이미지를 저장하기 위해선 'save' 버튼을 누르면 된다.
   11. save 버튼을 누르면 사용자의 암호화된 군번 값을 이용해 처리된 QRcode가 이미지에 삽입되고, 그 사진을 꾹 누르면 저장여부를 묻는 알림창이 뜬다.
   12. 다시 기능을 사용하기 위해선 'Try Again' 버튼을 누르면 된다.
