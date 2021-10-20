@@ -9,6 +9,42 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+## API
+ **GET /admin**  
+ 
+ *account*
+ **POST /account/login**  
+ > parameters: {"username": "string", "password": string"}   
+ > status: 201   
+ > respose: {"message": "string", "token": string}   
+ 
+ *deeplearning*
+ **GET /deeplearning/files**  
+ > status: 200  
+ > response: { "count": 0, "next": "string", "previous": "string", "results": [{"file": "string"}]}   
+ 
+ **POST /deeplearning/files**  
+ > parameters: {"file": [FILE]}  
+ > status: 200  
+ > response: {"file": "string"}  
+ 
+ **GET /deeplearning/log**
+ > response {"count": 0, "next": "string", "previous": "string", "results": [{"username": "string", "log": "string", "create_at": "2021-10-14T13:50:37.279Z"}]}  
+ 
+ **POST /deeplearning/log**
+ > parameters: {"username": "string", "log": "string", "create_at": "2021-10-14T13:52:33.709Z"}  
+ > status: 201  
+ > response: {"username": "string", "log": "string", "create_at": "2021-10-14T13:52:33.709Z"}  
+ 
+ **GET /deeplearning/models**  
+ > status: 200  
+ > response: {"file": "string", "result": "string", "version": 0, "matrix": 0}  
+ 
+ **POST /deeplearning/train**
+ > headers: {'Authorization': 'Bearer [TOKEN]'}  
+ > status: 201  
+ > response: {"file": "string"} 
+
 ## Architecture
 ![Architecture](https://user-images.githubusercontent.com/40621030/136700081-b195dfa6-1c21-4983-a4cd-463f7e584091.PNG)
 
