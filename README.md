@@ -784,12 +784,12 @@ Object detection의 장점이 드러나는 부분입니다. 저희 팀은 군 �
 
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
- * [GNU GPL](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/LICENSE)
+ * [GNU GPL v3](https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/LICENSE)
 
-This project is licensed under the terms of the GNU GPL license.
+This project is licensed under the terms of the GNU GPLv3 license.
   
   ### GPL 선택이유
-  카나리아가 쓴 오픈소스 중 [yolov5]()와 [Distilling-Object-Detectors](https://github.com/twangnh/Distilling-Object-Detectors/)가 있습니다.  
+  카나리아가 쓴 오픈소스 중 [yolov5](https://github.com/ultralytics/yolov5/)와 [Distilling-Object-Detectors](https://github.com/twangnh/Distilling-Object-Detectors/)가 있습니다.
   이들은 각각 GNU GPL, MIT 라이센스를 쓰고 있습니다.
-  MIT 라이센스는 상업적이용, 소스코드 공개의무에서 자유로우나, GNU GPL 라이센스는 코드의 상업적으로 이용 가능하나 변경된 프로그램 역시 소스코드를 공개해야합니다.  
+  MIT 라이센스는 상업적이용, 소스코드 공개의무에서 자유로우나, GNU GPL 라이센스는 코드의 상업적으로 이용 가능하나 변경된 프로그램 역시 소스코드를 공개해야합니다.
   따라서 '카나리아'는 GNU GPL이 더 강력한 라이센스이기 때문에 GNU GPL 라이센스를 따르기로 했습니다.
