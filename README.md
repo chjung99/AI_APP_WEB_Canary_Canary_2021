@@ -563,6 +563,8 @@ YOLOv5, Efficientnet, SSGlite 등의 모델들을 고려.
  ```
 #### 안드로이드 apk 설치하기
 
+[apk 파일 링크](https://drive.google.com/file/d/1HYsxGjHF1yBPuWPqCFXf7m7QLAFRb6hg/view?usp=sharing)  
+위의 링크에 들어가셔서 다운로드 후 설치하면 됩니다.
  
 ### Node js
 #### AI를 이용하여 이미지를 처리하기 위해, AI(BE)의 requirements가 충족된 상태에서 Node 서버를 구동해야 합니다.
