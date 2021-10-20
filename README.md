@@ -349,7 +349,9 @@ Canary App, Canary in Instagram, Admin logweb으로 구성되어 있으며, 앱�
 - [`string_validator: ^0.3.0`](https://pub.dev/packages/string_validator)
 - [`qr_flutter: ^4.0.0`](https://pub.dev/packages/qr_flutter)
 - [`path_provider: ^2.0.5`](https://pub.dev/packages/path_provider)
+- [url_launcher: ^6.0.12`](https://pub.dev/packages/url_launcher)
 - [`cupertino_icons: ^0.1.2`](https://pub.dev/packages/cupertino_icons)
+
 
 </details>
 
