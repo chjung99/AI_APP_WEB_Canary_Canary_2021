@@ -225,10 +225,12 @@ Canary App, Canary in Instagram, Admin logweb으로 구성되어 있으며, 앱�
  <tr>
   <td><a href='https://nodejs.org/ko/'><img src='https://user-images.githubusercontent.com/40621030/136699173-a5a2e626-9161-4e30-85fd-93898671896e.png' height=80/></a></td>
   <td><a href='https://www.mysql.com/'><img src='https://user-images.githubusercontent.com/40621030/136699174-e540729d-0092-447c-b672-dfa5dcfd41a7.png' height=80/></a></td>
+  <td><a href='https://www.goorm.io//'><img src='https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/uifol9klj1ht0squxhje' width = 200 height=120/></a></td>
  </tr>
  <tr>
   <td align='center'>Node js</td>
   <td align='center'>MySQL</td>
+  <td align='center'>Goorm Server Deploy</td>
  </tr>
 </table>
 
