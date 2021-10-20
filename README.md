@@ -609,6 +609,8 @@ node app.js (일회성 시행)
   #### 🐤**Canary app**
   TODO: 사용법 추가
   
+  [시연 영상](https://youtu.be/MTlwTyfn_xI)
+  
   #### 🐤**Admin logweb**
   ```bash
   git clone https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/
