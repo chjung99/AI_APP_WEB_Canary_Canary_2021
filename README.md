@@ -2,7 +2,7 @@
 
 <p align='center'>
 <img src="https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/image/canary_2.0.png" alter="LOGO"/><br>
- <img src='https://img.shields.io/badge/Version-0.8.0-blue?style=for-the-badge&logo'>
+ <img src='https://img.shields.io/badge/Version-1.0.0-blue?style=for-the-badge&logo'>
  <a href='https://github.com/osamhack2021/AI_APP_WEB_Canary_Canary/blob/main/LICENSE'><img src='https://img.shields.io/badge/License-GNU GPL v3.0-blue?style=for-the-badge&logo'></a>
 </p>
 
