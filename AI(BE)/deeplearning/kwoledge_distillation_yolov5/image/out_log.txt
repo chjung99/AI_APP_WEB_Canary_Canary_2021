@@ -1,1 +1,0 @@
-user_id:one_soldier/object:서류/risk level:5
